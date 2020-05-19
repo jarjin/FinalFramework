@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<spawnpoints>
+    <item name='evpoint1' pos='-4.67_1.38_0' eventids='7:4000_4:1,1,1_5:1_1_2:3000-5-3_4:1,1,2,5_8_4:1,1,3_5:2,2_6:2,2' />
+    <item name='evpoint2' pos='-2.34_1.38_0' eventids='2:3000-5-2_4:1,1,1_8_4:1,1,2_5:2,2_6:2,2' />
+    <item name='evpoint3' pos='0_1.38_0' eventids='2:3001-5-2_4:1,1,1_8_4:1,1,3_5:2,2_6:2,2' />
+    <item name='evpoint4' pos='2.33_1.38_0' eventids='2:3001-5-3_4:1,1,1_8_4:1,1,2_5:2,2_6:2,2' />
+    <item name='evpoint5' pos='4.67_1.38_0' eventids='2:3001-5-2_4:1,1,2_8_4:1,1,3_3:1,2000' />
+</spawnpoints>

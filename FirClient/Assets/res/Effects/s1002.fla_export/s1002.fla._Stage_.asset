@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9fa30e000f3420796cfbd1e09a86d6, type: 3}
+  m_Name: s1002.fla._Stage_
+  m_EditorClassIdentifier: 
+  Name: _Stage_
+  Sprite: {fileID: 21300000, guid: 5176209d12199d149b74be4ee5cf9dbc, type: 3}
+  FrameRate: 24
+  AssetGUID: 68f19f01e608ac54987e5a0413828289
+  Sequences:
+  - Name: Default
+    Frames:
+    - Labels: []
+      MeshData:
+        SubMeshes: []
+        Vertices: []
+        UVs: 
+        AddColors: 
+        MulColors: 
+      Materials: []

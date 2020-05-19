@@ -1,0 +1,3 @@
+protodir=Protos
+protopb=FirClient/Assets/res/LuaPB
+protocs=FirClient/Assets/Scripts/Network/ProtoCS|FirServer/FirSango/ProtoCS

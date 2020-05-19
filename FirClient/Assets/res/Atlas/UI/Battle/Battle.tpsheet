@@ -1,0 +1,26 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:9af1a1be2190197e2c674e08093d5dcb:e23f3f345507dd57367014c7dc4c3314:16232f5c779ada61071e75d64baad509$
+#
+:format=40300
+:texture=Battle.png
+:size=512x512
+:pivotpoints=enabled
+:borders=disabled
+
+arrow;1;21;18;18; 0.5;0.5; 0;0;0;0
+button_theme28_0;203;383;128;128; 0.5;0.5; 0;0;0;0
+chatbg;1;41;128;66; 0.5;0.5; 0;0;0;0
+diamond;333;154;122;109; 0.5;0.5; 0;0;0;0
+gift_yellow_1;131;60;43;47; 0.5;0.5; 0;0;0;0
+grid_flower_200_1;1;311;200;200; 0.5;0.5; 0;0;0;0
+grid_flower_200_9;1;109;200;200; 0.5;0.5; 0;0;0;0
+grid_pencil_128_g8;333;383;128;128; 0.5;0.5; 0;0;0;0
+heart_red_heart;131;17;47;41; 0.5;0.5; 0;0;0;0
+icon_theme13_14;203;30;80;122; 0.5;0.5; 0;0;0;0
+icon_theme13_62;333;265;123;116; 0.5;0.5; 0;0;0;0
+whiteblock;203;253;128;128; 0.5;0.5; 0;0;0;0

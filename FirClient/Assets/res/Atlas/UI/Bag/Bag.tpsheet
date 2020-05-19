@@ -1,0 +1,21 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:71d9dfed3c4f90f0c9db1c1b71d515e9:888013df93c20cb13024c7cedae35e9b:8918cd68f88e8bf09f6a5630fb1cfaad$
+#
+:format=40300
+:texture=Bag.png
+:size=256x256
+:pivotpoints=enabled
+:borders=disabled
+
+arrow;1;141;64;62; 0.5;0.5; 0;0;0;0; 4;64;0;0;0;0;62;64;62; 2;1;2;3;0;1;3
+Gacha_Icon_Rare_Small;202;206;49;49; 0.5;0.5; 0;0;0;0; 4;49;0;0;0;0;49;49;49; 2;1;2;3;0;1;3
+Gacha_Icon_SuperRare_Small;194;155;49;49; 0.5;0.5; 0;0;0;0; 4;49;0;0;0;0;49;49;49; 2;1;2;3;0;1;3
+hline;115;218;85;37; 0.49411764705882355;0.5; 0;0;0;0; 4;85;0;0;0;0;37;85;37; 2;1;2;3;0;1;3
+inc;1;79;64;60; 0.5;0.5; 0;0;0;0; 6;64;0;0;0;0;44;10;59;16;60;64;60; 4;0;4;5;2;3;4;0;2;4;0;1;2
+Slot_WB_Material_No;115;140;77;76; 0.5;0.5; 0;0;0;0; 5;77;0;0;0;0;71;5;76;77;76; 3;0;3;4;2;0;1;2;3;0
+TabPage;1;205;112;50; 0.5;0.5; 0;0;0;0; 4;112;0;0;0;0;50;112;50; 2;1;2;3;0;1;3

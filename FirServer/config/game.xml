@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+  <global name="全局配置" percent="1:10" takecashPoundage="1:0.3" failAmount="20"/>
+  <games>
+      <game id="1" name="三国挂机" libname="FirSango" mainclass="GameLibs.FirSango.GameWorld" />
+  </games>
+   <gamedata>
+      <game tag="1" ip="127.0.0.1" port="3309" username="root"  password="P@ssw0rd" database="game_data" charset="utf8" defaultcommandtimeout="30000"/>
+  </gamedata>
+</nodes>
+

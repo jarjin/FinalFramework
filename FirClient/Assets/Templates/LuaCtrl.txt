@@ -1,0 +1,26 @@
+--File creation in [TIME]--
+local UIBaseCtrl = require "UIController/UIBaseCtrl"
+local UI[NAME]Ctrl = class("UI[NAME]Ctrl", UIBaseCtrl)
+
+function UI[NAME]Ctrl:Awake()
+	panelMgr:CreatePanel(UiNames.[NAME])
+	logWarn("UI[NAME]Ctrl.Awake--->>")
+end
+
+--启动事件--
+function UI[NAME]Ctrl:OnCreateOK(behaviour)
+	self.gameObject = behaviour.gameObject
+	logWarn("OnCreateOK--->>"..self.gameObject.name)
+end
+
+--单击事件--
+function UI[NAME]Ctrl:OnClick(go)
+	self:Close()
+end
+
+--关闭事件--
+function UI[NAME]Ctrl:Close()
+	panelMgr:ClosePanel(UiNames.[NAME])
+end
+
+return UI[NAME]Ctrl

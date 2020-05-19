@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<datas>
+  <item typeid="1">
+    <npc id="1" offsetPos="-0.8,0.4,1" />
+    <npc id="2" offsetPos="-0.8,-0.4,2" />
+    <npc id="3" offsetPos="-1.8,0.8,2" />
+    <npc id="4" offsetPos="-1.8,0,1" />
+    <npc id="5" offsetPos="-1.8,-0.8,0" />
+  </item>
+  <item typeid="2">
+    <npc id="1" offsetPos="0.8,0.4,1" />
+    <npc id="2" offsetPos="0.8,-0.4,2" />
+    <npc id="3" offsetPos="1.8,0.8,2" />
+    <npc id="4" offsetPos="1.8,0,1" />
+    <npc id="5" offsetPos="1.8,-0.8,0" />
+  </item>
+  <item typeid="3">
+    <npc id="1" offsetPos="0.6,0,2" />
+    <npc id="2" offsetPos="0.1,0.4,1" />
+    <npc id="3" offsetPos="-0.2,0.1,2" />
+    <npc id="4" offsetPos="-0.7,0.4,1" />
+    <npc id="5" offsetPos="-1,0,2" />
+  </item>
+  <item typeid="4">
+    <npc id="1" offsetPos="-0.5,0.5,1" />
+    <npc id="2" offsetPos="-0.5,0,2" />
+    <npc id="3" offsetPos="0.5,0.5,1" />
+    <npc id="4" offsetPos="0.5,0,2" />
+  </item>
+</datas>

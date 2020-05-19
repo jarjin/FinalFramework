@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <item name='40000' type="1" resource='Effect567' animName='Move' scale='1_1_1' sound='sfx_fire3' />
+    <item name='40001' type="2" resource='s1002' animName='s1002.fla.s1002' scale='1_1_1' sound='sfx_fire3' />
+    <item name='40077' type="2" resource='40077' animName='40077.fla.40077' scale='1_1_1' sound='sfx_fire3' />
+</root>

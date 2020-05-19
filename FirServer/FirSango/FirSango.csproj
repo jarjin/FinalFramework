@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\FirServer\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FirServer\FirServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\FirServer\3rd\Protobuf\protobuf-net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

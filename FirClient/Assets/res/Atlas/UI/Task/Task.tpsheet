@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:acbb808d83555e643b22a550bafb0806:e0b1af141ee7ee943e05d317ed4addc3:19014f412de603ea74e98e48cdf3219a$
+#
+:format=40000
+:texture=Task.png
+:size=512x512
+
+UI_Graphic_Resource_Gems;1;253;128;128;0.5;0.5
+UI_Icon_Archer;1;383;128;128;0.5;0.5
+UI_Icon_Attack;1;123;128;128;0.5;0.5
+UI_Icon_Award;131;383;128;128;0.5;0.5

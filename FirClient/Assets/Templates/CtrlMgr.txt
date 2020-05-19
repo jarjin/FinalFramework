@@ -1,0 +1,25 @@
+[REQUIRE]
+
+CtrlManager = class("CtrlManager")
+
+function CtrlManager:Initialize()
+	self.controllers = {}
+[DATA]
+	logWarn('CtrlManager:InitializeOK...')
+end
+
+function CtrlManager:AddCtrl(name, ctrl)
+	if name == nil or ctrl == nil then
+		logError('CtrlManager:AddCtrl Error!! was nil.')
+		return
+	end
+	self.controllers[name] = ctrl
+end
+
+function CtrlManager:GetCtrl(name)
+	return self.controllers[name]
+end
+
+function CtrlManager:RemoveCtrl(name)
+	table.remove(self.controllers, name)
+end

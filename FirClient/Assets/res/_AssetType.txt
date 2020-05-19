@@ -1,0 +1,14 @@
+﻿--资源对照表--
+Swf = 10000
+Audio = 20000
+Dungeon = 30000
+Effect = 40000
+Map = 50000
+
+--数据对照表--
+Dialog = 1000
+Dungeon = 2000
+Team = 3000
+Map = 4000
+SceneEvent = 5000
+DungeonEvent = 6000

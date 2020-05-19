@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datas>
+	<data id="1" name="吴国篇 第一章" >
+		<page id="1001" title="（1）山林环围村落，巧进千年古代世界。">
+			<dialog id="1" role="10001" pos="left" text="abcdefg1" />
+		</page>
+		<page id="1002" title="（2）长板桥溪水畔，妖灵纠缠紧追不放。">
+			<dialog id="1" role="10002" pos="right" text="abcdefg2" />
+		</page>
+		<page id="1003" title="（3）躲进长坂坡村，众人合力扫灭妖灵。">
+			<dialog id="1" role="10003" pos="left" text="abcdefg3" />
+		</page>
+	</data>
+</datas>

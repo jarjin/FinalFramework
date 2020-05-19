@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ebf414c24c3414182f07e675b2ae44, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  debugMode: 1
+  logMode: 1
+  luaByteMode: 0
+  aStarDebugMode: 0
+  uiAtlasPath: Assets/res/Atlas/UI
+  uiTexturePath: Assets/Textures/UI
+  texturePackerPath: D:\TexturePacker\bin
+  GameFrameRate: 30
+  selectedAtlasIndex: 1
+  atlasSettings:
+  - assetPath: res/Atlas/UI/Shared
+    iosFormat: 50
+    androidFormat: 47
+    textureSize: 0
+    isDynamic: 1
+  - assetPath: res/Atlas/UI/ItemIcon
+    iosFormat: 50
+    androidFormat: 47
+    textureSize: 0
+    isDynamic: 0
+  selectedABIndex: 3
+  assetBundlePackSetting:
+  - assetPath: res/Shaders
+    packType: 0
+    fileExtName: '*.shader'
+  - assetPath: res/Fonts
+    packType: 0
+    fileExtName: '*.*'
+  - assetPath: res/Audios
+    packType: 1
+    fileExtName: '*.mp3'
+  - assetPath: res/Prefabs
+    packType: 1
+    fileExtName: '*.prefab'
+  - assetPath: res/Atlas
+    packType: 1
+    fileExtName: '*.png|*.tpsheet|*.mat'
+  - assetPath: res/Dungeons
+    packType: 2
+    fileExtName: '*.png'
+  - assetPath: res/Textures/MainRole
+    packType: 1
+    fileExtName: '*.png'
+  - assetPath: res/Maps
+    packType: 2
+    fileExtName: '*.png'
+  selectedDatasIndex: -1
+  datasBundlePackSetting:
+  - dataPath: res/Datas
+    packType: 0
+    fileExtName: '*.xml|*.dat'
+  - dataPath: res/Tables
+    packType: 0
+    fileExtName: '*.bytes'
