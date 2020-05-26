@@ -14,7 +14,7 @@ namespace FirClient.Component
         public const string Idle = "idle";
         public const string Run = "run";
         public const string Attack = "attack";
-        public const string Damage = "beAttacked";
+        public const string BeAttacked = "beAttacked";
         public const string Skill = "skill";
     }
 
@@ -94,7 +94,7 @@ namespace FirClient.Component
                     swfCtrl.Play("Default");
                 }
                 else
-                { 
+                {
                     StartCoroutine(OnPlayClip(clip));
                 }
             }
@@ -111,8 +111,6 @@ namespace FirClient.Component
         /// <summary>
         /// 播放动画剪辑
         /// </summary>
-        /// <param name="clip"></param>
-        /// <returns></returns>
         IEnumerator OnPlayClip(string clip)
         {
             yield return swfCtrl.PlayAndWaitStopOrRewind("Default");
@@ -120,6 +118,15 @@ namespace FirClient.Component
             {
                 onStopPlayingEvent(clip);
             }
+        }
+
+        /// <summary>
+        /// 是否在播放中
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPlaying()
+        {
+            return swfCtrl.isPlaying;
         }
     }
 }

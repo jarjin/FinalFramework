@@ -208,12 +208,12 @@ namespace FirClient.Manager
                 var defender = npcMgr.GetNpc(defenderid) as RoleView;
                 if (attacker != null && defender != null)
                 {
+                    GLogger.White("OnAttackNpc:>>eventid:" + eventid + " attacker:" + attackerid + " defender:" + defenderid + " currhp:" + evBattle.currHp + " maxhp:" + evBattle.maxHp);
                     attacker.NpcSkillAttack(defender, evBattle, delegate ()
                     {
                         Messenger.Broadcast<long>(EventNames.EvNpcSkillAttackOK, eventid);
                     });
                 }
-                Debug.Log("OnAttackNpc:>>attacker:" + attackerid + " defender:" + defenderid + " currhp:" + evBattle.currHp + " maxhp:" + evBattle.maxHp);
             }
         }
 

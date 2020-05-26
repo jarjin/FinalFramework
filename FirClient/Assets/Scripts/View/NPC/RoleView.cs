@@ -56,17 +56,17 @@ namespace FirClient.View
             {
                 case AnimNames.Attack:      //战斗完成
                 case AnimNames.Skill:
-                    OnNpcSkillAttackOK(clip);
+                    OnNpcSkillAttackOK();
                     PlayRoleAnim(AnimNames.Idle, true);
                     break;
-                case AnimNames.Damage:      //被击完成
+                case AnimNames.BeAttacked:      //被击完成
                     if (!bRunning)
                     {
                         PlayRoleAnim(AnimNames.Idle, true);
                     }
                     break;
             }
-            GLogger.White("OnPlayingClipOK::>>" + clip);
+            GLogger.Log("OnPlayingClipOK::>>" + gameObject.name + " " + clip);
         }
 
         /// <summary>
@@ -243,13 +243,16 @@ namespace FirClient.View
                 myFrameAction.animClipName = evData.bUseSkill ? AnimNames.Skill : AnimNames.Attack;
                 timerMgr.AddFrameActions(skillData.frameDatas, myFrameAction, OnFrameAction);
             }
+            else
+            {
+                GLogger.Red("!!!NpcSkillAttackInternal:>>" + evData.attackerid + " " + evData.defenderid + " " + evData.bUseSkill);
+            }
         }
 
         /// <summary>
         /// 攻击完成
         /// </summary>
-        /// <param name="clip"></param>
-        private void OnNpcSkillAttackOK(string clip)
+        private void OnNpcSkillAttackOK()
         {
             gameObject.transform.DOMove(oldPos, 0.2f).OnComplete(delegate ()
             {
@@ -371,7 +374,7 @@ namespace FirClient.View
         {
             if (!bRunning)
             {
-                PlayRoleAnim(AnimNames.Damage);
+                PlayRoleAnim(AnimNames.BeAttacked);
             }
             var effectid = frameData.skillParams.beAttackEffectId;
             if (effectid != 0)
