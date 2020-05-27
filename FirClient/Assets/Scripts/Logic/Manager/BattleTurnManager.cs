@@ -47,7 +47,7 @@ namespace FirClient.Logic.Manager
                 npcData.attack = 10;
                 npcData.defense = 10;
                 npcData.mpInc = 10u;
-                npcData.skillConsume = 80;
+                npcData.skillConsume = 0;
                 npcDataMgr.AddNpcData(npcData);
 
                 if (i == 0)
