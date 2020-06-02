@@ -40,6 +40,7 @@ _G.ManagerNames = {
 	Config = "ConfigManager",
 	Shader = "ShaderManager",
 	Socket = "SocketManager",
+	RedDot = "RedDotManager",
 }
 
 _G.HandlerNames = {
@@ -90,6 +91,7 @@ _G.ComponentNames = {
 	LoopListBox = "CLoopListBox",
 	ModelRender = "CModelRender",
 	ItemPrefabVar = "CItemPrefabVar",
+	RedDot = "RedDot",
 }
 
 _G.BatchTaskState = {

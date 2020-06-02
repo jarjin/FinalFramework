@@ -5,6 +5,7 @@ local CItemTips = require "Component/CItemTips"
 local CLoopListBox = require "Component/CLoopListBox"
 local CModelRender = require "Component/CModelRender"
 local CItemPrefabVar = require "Component/CItemPrefabVar"
+local CRedDot = require "Component/CRedDot"
 
 local ComponentManager = class("ComponentManager")
 
@@ -16,6 +17,7 @@ function ComponentManager:Initialize()
     self.mLoopListBoxs = {}
     self.mModelRenders = {}
     self.mItemPrefabVars = {}
+    self.mRedDot = {}
     self:AddComponent(ComponentNames.BatchTask, "default")
 end
 
@@ -43,6 +45,9 @@ function ComponentManager:AddComponent(typeName, ...)
     elseif typeName == ComponentNames.ItemPrefabVar then
         local gameObj = args[1]
         return self:BindItemPrefabVar(gameObj)
+    elseif typeName == ComponentNames.RedDot then
+        local gameObj = args[1]
+        return self:BindRedDot(gameObj)
     end
 end
 
@@ -61,6 +66,8 @@ function ComponentManager:GetComponent(typeName, nameOrId)
         return self.mModelRenders[nameOrId]
     elseif typeName == ComponentNames.ItemPrefabVar then
         return self.mItemPrefabVars[nameOrId]
+    elseif typeName == ComponentNames.RedDot then
+        return self.mRedDot[nameOrId]
     end
     return nil
 end
@@ -80,6 +87,8 @@ function ComponentManager:RemoveComponent(typeName, nameOrId)
         table.removeKey(self.mModelRenders, nameOrId)
     elseif typeName == ComponentNames.ItemPrefabVar then
         table.removeKey(self.mItemPrefabVars, nameOrId)
+    elseif typeName == ComponentNames.RedDot then
+        table.removeKey(self.mRedDot, nameOrId)
     end
 end
 
@@ -141,6 +150,17 @@ function ComponentManager:BindItemBox(gameObj)
         self.mItemBoxs[instanceId] = component
     end
     return component
+end
+
+function ComponentManager:BindRedDot(gameObj)
+    local instanceId = gameObj:GetInstanceID()
+    local component = self.mRedDot[instanceId]
+    if component == nil then
+        component = CRedDot:new(gameObj)
+        self.mRedDot[instanceId] = component
+    end
+    return component
+     
 end
 
 return ComponentManager
