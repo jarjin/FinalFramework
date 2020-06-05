@@ -2,6 +2,7 @@
 using LuaInterface;
 using FirClient.Behaviour;
 using FirClient.Utility;
+using System;
 
 namespace FirClient.Manager {
     public class LuaManager : BaseManager {
@@ -62,6 +63,28 @@ namespace FirClient.Manager {
             lua.LuaSetField(-2, "cjson.safe");
         }
 
+        protected void OpenLuaSocket()
+        {
+            LuaConst.openLuaSocket = true;
+
+            lua.BeginPreLoad();
+            lua.RegFunction("socket.core", LuaOpen_Socket_Core);
+            lua.RegFunction("mime.core", LuaOpen_Mime_Core);
+            lua.EndPreLoad();
+        }
+
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int LuaOpen_Socket_Core(IntPtr L)
+        {
+            return LuaDLL.luaopen_socket_core(L);
+        }
+
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int LuaOpen_Mime_Core(IntPtr L)
+        {
+            return LuaDLL.luaopen_mime_core(L);
+        }
+
         /// <summary>
         /// 初始化加载第三方库
         /// </summary>
@@ -70,9 +93,9 @@ namespace FirClient.Manager {
             lua.OpenLibs(LuaDLL.luaopen_protobuf_c);
             lua.OpenLibs(LuaDLL.luaopen_lpeg);
             lua.OpenLibs(LuaDLL.luaopen_bit);
-            lua.OpenLibs(LuaDLL.luaopen_socket_core);
 
             this.OpenCJson();
+            this.OpenLuaSocket();
         }
 
         /// <summary>
