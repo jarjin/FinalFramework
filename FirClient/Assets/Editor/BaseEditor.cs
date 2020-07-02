@@ -164,8 +164,8 @@ public class BaseEditor : Editor
     [MenuItem("Assets/Create/Game/Game Settings", false, 82)]
     static void CreateGameSettings()
     {
-            string gameSettingPath ="Assets/Res/Resources/"+ AppConst.GameSettingPath+".asset";
-            string fullPath = AppDataPath  + gameSettingPath;
+            string gameSettingPath ="Assets/res/Resources/"+ AppConst.GameSettingPath+".asset";
+            string fullPath = AppDataWithoutAssetPath  + gameSettingPath;
             if (!File.Exists(fullPath))
             {
                 var scriptObj = ScriptableObject.CreateInstance<GameSettings>();
