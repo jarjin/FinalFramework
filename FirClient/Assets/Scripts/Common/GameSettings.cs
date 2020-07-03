@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public enum TextureSize
@@ -14,8 +16,10 @@ public enum TextureSize
 public class TextureCompressInfo
 {
     public string assetPath;
+#if UNITY_EDITOR
     public TextureImporterFormat iosFormat;
     public TextureImporterFormat androidFormat;
+#endif
     public TextureSize textureSize = TextureSize.MAX_1024;
     public bool isDynamic = false;
 }
