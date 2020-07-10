@@ -2,14 +2,12 @@
 
 public static class TexturePreImporter
 {
-    static BuildTarget activePlatform = EditorUserBuildSettings.activeBuildTarget;
-
     public static void ProcTexture(string assetPath, ref TextureImporter importer)
     {
         importer.mipmapEnabled = false;
         importer.compressionQuality = 50;
         importer.textureType = TextureImporterType.Sprite;
-
+            
         if (assetPath.StartsWith("Assets/res/Atlas"))
         {
             importer.spriteImportMode = SpriteImportMode.Multiple;
@@ -18,37 +16,29 @@ public static class TexturePreImporter
         {
             importer.textureType = TextureImporterType.Default;
         }
-        var settings = new TextureImporterPlatformSettings();
-        settings.compressionQuality = 50;
+        var andSettings = new TextureImporterPlatformSettings();
+        var iosSettings = new TextureImporterPlatformSettings();
+        andSettings.name = "Android";
+        iosSettings.name = "iPhone";
+        andSettings.overridden = true;
+        iosSettings.overridden = true;
+        andSettings.compressionQuality = iosSettings.compressionQuality = 50;
         var info = GetTexCompressInfo(assetPath);
         if (info == null)
         {
-            switch (activePlatform)
-            {
-                case BuildTarget.Android:
-                    settings.format = TextureImporterFormat.ETC2_RGBA8;
-                    settings.androidETC2FallbackOverride = AndroidETC2FallbackOverride.Quality32Bit;
-                break;
-                case BuildTarget.iOS:
-                    settings.format = TextureImporterFormat.ASTC_6x6;
-                break;
-            }
-            settings.maxTextureSize = 1024;
+            andSettings.format = TextureImporterFormat.ETC2_RGBA8;
+            andSettings.androidETC2FallbackOverride = AndroidETC2FallbackOverride.Quality32Bit;
+            iosSettings.format=TextureImporterFormat.ASTC_6x6;
+            andSettings.maxTextureSize = iosSettings.maxTextureSize = 1024;
         }
         else
         {
-            switch (activePlatform)
-            {
-                case BuildTarget.Android:
-                    settings.format = info.androidFormat;
-                break;
-                case BuildTarget.iOS:
-                    settings.format = info.iosFormat;
-                break;
-            }
-            settings.maxTextureSize = GetTextureSize(info.textureSize);
+            andSettings.format = info.androidFormat;
+            iosSettings.format = info.iosFormat;
+            andSettings.maxTextureSize =  iosSettings.maxTextureSize= GetTextureSize(info.textureSize);
         }
-        importer.SetPlatformTextureSettings(settings);
+        importer.SetPlatformTextureSettings(andSettings);
+        importer.SetPlatformTextureSettings(iosSettings);
     }
 
     static int GetTextureSize(TextureSize type)
