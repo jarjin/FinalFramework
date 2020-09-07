@@ -1,0 +1,9 @@
+﻿//Example1去掉meta跟exe的格式文件：SrcPath = DestPath : -.meta,.exe
+//Example2只复制meta跟txt格式文件：SrcPath = DestPath : +.meta,.txt
+
+//复制整个目录
+//FirClient/Assets/Scripts/Network/ProtoCS = FirServer/FirSango/ProtoCS : -.meta
+//FirClient/Assets/res/Protos = FirServer/Protos : -.meta
+
+//复制单个文件
+//FirClient/Assets/Scripts/Data/TableManager.cs = FirServer/FirSango/Data/TableManager.cs

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datas>
+  <chapter id="1" name="吴国篇" >
+    <data id="2000" name="村外密林1" eventid="6000" atlas="30000" star="2" drop="" />
+    <data id="2001" name="村外密林2" eventid="6000" atlas="30000" star="2" drop="" />
+    <data id="2002" name="村外密林3" eventid="6000" atlas="30000" star="3" drop="100002" />
+  </chapter>
+  <chapter id="2" name="蜀国篇" >
+    <data id="2042" name="剑门关1" eventid="6000" atlas="30000" star="4" drop="21005" />
+    <data id="2043" name="剑门关2" eventid="6000" atlas="30000" star="4" drop="21005,21006" />
+    <data id="2044" name="剑门关3" eventid="6000" atlas="30000" star="5" drop="21006,21014" />
+  </chapter>
+  <chapter id="3" name="魏国篇" >
+    <data id="2072" name="射鹿台1" eventid="6000" atlas="30000" star="4" drop="22003" />
+    <data id="2073" name="射鹿台2" eventid="6000" atlas="30000" star="4" drop="22003" />
+    <data id="2074" name="射鹿台3" eventid="6000" atlas="30000" star="4" drop="" />
+  </chapter>
+</datas>

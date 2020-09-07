@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<spawnpoints>
+    <item name='evpoint1' pos='0_1.8_0' eventids='5:1_1_4:1,1,12_2:3000,3001_4:1,1,13_8_4:1,1,14' />
+</spawnpoints>

@@ -1,0 +1,482 @@
+fileFormatVersion: 2
+guid: 2d22bdca096e2a54b98d6b0784868ff3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: 0000
+  - first:
+      213: 21300002
+    second: 11
+  - first:
+      213: 21300004
+    second: 189
+  - first:
+      213: 21300006
+    second: 22
+  - first:
+      213: 21300008
+    second: 33
+  - first:
+      213: 21300010
+    second: 44
+  - first:
+      213: 21300012
+    second: Ball
+  - first:
+      213: 21300014
+    second: Battle
+  - first:
+      213: 21300016
+    second: BtnChat
+  - first:
+      213: 21300018
+    second: BtnClose
+  - first:
+      213: 21300020
+    second: BtnNormal
+  - first:
+      213: 21300022
+    second: Btn_Disable
+  - first:
+      213: 21300024
+    second: EmptyHead
+  - first:
+      213: 21300026
+    second: Frame
+  - first:
+      213: 21300028
+    second: HeadSlot
+  - first:
+      213: 21300030
+    second: Mask
+  - first:
+      213: 21300032
+    second: MyPos
+  - first:
+      213: 21300034
+    second: Pay
+  - first:
+      213: 21300036
+    second: ProBottom
+  - first:
+      213: 21300038
+    second: ProTop
+  - first:
+      213: 21300040
+    second: RadialJoy_Area
+  - first:
+      213: 21300042
+    second: RadialJoy_Dead
+  - first:
+      213: 21300044
+    second: RadialJoy_Touch
+  - first:
+      213: 21300046
+    second: Setting
+  - first:
+      213: 21300048
+    second: TopBorder
+  - first:
+      213: 21300050
+    second: message
+  - first:
+      213: -2043017983467968750
+    second: arrow
+  - first:
+      213: -493751242295976753
+    second: button_theme28_0
+  - first:
+      213: -8996654133678025265
+    second: chatbg
+  - first:
+      213: 8163836857093150775
+    second: grid_flower_200_9
+  - first:
+      213: -2628075151273975717
+    second: grid_pencil_128_g8
+  - first:
+      213: 2060662634876919239
+    second: diamond
+  - first:
+      213: -5133012041638066553
+    second: gift_yellow_1
+  - first:
+      213: -5051373027560115667
+    second: grid_flower_200_1
+  - first:
+      213: -2616406853731861087
+    second: heart_red_heart
+  - first:
+      213: -740437183830082430
+    second: icon_theme13_62
+  - first:
+      213: 8425653343166278958
+    second: whiteblock
+  - first:
+      213: 8079465885408692610
+    second: icon_theme13_14
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 1024
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 4
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: arrow
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 21
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c49f188bb7410384b8ec61f0c4816eb6
+      internalID: -2043017983467968750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: button_theme28_0
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 383
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9884868ae40ca544b837d9cd41fb7ed3
+      internalID: -493751242295976753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chatbg
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 41
+        width: 128
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 10, z: 10, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43bb3bb4242f1f0488336e72ab3590e9
+      internalID: -8996654133678025265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diamond
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 154
+        width: 122
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f98ee445db1dbf34b9c3722b6c06f552
+      internalID: 2060662634876919239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gift_yellow_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 60
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22da71993b7e9d46bee9e3099666f70
+      internalID: -5133012041638066553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_flower_200_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 311
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a5c2b9be31edd48932c27879f43d2e
+      internalID: -5051373027560115667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_flower_200_9
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 109
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 277ca6cdbcba3b3458e9527762d12f64
+      internalID: 8163836857093150775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_pencil_128_g8
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 383
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a63f61acac944b42a1345bfefc0fa70
+      internalID: -2628075151273975717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heart_red_heart
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 17
+        width: 47
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd72ac16b094a8c46b7f14a74cfb3e52
+      internalID: -2616406853731861087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_theme13_14
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 30
+        width: 80
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad5e5f2713ac33479e395d59f32a077
+      internalID: 8079465885408692610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon_theme13_62
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 265
+        width: 123
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4729fdbc2326af9409d29d176b4ddaa2
+      internalID: -740437183830082430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteblock
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 253
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9bb6dd66444e9049b67f36e8c0f0890
+      internalID: 8425653343166278958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0c5fbce73d4838745b23e9efb6b18b43
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:9245c363f98c97cddf418723dc504c87:c14f10070250d256efe6e593bf4abd4e:42f7f6692cfef22288ac3a01ea63bed5$
+#
+:format=40300
+:texture=ChooseActor.png
+:size=64x128
+:pivotpoints=enabled
+:borders=disabled
+
+check;1;39;41;41; 0.524390243902439;0.47560975609756095; 0;0;0;0; 6;41;37;41;26;23;0;0;0;0;27;37;41; 4;1;4;5;2;3;4;1;2;4;0;1;5
+toggleFrame;1;82;45;45; 0.5;0.5; 0;0;0;0; 4;45;0;0;0;0;45;45;45; 2;1;2;3;0;1;3

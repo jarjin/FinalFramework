@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<linker>
+	<assembly fullname="mscorlib">
+		<namespace fullname="System.Type" preserve="all"/>
+		<namespace fullname="System.Reflection" preserve="all"/>
+		<namespace fullname="System.Reflection.Assembly" preserve="all"/>
+	</assembly>
+</linker>

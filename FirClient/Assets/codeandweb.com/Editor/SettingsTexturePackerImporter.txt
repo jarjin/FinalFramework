@@ -1,0 +1,36 @@
+version: 2
+importPivots: 1
+tpsheetFileNames:
+- Assets/res/Atlas/UI/Bag/Bag.tpsheet
+- Assets/res/Atlas/UI/Battle/Battle.tpsheet
+- Assets/res/Atlas/UI/ChooseActor/ChooseActor.tpsheet
+- Assets/res/Atlas/UI/HeadIcon/HeadIcon.tpsheet
+- Assets/res/Atlas/UI/Loading/Loading.tpsheet
+- Assets/res/Atlas/UI/Main/Main.tpsheet
+- Assets/res/Atlas/UI/Quality/Quality.tpsheet
+- Assets/res/Atlas/UI/Shared/Shared.tpsheet
+- Assets/res/Atlas/UI/Task/Task.tpsheet
+- Assets/res/Atlas/UI/Tips/Tips.tpsheet
+textureFileNames:
+- Assets/res/Atlas/UI/Bag/Bag.png
+- Assets/res/Atlas/UI/Battle/Battle.png
+- Assets/res/Atlas/UI/ChooseActor/ChooseActor.png
+- Assets/res/Atlas/UI/HeadIcon/HeadIcon.png
+- Assets/res/Atlas/UI/Loading/Loading.png
+- Assets/res/Atlas/UI/Main/Main.png
+- Assets/res/Atlas/UI/Quality/Quality.png
+- Assets/res/Atlas/UI/Shared/Shared.png
+- Assets/res/Atlas/UI/Task/Task.png
+- Assets/res/Atlas/UI/Tips/Tips.png
+normalmapFileNames:
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+- 
+enableDebugOutput: 0

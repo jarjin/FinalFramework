@@ -1,0 +1,21 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:7c8f5542f910e6d2640bb5ad0e42d6b4:904617796c2e07cfe1b58e78231bb528:68ebbd4b24521749490e4ac7bc26c4d7$
+#
+:format=40300
+:texture=Quality.png
+:size=512x512
+:pivotpoints=enabled
+:borders=disabled
+
+blue;1;379;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+gray;1;245;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+green;1;111;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+orange;135;379;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+purple;269;379;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+red;135;245;132;132; 0.5;0.5; 0;0;0;0; 4;132;0;0;0;0;132;132;132; 2;1;2;3;0;1;3
+yellow;135;111;132;132; 0.5;0.5; 0;0;0;0; 5;132;0;5;0;0;5;0;132;132;132; 3;2;3;4;1;2;4;0;1;4

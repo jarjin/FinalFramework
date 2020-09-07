@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<datas>
+  <team id="3000">
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+  </team>
+  <team id="3001">
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+    <npc id="13064" hp="100" hpMax="100" hpInc="0" mp="100" mpMax="100" mpInc="0" attack="10" defense="10" skillConsume="0" exp="0" money="0" drop="" />
+  </team>
+</datas>

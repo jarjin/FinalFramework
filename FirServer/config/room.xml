@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+  <level id="1" name="初级场" roomCount="1" roomUserMax="6" />
+  <level id="2" name="中级场" roomCount="1" roomUserMax="6" />
+  <level id="3" name="高级场" roomCount="1" roomUserMax="6" />
+</nodes>
+

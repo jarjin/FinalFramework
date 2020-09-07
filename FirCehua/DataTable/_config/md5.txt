@@ -1,0 +1,5 @@
+GlobalConfigTable=d706e617d40980caa262e37bc0c03591
+ItemTable=3210dd38459dff2b6847250cf54e7666
+NpcTable=7c7b24fc86b14f4328cb965f4849a4a0
+ObjectPoolTable=dcb45264a945a8360b30803f38f47946
+QualityTable=1a96b3b65fde55e47ced4e051713c83e

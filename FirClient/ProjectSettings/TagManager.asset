@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - UICamera
+  - UICanvas
+  - GameView
+  - GameManager
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - BattleScene
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 2594172313
+    locked: 0
+  - name: Environment
+    uniqueID: 2769056477
+    locked: 0
+  - name: Gameplay
+    uniqueID: 4076374813
+    locked: 0
+  - name: Effect
+    uniqueID: 94373527
+    locked: 0
+  - name: UI
+    uniqueID: 1856190781
+    locked: 0

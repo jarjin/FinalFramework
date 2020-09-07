@@ -1,0 +1,38 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:838d0ff22b7c5eb58bb300daa69937a1:8771c2fcf073f3982209f7ff1d8e87f9:a51e1c733bd95c2344351166cb293d60$
+#
+:format=40000
+:texture=Main.png
+:size=256x512
+
+22;1;107;40;43;0.5;0.5
+34;43;106;37;37;0.5;0.5
+35;1;71;36;34;0.5;0.5
+36;67;327;33;33;0.5;0.5
+37;67;362;35;40;0.5;0.5
+BarBtnNormal;171;96;38;47;0.5;0.5
+BarBtnPress;211;96;38;47;0.5;0.5
+BottomBG;131;115;38;66;0.5;0.5
+UI_Banner_Wood;184;319;64;64;0.5;0.5
+UI_Bar;67;145;62;63;0.5;0.5
+UI_Bar_Fill_Blue;198;199;52;52;0.5;0.5
+UI_Bar_Fill_Green;198;145;52;52;0.5;0.5
+UI_Bar_Fill_Red;1;152;52;52;0.5;0.5
+UI_Button_Blue;1;338;64;64;0.5;0.5
+UI_Button_Green;1;272;64;64;0.5;0.5
+UI_Button_Grey;102;276;64;64;0.5;0.5
+UI_Button_Red;168;253;64;64;0.5;0.5
+UI_Icon_Settings;1;404;101;107;0.5;0.5
+UI_Mask;184;427;4;4;0.5;0.5
+UI_Misc_Button_Close;133;183;63;68;0.5;0.5
+UI_Panel_Tab_Active;194;449;60;62;0.5;0.5
+UI_Panel_Tab_Inactive;194;385;60;62;0.5;0.5
+UI_Panel_Window;67;210;64;64;0.5;0.5
+UI_Panel_Window_Blank;1;206;64;64;0.5;0.5
+status_icon_coin;104;342;78;89;0.5;0.5
+status_icon_gem;104;433;88;78;0.5;0.5

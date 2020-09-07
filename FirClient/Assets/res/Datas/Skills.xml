@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<datas>
+  <npc id="0">
+    <item name="attack" animFrame="0" soundFrame="1" healthFrame="5" damageNumFrame="8" beAttackFrame="10" beAttackEffectId="40077" />
+  </npc>
+</datas>
