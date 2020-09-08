@@ -206,12 +206,12 @@ public class ResPackager : BaseEditor
     static void PackLuaFiles()
     {
         string resPath = AppDataPath + "/StreamingAssets/";
-        string luaPath = resPath + "/lua/";
+        string luaPath = resPath + "lua/";
 
         //----------复制Lua文件----------------
         if (Directory.Exists(luaPath))
         {
-            Directory.Delete(luaPath);
+            Directory.Delete(luaPath, true);
         }
         Directory.CreateDirectory(luaPath);
         string[] luaPaths = { AppDataPath + "/Scripts/lua/",

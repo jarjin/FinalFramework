@@ -1,6 +1,7 @@
 using LuaInterface;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FirClient.Component
 {
@@ -29,7 +30,6 @@ namespace FirClient.Component
     {
         private static CTimer instance;
         
-        private float interval = 0;
         private readonly object mlock = new object();
 
         private List<TickerInfo> tickers = new List<TickerInfo>();
@@ -65,27 +65,33 @@ namespace FirClient.Component
         /// <param name="o"></param>
         public TimerInfo AddTimer(float expires, float interval, Action<object> func, object param = null, bool runNow = false)
         {
-            var timer = new TimerInfo();
-            timer.interval = interval;
-            timer.sharpfunc = func;
-            timer.param = param;
-            timer.expire = expires;
-            timer.tick = runNow ? interval : 0;
-            timers.Add(timer);
-            return timer;
+            lock (mlock)
+            {
+                var timer = new TimerInfo();
+                timer.interval = interval;
+                timer.sharpfunc = func;
+                timer.param = param;
+                timer.expire = expires;
+                timer.tick = runNow ? interval : 0;
+                timers.Add(timer);
+                return timer;
+            }
         }
 
         public TimerInfo AddLuaTimer(float expires, float interval, LuaTable self, LuaFunction func, object param, bool runNow)
         {
-            var timer = new TimerInfo();
-            timer.interval = interval;
-            timer.luaself = self;
-            timer.luaFunc = func;
-            timer.param = param;
-            timer.expire = expires;
-            timer.tick = runNow ? interval : 0;
-            timers.Add(timer);
-            return timer;
+            lock (mlock)
+            {
+                var timer = new TimerInfo();
+                timer.interval = interval;
+                timer.luaself = self;
+                timer.luaFunc = func;
+                timer.param = param;
+                timer.expire = expires;
+                timer.tick = runNow ? interval : 0;
+                timers.Add(timer);
+                return timer;
+            }
         }
 
         /// <summary>
@@ -94,9 +100,12 @@ namespace FirClient.Component
         /// <param name="name"></param>
         public void RemoveTimer(TimerInfo timer)
         {
-            if (timer != null)
+            lock (mlock)
             {
-                expireTimers.Add(timer);
+                if (timer != null)
+                {
+                    expireTimers.Add(timer);
+                }
             }
         }
 
@@ -105,73 +114,71 @@ namespace FirClient.Component
         /// </summary>
         void OnTimer(float deltaTime)
         {
-            if (timers.Count == 0)
+            if (timers.Count > 0)
             {
-                return;
-            }
-            foreach (var timer in timers)
-            {
-                if (expireTimers.Contains(timer))
+                for (int i = timers.Count - 1; i >= 0; i--)
                 {
-                    continue;
-                }
-                timer.tick += deltaTime;
-                if (timer.expire > 0)
-                {
-                    if (timer.tick >= timer.expire)
+                    var timer = timers[i];
+                    if (expireTimers.Contains(timer))
                     {
-                        expireTimers.Add(timer);
-                        if (timer.luaFunc != null)
+                        continue;
+                    }
+                    timer.tick += deltaTime;
+                    if (timer.expire > 0)
+                    {
+                        if (timer.tick >= timer.expire)
                         {
-                            if (timer.luaself == null)
+                            expireTimers.Add(timer);
+                            if (timer.sharpfunc != null)
                             {
-                                timer.luaFunc.Call<object>(timer.param);
+                                timer.sharpfunc.Invoke(timer.param);
                             }
-                            else
+                            if (timer.luaFunc != null)
                             {
                                 timer.luaFunc.Call<LuaTable, object>(timer.luaself, timer.param);
                             }
                         }
-                        if (timer.sharpfunc != null)
+                    }
+                    else
+                    {
+                        if (timer.tick >= timer.interval)
                         {
-                            timer.sharpfunc.Invoke(timer.param);
+                            timer.tick = 0;
+                            if (timer.sharpfunc != null)
+                            {
+                                timer.sharpfunc.Invoke(timer.param);
+                            }
+                            if (timer.luaFunc != null)
+                            {
+                                timer.luaFunc.Call<LuaTable, object>(timer.luaself, timer.param);
+                            }
                         }
                     }
                 }
-                else
+                lock (mlock)
                 {
-                    if (timer.tick >= timer.interval)
+                    foreach (var timer in expireTimers)
                     {
-                        timer.tick = 0;
-                        if (timer.luaFunc != null)
-                        {
-                            timer.luaFunc.Call<LuaTable, object>(timer.luaself, timer.param);
-                        }
-                        if (timer.sharpfunc != null)
-                        {
-                            timer.sharpfunc.Invoke(timer.param);
-                        }
+                        DisposeTimer(timer);
                     }
+                    expireTimers.Clear();
                 }
             }
-            lock (mlock)
+        }
+
+        void DisposeTimer(TimerInfo timer)
+        {
+            if (timer.luaself != null)
             {
-                foreach (var timer in expireTimers)
-                {
-                    if (timer.luaself != null)
-                    {
-                        timer.luaself.Dispose();
-                        timer.luaself = null;
-                    }
-                    if (timer.luaFunc != null)
-                    {
-                        timer.luaFunc.Dispose();
-                        timer.luaFunc = null;
-                    }
-                    timers.Remove(timer);
-                }
-                expireTimers.Clear();
+                timer.luaself.Dispose();
+                timer.luaself = null;
             }
+            if (timer.luaFunc != null)
+            {
+                timer.luaFunc.Dispose();
+                timer.luaFunc = null;
+            }
+            timers.Remove(timer);
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,47 +189,59 @@ namespace FirClient.Component
         /// <param name="action">Callback</param>
         public void CreateTicker(Dictionary<uint, uint> kv, object param, Action<uint, object> action)
         {
-            foreach(var de in kv)
+            lock (mlock)
             {
-                var ticker = new TickerInfo();
-                ticker.typeId = de.Key;
-                ticker.frameCount = de.Value;
-                ticker.refCount = 0;
-                ticker.action = action;
-                ticker.param = param;
-                tickers.Add(ticker);
+                foreach (var de in kv)
+                {
+                    var ticker = new TickerInfo();
+                    ticker.typeId = de.Key;
+                    ticker.frameCount = de.Value;
+                    ticker.refCount = 0;
+                    ticker.action = action;
+                    ticker.param = param;
+                    tickers.Add(ticker);
+                }
             }
         }
 
         private void OnTicker(float daltaTime)
         {
-            if (tickers.Count == 0)
+            if (tickers.Count > 0)
             {
-                return;
-            }
-            foreach(TickerInfo ticker in tickers)
-            {
-                if (ticker.refCount == ticker.frameCount)
+                for(int i = tickers.Count - 1; i >= 0; i--)
                 {
-                    expireTickers.Add(ticker);
-                    ticker.action(ticker.typeId, ticker.param);
+                    var ticker = tickers[i];
+                    if (ticker.refCount == ticker.frameCount)
+                    {
+                        expireTickers.Add(ticker);
+                        ticker.action(ticker.typeId, ticker.param);
+                    }
+                    else
+                    {
+                        ticker.refCount++;
+                    }
                 }
-                else
+                lock (mlock)
                 {
-                    ticker.refCount++;
+                    foreach (var timer in expireTickers)
+                    {
+                        tickers.Remove(timer);
+                    }
+                    expireTickers.Clear();
                 }
             }
-            foreach (var timer in expireTickers)
-            {
-                tickers.Remove(timer);
-            }
-            expireTickers.Clear();
         }
 
         internal void ClearAllTimer()
         {
-            tickers.Clear();
-            timers.Clear();
+            lock (mlock)
+            {
+                timers.Clear();
+                expireTimers.Clear();
+
+                tickers.Clear();
+                expireTickers.Clear();
+            }
         }
 
         public override void OnDispose()
