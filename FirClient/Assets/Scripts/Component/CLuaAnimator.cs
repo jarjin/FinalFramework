@@ -1,4 +1,4 @@
-﻿using LuaInterface;
+using LuaInterface;
 using UnityEngine;
 
 namespace FirClient.Component

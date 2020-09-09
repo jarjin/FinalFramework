@@ -1,4 +1,4 @@
-﻿using FirClient.Utility;
+using FirClient.Utility;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using LuaInterface;

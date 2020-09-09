@@ -1,4 +1,4 @@
-﻿using ProtoBuf;
+using ProtoBuf;
 using System.IO;
 
 namespace FirClient.Handler

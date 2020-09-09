@@ -1,4 +1,4 @@
-﻿using FirClient.Data;
+using FirClient.Data;
 using FirClient.Extensions;
 using LuaInterface;
 using System.Collections.Generic;

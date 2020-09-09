@@ -1,4 +1,4 @@
-﻿namespace FirClient.Define
+namespace FirClient.Define
 {
     public class EventNames
     {

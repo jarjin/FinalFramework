@@ -1,4 +1,4 @@
-﻿using FirClient.Data;
+using FirClient.Data;
 using FirClient.Extensions;
 using FirClient.Logic.FSM.TurnBaseState;
 using System.Collections.Generic;

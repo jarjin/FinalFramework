@@ -1,4 +1,4 @@
-﻿using FirClient.Data;
+using FirClient.Data;
 
 namespace FirClient.Logic
 {

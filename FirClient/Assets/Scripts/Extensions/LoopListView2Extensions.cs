@@ -1,4 +1,4 @@
-﻿using LuaInterface;
+using LuaInterface;
 using SuperScrollView;
 
 namespace FirClient.Extensions

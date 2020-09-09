@@ -1,4 +1,4 @@
-﻿using FirClient.Define;
+using FirClient.Define;
 using LiteNetLib.Utils;
 
 namespace FirClient.Network

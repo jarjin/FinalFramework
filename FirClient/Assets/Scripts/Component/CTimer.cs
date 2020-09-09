@@ -54,12 +54,12 @@ namespace FirClient.Component
 
         public override void OnUpdate(float deltaTime)
         {
-            OnTimer(deltaTime);     //ÔËÐÐ
+            OnTimer(deltaTime);     //ï¿½ï¿½ï¿½ï¿½
             OnTicker(deltaTime);    //
         }
 
         /// <summary>
-        /// Ìí¼Ó¼ÆÊ±Æ÷ÊÂ¼þ
+        /// ï¿½ï¿½Ó¼ï¿½Ê±ï¿½ï¿½ï¿½Â¼ï¿½
         /// </summary>
         /// <param name="name"></param>
         /// <param name="o"></param>
@@ -95,7 +95,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// É¾³ý¼ÆÊ±Æ÷ÊÂ¼þ
+        /// É¾ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â¼ï¿½
         /// </summary>
         /// <param name="name"></param>
         public void RemoveTimer(TimerInfo timer)
@@ -110,7 +110,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// ¼ÆÊ±Æ÷ÔËÐÐ
+        /// ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         void OnTimer(float deltaTime)
         {
@@ -183,7 +183,7 @@ namespace FirClient.Component
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Ìí¼ÓÖ¡¶¯×÷
+        /// ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="kv">Key:ActionType,Value:frame</param>
         /// <param name="action">Callback</param>

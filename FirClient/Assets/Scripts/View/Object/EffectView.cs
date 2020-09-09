@@ -1,4 +1,4 @@
-﻿using FirClient.Component;
+using FirClient.Component;
 using FirClient.Data;
 using UnityEngine;
 using FirClient.Extensions;

@@ -1,4 +1,4 @@
-﻿using FirClient.Utility;
+using FirClient.Utility;
 
 public abstract class BaseObject
 {

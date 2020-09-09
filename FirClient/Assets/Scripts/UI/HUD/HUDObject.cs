@@ -1,4 +1,4 @@
-﻿using FirClient.Data;
+using FirClient.Data;
 using FirClient.Extensions;
 using UnityEngine;
 using UnityEngine.UI;

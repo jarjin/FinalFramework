@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using FirClient.Define;
 using FirClient.Extensions;
 using FirClient.View;

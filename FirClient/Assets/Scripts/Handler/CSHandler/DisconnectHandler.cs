@@ -1,4 +1,4 @@
-﻿
+
 namespace FirClient.Handler
 {
     public class DisconnectHandler : BaseHandler

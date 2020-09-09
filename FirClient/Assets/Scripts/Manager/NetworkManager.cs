@@ -38,7 +38,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ×¢²áÏûÏ¢´¦ÀíÆ÷
+        /// ×¢ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         void InitHandler()
         {
@@ -57,7 +57,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// Socket¸üÐÂ
+        /// Socketï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void OnSocketUpdate()
         {
@@ -65,7 +65,7 @@ namespace FirClient.Manager
         }
         
         /// <summary>
-        /// ´¦Àí»º´æ³Ø
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void OnProcessPack()
         {
@@ -140,7 +140,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ÏûÏ¢½ÓÊÕ
+        /// ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         [NoToLua]
         public void OnReceived(NetPeer peer, NetDataReader reader)
@@ -157,7 +157,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ·¢ËÍÊý¾Ý
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         private void SendPacketData(PacketData pack)
         {

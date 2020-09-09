@@ -1,4 +1,4 @@
-﻿using FirClient.Component.FSM;
+using FirClient.Component.FSM;
 
 namespace FirClient.Logic.FSM.FreeBattleState
 {

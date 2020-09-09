@@ -1,4 +1,4 @@
-﻿using Mono.Xml;
+using Mono.Xml;
 using System.Security;
 
 public class XmlHelper : BaseBehaviour

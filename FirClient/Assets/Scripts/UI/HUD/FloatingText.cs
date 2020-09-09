@@ -1,4 +1,4 @@
-﻿using FirClient.Extensions;
+using FirClient.Extensions;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;

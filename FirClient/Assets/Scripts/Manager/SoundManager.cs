@@ -24,7 +24,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// Ìí¼ÓÒ»¸öÉùÒô
+        /// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         void Add(string key, AudioClip value)
         {
@@ -36,7 +36,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// »ñÈ¡Ò»¸öÉùÒô
+        /// ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         AudioClip Get(string key)
         {
@@ -48,7 +48,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ÔØÈëÒ»¸öÒôÆµ
+        /// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Æµ
         /// </summary>
         void LoadAudioClip(string path, Action<AudioClip> action)
         {
@@ -77,7 +77,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ÊÇ·ñ²¥·Å±³¾°ÒôÀÖ£¬Ä¬ÈÏÊÇ1£º²¥·Å
+        /// ï¿½Ç·ñ²¥·Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <returns></returns>
         public bool CanPlayBackSound()
@@ -88,7 +88,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ²¥·Å±³¾°ÒôÀÖ
+        /// ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="canPlay"></param>
         public void PlayBacksound(string name, bool canPlay)
@@ -123,7 +123,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ÊÇ·ñ²¥·ÅÒôÐ§,Ä¬ÈÏÊÇ1£º²¥·Å
+        /// ï¿½Ç·ñ²¥·ï¿½ï¿½ï¿½Ð§,Ä¬ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <returns></returns>
         public bool CanPlaySoundEffect()
@@ -134,7 +134,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ²¥·ÅÒôÆµ¼ô¼­
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="clip"></param>
         /// <param name="position"></param>
@@ -148,7 +148,7 @@ namespace FirClient.Manager
         }
 
         /// <summary>
-        /// ²¥·ÅÉùÒô
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <param name="path"></param>
         public void Play(string path)

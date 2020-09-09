@@ -50,14 +50,6 @@ public class ResPackager : BaseEditor
             Debug.LogError("BuildAssetResource cannot run DebugMode!!!");
             return;
         }
-        if (Directory.Exists(Util.DataPath))
-        {
-            Directory.Delete(Util.DataPath, true);
-        }
-        if (Directory.Exists(StreamDir))
-        {
-            Directory.Delete(StreamDir, true);
-        }
         BuildAssetBundles();
         BuildScriptWithDatas();     //构建脚本+配置
         PatchPackager.UpdateOrCreateIndexFile();

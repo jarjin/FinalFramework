@@ -1,4 +1,4 @@
-﻿using FirClient.Logic;
+using FirClient.Logic;
 
 namespace FirClient.Component.FSM
 {

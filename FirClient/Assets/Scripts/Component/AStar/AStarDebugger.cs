@@ -1,4 +1,4 @@
-﻿using FirClient.Component;
+using FirClient.Component;
 using FirClient.Extensions;
 using System.Collections.Generic;
 using TMPro;

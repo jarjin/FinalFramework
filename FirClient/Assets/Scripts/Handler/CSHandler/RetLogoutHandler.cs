@@ -1,4 +1,4 @@
-﻿namespace FirClient.Handler
+namespace FirClient.Handler
 {
     public class RetLogoutHandler : BaseHandler
     {

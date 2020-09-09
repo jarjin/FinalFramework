@@ -1,4 +1,4 @@
-﻿using FirClient.Logic.FSM.TurnBaseState;
+using FirClient.Logic.FSM.TurnBaseState;
 using FirClient.Logic.FSM.FreeBattleState;
 using FirClient.Data;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DG.Tweening;
 using FirClient.Component;
 using FirClient.HUD;

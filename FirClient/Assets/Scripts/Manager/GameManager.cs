@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using FirClient.ObjectPool;
 using FirClient.Utility;
 using DG.Tweening;

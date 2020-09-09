@@ -38,25 +38,31 @@ public class FixChecker : BaseEditor
     [MenuItem("FixChecker/Encode Lua File with UTF-8")]
     public static void EncodeAllLuaFile()
     {
-        var luaPath = AppDataPath + "/Scripts/Lua";
-        var files = Directory.GetFiles(luaPath, "*.lua", SearchOption.AllDirectories);
-        foreach(var file in files)
-        {
-            Utf8Encode(file);
-        }
+        EncodeDir(AppDataPath + "/Scripts/Lua", "*.lua");
     }
 
-    static void Utf8Encode(string filename)
+    [MenuItem("FixChecker/Encode CS File with UTF-8")]
+    public static void EncodeAllCSFile()
     {
-        if (!File.Exists(filename))
+        EncodeDir(AppDataPath + "/Scripts", "*.cs");
+    }
+
+    static void EncodeDir(string scriptPath, string extName)
+    {
+        var files = Directory.GetFiles(scriptPath, extName, SearchOption.AllDirectories);
+        foreach (var file in files)
         {
-            return;
+            if (!File.Exists(file))
+            {
+                continue;
+            }
+            string text = File.ReadAllText(file, Encoding.UTF8);
+            using (var sw = new StreamWriter(file, false, new UTF8Encoding(false)))
+            {
+                sw.Write(text);
+                sw.Close();
+            }
         }
-        string text = File.ReadAllText(filename, Encoding.UTF8);
-        using (var sw = new StreamWriter(filename, false, new UTF8Encoding(false)))
-        {
-            sw.Write(text);
-            sw.Close();
-        }
+        AssetDatabase.Refresh();
     }
 }

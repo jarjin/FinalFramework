@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public enum TargetType { 
-    Pet,            //³èÎï
-    Camera,         //ÉãÏñÍ·
+    Pet,            //ï¿½ï¿½ï¿½ï¿½
+    Camera,         //ï¿½ï¿½ï¿½ï¿½Í·
 }
 
 namespace FirClient.Component
@@ -35,7 +35,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// ÉèÖÃ¶ÔÏó
+        /// ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½
         /// </summary>
         public void SetActiveTarget(Transform target, float offsetX, float offsetY, float maxSpeed = 10000f)
         {
@@ -48,7 +48,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// ÉèÖÃÏà»úÎ»ÖÃ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         /// </summary>
         /// <param name="isDirMove"></param>
         void SetCameraPos(bool isDirMove)
@@ -83,7 +83,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// »º¶¯
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         Vector3 SmoothDamp(Vector3 destPos)
         {

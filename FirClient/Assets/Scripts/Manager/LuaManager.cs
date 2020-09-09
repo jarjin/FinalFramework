@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using LuaInterface;
 using FirClient.Behaviour;
 using FirClient.Utility;

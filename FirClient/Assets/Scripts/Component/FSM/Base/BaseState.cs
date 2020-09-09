@@ -1,4 +1,4 @@
-﻿
+
 namespace FirClient.Component.FSM
 {
     public class BaseState : IState

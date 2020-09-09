@@ -1,4 +1,4 @@
-﻿using LuaInterface;
+using LuaInterface;
 
 namespace FirClient.Manager
 {

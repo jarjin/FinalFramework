@@ -1,4 +1,4 @@
-﻿
+
 namespace FirClient.Handler
 {
     class RetUserInfoHandler : BaseHandler

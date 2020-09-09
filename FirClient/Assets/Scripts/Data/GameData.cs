@@ -1,4 +1,4 @@
-﻿using FirClient.Logic.FSM;
+using FirClient.Logic.FSM;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

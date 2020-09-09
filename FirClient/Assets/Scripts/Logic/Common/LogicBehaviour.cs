@@ -1,4 +1,4 @@
-﻿using FirClient.Component;
+using FirClient.Component;
 using FirClient.Logic.FSM;
 using FirClient.Logic.Manager;
 using System.Collections.Generic;
