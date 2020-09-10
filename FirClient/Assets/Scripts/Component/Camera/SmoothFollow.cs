@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
 
 public enum TargetType { 
-    Pet,            //����
-    Camera,         //����ͷ
+    Pet,            //宠物
+    Camera,         //摄像头
 }
 
 namespace FirClient.Component
@@ -35,7 +34,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// ���ö���
+        /// 设置对象
         /// </summary>
         public void SetActiveTarget(Transform target, float offsetX, float offsetY, float maxSpeed = 10000f)
         {
@@ -48,7 +47,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// �������λ��
+        /// 设置相机位置
         /// </summary>
         /// <param name="isDirMove"></param>
         void SetCameraPos(bool isDirMove)
@@ -83,7 +82,7 @@ namespace FirClient.Component
         }
 
         /// <summary>
-        /// ����
+        /// 缓动
         /// </summary>
         Vector3 SmoothDamp(Vector3 destPos)
         {

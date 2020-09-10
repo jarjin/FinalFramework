@@ -28,7 +28,7 @@ namespace FirClient.Manager
             
             var listener = new ClientListener(this);
             mClient = new NetManager(listener);
-            //client.SimulateLatency = true;
+            mClient.UnconnectedMessagesEnabled = true;
             mClient.UpdateTime = 15;
             if (!mClient.Start())
             {
@@ -37,9 +37,6 @@ namespace FirClient.Manager
             isOnUpdate = true;
         }
 
-        /// <summary>
-        /// ע����Ϣ������
-        /// </summary>
         void InitHandler()
         {
             mDispatchers.Add((byte)ProtoType.CSProtoMsg, new CSMsgDispatcher());
@@ -56,17 +53,11 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// Socket����
-        /// </summary>
         private void OnSocketUpdate()
         {
             mClient.PollEvents();
         }
         
-        /// <summary>
-        /// ��������
-        /// </summary>
         private void OnProcessPack()
         {
             var peer = mClient.FirstPeer;
@@ -82,9 +73,6 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// Connect to the server.
-        /// </summary>
         [NoToLua]
         public void Connect(string addr, int port, Action connectOK)
         {
@@ -103,6 +91,7 @@ namespace FirClient.Manager
             Debug.LogWarning("Server Connected!!");
         }
 
+        [NoToLua]
         public void SendData<T>(string protoName, T t) 
         {
             var bytes = Serialize<T>(t);
@@ -139,9 +128,6 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// ��Ϣ����
-        /// </summary>
         [NoToLua]
         public void OnReceived(NetPeer peer, NetDataReader reader)
         {
@@ -156,9 +142,6 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// ��������
-        /// </summary>
         private void SendPacketData(PacketData pack)
         {
             if (pack != null)

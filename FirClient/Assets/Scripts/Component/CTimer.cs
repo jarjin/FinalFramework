@@ -1,7 +1,6 @@
 using LuaInterface;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FirClient.Component
 {
@@ -58,11 +57,6 @@ namespace FirClient.Component
             OnTicker(deltaTime);    //
         }
 
-        /// <summary>
-        /// ��Ӽ�ʱ���¼�
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="o"></param>
         public TimerInfo AddTimer(float expires, float interval, Action<object> func, object param = null, bool runNow = false)
         {
             lock (mlock)
@@ -94,10 +88,6 @@ namespace FirClient.Component
             }
         }
 
-        /// <summary>
-        /// ɾ����ʱ���¼�
-        /// </summary>
-        /// <param name="name"></param>
         public void RemoveTimer(TimerInfo timer)
         {
             lock (mlock)
@@ -109,9 +99,6 @@ namespace FirClient.Component
             }
         }
 
-        /// <summary>
-        /// ��ʱ������
-        /// </summary>
         void OnTimer(float deltaTime)
         {
             if (timers.Count > 0)
@@ -182,11 +169,6 @@ namespace FirClient.Component
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// ���֡����
-        /// </summary>
-        /// <param name="kv">Key:ActionType,Value:frame</param>
-        /// <param name="action">Callback</param>
         public void CreateTicker(Dictionary<uint, uint> kv, object param, Action<uint, object> action)
         {
             lock (mlock)

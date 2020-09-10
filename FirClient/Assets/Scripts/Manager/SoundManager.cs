@@ -23,9 +23,6 @@ namespace FirClient.Manager
         {
         }
 
-        /// <summary>
-        /// ���һ������
-        /// </summary>
         void Add(string key, AudioClip value)
         {
             if (sounds[key] != null || value == null)
@@ -35,9 +32,6 @@ namespace FirClient.Manager
             sounds.Add(key, value);
         }
 
-        /// <summary>
-        /// ��ȡһ������
-        /// </summary>
         AudioClip Get(string key)
         {
             if (sounds[key] == null)
@@ -47,9 +41,6 @@ namespace FirClient.Manager
             return sounds[key] as AudioClip;
         }
 
-        /// <summary>
-        /// ����һ����Ƶ
-        /// </summary>
         void LoadAudioClip(string path, Action<AudioClip> action)
         {
             AudioClip ac = Get(path);
@@ -76,10 +67,6 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// �Ƿ񲥷ű������֣�Ĭ����1������
-        /// </summary>
-        /// <returns></returns>
         public bool CanPlayBackSound()
         {
             string key = AppConst.AppPrefix + "BackSound";
@@ -87,10 +74,6 @@ namespace FirClient.Manager
             return i == 1;
         }
 
-        /// <summary>
-        /// ���ű�������
-        /// </summary>
-        /// <param name="canPlay"></param>
         public void PlayBacksound(string name, bool canPlay)
         {
             if (audio.clip != null)
@@ -122,10 +105,6 @@ namespace FirClient.Manager
             }
         }
 
-        /// <summary>
-        /// �Ƿ񲥷���Ч,Ĭ����1������
-        /// </summary>
-        /// <returns></returns>
         public bool CanPlaySoundEffect()
         {
             string key = AppConst.AppPrefix + "SoundEffect";
@@ -133,11 +112,6 @@ namespace FirClient.Manager
             return i == 1;
         }
 
-        /// <summary>
-        /// ������Ƶ���
-        /// </summary>
-        /// <param name="clip"></param>
-        /// <param name="position"></param>
         void PlayInternal(AudioClip clip, Vector3 position)
         {
             if (!CanPlaySoundEffect())
@@ -147,10 +121,6 @@ namespace FirClient.Manager
             AudioSource.PlayClipAtPoint(clip, position);
         }
 
-        /// <summary>
-        /// ��������
-        /// </summary>
-        /// <param name="path"></param>
         public void Play(string path)
         {
             LoadAudioClip(path, delegate (AudioClip clip)
