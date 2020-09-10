@@ -12,8 +12,8 @@ end
 
 function UIManager:InitUILayers()
 	self:CreateLayer('MapAbout', UILayer.MapAbout)
-	self:CreateLayer('Common', UILayer.Common)
 	self:CreateLayer('Fixed', UILayer.Fixed)
+	self:CreateLayer('Common', UILayer.Common)
 	self:CreateLayer('Movie', UILayer.Movie)
 	self:CreateLayer('Effect', UILayer.Effect)
 	self:CreateLayer('Top', UILayer.Top)

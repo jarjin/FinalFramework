@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ebf414c24c3414182f07e675b2ae44, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  debugMode: 0
+  debugMode: 1
   logMode: 1
   updateMode: 0
   luaByteMode: 0

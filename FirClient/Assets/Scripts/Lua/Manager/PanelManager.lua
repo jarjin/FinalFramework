@@ -3,12 +3,16 @@ local PanelManager = class("PanelManager")
 function PanelManager:Initialize()
 	self.mPanels = {}
 	self.mPrefabs = {}
+	self.mCtrls = {}
 	logWarn('PanelManager:InitializeOK...')
 end
 
+function PanelManager:GetPanelCtrl(uiCtrlName)
+	return self.mCtrls[uiCtrlName]
+end
+
 function PanelManager:OnUiShow(uiCtrlName)
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
-	local ctrl = ctrlMgr:GetCtrl(uiCtrlName)
+	local ctrl = self.mCtrls[uiCtrlName]
 	if ctrl ~= nil and ctrl.OnShow ~= nil then
 		ctrl:OnShow()
 	end
@@ -26,6 +30,7 @@ function PanelManager:CreatePanel(ctrl, layer, abName, createOK)
 	local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
 	resMgr:LoadAssetAsync(abPath, { panelName }, typeof(GameObject), function(objs) 
 		if objs ~= nil and objs[0] ~= nil then
+			self.mCtrls[abName] = ctrl
 			self:CreatePanelInternal(ctrl, panelName, objs[0], parent, createOK)
 		end
 	end)
