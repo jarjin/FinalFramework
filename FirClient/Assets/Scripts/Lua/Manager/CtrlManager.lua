@@ -10,7 +10,6 @@ local uiHeroCtrl = require "UIController/UIHeroCtrl"
 local uiDungeonCtrl = require "UIController/UIDungeonCtrl"
 local uiTipsCtrl = require "UIController/UITipsCtrl"
 local uiItemTipsCtrl = require "UIController/UIItemTipsCtrl"
-local uiBaseMapCtrl = require "UIController/UIBaseMapCtrl"
 local uiBagCtrl = require "UIController/UIBagCtrl"
 local uiChooseActorCtrl = require "UIController/UIChooseActorCtrl"
 
@@ -32,7 +31,6 @@ function CtrlManager:Initialize()
 	self:AddCtrl(UiNames.Dungeon, uiDungeonCtrl)
 	self:AddCtrl(UiNames.Tips, uiTipsCtrl)
 	self:AddCtrl(UiNames.ItemTips, uiItemTipsCtrl)
-	self:AddCtrl(UiNames.BaseMap, uiBaseMapCtrl)
 	self:AddCtrl(UiNames.Bag, uiBagCtrl)
 	self:AddCtrl(UiNames.ChooseActor, uiChooseActorCtrl)
 

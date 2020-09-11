@@ -93,6 +93,7 @@ public abstract class BaseBehaviour
         if (mainGame != null)
         {
             mainGame.AddComponent<CObjectFollow>();
+            mainGame.AddComponent<CFPSDisplay>();
         }
     }
 
