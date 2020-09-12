@@ -13,6 +13,7 @@ public class AppConstWrap
 		L.RegVar("LogMode", get_LogMode, set_LogMode);
 		L.RegVar("UpdateMode", get_UpdateMode, set_UpdateMode);
 		L.RegVar("LuaByteMode", get_LuaByteMode, set_LuaByteMode);
+		L.RegVar("ShowFps", get_ShowFps, set_ShowFps);
 		L.RegVar("AppState", get_AppState, set_AppState);
 		L.RegVar("GameFrameRate", get_GameFrameRate, set_GameFrameRate);
 		L.RegConstant("BatchProcCount", 5);
@@ -115,6 +116,20 @@ public class AppConstWrap
 		try
 		{
 			LuaDLL.lua_pushboolean(L, AppConst.LuaByteMode);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ShowFps(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushboolean(L, AppConst.ShowFps);
 			return 1;
 		}
 		catch (Exception e)
@@ -413,6 +428,21 @@ public class AppConstWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			AppConst.LuaByteMode = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ShowFps(IntPtr L)
+	{
+		try
+		{
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			AppConst.ShowFps = arg0;
 			return 0;
 		}
 		catch (Exception e)

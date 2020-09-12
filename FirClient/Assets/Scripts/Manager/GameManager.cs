@@ -18,16 +18,6 @@ namespace FirClient.Manager
             //Screen.SetResolution(640, 1136, false);
             DOTween.Init(true, true, LogBehaviour.Default);
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-            var settings = Util.LoadGameSettings();
-            if (settings != null)
-            {
-                AppConst.LogMode = settings.logMode;
-                AppConst.DebugMode = settings.debugMode;
-                AppConst.GameFrameRate = settings.GameFrameRate;
-                AppConst.UpdateMode = settings.updateMode;
-                AppConst.LuaByteMode = settings.luaByteMode;
-            }
             Util.SetDebugState(AppConst.LogMode);           //设置日志
             Application.targetFrameRate = AppConst.GameFrameRate;
             LoadingUI.Instance().Open(ResInitialize);      //创建LoadingUI

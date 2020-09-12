@@ -10,7 +10,6 @@ public class BaseBehaviourWrap
 		L.RegFunction("Instantiate", Instantiate);
 		L.RegFunction("Destroy", Destroy);
 		L.RegFunction("StartCoroutine", StartCoroutine);
-		L.RegFunction("Initialize", Initialize);
 		L.RegFunction("GetExtManager", GetExtManager);
 		L.RegFunction("GetManager", GetManager);
 		L.RegFunction("OnUpdate", OnUpdate);
@@ -87,21 +86,6 @@ public class BaseBehaviourWrap
 			UnityEngine.Coroutine o = obj.StartCoroutine(arg0);
 			ToLua.PushSealed(L, o);
 			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Initialize(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 0);
-			BaseBehaviour.Initialize();
-			return 0;
 		}
 		catch (Exception e)
 		{

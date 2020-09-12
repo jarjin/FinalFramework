@@ -66,6 +66,9 @@ public class GameSettings : ScriptableObject
     [Tooltip("Lua的字节码模式")]
     public bool luaByteMode;
 
+    [Tooltip("显示帧频数据")]
+    public bool showFps;
+
     [Tooltip("AStar的调试模式")]
     public bool aStarDebugMode;
 

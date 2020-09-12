@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FirClient.Manager;
 using FirClient.Component;
+using FirClient.Utility;
+using LuaInterface;
 
 public abstract class BaseBehaviour
 {
@@ -77,11 +79,30 @@ public abstract class BaseBehaviour
         return ManagementCenter.main.StartCoroutine(routine);
     }
 
+    [NoToLua]
     public static void Initialize()
     {
+        InitGameSettings();
         InitManager();
         InitExtManager();
         InitComponent();
+    }
+
+    /// <summary>
+    /// 初始化游戏设置
+    /// </summary>
+    private static void InitGameSettings()
+    {
+        var settings = Util.LoadGameSettings();
+        if (settings != null)
+        {
+            AppConst.LogMode = settings.logMode;
+            AppConst.DebugMode = settings.debugMode;
+            AppConst.GameFrameRate = settings.GameFrameRate;
+            AppConst.UpdateMode = settings.updateMode;
+            AppConst.LuaByteMode = settings.luaByteMode;
+            AppConst.ShowFps = settings.showFps;
+        }
     }
 
     /// <summary>
@@ -93,7 +114,10 @@ public abstract class BaseBehaviour
         if (mainGame != null)
         {
             mainGame.AddComponent<CObjectFollow>();
-            mainGame.AddComponent<CFPSDisplay>();
+            if (AppConst.ShowFps)
+            {
+                mainGame.AddComponent<CFPSDisplay>();
+            }
         }
     }
 
