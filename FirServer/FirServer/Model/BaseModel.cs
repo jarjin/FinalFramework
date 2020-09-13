@@ -84,7 +84,7 @@ namespace FirServer.Model
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public DataSet Exist(string uid)
+        public bool Exist(string uid)
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {

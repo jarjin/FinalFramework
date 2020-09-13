@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using log4net;
-using MySql.Data.MySqlClient;
-using FirServer.Utility;
 using FirServer.Interface;
+using FirServer.Utility;
 
 namespace FirServer.Manager
 {
     public class DataManager : BaseBehaviour, IManager
     {
         const int expireTime = 86400 * 3;
+        private static MongoHelper mongoHelper = null;
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(DataManager));
 
         /// <summary>
@@ -20,20 +18,7 @@ namespace FirServer.Manager
         public void Initialize()
         {
             dataMgr = this;
-
-            //RedisUtility.Initialize();
-            //MysqlUtility.Initialize();
-        }
-
-        public MySqlDbType GetDbType(string typestr)
-        {
-            switch(typestr)
-            {
-                case "int": return MySqlDbType.Int32;
-                case "str": return MySqlDbType.VarChar;
-                case "long": return MySqlDbType.Int64;
-                default: return MySqlDbType.VarChar;
-            }
+            mongoHelper = new MongoHelper("foo", "mongodb://localhost:27017,localhost:27018,localhost:27019");
         }
 
         /// <summary>
@@ -44,22 +29,22 @@ namespace FirServer.Manager
         /// <returns></returns>
         public long Add(string tabName, List<string> values)
         {
-            string valuestr = string.Empty;
-            var sqlParams = new MySqlParameter[values.Count];
-            for(int i = 0; i < values.Count; i++)
-            {
-                var strKey = "@value" + i;
-                var strs = values[i].Split(':');
-                var dbType = GetDbType(strs[0]);
-                sqlParams[i] = new MySqlParameter(strKey, dbType) { Value = strs[1] };
+            //string valuestr = string.Empty;
+            //var sqlParams = new MySqlParameter[values.Count];
+            //for(int i = 0; i < values.Count; i++)
+            //{
+            //    var strKey = "@value" + i;
+            //    var strs = values[i].Split(':');
+            //    var dbType = GetDbType(strs[0]);
+            //    sqlParams[i] = new MySqlParameter(strKey, dbType) { Value = strs[1] };
 
-                if (!string.IsNullOrEmpty(valuestr))
-                {
-                    valuestr += ", ";
-                }
-                valuestr += strKey;
-            }
-            string strsql = "insert into " + tabName + " values (" + valuestr + ");";
+            //    if (!string.IsNullOrEmpty(valuestr))
+            //    {
+            //        valuestr += ", ";
+            //    }
+            //    valuestr += strKey;
+            //}
+            //string strsql = "insert into " + tabName + " values (" + valuestr + ");";
             //return MysqlUtility.ExecuteSql(strsql, sqlParams);
             return 0;
         }
@@ -73,17 +58,17 @@ namespace FirServer.Manager
         /// <param name="value"></param>
         public void Set(string tabName, string uid, string key, string value)
         {
-            var strs = value.Split(':');
-            var dbType = GetDbType(strs[0]);
-            var sqlParams = new MySqlParameter[]
-            {
-                new MySqlParameter("@value", dbType) { Value = strs[1] },
-                new MySqlParameter("@openid", MySqlDbType.VarChar) { Value = uid },
-            };
-            string strKey = tabName + "_" + uid + "_" + key;
-            //RedisUtility.StringSet(strKey, strs[1], expireTime);
+            //var strs = value.Split(':');
+            //var dbType = GetDbType(strs[0]);
+            //var sqlParams = new MySqlParameter[]
+            //{
+            //    new MySqlParameter("@value", dbType) { Value = strs[1] },
+            //    new MySqlParameter("@openid", MySqlDbType.VarChar) { Value = uid },
+            //};
+            //string strKey = tabName + "_" + uid + "_" + key;
+            ////RedisUtility.StringSet(strKey, strs[1], expireTime);
 
-            var strsql = "update " + tabName + " set " + key + "=@value where openid=@openid";
+            //var strsql = "update " + tabName + " set " + key + "=@value where openid=@openid";
             //MysqlUtility.ExecuteSql(strsql, sqlParams);
         }
 
@@ -139,44 +124,45 @@ namespace FirServer.Manager
         /// <returns></returns>
         public DataSet Query(string tabName, List<string> values = null, int rowCount = 0)
         {
-            MySqlParameter[] sqlParams = null;
-            var limitStr = string.Empty;
-            if (rowCount > 0) {
-                limitStr = " limit " + rowCount;
-            }
-            var strsql = "select * from " + tabName;
-            if (values != null)
-            {
-                string valuestr = string.Empty;
-                sqlParams = new MySqlParameter[values.Count];
-                for (int i = 0; i < values.Count; i++)
-                {
-                    var strs = values[i].Split(':');
-                    var valKey = "@value" + i;
-                    var dateType = GetDbType(strs[0]);
-                    var keyValues = strs[1].Split('=');
-                    sqlParams[i] = new MySqlParameter(valKey, dateType) { 
-                        Value = keyValues[1] 
-                    };
-                    if (!string.IsNullOrEmpty(valuestr))
-                    {
-                        valuestr += " and ";
-                    }
-                    valuestr += keyValues[0] + "=" + valKey;
-                }
-                strsql += " where " + valuestr;
-            }
-            strsql += limitStr;
-            DataSet dataset = null;
-            try
-            {
-                //dataset = MysqlUtility.ExecuteQuery(strsql, sqlParams);
-            }
-            finally
-            {
-                logger.Info("strsql:" + strsql);
-            }
-            return dataset;
+            //MySqlParameter[] sqlParams = null;
+            //var limitStr = string.Empty;
+            //if (rowCount > 0) {
+            //    limitStr = " limit " + rowCount;
+            //}
+            //var strsql = "select * from " + tabName;
+            //if (values != null)
+            //{
+            //    string valuestr = string.Empty;
+            //    sqlParams = new MySqlParameter[values.Count];
+            //    for (int i = 0; i < values.Count; i++)
+            //    {
+            //        var strs = values[i].Split(':');
+            //        var valKey = "@value" + i;
+            //        var dateType = GetDbType(strs[0]);
+            //        var keyValues = strs[1].Split('=');
+            //        sqlParams[i] = new MySqlParameter(valKey, dateType) { 
+            //            Value = keyValues[1] 
+            //        };
+            //        if (!string.IsNullOrEmpty(valuestr))
+            //        {
+            //            valuestr += " and ";
+            //        }
+            //        valuestr += keyValues[0] + "=" + valKey;
+            //    }
+            //    strsql += " where " + valuestr;
+            //}
+            //strsql += limitStr;
+            //DataSet dataset = null;
+            //try
+            //{
+            //    //dataset = MysqlUtility.ExecuteQuery(strsql, sqlParams);
+            //}
+            //finally
+            //{
+            //    logger.Info("strsql:" + strsql);
+            //}
+            //return dataset;
+            return null;
         }
 
         /// <summary>
@@ -185,23 +171,24 @@ namespace FirServer.Manager
         /// <param name="tabName"></param>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public DataSet Exist(string tabName, string uid)
+        public bool Exist(string tabName, string uid)
         {
-            var sqlParams = new MySqlParameter[]
-            {
-                new MySqlParameter("@uid", MySqlDbType.VarChar) { Value = uid },
-            };
-            var strsql = "select * from " + tabName + " where uid=@uid";
-            DataSet dataset = null;
-            try
-            {
-                //dataset = MysqlUtility.ExecuteQuery(strsql, sqlParams);
-            }
-            finally
-            {
-                logger.Info("strsql:" + strsql);
-            }
-            return dataset;
+            //var sqlParams = new MySqlParameter[]
+            //{
+            //    new MySqlParameter("@uid", MySqlDbType.VarChar) { Value = uid },
+            //};
+            //var strsql = "select * from " + tabName + " where uid=@uid";
+            //DataSet dataset = null;
+            //try
+            //{
+            //    //dataset = MysqlUtility.ExecuteQuery(strsql, sqlParams);
+            //}
+            //finally
+            //{
+            //    logger.Info("strsql:" + strsql);
+            //}
+            //return dataset;
+            return false;
         }
 
         /// <summary>
