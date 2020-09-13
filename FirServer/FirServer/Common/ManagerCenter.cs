@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using log4net;
-using FirServer.Managers;
+using FirServer.Manager;
 using FirServer.Interface;
 
 namespace FirServer.Common

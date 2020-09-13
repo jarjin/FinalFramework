@@ -1,4 +1,4 @@
-﻿using FirServer.Handlers;
+﻿using FirServer.Handler;
 using LiteNetLib;
 
 namespace GameLibs.FirSango.Handlers

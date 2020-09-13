@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 using System.Net.WebSockets;
-using FirServer.Defines;
+using FirServer.Define;
 using FirServer.Interface;
 
 namespace GameLibs.FirSango.Interface

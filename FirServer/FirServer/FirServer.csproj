@@ -15,6 +15,15 @@
     <PackageReference Include="MySql.Data" Version="8.0.11" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>3rd\mongo-csharp-driver\MongoDB.Bson\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>3rd\mongo-csharp-driver\MongoDB.Driver\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>3rd\mongo-csharp-driver\MongoDB.Driver\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
       <HintPath>3rd\Protobuf\protobuf-net.dll</HintPath>
     </Reference>

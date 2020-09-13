@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FirServer.Defines;
+using FirServer.Define;
 using GameLibs.FirSango.Interface;
 
 namespace GameLibs.FirSango

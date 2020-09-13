@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.WebSockets;
-using FirServer.Defines;
-using FirServer.Managers;
+using FirServer.Define;
+using FirServer.Manager;
 using LitJson;
 
 namespace FirServer

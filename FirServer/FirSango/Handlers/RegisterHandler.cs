@@ -1,10 +1,10 @@
 ﻿using log4net;
-using FirServer.Defines;
-using FirServer.Models;
+using FirServer.Define;
+using FirServer.Model;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using System.Collections.Generic;
-using FirServer.Handlers;
+using FirServer.Handler;
 using FirServer;
 using GameLibs.FirSango.Defines;
 using Utility;

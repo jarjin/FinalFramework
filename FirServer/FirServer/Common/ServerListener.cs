@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using FirServer.Defines;
+using FirServer.Define;
 using LiteNetLib;
 using log4net;
 

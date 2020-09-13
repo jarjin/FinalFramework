@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using FirServer;
-using FirServer.Defines;
-using FirServer.Handlers;
-using FirServer.Models;
+using FirServer.Define;
+using FirServer.Handler;
+using FirServer.Model;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using log4net;

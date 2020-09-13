@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using FirServer.Defines;
+using FirServer.Define;
 using Utility;
 
 namespace FirServer
