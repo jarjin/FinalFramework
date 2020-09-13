@@ -29,24 +29,19 @@ namespace LiteNetLib
 
         public static IPAddress ResolveAddress(string hostStr)
         {
+            if(hostStr == "localhost")
+                return IPAddress.Loopback;
+            
             IPAddress ipAddress;
             if (!IPAddress.TryParse(hostStr, out ipAddress))
             {
                 if (NetSocket.IPv6Support)
-                {
-                    ipAddress = hostStr == "localhost"
-                        ? IPAddress.IPv6Loopback
-                        : ResolveAddress(hostStr, AddressFamily.InterNetworkV6);
-                }
+                    ipAddress = ResolveAddress(hostStr, AddressFamily.InterNetworkV6);
                 if (ipAddress == null)
-                {
                     ipAddress = ResolveAddress(hostStr, AddressFamily.InterNetwork);
-                }
             }
             if (ipAddress == null)
-            {
                 throw new ArgumentException("Invalid address: " + hostStr);
-            }
 
             return ipAddress;
         }
@@ -66,7 +61,7 @@ namespace LiteNetLib
 
         private static IPAddress[] ResolveAddresses(string hostStr)
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD || NETCOREAPP
             var hostTask = Dns.GetHostEntryAsync(hostStr);
             hostTask.GetAwaiter().GetResult();
             var host = hostTask.Result;
@@ -80,7 +75,7 @@ namespace LiteNetLib
         /// Get all local ip addresses
         /// </summary>
         /// <param name="addrType">type of address (IPv4, IPv6 or both)</param>
-        /// <returns>List with all local ip adresses</returns>
+        /// <returns>List with all local ip addresses</returns>
         public static List<string> GetLocalIpList(LocalAddrType addrType)
         {
             List<string> targetList = new List<string>();
@@ -93,7 +88,7 @@ namespace LiteNetLib
         /// </summary>
         /// <param name="targetList">result list</param>
         /// <param name="addrType">type of address (IPv4, IPv6 or both)</param>
-        public static void GetLocalIpList(List<string> targetList, LocalAddrType addrType)
+        public static void GetLocalIpList(IList<string> targetList, LocalAddrType addrType)
         {
             bool ipv4 = (addrType & LocalAddrType.IPv4) == LocalAddrType.IPv4;
             bool ipv6 = (addrType & LocalAddrType.IPv6) == LocalAddrType.IPv6;

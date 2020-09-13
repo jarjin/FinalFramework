@@ -109,12 +109,12 @@ namespace FirServer.Managers
                     var database = new DatabaseConfig();
                     database.Tag = obj.Attribute("tag");
                     database.IP = obj.Attribute("ip");
-                    database.Port = obj.Attribute("port").ToInt();
+                    database.Port = int.Parse(obj.Attribute("port"));
                     database.Database = obj.Attribute("database");
                     database.Username = obj.Attribute("username");
                     database.Password = obj.Attribute("password");
                     database.CharSet = obj.Attribute("charset");
-                    database.DefaultCommandTimeout = obj.Attribute("defaultcommandtimeout").ToInt();
+                    database.DefaultCommandTimeout = int.Parse(obj.Attribute("defaultcommandtimeout"));
                     _databaseConfig = database;
                 }
             }

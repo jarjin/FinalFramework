@@ -38,7 +38,8 @@ namespace Utility
         }
         
         ///等待一帧
-        public static async Task Waitforms(int ms) {
+        public static async Task Waitforms(int ms) 
+        {
             await Task.Run(() =>                                          
             {
                 Thread.Sleep(ms); 

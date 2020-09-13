@@ -6,9 +6,17 @@ using log4net;
 
 namespace FirServer
 {
-    public class ServerListener : BaseBehaviour, INetEventListener
+    public class ServerListener : BaseBehaviour, INetEventListener, INetLogger
     {
+        private NetManager mServer = null;
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ServerListener));
+
+        public void StartServer(int port)
+        {
+            mServer = new NetManager(this);
+            mServer.Start(port);
+            mServer.UpdateTime = 15;
+        }
 
         public void OnPeerConnected(NetPeer peer)
         {
@@ -42,10 +50,39 @@ namespace FirServer
         {
         }
 
+        internal void OnUpdate()
+        {
+            if (mServer != null)
+            {
+                mServer.PollEvents();
+            }
+        }
+
         public void OnConnectionRequest(ConnectionRequest request)
         {
-            request.AcceptIfKey(AppConst.AppName);
+            if (mServer.GetPeersCount(ConnectionState.Connected) < 10)
+            {
+                request.AcceptIfKey(AppConst.AppName);
+            }
+            else
+            {
+                request.Reject();       //拒绝掉链接
+            }
             logger.Info("OnConnectionRequest--->>" + request.RemoteEndPoint);
+        }
+
+        public void WriteNet(NetLogLevel level, string str, params object[] args)
+        {
+            logger.InfoFormat(str, args);
+        }
+
+        internal void StopServer()
+        {
+            if (mServer != null)
+            {
+                mServer.Stop();
+                mServer = null;
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ namespace GameLibs.FirSango
     {
         private uint roomId = 0;
         private uint maxCount = 0;
-        private bool isPlaying = false;
         private Dictionary<long, User> users = new Dictionary<long, User>();
 
         public void Initialize(string name, uint roomId)

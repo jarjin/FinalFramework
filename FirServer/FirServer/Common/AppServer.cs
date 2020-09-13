@@ -2,8 +2,6 @@
 using System.IO;
 using FirServer.Common;
 using FirServer.Interface;
-using FirServer.Managers;
-using LiteNetLib;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -18,9 +16,7 @@ namespace FirServer
 
         public bool IsRunning { get; private set; }
 
-        public NetManager mServer { get; private set; }
         private ServerListener mListener = null;
-        private NetworkManager mNetMgr = null;
 
         protected void Initialize(int port)
         {
@@ -32,20 +28,9 @@ namespace FirServer
             logger = LogManager.GetLogger(repository.Name, typeof(AppServer));
 
             ManagerCenter.Initialize();
-            mNetMgr = ManagerCenter.GetManager<NetworkManager>();
 
-            StartServer(port);
-        }
-
-        /// <summary>
-        /// 初始化服务器
-        /// </summary>
-        public void StartServer(int port)
-        {
             mListener = new ServerListener();
-            mServer = new NetManager(mListener);
-            mServer.Start(port);
-            mServer.UpdateTime = 15;
+            mListener.StartServer(port);
             IsRunning = true;
             logger.Warn("MasterServer Started!!");
         }
@@ -55,11 +40,7 @@ namespace FirServer
         /// </summary>
         public void StopServer()
         {
-            if (mServer != null)
-            {
-                mServer.Stop();
-                mServer = null;
-            }
+            mListener.StopServer();
             IsRunning = false;
             logger.Warn("MasterServer Stoped!!");
         }
@@ -67,10 +48,8 @@ namespace FirServer
 
         public void OnUpdate()
         {
-            if (mServer != null)
-            {
-                mServer.PollEvents();
-            }
+            mListener.OnUpdate();
+
             ///更新管理器
             foreach (var de in mManagers)
             {
