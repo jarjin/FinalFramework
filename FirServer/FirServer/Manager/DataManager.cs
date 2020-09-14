@@ -18,7 +18,7 @@ namespace FirServer.Manager
         public void Initialize()
         {
             dataMgr = this;
-            mongoHelper = new MongoHelper("foo", "mongodb://localhost:27017,localhost:27018,localhost:27019");
+            mongoHelper = new MongoHelper("foo", "mongodb://localhost:27017");
         }
 
         /// <summary>

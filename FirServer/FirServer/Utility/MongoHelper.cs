@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using log4net.Core;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -19,15 +20,9 @@ namespace FirServer.Utility
             _client = new MongoClient(connectUrl);
             _database = _client.GetDatabase(dbname);
         }
-
-        public MongoHelper(string dbname, ILogger log)
-        {
-            _client = new MongoClient();
-            _database = _client.GetDatabase(dbname);
-            _logger = log;
-        }
-
-        public long? Count<T>(string collectionName)
+        
+        #region Count Function
+        public long Count(string collectionName)
         {
             try
             {
@@ -38,33 +33,82 @@ namespace FirServer.Utility
             {
                 WriteError("Count", "Count(string collectionName)", ex.Message);
             }
-            return null;
+            return 0;
+        }
+
+        public async Task<long> CountAsync(string collectionName)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                return await collection.CountDocumentsAsync(collectionName);
+            }
+            catch (Exception ex)
+            {
+                WriteError("Count", "Count(string collectionName)", ex.Message);
+            }
+            return 0;
         }
 
         public long Count(string collectionName, FilterDefinition<BsonDocument> filter)
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            return collection.Find(filter).Count();
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                return collection.CountDocuments(filter);
+            }
+            catch (Exception ex)
+            {
+                WriteError("Count", "Count(string collectionName)", ex.Message);
+            }
+            return 0;
         }
 
         public long Count(string collectionName, string field, string value)
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            return collection.Find(Builders<BsonDocument>.Filter.Eq(field, value)).Count();
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                return collection.CountDocuments(Builder.FilterEq(field, value));
+            }
+            catch (Exception ex)
+            {
+                WriteError("Count", "Count(string collectionName)", ex.Message);
+            }
+            return 0;
         }
 
         public long Count(string collectionName, string field, ObjectId id)
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            return collection.Find(Builders<BsonDocument>.Filter.Eq(field, id)).Count();
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                return collection.CountDocuments(Builder.FilterEq(field, id));
+            }
+            catch (Exception ex)
+            {
+                WriteError("Count", "Count(string collectionName)", ex.Message);
+            }
+            return 0;
         }
 
         public long Count<T>(string collectionName, string field, T value)
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            return collection.Find(Builders<BsonDocument>.Filter.Eq<T>(field, value)).Count();
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                return collection.CountDocuments(Builder.FilterEq(field, value));
+            }
+            catch (Exception ex)
+            {
+                WriteError("Count", "Count(string collectionName)", ex.Message);
+            }
+            return 0;
         }
+        #endregion
 
+
+        #region Select Function
         public List<T> Select<T>(string collectionName, FilterDefinition<BsonDocument> filter)
         {
             var collection = _database.GetCollection<BsonDocument>(collectionName);
@@ -88,6 +132,21 @@ namespace FirServer.Utility
             return BsonSerializer.Deserialize<T>(result.ElementAt(0));
         }
 
+        public async Task<List<T>> SelectAsync<T>(string collectionName, FilterDefinition<BsonDocument> filter)
+        {
+            var collection = _database.GetCollection<BsonDocument>(collectionName);
+            var result = await collection.Find(filter).ToListAsync();
+            List<T> returnList = new List<T>();
+            foreach (var l in result)
+            {
+                returnList.Add(BsonSerializer.Deserialize<T>(l));
+            }
+            return returnList;
+        }
+        #endregion
+
+
+        #region Insert Function
         public bool Insert(string collectionName, BsonDocument doc)
         {
             try
@@ -116,12 +175,28 @@ namespace FirServer.Utility
             }
         }
 
+        public async Task<bool> InsertAsync(string collectionName, BsonDocument doc)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                await collection.InsertOneAsync(doc);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                WriteError("InsertAsync", "InsertAsync(string collectionName)", ex.Message);
+            }
+            return false;
+        }
+
         public bool InsertMany<T>(string collectionName, IEnumerable<T> documents)
         {
             try
             {
-                List<BsonDocument> docs = new List<BsonDocument>();
-                for (int i = 0; i < documents.Count(); i++)
+                var docs = new List<BsonDocument>();
+                var count = documents.Count();
+                for (int i = 0; i < count; i++)
                 {
                     docs[i] = documents.ElementAt(i).ToBsonDocument();
                 }
@@ -135,6 +210,30 @@ namespace FirServer.Utility
             }
         }
 
+        public async Task<bool> InsertManyAsync<T>(string collectionName, IEnumerable<T> documents)
+        {
+            try
+            {
+                var docs = new List<BsonDocument>();
+                var count = documents.Count();
+                for (int i = 0; i < count; i++)
+                {
+                    docs[i] = documents.ElementAt(i).ToBsonDocument();
+                }
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                await collection.InsertManyAsync(docs);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                WriteError("InsertManyAsync", "InsertManyAsync(collectionName, documents)", ex.Message);
+            }
+            return false;
+        }
+        #endregion
+
+
+        #region Update Function
         public bool UpdateOne(string collectionName, FilterDefinition<BsonDocument> filter, UpdateDefinition<BsonDocument> update)
         {
             try
@@ -153,9 +252,8 @@ namespace FirServer.Utility
         {
             try
             {
-                var filter = Builders<BsonDocument>.Filter.Eq(fieldName, value);
                 var collection = _database.GetCollection<BsonDocument>(collectionName);
-                collection.UpdateOne(filter, update);
+                collection.UpdateOne(Builder.FilterEq(fieldName, value), update);
                 return true;
             }
             catch
@@ -164,13 +262,61 @@ namespace FirServer.Utility
             }
         }
 
-        public bool UpdateArray<T>(string collectionName, string arrayField, List<T> list, FilterDefinition<BsonDocument> filter)
+        public async Task<bool> UpdateOneAsync(string collectionName, string fieldName, string value, UpdateDefinition<BsonDocument> update)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                await collection.UpdateOneAsync(Builder.FilterEq(fieldName, value), update);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public long UpdateMany<T>(string collectionName, string arrayField, List<T> list, FilterDefinition<BsonDocument> filter)
         {
             try
             {
                 var collection = _database.GetCollection<BsonDocument>(collectionName);
                 var update = Builders<BsonDocument>.Update.PushEach(arrayField, list);
-                collection.FindOneAndUpdate<BsonDocument>(filter, update);
+                var result = collection.UpdateMany(filter, update);
+                if (result.IsModifiedCountAvailable)
+                {
+                    return result.ModifiedCount;
+                }
+            }
+            catch { }
+            return 0;
+        }
+
+        public async Task<long> UpdateManyAsync<T>(string collectionName, string arrayField, List<T> list, FilterDefinition<BsonDocument> filter)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var update = Builders<BsonDocument>.Update.PushEach(arrayField, list);
+                var result = await collection.UpdateManyAsync(filter, update);
+                if (result.IsModifiedCountAvailable)
+                {
+                    return result.ModifiedCount;
+                }
+            }
+            catch { }
+            return 0;
+        }
+        #endregion
+
+
+        #region Delete Function
+        public bool Delete(string collectionName, FilterDefinition<BsonDocument> filter)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                collection.DeleteOne(filter);
                 return true;
             }
             catch
@@ -179,16 +325,63 @@ namespace FirServer.Utility
             }
         }
 
-        public bool Delete(string collectionName, FilterDefinition<BsonDocument> filter)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Delete(string collectionName, string fieldName, string value)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq(fieldName, value);
-            throw new NotImplementedException();
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                collection.DeleteOne(Builder.FilterEq(fieldName, value));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
+        public async Task<bool> DeleteAsync(string collectionName, string fieldName, string value)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                await collection.DeleteOneAsync(Builder.FilterEq(fieldName, value));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public long DeleteMany(string collectionName, FilterDefinition<BsonDocument> filter)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var result = collection.DeleteMany(filter);
+                return result.DeletedCount;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public async Task<long> DeleteManyAsync(string collectionName, string fieldName, string value)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var result = await collection.DeleteManyAsync(Builder.FilterEq(fieldName, value));
+                return result.DeletedCount;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        #endregion
 
         private void WriteError(string title, string function, string message)
         {
