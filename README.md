@@ -4,8 +4,8 @@
 2018年公司同事要做自走棋项目跟我寻求框架，LuaFramework过于示例化并不合适，NewFramework过于轻量，因此在NewFramework基础上，将LuaFramework合并过来，变成了一个新的架构。因此自那时起到今年一直在利用业余时间完善这个新的框架，今天很开心将它开源给大家使用。
 
 #### 运行环境（版本太低的需要自力更生了）
-FirClient： Unity 2019.3.2f1 (64-bit) + Visual Studio 2019  
-FirServer:  .Net Core 2.2 + Visual Studio 2019  
+FirClient： Unity 2019.4.8f1 (64-bit) + Visual Studio 2019  
+FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
 FirToolkit: Visual Studio 2019  
 
 #### 框架特征：

@@ -31,22 +31,13 @@ namespace FirServer.Model
         /// </summary>
         public long ExistUser(string username, string password)
         {
-            var row = GetDoc<UserInfo>(u => u.username == username && u.password == password);
-            if (row == null)
-            {
-                return 0L;
-            }
-            return row["uid"].AsInt64;
+            return Exist<UserInfo>(u => u.username == username && u.password == password);
         }
 
         public string GetUserName(long uid)
         {
             var result = Get<UserInfo>("username", u => u.uid == uid);
-            if (result != null)
-            {
-                return result.AsString;
-            }
-            return null;
+            return result == null ? null : result.AsString;
         }
 
         public void SetUserName(long uid, string value)
@@ -58,11 +49,7 @@ namespace FirServer.Model
         public long GetMoney(long uid)
         {
             var result = Get<UserInfo>("money", u => u.uid == uid);
-            if (result != null)
-            {
-                return result.AsInt64;
-            }
-            return 0;
+            return result == null ? 0L : result.AsInt64;
         }
 
         public void SetMoney(long uid, long value)
@@ -74,11 +61,7 @@ namespace FirServer.Model
         public int GetCount(long uid)
         {
             var result = Get<UserInfo>("count", u => u.uid == uid);
-            if (result != null)
-            {
-                return result.AsInt32;
-            }
-            return 0;
+            return result == null ? 0 : result.AsInt32;
         }
 
         public void SetCount(long uid, int value)
@@ -90,11 +73,7 @@ namespace FirServer.Model
         public string GetLastTime(long uid)
         {
             var result = Get<UserInfo>("lasttime", u => u.uid == uid);
-            if (result != null)
-            {
-                return result.AsString;
-            }
-            return null;
+            return result == null ? null : result.AsString;
         }
 
         public void SetLastTime(long uid, string value)

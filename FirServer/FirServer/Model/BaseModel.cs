@@ -79,13 +79,14 @@ namespace FirServer.Model
         /// <summary>
         /// 是否存在
         /// </summary>
-        public bool Exist<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
+        public long Exist<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            return dataMgr.Get<T>(tableName, "uid", filter) == null;
+            var result = dataMgr.Get<T>(tableName, "uid", filter);
+            return result == null ? 0L : result.AsInt64;
         }
     }
 }
