@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FirServer;
+﻿using FirServer;
 using FirServer.Define;
 using FirServer.Handler;
 using FirServer.Model;
@@ -19,9 +18,7 @@ namespace GameLibs.FirSango.Handlers
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var list = new List<string>();
-                list.Add("long:uid=" + uid);
-                var row = userModel.GetRow(list);
+                var row = userModel.GetDoc<UserInfo>(u => u.uid == uid);
                 if (row != null)
                 {
                     dw.Put((ushort)ResultCode.Success);

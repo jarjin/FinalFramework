@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using log4net.Core;
+using log4net;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -11,22 +12,26 @@ namespace FirServer.Utility
 {
     public class MongoHelper : IDisposable
     {
-        protected static IMongoClient _client;
-        protected static IMongoDatabase _database;
-        protected static ILogger _logger;
+        private static IMongoClient mClient;
+        private static IMongoDatabase mDatabase;
+        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(MongoHelper));
 
         public MongoHelper(string dbname, string connectUrl)
         {
-            _client = new MongoClient(connectUrl);
-            _database = _client.GetDatabase(dbname);
+            mClient = new MongoClient(connectUrl);
+            mDatabase = mClient.GetDatabase(dbname);
         }
         
         #region Count Function
         public long Count(string collectionName)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 return collection.CountDocuments(collectionName);
             }
             catch (Exception ex)
@@ -38,9 +43,13 @@ namespace FirServer.Utility
 
         public async Task<long> CountAsync(string collectionName)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 return await collection.CountDocumentsAsync(collectionName);
             }
             catch (Exception ex)
@@ -50,11 +59,15 @@ namespace FirServer.Utility
             return 0;
         }
 
-        public long Count(string collectionName, FilterDefinition<BsonDocument> filter)
+        public long Count<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<T>(collectionName);
                 return collection.CountDocuments(filter);
             }
             catch (Exception ex)
@@ -64,40 +77,16 @@ namespace FirServer.Utility
             return 0;
         }
 
-        public long Count(string collectionName, string field, string value)
+        public async Task<long> CountAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                return collection.CountDocuments(Builder.FilterEq(field, value));
-            }
-            catch (Exception ex)
-            {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
-            }
-            return 0;
-        }
-
-        public long Count(string collectionName, string field, ObjectId id)
-        {
-            try
-            {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                return collection.CountDocuments(Builder.FilterEq(field, id));
-            }
-            catch (Exception ex)
-            {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
-            }
-            return 0;
-        }
-
-        public long Count<T>(string collectionName, string field, T value)
-        {
-            try
-            {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                return collection.CountDocuments(Builder.FilterEq(field, value));
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                return await collection.CountDocumentsAsync(filter);
             }
             catch (Exception ex)
             {
@@ -108,12 +97,16 @@ namespace FirServer.Utility
         #endregion
 
 
-        #region Select Function
-        public List<T> Select<T>(string collectionName, FilterDefinition<BsonDocument> filter)
+        #region Select Function 
+        public List<T> Select<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
+            var collection = mDatabase.GetCollection<T>(collectionName);
             var result = collection.Find(filter).ToList();
-            List<T> returnList = new List<T>();
+            var returnList = new List<T>();
             foreach (var l in result)
             {
                 returnList.Add(BsonSerializer.Deserialize<T>(l));
@@ -121,20 +114,35 @@ namespace FirServer.Utility
             return returnList;
         }
 
-        public T SelectOne<T>(string collectionName, FilterDefinition<BsonDocument> filter)
+        public T SelectOne<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            var result = collection.Find(filter).ToList();
-            if (result.Count > 1)
+            if (mDatabase == null)
             {
-                throw new Exception("To many results");
+                throw new Exception("MongoDB database was null!!!");
             }
-            return BsonSerializer.Deserialize<T>(result.ElementAt(0));
+            var collection = mDatabase.GetCollection<T>(collectionName);
+            var result = collection.Find(filter).FirstOrDefault();
+            return BsonSerializer.Deserialize<T>(result);
         }
 
-        public async Task<List<T>> SelectAsync<T>(string collectionName, FilterDefinition<BsonDocument> filter)
+        public T SelectOne<T>(string collectionName, ProjectionDefinition<T> projection, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
+            var collection = mDatabase.GetCollection<T>(collectionName);
+            var result = collection.Find<T>(filter).Project(projection).FirstOrDefault();
+            return BsonSerializer.Deserialize<T>(result);
+        }
+
+        public async Task<List<T>> SelectAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
+            var collection = mDatabase.GetCollection<T>(collectionName);
             var result = await collection.Find(filter).ToListAsync();
             List<T> returnList = new List<T>();
             foreach (var l in result)
@@ -149,9 +157,13 @@ namespace FirServer.Utility
         #region Insert Function
         public bool Insert(string collectionName, BsonDocument doc)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 collection.InsertOne(doc);
                 return true;
             }
@@ -163,9 +175,13 @@ namespace FirServer.Utility
 
         public bool Insert<T>(string collectionName, T doc)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 collection.InsertOne(doc.ToBsonDocument());
                 return true;
             }
@@ -177,9 +193,13 @@ namespace FirServer.Utility
 
         public async Task<bool> InsertAsync(string collectionName, BsonDocument doc)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 await collection.InsertOneAsync(doc);
                 return true;
             }
@@ -192,6 +212,10 @@ namespace FirServer.Utility
 
         public bool InsertMany<T>(string collectionName, IEnumerable<T> documents)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
                 var docs = new List<BsonDocument>();
@@ -200,7 +224,7 @@ namespace FirServer.Utility
                 {
                     docs[i] = documents.ElementAt(i).ToBsonDocument();
                 }
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 collection.InsertMany(docs);
                 return true;
             }
@@ -212,6 +236,10 @@ namespace FirServer.Utility
 
         public async Task<bool> InsertManyAsync<T>(string collectionName, IEnumerable<T> documents)
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
                 var docs = new List<BsonDocument>();
@@ -220,7 +248,7 @@ namespace FirServer.Utility
                 {
                     docs[i] = documents.ElementAt(i).ToBsonDocument();
                 }
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
                 await collection.InsertManyAsync(docs);
                 return true;
             }
@@ -234,11 +262,15 @@ namespace FirServer.Utility
 
 
         #region Update Function
-        public bool UpdateOne(string collectionName, FilterDefinition<BsonDocument> filter, UpdateDefinition<BsonDocument> update)
+        public bool UpdateOne<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<T>(collectionName);
                 collection.UpdateOne(filter, update);
                 return true;
             }
@@ -248,12 +280,16 @@ namespace FirServer.Utility
             }
         }
 
-        public bool UpdateOne(string collectionName, string fieldName, string value, UpdateDefinition<BsonDocument> update)
+        public async Task<bool> UpdateOneAsync<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                collection.UpdateOne(Builder.FilterEq(fieldName, value), update);
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                await collection.UpdateOneAsync(filter, update);
                 return true;
             }
             catch
@@ -262,60 +298,64 @@ namespace FirServer.Utility
             }
         }
 
-        public async Task<bool> UpdateOneAsync(string collectionName, string fieldName, string value, UpdateDefinition<BsonDocument> update)
+        public long UpdateMany<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                await collection.UpdateOneAsync(Builder.FilterEq(fieldName, value), update);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public long UpdateMany<T>(string collectionName, string arrayField, List<T> list, FilterDefinition<BsonDocument> filter)
-        {
-            try
-            {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                var update = Builders<BsonDocument>.Update.PushEach(arrayField, list);
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                var update = Builders<T>.Update.PushEach(arrayField, list);
                 var result = collection.UpdateMany(filter, update);
                 if (result.IsModifiedCountAvailable)
                 {
                     return result.ModifiedCount;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                WriteError("UpdateMany", "UpdateMany", ex.Message);
+            }
             return 0;
         }
 
-        public async Task<long> UpdateManyAsync<T>(string collectionName, string arrayField, List<T> list, FilterDefinition<BsonDocument> filter)
+        public async Task<long> UpdateManyAsync<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                var update = Builders<BsonDocument>.Update.PushEach(arrayField, list);
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                var update = Builders<T>.Update.PushEach(arrayField, list);
                 var result = await collection.UpdateManyAsync(filter, update);
                 if (result.IsModifiedCountAvailable)
                 {
                     return result.ModifiedCount;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                WriteError("UpdateManyAsync", "UpdateManyAsync", ex.Message);
+            }
             return 0;
         }
         #endregion
 
 
         #region Delete Function
-        public bool Delete(string collectionName, FilterDefinition<BsonDocument> filter)
+        public bool Delete<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<T>(collectionName);
                 collection.DeleteOne(filter);
                 return true;
             }
@@ -325,13 +365,17 @@ namespace FirServer.Utility
             }
         }
 
-        public bool Delete(string collectionName, string fieldName, string value)
+        public async Task<bool> DeleteAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                collection.DeleteOne(Builder.FilterEq(fieldName, value));
-                return true;
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                var result = await collection.DeleteOneAsync(filter);
+                return result.DeletedCount > 0;
             }
             catch
             {
@@ -339,25 +383,15 @@ namespace FirServer.Utility
             }
         }
 
-        public async Task<bool> DeleteAsync(string collectionName, string fieldName, string value)
+        public long DeleteMany<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                await collection.DeleteOneAsync(Builder.FilterEq(fieldName, value));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public long DeleteMany(string collectionName, FilterDefinition<BsonDocument> filter)
-        {
-            try
-            {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
+                var collection = mDatabase.GetCollection<T>(collectionName);
                 var result = collection.DeleteMany(filter);
                 return result.DeletedCount;
             }
@@ -367,12 +401,16 @@ namespace FirServer.Utility
             }
         }
 
-        public async Task<long> DeleteManyAsync(string collectionName, string fieldName, string value)
+        public async Task<long> DeleteManyAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
             try
             {
-                var collection = _database.GetCollection<BsonDocument>(collectionName);
-                var result = await collection.DeleteManyAsync(Builder.FilterEq(fieldName, value));
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                var result = await collection.DeleteManyAsync(filter);
                 return result.DeletedCount;
             }
             catch
@@ -385,9 +423,9 @@ namespace FirServer.Utility
 
         private void WriteError(string title, string function, string message)
         {
-            if (_logger != null)
+            if (logger != null)
             {
-                //_logger.Log(title, function, message);
+                logger.Error(function + message);
             }
         }
 

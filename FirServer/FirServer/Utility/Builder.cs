@@ -10,9 +10,9 @@ namespace FirServer.Utility
             return Builders<BsonDocument>.Filter.Eq(field, value);
         }
 
-        public static FilterDefinition<BsonDocument> FilterEq<T>(string field, T value)
+        public static FilterDefinition<T> FilterEq<T>(string field, object value)
         {
-            return Builders<BsonDocument>.Filter.Eq(field, value);
+            return Builders<T>.Filter.Eq(field, value);
         }
 
         public static FilterDefinition<BsonDocument> FilterEq(string field, ObjectId id)
@@ -20,9 +20,9 @@ namespace FirServer.Utility
             return Builders<BsonDocument>.Filter.Eq(field, id);
         }
 
-        public static UpdateDefinition<BsonDocument> Update<T>(string field, T value)
+        public static UpdateDefinition<T> Update<T>(string field, object value)
         {
-            return Builders<BsonDocument>.Update.Push(field, value);
+            return Builders<T>.Update.Push(field, value);
         }
     }
 }

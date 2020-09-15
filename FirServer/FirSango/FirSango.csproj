@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\FirServer\3rd\mongo-csharp-driver\MongoDB.Bson\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\FirServer\3rd\Protobuf\protobuf-net.dll</HintPath>
     </Reference>

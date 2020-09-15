@@ -37,10 +37,7 @@ namespace GameLibs.FirSango.Handlers
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var list = new List<string>();
-                list.Add("str:username=" + username);
-                list.Add("str:password=" + password);
-                uid = userModel.ExistUser(list);
+                uid = userModel.ExistUser(username, password);
             }
             var result = uid == 0 ? (ushort)ResultCode.Failed : (ushort)ResultCode.Success;
             dw.Put(result);

@@ -1,8 +1,6 @@
-﻿
-using System;
+﻿using FirServer.Define;
+using FirServer.Utility;
 using System.Collections.Generic;
-using System.Data;
-using log4net;
 using Utility;
 
 namespace FirServer.Model
@@ -17,13 +15,11 @@ namespace FirServer.Model
         /// <summary>
         /// 添加用户
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public long AddUser(List<string> values)
+        public long AddUser(Dictionary<string, object> values)
         {
             var uid = AppUtil.NewGuidId();
-            values.Insert(0, "long:" + uid);
-            if (base.Add(values) == 0)
+            values.Add("uid", uid);
+            if (!base.Add(values))
             {
                 uid = 0L;
             }
@@ -33,72 +29,78 @@ namespace FirServer.Model
         /// <summary>
         /// 用户是否存在
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public long ExistUser(List<string> values = null)
+        public long ExistUser(string username, string password)
         {
-            var row = GetRow(values);
+            var row = GetDoc<UserInfo>(u => u.username == username && u.password == password);
             if (row == null)
             {
                 return 0L;
             }
-            var uid = Convert.ToInt64(row["uid"]);
-            return uid;
+            return row["uid"].AsInt64;
         }
 
-        /// <summary>
-        /// 获取所有
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public DataRowCollection GetAll(List<string> values = null, int rowCount = 0)
+        public string GetUserName(long uid)
         {
-            var dataset = Query(values, rowCount);
-            if (dataset == null || dataset.Tables == null || dataset.Tables[0].Rows.Count == 0)
+            var result = Get<UserInfo>("username", u => u.uid == uid);
+            if (result != null)
             {
-                return null;
+                return result.AsString;
             }
-            return dataset.Tables[0].Rows;
+            return null;
         }
 
-        public string GetUserName(string uid)
+        public void SetUserName(long uid, string value)
         {
-            return base.Get(uid, "username");
+            var filter = Builder.Update<UserInfo>("username", value);
+            Set<UserInfo>(filter, u => u.uid == uid);
         }
 
-        public void SetUserName(string uid, string value)
+        public long GetMoney(long uid)
         {
-            base.Set(uid, "username", "str:" + value);
+            var result = Get<UserInfo>("money", u => u.uid == uid);
+            if (result != null)
+            {
+                return result.AsInt64;
+            }
+            return 0;
         }
 
-        public long GetMoney(string uid)
+        public void SetMoney(long uid, long value)
         {
-            return long.Parse(base.Get(uid, "money"));
+            var filter = Builder.Update<UserInfo>("money", value);
+            Set<UserInfo>(filter, u => u.uid == uid);
         }
 
-        public void SetMoney(string uid, long value)
+        public int GetCount(long uid)
         {
-            base.Set(uid, "money", "str:" + value);
+            var result = Get<UserInfo>("count", u => u.uid == uid);
+            if (result != null)
+            {
+                return result.AsInt32;
+            }
+            return 0;
         }
 
-        public int GetCount(string uid)
+        public void SetCount(long uid, int value)
         {
-            return int.Parse(base.Get(uid, "count"));
+            var filter = Builder.Update<UserInfo>("count", value);
+            Set<UserInfo>(filter, u => u.uid == uid);
         }
 
-        public void SetCount(string uid, int value)
+        public string GetLastTime(long uid)
         {
-            base.Set(uid, "count", "int:" + value);
+            var result = Get<UserInfo>("lasttime", u => u.uid == uid);
+            if (result != null)
+            {
+                return result.AsString;
+            }
+            return null;
         }
 
-        public string GetLastTime(string uid)
+        public void SetLastTime(long uid, string value)
         {
-            return base.Get(uid, "lasttime");
-        }
-
-        public void SetLastTime(string uid, string value)
-        {
-            base.Set(uid, "lasttime", "str:" + value);
+            var filter = Builder.Update<UserInfo>("lasttime", value);
+            Set<UserInfo>(filter, u => u.uid == uid);
         }
     }
 }

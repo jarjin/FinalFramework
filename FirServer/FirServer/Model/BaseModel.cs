@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq.Expressions;
 
 namespace FirServer.Model
 {
@@ -18,30 +20,10 @@ namespace FirServer.Model
             this.tableName = tabName;
         }
 
-        protected string Get(string uid, string strKey)
-        {
-            if (string.IsNullOrEmpty(tableName) || dataMgr == null)
-            {
-                throw new Exception();
-            }
-            return dataMgr.Get(tableName, uid, strKey);
-        }
-
-        protected void Set(string uid, string strKey, string value)
-        {
-            if (string.IsNullOrEmpty(tableName) || dataMgr == null)
-            {
-                throw new Exception();
-            }
-            dataMgr.Set(tableName, uid, strKey, value);
-        }
-
         /// <summary>
         /// 添加
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        protected long Add(List<string> values)
+        protected bool Add(Dictionary<string, object> values)
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
@@ -51,46 +33,59 @@ namespace FirServer.Model
         }
 
         /// <summary>
-        /// 获取一行
+        /// 获取
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public DataRow GetRow(List<string> values = null)
+        protected BsonValue Get<T>(string strKey, Expression<Func<T, bool>> filter) where T : BsonDocument
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            return dataMgr.GetRow(tableName, values);
+            return dataMgr.Get<T>(tableName, strKey, filter);
+        }
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        protected void Set<T>(UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
+        {
+            if (string.IsNullOrEmpty(tableName) || dataMgr == null)
+            {
+                throw new Exception();
+            }
+            dataMgr.Set(tableName, update, filter);
+        }
+
+        /// <summary>
+        /// 获取文档
+        /// </summary>
+        public BsonDocument GetDoc<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
+        {
+            return dataMgr.GetDoc(tableName, filter);
         }
 
         /// <summary>
         /// 查询结果集
         /// </summary>
-        /// <param name="values"></param>
-        /// <param name="rowCount"></param>
-        /// <returns></returns>
-        public DataSet Query(List<string> values = null, int rowCount = 0)
+        public List<T> Query<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            return dataMgr.Query(tableName, values, rowCount);
+            return dataMgr.Query(tableName, filter);
         }
 
         /// <summary>
         /// 是否存在
         /// </summary>
-        /// <param name="uid"></param>
-        /// <returns></returns>
-        public bool Exist(string uid)
+        public bool Exist<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            return dataMgr.Exist(tableName, uid);
+            return dataMgr.Get<T>(tableName, "uid", filter) == null;
         }
     }
 }

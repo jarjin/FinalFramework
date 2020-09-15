@@ -29,7 +29,7 @@ namespace FirServer
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public void BroadcastMessage(List<User> users, ushort protocal, JsonData json) 
+        public void BroadcastMessage(List<User> users, ushort protocal, JsonData json)
         {
             var message = new Message()
             {
@@ -49,7 +49,8 @@ namespace FirServer
         /// <param name="socket"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public void SendJsonMessage(WebSocket socket, ushort protocal, JsonData json) {
+        public void SendJsonMessage(WebSocket socket, ushort protocal, JsonData json)
+        {
             var message = new Message()
             {
                 CommandId = protocal,

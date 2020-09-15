@@ -24,12 +24,12 @@ namespace GameLibs.FirSango.Handlers
             var dw = new NetDataWriter();
             dw.Put(GameProtocal.Register);
 
-            var newid = AppUtil.NewGuidId();
-            var values = new List<string>();
-            values.Add("str:" + username);
-            values.Add("str:" + password);
-            values.Add("long:" + "10000");
-
+            var values = new Dictionary<string, object>()
+            {
+                { "username", username },
+                { "password", password },
+                { "money", 10000 }
+            };
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {

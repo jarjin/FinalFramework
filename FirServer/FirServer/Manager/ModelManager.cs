@@ -23,7 +23,6 @@ namespace FirServer.Manager
             models.Clear();
             AddModel(ModelNames.User, new UserModel());
             AddModel(ModelNames.Battle, new BattleModel());
-            AddModel(ModelNames.Player,new PlayerModel());
         }
 
         public BaseModel GetModel(string strKey)
