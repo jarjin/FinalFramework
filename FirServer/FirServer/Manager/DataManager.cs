@@ -2,7 +2,6 @@
 using log4net;
 using FirServer.Interface;
 using FirServer.Utility;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using System;
@@ -20,44 +19,53 @@ namespace FirServer.Manager
         public void Initialize()
         {
             dataMgr = this;
-            mongoHelper = new MongoHelper("sango", "mongodb://localhost:27017");
+        }
+
+        /// <summary>
+        /// 连接数据库
+        /// </summary>
+        public void Connect(string url)
+        {
+            mongoHelper = new MongoHelper(url);
+        }
+
+        /// <summary>
+        /// 打开数据库
+        /// </summary>
+        public void OpenDB(string dbName)
+        {
+            mongoHelper.OpenDB(dbName);
         }
 
         /// <summary>
         /// 添加一行
         /// </summary>
-        public bool Add(string tabName, Dictionary<string, object> values)
+        public bool Add<T>(string tabName, T doc)
         {
-            var doc = new BsonDocument(values);
-            return mongoHelper.Insert<BsonDocument>(tabName, doc);
-        }
-
-        /// <summary>
-        /// 设置数据
-        /// </summary>
-        public void Set<T>(string tabName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
-        {
-            mongoHelper.UpdateOne<T>(tabName, update, filter);
+            return mongoHelper.Insert<T>(tabName, doc);
         }
 
         /// <summary>
         /// 获取数据
         /// </summary>
-        public BsonValue Get<T>(string tabName, string strKey, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public T Get<T>(string tabName, string strKey, Expression<Func<T, bool>> filter)
         {
             var projection = Builders<T>.Projection.Include(strKey);
-            var doc = mongoHelper.SelectOne<T>(tabName, projection, filter);
-            if (doc != null)
-            {
-                return doc.GetValue(strKey);
-            }
-            return null;
+            return mongoHelper.SelectOne<T>(tabName, projection, filter);
+        }
+
+        /// <summary>
+        /// 设置数据
+        /// </summary>
+        public void Set<T>(string tabName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter)
+        {
+            mongoHelper.UpdateOne<T>(tabName, update, filter);
         }
 
         /// <summary>
         /// 获取一行
         /// </summary>
-        public BsonDocument GetDoc<T>(string tabName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public T GetDoc<T>(string tabName, Expression<Func<T, bool>> filter) 
         {
             return mongoHelper.SelectOne<T>(tabName, filter);
         }
@@ -65,9 +73,25 @@ namespace FirServer.Manager
         /// <summary>
         /// 组合查询
         /// </summary>
-        public List<T> Query<T>(string tabName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public List<T> Query<T>(string tabName, Expression<Func<T, bool>> filter) 
         {
             return mongoHelper.Select<T>(tabName, filter);
+        }
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        public T Exist<T>(string tabName, Expression<Func<T, bool>> filter)
+        {
+            return Get<T>(tabName, "uid", filter);
+        }
+
+        /// <summary>
+        /// 删除数据库
+        /// </summary>
+        public void DropDB(string dbName)
+        {
+            mongoHelper.DropDB(dbName);
         }
 
         /// <summary>

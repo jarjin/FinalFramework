@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -23,19 +22,19 @@ namespace FirServer.Model
         /// <summary>
         /// 添加
         /// </summary>
-        protected bool Add(Dictionary<string, object> values)
+        protected bool Add<T>(T doc)
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            return dataMgr.Add(tableName, values);
+            return dataMgr.Add(tableName, doc);
         }
 
         /// <summary>
         /// 获取
         /// </summary>
-        protected BsonValue Get<T>(string strKey, Expression<Func<T, bool>> filter) where T : BsonDocument
+        protected T Get<T>(string strKey, Expression<Func<T, bool>> filter) 
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
@@ -47,7 +46,7 @@ namespace FirServer.Model
         /// <summary>
         /// 设置
         /// </summary>
-        protected void Set<T>(UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
+        protected void Set<T>(UpdateDefinition<T> update, Expression<Func<T, bool>> filter) 
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
@@ -59,7 +58,7 @@ namespace FirServer.Model
         /// <summary>
         /// 获取文档
         /// </summary>
-        public BsonDocument GetDoc<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
+        public T GetDoc<T>(Expression<Func<T, bool>> filter)
         {
             return dataMgr.GetDoc(tableName, filter);
         }
@@ -67,7 +66,7 @@ namespace FirServer.Model
         /// <summary>
         /// 查询结果集
         /// </summary>
-        public List<T> Query<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
+        public List<T> Query<T>(Expression<Func<T, bool>> filter) 
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
@@ -79,14 +78,13 @@ namespace FirServer.Model
         /// <summary>
         /// 是否存在
         /// </summary>
-        public long Exist<T>(Expression<Func<T, bool>> filter) where T : BsonDocument
+        public T Exist<T>(Expression<Func<T, bool>> filter) 
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {
                 throw new Exception();
             }
-            var result = dataMgr.Get<T>(tableName, "uid", filter);
-            return result == null ? 0L : result.AsInt64;
+            return dataMgr.Exist<T>(tableName, filter);
         }
     }
 }

@@ -9,15 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.11.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.11.2" />
+    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.11.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FirServer\FirServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\FirServer\3rd\mongo-csharp-driver\MongoDB.Bson\MongoDB.Bson.dll</HintPath>
-    </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\FirServer\3rd\Protobuf\protobuf-net.dll</HintPath>
+      <HintPath>..\Libraries\Protobuf\protobuf-net.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

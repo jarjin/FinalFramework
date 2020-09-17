@@ -1,5 +1,4 @@
-﻿
-namespace GameLibs.FirSango.Defines
+﻿namespace GameLibs.FirSango.Defines
 {
     public static class GameProtocal
     {

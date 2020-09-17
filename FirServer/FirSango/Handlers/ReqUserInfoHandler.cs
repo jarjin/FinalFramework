@@ -1,7 +1,8 @@
 ﻿using FirServer;
 using FirServer.Define;
 using FirServer.Handler;
-using FirServer.Model;
+using GameLibs.FirSango.Defines;
+using GameLibs.FirSango.Model;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using log4net;
@@ -18,11 +19,11 @@ namespace GameLibs.FirSango.Handlers
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var row = userModel.GetDoc<UserInfo>(u => u.uid == uid);
-                if (row != null)
+                var doc = userModel.GetDoc<UserInfo>(u => u.uid == uid);
+                if (doc != null)
                 {
                     dw.Put((ushort)ResultCode.Success);
-                    dw.Put(row["username"].ToString());
+                    dw.Put(doc.username);
                 }
                 else 
                 {

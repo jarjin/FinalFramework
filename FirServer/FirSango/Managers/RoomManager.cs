@@ -4,12 +4,14 @@ using System.Security;
 using FirServer;
 using FirServer.Interface;
 using GameLibs.FirSango.Interface;
+using log4net;
 using Utility;
 
 namespace GameLibs.FirSango.Managers
 {
     public class RoomManager : BaseBehaviour, IManager
     {
+        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(RoomManager));
         private Dictionary<uint, Dictionary<uint, IRoom>> gameRooms = new Dictionary<uint, Dictionary<uint, IRoom>>();
 
         public void Initialize()
@@ -32,7 +34,7 @@ namespace GameLibs.FirSango.Managers
                         var name = node.Attribute("name");
                         var roomCount = uint.Parse(node.Attribute("roomCount"));
                         var roomUserMax = uint.Parse(node.Attribute("roomUserMax"));
-                        this.CreateRooms(id, name, roomCount, roomUserMax);
+                        CreateRooms(id, name, roomCount, roomUserMax);
                     }
                 }
             }

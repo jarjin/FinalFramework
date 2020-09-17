@@ -7,6 +7,7 @@ namespace FirServer.Manager
     public class WorldManager : BaseBehaviour, IManager
     {
         Dictionary<string, IWorld> worlds = new Dictionary<string, IWorld>();
+
         public void Initialize()
         {
             var config = configMgr.GetGlobalConfig();

@@ -22,7 +22,7 @@ namespace FirServer.Utility
 
         public static UpdateDefinition<T> Update<T>(string field, object value)
         {
-            return Builders<T>.Update.Push(field, value);
+            return Builders<T>.Update.Set(field, value);
         }
     }
 }

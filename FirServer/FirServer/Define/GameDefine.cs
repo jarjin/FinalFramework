@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.WebSockets;
 using FirServer.Interface;
-using MongoDB.Bson;
 
 namespace FirServer.Define
 {
@@ -47,17 +45,6 @@ namespace FirServer.Define
         {
             this.socket = socket;
         }
-    }
-
-    [Serializable]
-    public class UserInfo : BsonDocument
-    {
-        public long uid;
-        public long money;
-        public string username;
-        public string password;
-        public int count;
-        public string lasttime;
     }
 
     public enum MessageType

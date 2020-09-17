@@ -21,8 +21,6 @@ namespace FirServer.Manager
             modelMgr = this;
 
             models.Clear();
-            AddModel(ModelNames.User, new UserModel());
-            AddModel(ModelNames.Battle, new BattleModel());
         }
 
         public BaseModel GetModel(string strKey)

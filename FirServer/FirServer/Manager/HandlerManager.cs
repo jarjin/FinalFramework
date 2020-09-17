@@ -22,7 +22,7 @@ namespace FirServer.Manager
         /// </summary>
         public void Initialize()
         {
-            logger.Info("Initialize Success!!!");
+            handlerMgr = this;
         }
 
         /// <summary>

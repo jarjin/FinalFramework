@@ -18,11 +18,6 @@ namespace FirServer
         protected static NetworkManager netMgr { get; set; }
         protected static HandlerManager handlerMgr { get; set; }
 
-        ///
-        protected User GetUserBySocket(WebSocket socket)
-        {
-            return null;
-        }
 
         /// <summary>
         /// 广播消息

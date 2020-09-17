@@ -21,16 +21,15 @@ namespace FirServer.Common
             AddManager<ModelManager>();
             AddManager<UserManager>();
             AddManager<AssemblyManager>();
-            AddManager<WorldManager>();
             AddManager<HandlerManager>();
             AddManager<NetworkManager>();
+            AddManager<WorldManager>();
 
-            foreach (var de in mManagers)
+            var mgrCount = mManagers.Count;
+            var currMgrs = new List<IManager>(mManagers.Values);
+            for (int i = 0; i < mgrCount; i++)
             {
-                if (de.Value != null)
-                {
-                    de.Value.Initialize();
-                }
+                currMgrs[i]?.Initialize();
             }
             logger.Info("Initialize Success!!!");
         }

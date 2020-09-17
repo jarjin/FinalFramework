@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using log4net;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -14,14 +13,17 @@ namespace FirServer.Utility
     {
         private static IMongoClient mClient;
         private static IMongoDatabase mDatabase;
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(MongoHelper));
 
-        public MongoHelper(string dbname, string connectUrl)
+        public MongoHelper(string connUrl)
         {
-            mClient = new MongoClient(connectUrl);
-            mDatabase = mClient.GetDatabase(dbname);
+            mClient = new MongoClient(connUrl);
         }
-        
+
+        public void OpenDB(string dbName)
+        {
+            mDatabase = mClient.GetDatabase(dbName);
+        }
+
         #region Count Function
         public long Count(string collectionName)
         {
@@ -36,7 +38,7 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
@@ -54,12 +56,12 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
 
-        public long Count<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public long Count<T>(string collectionName, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
@@ -72,12 +74,12 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
 
-        public async Task<long> CountAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<long> CountAsync<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
@@ -90,7 +92,7 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("Count", "Count(string collectionName)", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
@@ -98,58 +100,46 @@ namespace FirServer.Utility
 
 
         #region Select Function 
-        public List<T> Select<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public List<T> Select<T>(string collectionName, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
                 throw new Exception("MongoDB database was null!!!");
             }
             var collection = mDatabase.GetCollection<T>(collectionName);
-            var result = collection.Find(filter).ToList();
-            var returnList = new List<T>();
-            foreach (var l in result)
-            {
-                returnList.Add(BsonSerializer.Deserialize<T>(l));
-            }
-            return returnList;
+            var result = collection.Find(filter).ToList<T>();
+            return collection.Find(filter).ToList<T>();
         }
 
-        public T SelectOne<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public T SelectOne<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
                 throw new Exception("MongoDB database was null!!!");
             }
             var collection = mDatabase.GetCollection<T>(collectionName);
-            var result = collection.Find(filter).FirstOrDefault();
+            return collection.Find(filter).FirstOrDefault();
+        }
+
+        public T SelectOne<T>(string collectionName, ProjectionDefinition<T> projection, Expression<Func<T, bool>> filter)
+        {
+            if (mDatabase == null)
+            {
+                throw new Exception("MongoDB database was null!!!");
+            }
+            var collection = mDatabase.GetCollection<T>(collectionName);
+            var result = collection.Find(filter).Project(projection).FirstOrDefault();
             return BsonSerializer.Deserialize<T>(result);
         }
 
-        public T SelectOne<T>(string collectionName, ProjectionDefinition<T> projection, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<List<T>> SelectAsync<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
                 throw new Exception("MongoDB database was null!!!");
             }
             var collection = mDatabase.GetCollection<T>(collectionName);
-            var result = collection.Find<T>(filter).Project(projection).FirstOrDefault();
-            return BsonSerializer.Deserialize<T>(result);
-        }
-
-        public async Task<List<T>> SelectAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
-        {
-            if (mDatabase == null)
-            {
-                throw new Exception("MongoDB database was null!!!");
-            }
-            var collection = mDatabase.GetCollection<T>(collectionName);
-            var result = await collection.Find(filter).ToListAsync();
-            List<T> returnList = new List<T>();
-            foreach (var l in result)
-            {
-                returnList.Add(BsonSerializer.Deserialize<T>(l));
-            }
-            return returnList;
+            return await collection.Find(filter).ToListAsync<T>();
         }
         #endregion
 
@@ -167,10 +157,11 @@ namespace FirServer.Utility
                 collection.InsertOne(doc);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                WriteError(ex.Message);
             }
+            return false;
         }
 
         public bool Insert<T>(string collectionName, T doc)
@@ -181,14 +172,15 @@ namespace FirServer.Utility
             }
             try
             {
-                var collection = mDatabase.GetCollection<BsonDocument>(collectionName);
-                collection.InsertOne(doc.ToBsonDocument());
+                var collection = mDatabase.GetCollection<T>(collectionName);
+                collection.InsertOne(doc);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                WriteError(ex.Message);
             }
+            return false;
         }
 
         public async Task<bool> InsertAsync(string collectionName, BsonDocument doc)
@@ -205,7 +197,7 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("InsertAsync", "InsertAsync(string collectionName)", ex.Message);
+                WriteError(ex.Message);
             }
             return false;
         }
@@ -228,10 +220,11 @@ namespace FirServer.Utility
                 collection.InsertMany(docs);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                WriteError(ex.Message);
             }
+            return false;
         }
 
         public async Task<bool> InsertManyAsync<T>(string collectionName, IEnumerable<T> documents)
@@ -254,7 +247,7 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("InsertManyAsync", "InsertManyAsync(collectionName, documents)", ex.Message);
+                WriteError(ex.Message);
             }
             return false;
         }
@@ -262,7 +255,7 @@ namespace FirServer.Utility
 
 
         #region Update Function
-        public bool UpdateOne<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public bool UpdateOne<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
@@ -274,13 +267,14 @@ namespace FirServer.Utility
                 collection.UpdateOne(filter, update);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                WriteError(ex.Message);
             }
+            return false;
         }
 
-        public async Task<bool> UpdateOneAsync<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<bool> UpdateOneAsync<T>(string collectionName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
@@ -292,13 +286,14 @@ namespace FirServer.Utility
                 await collection.UpdateOneAsync(filter, update);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                WriteError(ex.Message);
             }
+            return false;
         }
 
-        public long UpdateMany<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public long UpdateMany<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
@@ -316,12 +311,12 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("UpdateMany", "UpdateMany", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
 
-        public async Task<long> UpdateManyAsync<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<long> UpdateManyAsync<T>(string collectionName, string arrayField, List<T> list, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
@@ -339,7 +334,7 @@ namespace FirServer.Utility
             }
             catch (Exception ex)
             {
-                WriteError("UpdateManyAsync", "UpdateManyAsync", ex.Message);
+                WriteError(ex.Message);
             }
             return 0;
         }
@@ -347,7 +342,7 @@ namespace FirServer.Utility
 
 
         #region Delete Function
-        public bool Delete<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public bool Delete<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
@@ -359,13 +354,14 @@ namespace FirServer.Utility
                 collection.DeleteOne(filter);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                WriteError(ex.Message);
                 return false;
             }
         }
 
-        public async Task<bool> DeleteAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<bool> DeleteAsync<T>(string collectionName, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
@@ -377,13 +373,14 @@ namespace FirServer.Utility
                 var result = await collection.DeleteOneAsync(filter);
                 return result.DeletedCount > 0;
             }
-            catch
+            catch (Exception ex)
             {
+                WriteError(ex.Message);
                 return false;
             }
         }
 
-        public long DeleteMany<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public long DeleteMany<T>(string collectionName, Expression<Func<T, bool>> filter) 
         {
             if (mDatabase == null)
             {
@@ -395,13 +392,14 @@ namespace FirServer.Utility
                 var result = collection.DeleteMany(filter);
                 return result.DeletedCount;
             }
-            catch
+            catch (Exception ex)
             {
+                WriteError(ex.Message);
                 return 0;
             }
         }
 
-        public async Task<long> DeleteManyAsync<T>(string collectionName, Expression<Func<T, bool>> filter) where T : BsonDocument
+        public async Task<long> DeleteManyAsync<T>(string collectionName, Expression<Func<T, bool>> filter)
         {
             if (mDatabase == null)
             {
@@ -413,19 +411,24 @@ namespace FirServer.Utility
                 var result = await collection.DeleteManyAsync(filter);
                 return result.DeletedCount;
             }
-            catch
+            catch (Exception ex)
             {
+                WriteError(ex.Message);
                 return 0;
             }
         }
-
         #endregion
 
-        private void WriteError(string title, string function, string message)
+        private void WriteError(string message)
         {
-            if (logger != null)
+            Console.WriteLine(message);
+        }
+
+        public void DropDB(string dbName)
+        {
+            if (mClient != null)
             {
-                logger.Error(function + message);
+                mClient.DropDatabase(dbName);
             }
         }
 
