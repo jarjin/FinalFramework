@@ -4,3 +4,5 @@ ClientCodePath=FirClient/Assets/Scripts/Data
 ServerData=FirServer/Tables
 ServerCodePath=FirServer/FirSango/Data
 TemplatePath=FirCehua/DataTable/_config/template
+ClientDLL=Assembly-CSharp.dll
+ServerDLL=FirSango.dll

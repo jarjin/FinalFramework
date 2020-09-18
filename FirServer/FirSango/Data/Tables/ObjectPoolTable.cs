@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class ObjectPoolTable
 {
-    public string name { get; set; }
+    public string name;
 
     private Dictionary<int, ObjectPoolTableItem> dics = null;
     private List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
@@ -19,7 +19,7 @@ public class ObjectPoolTable
     public void Initialize()
     {
         dics = new Dictionary<int, ObjectPoolTableItem>();
-        foreach (var item in items)
+        foreach (ObjectPoolTableItem item in items)
         {
             dics.Add(item.id, item);
         }
@@ -49,9 +49,9 @@ public class ObjectPoolTable
 [Serializable]
 public class ObjectPoolTableItem
 {
-    public int id { get; set; }
-    public string name { get; set; }
-    public int min { get; set; }
-    public int max { get; set; }
+    public int id;
+    public string name;
+    public int min;
+    public int max;
 
 }

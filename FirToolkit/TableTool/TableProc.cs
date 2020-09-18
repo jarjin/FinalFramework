@@ -20,6 +20,18 @@ namespace TableTool
         Server = 2,
     }
 
+    class TablePath
+    {
+        public string path;
+        public string dllpath;
+
+        public TablePath(string p, string n)
+        {
+            path = p;
+            dllpath = n;
+        }
+    }
+
     class TableCompileInfo
     {
         public string tableName;
@@ -32,16 +44,18 @@ namespace TableTool
     public class TableProc
     {
         static fmMain fmMain;
-        static string excelDataPath, assemblyPath;
+        static string excelDataPath, clientDllPath, serverDllPath;
         static string clientDataPath, clientCodePath, serverDataPath, serverCodePath, templateDir;
         static StringBuilder manager_vars, manager_vars_c, manager_vars_s;
         static StringBuilder manager_load_funcs, manager_load_funcs_c, manager_load_funcs_s;
         static List<TableCompileInfo> compileInfos = new List<TableCompileInfo>();
+        static Dictionary<string, string> md5Values = new Dictionary<string, string>();
 
         /// <summary>
         /// 导入所有的EXCEL表
         /// </summary>
-        public static void Start(fmMain main, string excelPath, string clientData, string clientCode, string serverData, string serverCode, string tempDir)
+        public static void Start(fmMain main, string excelPath, string clientData, string clientCode, 
+                        string serverData, string serverCode, string tempDir, string clientDll, string serverDll)
         {
             fmMain = main;
             excelDataPath = excelPath;
@@ -50,8 +64,10 @@ namespace TableTool
             serverDataPath = serverData;
             serverCodePath = serverCode;
             templateDir = tempDir;
-            assemblyPath = main.currDir + "Assembly-CSharp.dll";
+            clientDllPath = fmMain.currDir + clientDll;
+            serverDllPath = fmMain.currDir + serverDll;
 
+            md5Values.Clear();
             compileInfos.Clear();
 
             manager_vars = new StringBuilder();
@@ -73,6 +89,12 @@ namespace TableTool
                 ParseProcTable(excelFile, i + 1, files.Length);
             }
             CreateTableManager();
+
+            fmMain.md5Values.Clear();
+            foreach(var de in md5Values)
+            {
+                fmMain.md5Values.Add(de.Key, de.Value);
+            }
             fmMain.SaveTableMd5();          //保存表的MD5值
             ExecuteExportTables();   //生成数据文件
             MessageBox.Show("处理完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -82,7 +104,6 @@ namespace TableTool
         {
             if (!fmMain.md5Values.ContainsKey(tableName))
             {
-                fmMain.md5Values.Add(tableName, newmd5);
                 return true;
             }
             var oldmd5 = fmMain.md5Values[tableName];      //老的md5值
@@ -112,7 +133,11 @@ namespace TableTool
             var name = Path.GetFileNameWithoutExtension(excelFile);
             string tableName = name + "Table";
 
-            using(var fs = new FileStream(excelFile, FileMode.Open))
+            if (!md5Values.ContainsKey(tableName))
+            {
+                md5Values.Add(tableName, md5);
+            }
+            using (var fs = new FileStream(excelFile, FileMode.Open))
             {
                 using (ExcelPackage package = new ExcelPackage(fs))
                 {
@@ -141,14 +166,14 @@ namespace TableTool
 
             TableType tableType = TableType.Common;
             var destPaths = new List<string>();
-            if (sheetName == "client")
+            if (sheetName.ToLower() == "client")
             {
                 tableType = TableType.Client;
                 vars = manager_vars_c;
                 load_funcs = manager_load_funcs_c;
                 destPaths.Add(clientCodePath);
             }
-            else if (sheetName == "server")
+            else if (sheetName.ToLower() == "server")
             {
                 tableType = TableType.Server;
                 vars = manager_vars_s;
@@ -296,9 +321,13 @@ namespace TableTool
                 CreateTableDataWithFile(name, type, sheet, path, code);
                 fmMain.SetProgress(++curr, max);
             }
-            if (File.Exists(assemblyPath))
+            if (File.Exists(clientDllPath))
             {
-                File.Delete(assemblyPath);
+                File.Delete(clientDllPath);
+            }
+            if (File.Exists(serverDllPath))
+            {
+                File.Delete(serverDllPath);
             }
         }
 
@@ -334,77 +363,82 @@ namespace TableTool
                             valueType.Add(key, value);
                         }
                         ////////////////////////////////////////////////////////////////////////////////////
-                        var assembly = CompileCodeAssembly(code);
-                        var instance = assembly.CreateInstance(tbName);
-
-                        var tableType = assembly.GetType(tbName);
-                        var property = tableType.GetField("name");
-                        property.SetValue(instance, tbName);
-
-                        var methodInfo = tableType.GetMethod("AddItem", BindingFlags.Instance | BindingFlags.Public);
-                        var tableItemType = assembly.GetType(tbName + "Item");
-
-                        for (int i = 4; i <= rowNum; i++)
-                        {
-                            int j = 1;
-                            var tbItemInst = Activator.CreateInstance(tableItemType);
-                            foreach (var de in valueType)
-                            {
-                                string prop = de.Key;
-                                var type = valueType[prop].ToLower();
-                                var value = sheet.GetValue(i, j++).ToString();
-                                object objValue = null;
-                                switch (type)
-                                {
-                                    case "int":
-                                        objValue = int.Parse(value);
-                                        break;
-                                    case "uint":
-                                        objValue = uint.Parse(value);
-                                        break;
-                                    case "string":
-                                        objValue = value;
-                                        break;
-                                    case "bool":
-                                        objValue = value == "1" ? true : false;
-                                        break;
-                                    case "float":
-                                        objValue = float.Parse(value);
-                                        break;
-                                }
-                                tbItemInst.GetType().GetField(prop).SetValue(tbItemInst, objValue);
-                            }
-                            methodInfo.Invoke(instance, new object[] { tbItemInst });
-                        }
-                        WriteToFile(tbName, tbType, instance);
+                        WriteToFile(tbName, tbType, code, rowNum, valueType, sheet);
                         Console.WriteLine("CreateTableBodyWithFile " + tbName + " OK!!!");
                     }
                 }
             }
         }
 
+        static object CreateDll(string code, string tbName, int rowNum, Dictionary<string, string> valueType, ExcelWorksheet sheet, string assemblyPath)
+        {
+            var assembly = CompileCodeAssembly(code, assemblyPath);
+            var instance = assembly.CreateInstance(tbName);
+
+            var tableType = assembly.GetType(tbName);
+            var property = tableType.GetField("name");
+            property.SetValue(instance, tbName);
+
+            var methodInfo = tableType.GetMethod("AddItem", BindingFlags.Instance | BindingFlags.Public);
+            var tableItemType = assembly.GetType(tbName + "Item");
+
+            for (int i = 4; i <= rowNum; i++)
+            {
+                int j = 1;
+                var tbItemInst = Activator.CreateInstance(tableItemType);
+                foreach (var de in valueType)
+                {
+                    string prop = de.Key;
+                    var type = valueType[prop].ToLower();
+                    var value = sheet.GetValue(i, j++).ToString();
+                    object objValue = null;
+                    switch (type)
+                    {
+                        case "int":
+                            objValue = int.Parse(value);
+                            break;
+                        case "uint":
+                            objValue = uint.Parse(value);
+                            break;
+                        case "string":
+                            objValue = value;
+                            break;
+                        case "bool":
+                            objValue = value == "1" ? true : false;
+                            break;
+                        case "float":
+                            objValue = float.Parse(value);
+                            break;
+                    }
+                    tbItemInst.GetType().GetField(prop).SetValue(tbItemInst, objValue);
+                }
+                methodInfo.Invoke(instance, new object[] { tbItemInst });
+            }
+            return instance;
+        }
+
         /// <summary>
         /// 将表数据写入文件
         /// </summary>
-        static void WriteToFile(string tbName, TableType tbType, object tbObject)
+        static void WriteToFile(string tbName, TableType tbType, string code, int rowNum, Dictionary<string, string> valueType, ExcelWorksheet sheet)
         {
-            var bytesPaths = new List<string>();
+            var bytesPaths = new List<TablePath>();
             switch(tbType)
             {
                 case TableType.Client:
-                    bytesPaths.Add(clientDataPath + "/" + tbName);
+                    bytesPaths.Add(new TablePath(clientDataPath + "/" + tbName, clientDllPath));
                     break;
                 case TableType.Server:
-                    bytesPaths.Add(serverDataPath + "/" + tbName);
+                    bytesPaths.Add(new TablePath(serverDataPath + "/" + tbName, serverDllPath));
                     break;
                 case TableType.Common:
-                    bytesPaths.Add(clientDataPath + "/" + tbName);
-                    bytesPaths.Add(serverDataPath + "/" + tbName);
+                    bytesPaths.Add(new TablePath(clientDataPath + "/" + tbName, clientDllPath));
+                    bytesPaths.Add(new TablePath(serverDataPath + "/" + tbName, serverDllPath));
                     break;
             }
-            foreach(var path in bytesPaths)
+            foreach(var bytePath in bytesPaths)
             {
-                var binraryPath = path + ".bytes";
+                var binraryPath = bytePath.path + ".bytes";
                 if (File.Exists(binraryPath))
                 {
                     File.Delete(binraryPath);
@@ -417,7 +451,9 @@ namespace TableTool
                 IFormatter serializer = new BinaryFormatter();
                 using (var saveFile = new FileStream(binraryPath, FileMode.Create, FileAccess.Write))
                 {
-                    serializer.Serialize(saveFile, tbObject);
+                    var dllPath = bytePath.dllpath;
+                    var instance = CreateDll(code, tbName, rowNum, valueType, sheet, dllPath);
+                    serializer.Serialize(saveFile, instance);
                 }
             }
         }
@@ -425,7 +461,7 @@ namespace TableTool
         /// <summary>
         /// 编译代码
         /// </summary>
-        static Assembly CompileCodeAssembly(string classCode)
+        static Assembly CompileCodeAssembly(string classCode, string assemblyPath)
         {
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters paras = new CompilerParameters();
@@ -444,75 +480,9 @@ namespace TableTool
                     ErrorMessage += err.ErrorText;
                 }
                 Console.WriteLine(ErrorMessage);
+                return null;
             }
-            else
-            {
-                //object instance = result.CompiledAssembly.CreateInstance(className);
-                //Type classType = result.CompiledAssembly.GetType(className);
-                //try
-                //{
-                //    classType.GetMethod("Execute").Invoke(instance, null);
-                //}
-                //catch (Exception)
-                //{
-                //    Console.WriteLine("Execute Error!");
-                //}
-                return result.CompiledAssembly;
-            }
-            return null;
+            return result.CompiledAssembly;
         }
-
-        /// <summary>
-        /// 导入单个EXCEL表,通过附加表标记添加新表///[APPEND_TABLE]
-        /// </summary>
-        //static void ImportSingleExcel()
-        //{
-        //    var excelPath = GetSelectedObjectPath();
-        //    if (!excelPath.EndsWith(".xlsx"))
-        //    {
-        //        return;
-        //    }
-        //    var name = Path.GetFileNameWithoutExtension(excelPath);
-        //    var tableName = name + "Table";
-        //    if (!md5Values.ContainsKey(tableName))
-        //    {
-        //        manager_vars.Clear();
-        //        manager_load_funcs.Clear();
-
-        //        var varName = tableName.FirstCharToLower();
-        //        manager_vars.AppendLine("        public " + tableName + " " + varName + ";");
-        //        manager_load_funcs.AppendLine("            " + varName + " = LoadData<" + tableName + ">(\"Tables/" + tableName + ".bytes\");");
-        //        manager_load_funcs.AppendLine("            " + varName + ".Initialize();");
-
-        //        string mgrPath = AppDataPath + "/Scripts/Data/TableManager.cs";
-        //        if (File.Exists(mgrPath))
-        //        {
-        //            manager_vars.AppendLine("///[APPEND_VAR]");
-        //            manager_load_funcs.AppendLine("///[APPEND_TABLE]");
-
-        //            var mgrCode = File.ReadAllText(mgrPath);
-        //            mgrCode = mgrCode.Replace("///[APPEND_VAR]", manager_vars.ToString())
-        //                             .Replace("///[APPEND_TABLE]", manager_load_funcs.ToString());
-        //            File.Delete(mgrPath);
-        //            File.WriteAllText(mgrPath, mgrCode);
-        //        }
-        //        else
-        //        {
-        //            CreateTableManager();   //创建新的表管理器
-        //        }
-        //    }
-        //    if (IsNewOrUpdateTable(tableName, excelPath))
-        //    {
-        //        SaveTableIndex();   //保存MD5值
-        //        string destDir = AppDataPath + "/Scripts/Data/Tables";
-        //        CreateTableWithItemFile(tableName, excelPath, destDir);     //创建TABLE结构
-        //        if (File.Exists(tableIndexFile))
-        //        {
-        //            File.Delete(tableIndexFile);
-        //        }
-        //        File.AppendAllText(tableIndexFile, name + ",1,1," + excelPath + "\n");
-        //        AssetDatabase.Refresh();
-        //    }
-        //}
     }
 }
