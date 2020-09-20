@@ -7,30 +7,30 @@ public class UnityEngine_SpriteWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Sprite), typeof(UnityEngine.Object));
-		L.RegFunction("GetPhysicsShapeCount", GetPhysicsShapeCount);
-		L.RegFunction("GetPhysicsShapePointCount", GetPhysicsShapePointCount);
-		L.RegFunction("GetPhysicsShape", GetPhysicsShape);
-		L.RegFunction("OverridePhysicsShape", OverridePhysicsShape);
-		L.RegFunction("OverrideGeometry", OverrideGeometry);
-		L.RegFunction("Create", Create);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("bounds", get_bounds, null);
-		L.RegVar("rect", get_rect, null);
-		L.RegVar("border", get_border, null);
-		L.RegVar("texture", get_texture, null);
-		L.RegVar("pixelsPerUnit", get_pixelsPerUnit, null);
-		L.RegVar("spriteAtlasTextureScale", get_spriteAtlasTextureScale, null);
-		L.RegVar("associatedAlphaSplitTexture", get_associatedAlphaSplitTexture, null);
-		L.RegVar("pivot", get_pivot, null);
-		L.RegVar("packed", get_packed, null);
-		L.RegVar("packingMode", get_packingMode, null);
-		L.RegVar("packingRotation", get_packingRotation, null);
-		L.RegVar("textureRect", get_textureRect, null);
-		L.RegVar("textureRectOffset", get_textureRectOffset, null);
-		L.RegVar("vertices", get_vertices, null);
-		L.RegVar("triangles", get_triangles, null);
-		L.RegVar("uv", get_uv, null);
+		L.RegFunction("GetPhysicsShapeCount", new LuaCSFunction(GetPhysicsShapeCount));
+		L.RegFunction("GetPhysicsShapePointCount", new LuaCSFunction(GetPhysicsShapePointCount));
+		L.RegFunction("GetPhysicsShape", new LuaCSFunction(GetPhysicsShape));
+		L.RegFunction("OverridePhysicsShape", new LuaCSFunction(OverridePhysicsShape));
+		L.RegFunction("OverrideGeometry", new LuaCSFunction(OverrideGeometry));
+		L.RegFunction("Create", new LuaCSFunction(Create));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("bounds", new LuaCSFunction(get_bounds), null);
+		L.RegVar("rect", new LuaCSFunction(get_rect), null);
+		L.RegVar("border", new LuaCSFunction(get_border), null);
+		L.RegVar("texture", new LuaCSFunction(get_texture), null);
+		L.RegVar("pixelsPerUnit", new LuaCSFunction(get_pixelsPerUnit), null);
+		L.RegVar("spriteAtlasTextureScale", new LuaCSFunction(get_spriteAtlasTextureScale), null);
+		L.RegVar("associatedAlphaSplitTexture", new LuaCSFunction(get_associatedAlphaSplitTexture), null);
+		L.RegVar("pivot", new LuaCSFunction(get_pivot), null);
+		L.RegVar("packed", new LuaCSFunction(get_packed), null);
+		L.RegVar("packingMode", new LuaCSFunction(get_packingMode), null);
+		L.RegVar("packingRotation", new LuaCSFunction(get_packingRotation), null);
+		L.RegVar("textureRect", new LuaCSFunction(get_textureRect), null);
+		L.RegVar("textureRectOffset", new LuaCSFunction(get_textureRectOffset), null);
+		L.RegVar("vertices", new LuaCSFunction(get_vertices), null);
+		L.RegVar("triangles", new LuaCSFunction(get_triangles), null);
+		L.RegVar("uv", new LuaCSFunction(get_uv), null);
 		L.EndClass();
 	}
 
@@ -40,7 +40,7 @@ public class UnityEngine_SpriteWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject(L, 1, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 1);
 			int o = obj.GetPhysicsShapeCount();
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
@@ -57,8 +57,8 @@ public class UnityEngine_SpriteWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject(L, 1, typeof(UnityEngine.Sprite));
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			int o = obj.GetPhysicsShapePointCount(arg0);
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
@@ -75,9 +75,9 @@ public class UnityEngine_SpriteWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject(L, 1, typeof(UnityEngine.Sprite));
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			System.Collections.Generic.List<UnityEngine.Vector2> arg1 = (System.Collections.Generic.List<UnityEngine.Vector2>)ToLua.CheckObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Vector2>));
+			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			System.Collections.Generic.List<UnityEngine.Vector2> arg1 = (System.Collections.Generic.List<UnityEngine.Vector2>)ToLua.CheckObject(L, 3, TypeTraits<System.Collections.Generic.List<UnityEngine.Vector2>>.type);
 			int o = obj.GetPhysicsShape(arg0, arg1);
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
@@ -94,7 +94,7 @@ public class UnityEngine_SpriteWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject(L, 1, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 1);
 			System.Collections.Generic.IList<UnityEngine.Vector2[]> arg0 = (System.Collections.Generic.IList<UnityEngine.Vector2[]>)ToLua.CheckObject<System.Collections.Generic.IList<UnityEngine.Vector2[]>>(L, 2);
 			obj.OverridePhysicsShape(arg0);
 			return 0;
@@ -111,7 +111,7 @@ public class UnityEngine_SpriteWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject(L, 1, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite obj = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 1);
 			UnityEngine.Vector2[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector2>(L, 2);
 			ushort[] arg1 = ToLua.CheckNumberArray<ushort>(L, 3);
 			obj.OverrideGeometry(arg0, arg1);
@@ -132,7 +132,7 @@ public class UnityEngine_SpriteWrap
 
 			if (count == 3)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				UnityEngine.Sprite o = UnityEngine.Sprite.Create(arg0, arg1, arg2);
@@ -141,7 +141,7 @@ public class UnityEngine_SpriteWrap
 			}
 			else if (count == 4)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
@@ -151,35 +151,35 @@ public class UnityEngine_SpriteWrap
 			}
 			else if (count == 5)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				uint arg4 = (uint)LuaDLL.luaL_checknumber(L, 5);
+				uint arg4 = (uint)LuaDLL.luaL_checkinteger(L, 5);
 				UnityEngine.Sprite o = UnityEngine.Sprite.Create(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushSealed(L, o);
 				return 1;
 			}
 			else if (count == 6)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				uint arg4 = (uint)LuaDLL.luaL_checknumber(L, 5);
-				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, typeof(UnityEngine.SpriteMeshType));
+				uint arg4 = (uint)LuaDLL.luaL_checkinteger(L, 5);
+				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, TypeTraits<UnityEngine.SpriteMeshType>.type);
 				UnityEngine.Sprite o = UnityEngine.Sprite.Create(arg0, arg1, arg2, arg3, arg4, arg5);
 				ToLua.PushSealed(L, o);
 				return 1;
 			}
 			else if (count == 7)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				uint arg4 = (uint)LuaDLL.luaL_checknumber(L, 5);
-				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, typeof(UnityEngine.SpriteMeshType));
+				uint arg4 = (uint)LuaDLL.luaL_checkinteger(L, 5);
+				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, TypeTraits<UnityEngine.SpriteMeshType>.type);
 				UnityEngine.Vector4 arg6 = ToLua.ToVector4(L, 7);
 				UnityEngine.Sprite o = UnityEngine.Sprite.Create(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
 				ToLua.PushSealed(L, o);
@@ -187,12 +187,12 @@ public class UnityEngine_SpriteWrap
 			}
 			else if (count == 8)
 			{
-				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject(L, 1, typeof(UnityEngine.Texture2D));
+				UnityEngine.Texture2D arg0 = (UnityEngine.Texture2D)ToLua.CheckObject<UnityEngine.Texture2D>(L, 1);
 				UnityEngine.Rect arg1 = StackTraits<UnityEngine.Rect>.Check(L, 2);
 				UnityEngine.Vector2 arg2 = ToLua.ToVector2(L, 3);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
-				uint arg4 = (uint)LuaDLL.luaL_checknumber(L, 5);
-				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, typeof(UnityEngine.SpriteMeshType));
+				uint arg4 = (uint)LuaDLL.luaL_checkinteger(L, 5);
+				UnityEngine.SpriteMeshType arg5 = (UnityEngine.SpriteMeshType)ToLua.CheckObject(L, 6, TypeTraits<UnityEngine.SpriteMeshType>.type);
 				UnityEngine.Vector4 arg6 = ToLua.ToVector4(L, 7);
 				bool arg7 = LuaDLL.luaL_checkboolean(L, 8);
 				UnityEngine.Sprite o = UnityEngine.Sprite.Create(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);

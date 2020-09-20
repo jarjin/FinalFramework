@@ -7,14 +7,14 @@ public class FirClient_Data_MapDataWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Data.MapData), typeof(System.Object));
-		L.RegFunction("New", _CreateFirClient_Data_MapData);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("type", get_type, set_type);
-		L.RegVar("eventid", get_eventid, set_eventid);
-		L.RegVar("atlas", get_atlas, set_atlas);
-		L.RegVar("sound", get_sound, set_sound);
-		L.RegVar("events", get_events, set_events);
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Data_MapData));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("type", new LuaCSFunction(get_type), new LuaCSFunction(set_type));
+		L.RegVar("eventid", new LuaCSFunction(get_eventid), new LuaCSFunction(set_eventid));
+		L.RegVar("atlas", new LuaCSFunction(get_atlas), new LuaCSFunction(set_atlas));
+		L.RegVar("sound", new LuaCSFunction(get_sound), new LuaCSFunction(set_sound));
+		L.RegVar("events", new LuaCSFunction(get_events), new LuaCSFunction(set_events));
 		L.EndClass();
 	}
 
@@ -52,7 +52,7 @@ public class FirClient_Data_MapDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
 			uint ret = obj.id;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -71,7 +71,7 @@ public class FirClient_Data_MapDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
 			uint ret = obj.type;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -90,7 +90,7 @@ public class FirClient_Data_MapDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
 			uint ret = obj.eventid;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -165,7 +165,7 @@ public class FirClient_Data_MapDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}
@@ -184,7 +184,7 @@ public class FirClient_Data_MapDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.type = arg0;
 			return 0;
 		}
@@ -203,7 +203,7 @@ public class FirClient_Data_MapDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.eventid = arg0;
 			return 0;
 		}
@@ -260,7 +260,7 @@ public class FirClient_Data_MapDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.MapData obj = (FirClient.Data.MapData)o;
-			System.Collections.Generic.List<FirClient.Data.SceneEvent> arg0 = (System.Collections.Generic.List<FirClient.Data.SceneEvent>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<FirClient.Data.SceneEvent>));
+			System.Collections.Generic.List<FirClient.Data.SceneEvent> arg0 = (System.Collections.Generic.List<FirClient.Data.SceneEvent>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.List<FirClient.Data.SceneEvent>>.type);
 			obj.events = arg0;
 			return 0;
 		}

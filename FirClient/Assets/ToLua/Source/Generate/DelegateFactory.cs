@@ -295,8 +295,7 @@ public class DelegateFactory
     }
     
     public static Delegate RemoveDelegate(Delegate obj, LuaFunction func)
-    {
-        LuaState state = func.GetLuaState();
+    {        
         Delegate[] ds = obj.GetInvocationList();
 
         for (int i = 0; i < ds.Length; i++)
@@ -306,7 +305,7 @@ public class DelegateFactory
             if (ld != null && ld.func == func)
             {
                 obj = Delegate.Remove(obj, ds[i]);
-                state.DelayDispose(ld.func);
+                if (obj != null) obj.AddRef();
                 break;
             }
         }
@@ -323,8 +322,7 @@ public class DelegateFactory
             obj = Delegate.Remove(obj, dg);
             return obj;
         }
-
-        LuaState state = remove.func.GetLuaState();
+        
         Delegate[] ds = obj.GetInvocationList();        
 
         for (int i = 0; i < ds.Length; i++)
@@ -334,8 +332,7 @@ public class DelegateFactory
             if (ld != null && ld == remove)
             {
                 obj = Delegate.Remove(obj, ds[i]);
-                state.DelayDispose(ld.func);
-                state.DelayDispose(ld.self);
+                if (obj != null) obj.AddRef();                
                 break;
             }
         }
@@ -388,7 +385,7 @@ public class DelegateFactory
 
 	bool Check_System_Action(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action>(L, pos);
 	}
 
 	void Push_System_Action(IntPtr L, System.Action o)
@@ -441,7 +438,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_Events_UnityAction(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Events.UnityAction), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.Events.UnityAction>(L, pos);
 	}
 
 	void Push_UnityEngine_Events_UnityAction(IntPtr L, UnityEngine.Events.UnityAction o)
@@ -502,7 +499,7 @@ public class DelegateFactory
 
 	bool Check_System_Predicate_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Predicate<int>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Predicate<int>>(L, pos);
 	}
 
 	void Push_System_Predicate_int(IntPtr L, System.Predicate<int> o)
@@ -559,7 +556,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<int>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<int>>(L, pos);
 	}
 
 	void Push_System_Action_int(IntPtr L, System.Action<int> o)
@@ -578,7 +575,7 @@ public class DelegateFactory
 			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -590,7 +587,7 @@ public class DelegateFactory
 			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -622,7 +619,7 @@ public class DelegateFactory
 
 	bool Check_System_Comparison_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Comparison<int>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Comparison<int>>(L, pos);
 	}
 
 	void Push_System_Comparison_int(IntPtr L, System.Comparison<int> o)
@@ -640,7 +637,7 @@ public class DelegateFactory
 			func.BeginPCall();
 			func.Push(param0);
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -651,7 +648,7 @@ public class DelegateFactory
 			func.Push(self);
 			func.Push(param0);
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -683,7 +680,7 @@ public class DelegateFactory
 
 	bool Check_System_Func_int_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Func<int,int>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Func<int,int>>(L, pos);
 	}
 
 	void Push_System_Func_int_int(IntPtr L, System.Func<int,int> o)
@@ -746,7 +743,7 @@ public class DelegateFactory
 
 	bool Check_System_Func_UnityEngine_LogType_object_bool(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Func<UnityEngine.LogType,object,bool>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Func<UnityEngine.LogType,object,bool>>(L, pos);
 	}
 
 	void Push_System_Func_UnityEngine_LogType_object_bool(IntPtr L, System.Func<UnityEngine.LogType,object,bool> o)
@@ -805,7 +802,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_float(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<float>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<float>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_float(IntPtr L, DG.Tweening.Core.DOGetter<float> o)
@@ -862,7 +859,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_float(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<float>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<float>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_float(IntPtr L, DG.Tweening.Core.DOSetter<float> o)
@@ -921,7 +918,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_double(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<double>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<double>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_double(IntPtr L, DG.Tweening.Core.DOGetter<double> o)
@@ -978,7 +975,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_double(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<double>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<double>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_double(IntPtr L, DG.Tweening.Core.DOSetter<double> o)
@@ -995,7 +992,7 @@ public class DelegateFactory
 		{
 			func.BeginPCall();
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -1005,7 +1002,7 @@ public class DelegateFactory
 			func.BeginPCall();
 			func.Push(self);
 			func.PCall();
-			int ret = (int)func.CheckNumber();
+			int ret = (int)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -1037,7 +1034,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<int>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<int>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_int(IntPtr L, DG.Tweening.Core.DOGetter<int> o)
@@ -1094,7 +1091,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<int>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<int>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_int(IntPtr L, DG.Tweening.Core.DOSetter<int> o)
@@ -1111,7 +1108,7 @@ public class DelegateFactory
 		{
 			func.BeginPCall();
 			func.PCall();
-			uint ret = (uint)func.CheckNumber();
+			uint ret = (uint)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -1121,7 +1118,7 @@ public class DelegateFactory
 			func.BeginPCall();
 			func.Push(self);
 			func.PCall();
-			uint ret = (uint)func.CheckNumber();
+			uint ret = (uint)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -1153,7 +1150,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_uint(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<uint>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<uint>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_uint(IntPtr L, DG.Tweening.Core.DOGetter<uint> o)
@@ -1210,7 +1207,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_uint(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<uint>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<uint>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_uint(IntPtr L, DG.Tweening.Core.DOSetter<uint> o)
@@ -1269,7 +1266,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_long(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<long>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<long>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_long(IntPtr L, DG.Tweening.Core.DOGetter<long> o)
@@ -1326,7 +1323,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_long(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<long>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<long>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_long(IntPtr L, DG.Tweening.Core.DOSetter<long> o)
@@ -1385,7 +1382,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_ulong(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<ulong>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<ulong>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_ulong(IntPtr L, DG.Tweening.Core.DOGetter<ulong> o)
@@ -1442,7 +1439,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_ulong(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<ulong>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<ulong>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_ulong(IntPtr L, DG.Tweening.Core.DOSetter<ulong> o)
@@ -1501,7 +1498,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_string(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<string>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<string>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_string(IntPtr L, DG.Tweening.Core.DOGetter<string> o)
@@ -1558,7 +1555,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_string(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<string>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<string>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_string(IntPtr L, DG.Tweening.Core.DOSetter<string> o)
@@ -1617,7 +1614,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Vector2(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector2>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Vector2>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Vector2(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Vector2> o)
@@ -1674,7 +1671,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Vector2(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector2>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Vector2>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Vector2(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Vector2> o)
@@ -1733,7 +1730,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Vector3(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector3>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Vector3>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Vector3(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Vector3> o)
@@ -1790,7 +1787,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Vector3(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector3>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Vector3>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Vector3(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Vector3> o)
@@ -1849,7 +1846,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Vector4(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Vector4>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Vector4>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Vector4(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Vector4> o)
@@ -1906,7 +1903,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Vector4(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Vector4>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Vector4>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Vector4(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Vector4> o)
@@ -1965,7 +1962,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Quaternion(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Quaternion>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Quaternion>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Quaternion(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Quaternion> o)
@@ -2022,7 +2019,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Quaternion(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Quaternion>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Quaternion>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Quaternion(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Quaternion> o)
@@ -2081,7 +2078,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Color(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Color>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Color>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Color(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Color> o)
@@ -2138,7 +2135,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Color(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Color>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Color>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Color(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Color> o)
@@ -2155,7 +2152,7 @@ public class DelegateFactory
 		{
 			func.BeginPCall();
 			func.PCall();
-			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
+			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(TypeTraits<UnityEngine.Rect>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -2165,7 +2162,7 @@ public class DelegateFactory
 			func.BeginPCall();
 			func.Push(self);
 			func.PCall();
-			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(typeof(UnityEngine.Rect));
+			UnityEngine.Rect ret = (UnityEngine.Rect)func.CheckObject(TypeTraits<UnityEngine.Rect>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -2197,7 +2194,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_Rect(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.Rect>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.Rect>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_Rect(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.Rect> o)
@@ -2254,7 +2251,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_Rect(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.Rect>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.Rect>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_Rect(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.Rect> o)
@@ -2271,7 +2268,7 @@ public class DelegateFactory
 		{
 			func.BeginPCall();
 			func.PCall();
-			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
+			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(TypeTraits<UnityEngine.RectOffset>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -2281,7 +2278,7 @@ public class DelegateFactory
 			func.BeginPCall();
 			func.Push(self);
 			func.PCall();
-			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(typeof(UnityEngine.RectOffset));
+			UnityEngine.RectOffset ret = (UnityEngine.RectOffset)func.CheckObject(TypeTraits<UnityEngine.RectOffset>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -2313,7 +2310,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOGetter_UnityEngine_RectOffset(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOGetter<UnityEngine.RectOffset>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOGetter_UnityEngine_RectOffset(IntPtr L, DG.Tweening.Core.DOGetter<UnityEngine.RectOffset> o)
@@ -2370,7 +2367,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_Core_DOSetter_UnityEngine_RectOffset(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.Core.DOSetter<UnityEngine.RectOffset>>(L, pos);
 	}
 
 	void Push_DG_Tweening_Core_DOSetter_UnityEngine_RectOffset(IntPtr L, DG.Tweening.Core.DOSetter<UnityEngine.RectOffset> o)
@@ -2423,7 +2420,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_TweenCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.TweenCallback), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.TweenCallback>(L, pos);
 	}
 
 	void Push_DG_Tweening_TweenCallback(IntPtr L, DG.Tweening.TweenCallback o)
@@ -2480,7 +2477,7 @@ public class DelegateFactory
 
 	bool Check_DG_Tweening_TweenCallback_int(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(DG.Tweening.TweenCallback<int>), L, pos);
+		return TypeChecker.CheckDelegateType<DG.Tweening.TweenCallback<int>>(L, pos);
 	}
 
 	void Push_DG_Tweening_TweenCallback_int(IntPtr L, DG.Tweening.TweenCallback<int> o)
@@ -2537,7 +2534,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_RectTransform_ReapplyDrivenProperties(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.RectTransform.ReapplyDrivenProperties>(L, pos);
 	}
 
 	void Push_UnityEngine_RectTransform_ReapplyDrivenProperties(IntPtr L, UnityEngine.RectTransform.ReapplyDrivenProperties o)
@@ -2598,7 +2595,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_Application_AdvertisingIdentifierCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Application.AdvertisingIdentifierCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.Application.AdvertisingIdentifierCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_Application_AdvertisingIdentifierCallback(IntPtr L, UnityEngine.Application.AdvertisingIdentifierCallback o)
@@ -2651,7 +2648,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_Application_LowMemoryCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Application.LowMemoryCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.Application.LowMemoryCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_Application_LowMemoryCallback(IntPtr L, UnityEngine.Application.LowMemoryCallback o)
@@ -2712,7 +2709,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_Application_LogCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Application.LogCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.Application.LogCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_Application_LogCallback(IntPtr L, UnityEngine.Application.LogCallback o)
@@ -2769,7 +2766,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_bool(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<bool>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<bool>>(L, pos);
 	}
 
 	void Push_System_Action_bool(IntPtr L, System.Action<bool> o)
@@ -2826,7 +2823,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_string(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<string>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<string>>(L, pos);
 	}
 
 	void Push_System_Action_string(IntPtr L, System.Action<string> o)
@@ -2885,7 +2882,7 @@ public class DelegateFactory
 
 	bool Check_System_Func_bool(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Func<bool>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Func<bool>>(L, pos);
 	}
 
 	void Push_System_Func_bool(IntPtr L, System.Func<bool> o)
@@ -2942,7 +2939,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_AudioClip_PCMReaderCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.AudioClip.PCMReaderCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.AudioClip.PCMReaderCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_AudioClip_PCMReaderCallback(IntPtr L, UnityEngine.AudioClip.PCMReaderCallback o)
@@ -2999,7 +2996,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_AudioClip_PCMSetPositionCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.AudioClip.PCMSetPositionCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.AudioClip.PCMSetPositionCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_AudioClip_PCMSetPositionCallback(IntPtr L, UnityEngine.AudioClip.PCMSetPositionCallback o)
@@ -3056,7 +3053,7 @@ public class DelegateFactory
 
 	bool Check_UnityEngine_Camera_CameraCallback(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Camera.CameraCallback), L, pos);
+		return TypeChecker.CheckDelegateType<UnityEngine.Camera.CameraCallback>(L, pos);
 	}
 
 	void Push_UnityEngine_Camera_CameraCallback(IntPtr L, UnityEngine.Camera.CameraCallback o)
@@ -3113,7 +3110,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_object(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<object>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<object>>(L, pos);
 	}
 
 	void Push_System_Action_object(IntPtr L, System.Action<object> o)
@@ -3172,7 +3169,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_uint_object(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<uint,object>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<uint,object>>(L, pos);
 	}
 
 	void Push_System_Action_uint_object(IntPtr L, System.Action<uint,object> o)
@@ -3231,7 +3228,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_SuperScrollView_LoopListView2_SuperScrollView_LoopListViewItem2(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<SuperScrollView.LoopListView2,SuperScrollView.LoopListViewItem2>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<SuperScrollView.LoopListView2,SuperScrollView.LoopListViewItem2>>(L, pos);
 	}
 
 	void Push_System_Action_SuperScrollView_LoopListView2_SuperScrollView_LoopListViewItem2(IntPtr L, System.Action<SuperScrollView.LoopListView2,SuperScrollView.LoopListViewItem2> o)
@@ -3250,7 +3247,7 @@ public class DelegateFactory
 			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
-			SuperScrollView.LoopListViewItem2 ret = (SuperScrollView.LoopListViewItem2)func.CheckObject(typeof(SuperScrollView.LoopListViewItem2));
+			SuperScrollView.LoopListViewItem2 ret = (SuperScrollView.LoopListViewItem2)func.CheckObject(TypeTraits<SuperScrollView.LoopListViewItem2>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -3262,7 +3259,7 @@ public class DelegateFactory
 			func.Push(param0);
 			func.Push(param1);
 			func.PCall();
-			SuperScrollView.LoopListViewItem2 ret = (SuperScrollView.LoopListViewItem2)func.CheckObject(typeof(SuperScrollView.LoopListViewItem2));
+			SuperScrollView.LoopListViewItem2 ret = (SuperScrollView.LoopListViewItem2)func.CheckObject(TypeTraits<SuperScrollView.LoopListViewItem2>.type);
 			func.EndPCall();
 			return ret;
 		}
@@ -3294,7 +3291,7 @@ public class DelegateFactory
 
 	bool Check_System_Func_SuperScrollView_LoopListView2_int_SuperScrollView_LoopListViewItem2(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Func<SuperScrollView.LoopListView2,int,SuperScrollView.LoopListViewItem2>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Func<SuperScrollView.LoopListView2,int,SuperScrollView.LoopListViewItem2>>(L, pos);
 	}
 
 	void Push_System_Func_SuperScrollView_LoopListView2_int_SuperScrollView_LoopListViewItem2(IntPtr L, System.Func<SuperScrollView.LoopListView2,int,SuperScrollView.LoopListViewItem2> o)
@@ -3353,7 +3350,7 @@ public class DelegateFactory
 
 	bool Check_System_Action_SuperScrollView_LoopListViewItem2_object(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(System.Action<SuperScrollView.LoopListViewItem2,object>), L, pos);
+		return TypeChecker.CheckDelegateType<System.Action<SuperScrollView.LoopListViewItem2,object>>(L, pos);
 	}
 
 	void Push_System_Action_SuperScrollView_LoopListViewItem2_object(IntPtr L, System.Action<SuperScrollView.LoopListViewItem2,object> o)
@@ -3373,7 +3370,7 @@ public class DelegateFactory
 			func.Push(param1);
 			func.Push(param2);
 			func.PCall();
-			char ret = (char)func.CheckNumber();
+			char ret = (char)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -3386,7 +3383,7 @@ public class DelegateFactory
 			func.Push(param1);
 			func.Push(param2);
 			func.PCall();
-			char ret = (char)func.CheckNumber();
+			char ret = (char)func.CheckInteger();
 			func.EndPCall();
 			return ret;
 		}
@@ -3418,7 +3415,7 @@ public class DelegateFactory
 
 	bool Check_TMPro_TMP_InputField_OnValidateInput(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckDelegateType(typeof(TMPro.TMP_InputField.OnValidateInput), L, pos);
+		return TypeChecker.CheckDelegateType<TMPro.TMP_InputField.OnValidateInput>(L, pos);
 	}
 
 	void Push_TMPro_TMP_InputField_OnValidateInput(IntPtr L, TMPro.TMP_InputField.OnValidateInput o)

@@ -7,11 +7,11 @@ public class FirClient_Component_CLuaAnimatorWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.CLuaAnimator), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("Play", Play);
-		L.RegFunction("Dispose", Dispose);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("Play", new LuaCSFunction(Play));
+		L.RegFunction("Dispose", new LuaCSFunction(Dispose));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

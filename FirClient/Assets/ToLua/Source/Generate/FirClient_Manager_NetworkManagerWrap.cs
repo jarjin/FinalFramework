@@ -7,10 +7,10 @@ public class FirClient_Manager_NetworkManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.NetworkManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("SendData", SendData);
-		L.RegFunction("New", _CreateFirClient_Manager_NetworkManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("mClient", get_mClient, null);
+		L.RegFunction("SendData", new LuaCSFunction(SendData));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_NetworkManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("mClient", new LuaCSFunction(get_mClient), null);
 		L.EndClass();
 	}
 

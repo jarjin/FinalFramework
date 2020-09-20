@@ -1,4 +1,4 @@
-﻿#if ENABLE_LUA_INJECTION
+#if ENABLE_LUA_INJECTION
 using System;
 using System.IO;
 using System.Xml;
@@ -10,6 +10,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Unity.CecilTools;
 using Unity.CecilTools.Extensions;
+using CustomCecilRocks; 
 using System.Reflection;
 using LuaInterface;
 using UnityEditor.Callbacks;
@@ -66,12 +67,9 @@ public static class ToLuaInjection
     {
         LoadAndCheckAssembly(true);
         InjectAll();
-
-        AppDomain.CurrentDomain.DomainUnload += DomainUnload;
     }
 
-    [PostProcessScene]
-    public static void InjectAll()
+    static void InjectAll()
     {
         var injectionStatus = EditorPrefs.GetInt(Application.dataPath + "WaitForInjection", 0);
         if (Application.isPlaying || EditorApplication.isCompiling || injectionStatus == 0)
@@ -89,17 +87,39 @@ public static class ToLuaInjection
         }
     }
 
-    static void DomainUnload(object sender, System.EventArgs e)
+    [PostProcessBuildAttribute()]
+    static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
     {
-        Debug.Log("System_AppDomain_CurrentDomain_DomainUnload");
+        var injectionStatus = EditorPrefs.GetInt(Application.dataPath + "WaitForInjection", 0);
+        if (injectionStatus == 0)
+        {
+            Debug.LogError("Inject Failed!!!");
+        }
+        EditorPrefs.SetInt(Application.dataPath + "WaitForInjection", 0);
+    }
+
+    [PostProcessScene]
+    static void OnPostProcessScene()
+    {
         if (BuildPipeline.isBuildingPlayer)
         {
             EditorPrefs.SetInt(Application.dataPath + "WaitForInjection", 1);
         }
+
+        InjectAll();
     }
 
+    [DidReloadScripts]
+    static void OnDidReloadScripts()
+    {
+        if (!BuildPipeline.isBuildingPlayer)
+        {
+            EditorPrefs.SetInt(Application.dataPath + "WaitForInjection", 0);
+        }
+    }
+	
     [MenuItem("Lua/Inject All &i", false, 5)]
-    public static void InjectByMenu()
+    static void InjectByMenu()
     {
         if (Application.isPlaying)
         {
@@ -173,8 +193,6 @@ public static class ToLuaInjection
                 Debug.Log("Lua Injection Finished!");
                 EditorPrefs.SetInt(Application.dataPath + "InjectStatus", 1);
             }
-
-            EditorPrefs.SetInt(Application.dataPath + "WaitForInjection", 0);
         }
         catch (Exception e)
         {
@@ -308,9 +326,11 @@ public static class ToLuaInjection
             return;
         }
 
+        target.Body.SimplifyMacros();
         FillBegin(target, methodIndex);
         FillReplaceCoroutine(target, runtimeInjectType & InjectType.Replace);
         FillCoroutineMonitor(target, runtimeInjectType & (~InjectType.Replace), methodIndex);
+        target.Body.OptimizeMacros();
     }
 
     static void FillReplaceCoroutine(MethodDefinition target, InjectType runtimeInjectType)
@@ -448,10 +468,12 @@ public static class ToLuaInjection
 #region NormalMethod
     static void InjectMethod(AssemblyDefinition assembly, MethodDefinition target, int methodIndex)
     {
+        target.Body.SimplifyMacros();
         FillBegin(target, methodIndex);
         InjectType runtimeInjectType = GetMethodRuntimeInjectType(target);
         FillInjectMethod(target, FillInjectInfo, runtimeInjectType & InjectType.After);
         FillInjectMethod(target, FillInjectInfo, runtimeInjectType & (~InjectType.After));
+        target.Body.OptimizeMacros();
     }
 
     static void FillInjectMethod(MethodDefinition target, Action<MethodDefinition, InjectType> fillInjectInfo, InjectType runtimeInjectType)
@@ -805,7 +827,7 @@ public static class ToLuaInjection
         paramCount += paramExtraCount;
         invoker = luaFunctionTypeDef.Methods.FirstOrDefault(method =>
         {
-            return method.Name == methodName && method.Parameters.Count == paramCount;
+            return method.Name == methodName && method.Parameters.Count == paramCount && bRequireResult == !method.ReturnVoid();
         });
 
         if (invoker == null)
@@ -964,7 +986,7 @@ public static class ToLuaInjection
         foreach (var param in method.Parameters)
         {
             paramsTypeNameBuilder
-                .Append("_")
+                .Append("-")
                 .Append(ToLuaInjectionHelper.GetTypeName(param.ParameterType));
         }
 

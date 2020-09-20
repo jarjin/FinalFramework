@@ -7,14 +7,14 @@ public class UnityEngine_CanvasGroupWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.CanvasGroup), typeof(UnityEngine.Behaviour));
-		L.RegFunction("IsRaycastLocationValid", IsRaycastLocationValid);
-		L.RegFunction("New", _CreateUnityEngine_CanvasGroup);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("alpha", get_alpha, set_alpha);
-		L.RegVar("interactable", get_interactable, set_interactable);
-		L.RegVar("blocksRaycasts", get_blocksRaycasts, set_blocksRaycasts);
-		L.RegVar("ignoreParentGroups", get_ignoreParentGroups, set_ignoreParentGroups);
+		L.RegFunction("IsRaycastLocationValid", new LuaCSFunction(IsRaycastLocationValid));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_CanvasGroup));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("alpha", new LuaCSFunction(get_alpha), new LuaCSFunction(set_alpha));
+		L.RegVar("interactable", new LuaCSFunction(get_interactable), new LuaCSFunction(set_interactable));
+		L.RegVar("blocksRaycasts", new LuaCSFunction(get_blocksRaycasts), new LuaCSFunction(set_blocksRaycasts));
+		L.RegVar("ignoreParentGroups", new LuaCSFunction(get_ignoreParentGroups), new LuaCSFunction(set_ignoreParentGroups));
 		L.EndClass();
 	}
 
@@ -48,9 +48,9 @@ public class UnityEngine_CanvasGroupWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.CanvasGroup obj = (UnityEngine.CanvasGroup)ToLua.CheckObject(L, 1, typeof(UnityEngine.CanvasGroup));
+			UnityEngine.CanvasGroup obj = (UnityEngine.CanvasGroup)ToLua.CheckObject<UnityEngine.CanvasGroup>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
-			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject(L, 3, typeof(UnityEngine.Camera));
+			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject<UnityEngine.Camera>(L, 3);
 			bool o = obj.IsRaycastLocationValid(arg0, arg1);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;

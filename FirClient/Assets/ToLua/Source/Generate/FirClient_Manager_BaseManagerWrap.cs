@@ -7,8 +7,8 @@ public class FirClient_Manager_BaseManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.BaseManager), typeof(BaseBehaviour));
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("isOnUpdate", get_isOnUpdate, set_isOnUpdate);
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("isOnUpdate", new LuaCSFunction(get_isOnUpdate), new LuaCSFunction(set_isOnUpdate));
 		L.EndClass();
 	}
 

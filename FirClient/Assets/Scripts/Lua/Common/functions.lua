@@ -166,3 +166,7 @@ end
 function _G.execAction(action)
 	LuaHelper.CallAction(action)
 end
+
+function _G.tointeger(number)
+    return math.floor(tonumber(number) or error("Could not cast '" .. tostring(number) .."' to number.'"))
+end

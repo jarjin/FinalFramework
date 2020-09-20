@@ -8,93 +8,93 @@ public class UnityEngine_TransformWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Transform), typeof(UnityEngine.Component));
-		L.RegFunction("SetParent", SetParent);
-		L.RegFunction("SetPositionAndRotation", SetPositionAndRotation);
-		L.RegFunction("Translate", Translate);
-		L.RegFunction("Rotate", Rotate);
-		L.RegFunction("RotateAround", RotateAround);
-		L.RegFunction("LookAt", LookAt);
-		L.RegFunction("TransformDirection", TransformDirection);
-		L.RegFunction("InverseTransformDirection", InverseTransformDirection);
-		L.RegFunction("TransformVector", TransformVector);
-		L.RegFunction("InverseTransformVector", InverseTransformVector);
-		L.RegFunction("TransformPoint", TransformPoint);
-		L.RegFunction("InverseTransformPoint", InverseTransformPoint);
-		L.RegFunction("DetachChildren", DetachChildren);
-		L.RegFunction("SetAsFirstSibling", SetAsFirstSibling);
-		L.RegFunction("SetAsLastSibling", SetAsLastSibling);
-		L.RegFunction("SetSiblingIndex", SetSiblingIndex);
-		L.RegFunction("GetSiblingIndex", GetSiblingIndex);
-		L.RegFunction("Find", Find);
-		L.RegFunction("IsChildOf", IsChildOf);
-		L.RegFunction("GetEnumerator", GetEnumerator);
-		L.RegFunction("GetChild", GetChild);
-		L.RegFunction("DOTogglePause", DOTogglePause);
-		L.RegFunction("DOSmoothRewind", DOSmoothRewind);
-		L.RegFunction("DORewind", DORewind);
-		L.RegFunction("DORestart", DORestart);
-		L.RegFunction("DOPlayForward", DOPlayForward);
-		L.RegFunction("DOPlayBackwards", DOPlayBackwards);
-		L.RegFunction("DOPlay", DOPlay);
-		L.RegFunction("DOPause", DOPause);
-		L.RegFunction("DOGoto", DOGoto);
-		L.RegFunction("DOFlip", DOFlip);
-		L.RegFunction("DOKill", DOKill);
-		L.RegFunction("DOComplete", DOComplete);
-		L.RegFunction("DOBlendableScaleBy", DOBlendableScaleBy);
-		L.RegFunction("DOBlendablePunchRotation", DOBlendablePunchRotation);
-		L.RegFunction("DOBlendableLocalRotateBy", DOBlendableLocalRotateBy);
-		L.RegFunction("DOBlendableRotateBy", DOBlendableRotateBy);
-		L.RegFunction("DOBlendableLocalMoveBy", DOBlendableLocalMoveBy);
-		L.RegFunction("DOBlendableMoveBy", DOBlendableMoveBy);
-		L.RegFunction("DOLocalPath", DOLocalPath);
-		L.RegFunction("DOPath", DOPath);
-		L.RegFunction("DOLocalJump", DOLocalJump);
-		L.RegFunction("DOJump", DOJump);
-		L.RegFunction("DOShakeScale", DOShakeScale);
-		L.RegFunction("DOShakeRotation", DOShakeRotation);
-		L.RegFunction("DOShakePosition", DOShakePosition);
-		L.RegFunction("DOPunchRotation", DOPunchRotation);
-		L.RegFunction("DOPunchScale", DOPunchScale);
-		L.RegFunction("DOPunchPosition", DOPunchPosition);
-		L.RegFunction("DOLookAt", DOLookAt);
-		L.RegFunction("DOScaleZ", DOScaleZ);
-		L.RegFunction("DOScaleY", DOScaleY);
-		L.RegFunction("DOScaleX", DOScaleX);
-		L.RegFunction("DOScale", DOScale);
-		L.RegFunction("DOLocalRotateQuaternion", DOLocalRotateQuaternion);
-		L.RegFunction("DOLocalRotate", DOLocalRotate);
-		L.RegFunction("DORotateQuaternion", DORotateQuaternion);
-		L.RegFunction("DORotate", DORotate);
-		L.RegFunction("DOLocalMoveZ", DOLocalMoveZ);
-		L.RegFunction("DOLocalMoveY", DOLocalMoveY);
-		L.RegFunction("DOLocalMoveX", DOLocalMoveX);
-		L.RegFunction("DOLocalMove", DOLocalMove);
-		L.RegFunction("DOMoveZ", DOMoveZ);
-		L.RegFunction("DOMoveY", DOMoveY);
-		L.RegFunction("DOMoveX", DOMoveX);
-		L.RegFunction("DOMove", DOMove);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("position", get_position, set_position);
-		L.RegVar("localPosition", get_localPosition, set_localPosition);
-		L.RegVar("eulerAngles", get_eulerAngles, set_eulerAngles);
-		L.RegVar("localEulerAngles", get_localEulerAngles, set_localEulerAngles);
-		L.RegVar("right", get_right, set_right);
-		L.RegVar("up", get_up, set_up);
-		L.RegVar("forward", get_forward, set_forward);
-		L.RegVar("rotation", get_rotation, set_rotation);
-		L.RegVar("localRotation", get_localRotation, set_localRotation);
-		L.RegVar("localScale", get_localScale, set_localScale);
-		L.RegVar("parent", get_parent, set_parent);
-		L.RegVar("worldToLocalMatrix", get_worldToLocalMatrix, null);
-		L.RegVar("localToWorldMatrix", get_localToWorldMatrix, null);
-		L.RegVar("root", get_root, null);
-		L.RegVar("childCount", get_childCount, null);
-		L.RegVar("lossyScale", get_lossyScale, null);
-		L.RegVar("hasChanged", get_hasChanged, set_hasChanged);
-		L.RegVar("hierarchyCapacity", get_hierarchyCapacity, set_hierarchyCapacity);
-		L.RegVar("hierarchyCount", get_hierarchyCount, null);
+		L.RegFunction("SetParent", new LuaCSFunction(SetParent));
+		L.RegFunction("SetPositionAndRotation", new LuaCSFunction(SetPositionAndRotation));
+		L.RegFunction("Translate", new LuaCSFunction(Translate));
+		L.RegFunction("Rotate", new LuaCSFunction(Rotate));
+		L.RegFunction("RotateAround", new LuaCSFunction(RotateAround));
+		L.RegFunction("LookAt", new LuaCSFunction(LookAt));
+		L.RegFunction("TransformDirection", new LuaCSFunction(TransformDirection));
+		L.RegFunction("InverseTransformDirection", new LuaCSFunction(InverseTransformDirection));
+		L.RegFunction("TransformVector", new LuaCSFunction(TransformVector));
+		L.RegFunction("InverseTransformVector", new LuaCSFunction(InverseTransformVector));
+		L.RegFunction("TransformPoint", new LuaCSFunction(TransformPoint));
+		L.RegFunction("InverseTransformPoint", new LuaCSFunction(InverseTransformPoint));
+		L.RegFunction("DetachChildren", new LuaCSFunction(DetachChildren));
+		L.RegFunction("SetAsFirstSibling", new LuaCSFunction(SetAsFirstSibling));
+		L.RegFunction("SetAsLastSibling", new LuaCSFunction(SetAsLastSibling));
+		L.RegFunction("SetSiblingIndex", new LuaCSFunction(SetSiblingIndex));
+		L.RegFunction("GetSiblingIndex", new LuaCSFunction(GetSiblingIndex));
+		L.RegFunction("Find", new LuaCSFunction(Find));
+		L.RegFunction("IsChildOf", new LuaCSFunction(IsChildOf));
+		L.RegFunction("GetEnumerator", new LuaCSFunction(GetEnumerator));
+		L.RegFunction("GetChild", new LuaCSFunction(GetChild));
+		L.RegFunction("DOTogglePause", new LuaCSFunction(DOTogglePause));
+		L.RegFunction("DOSmoothRewind", new LuaCSFunction(DOSmoothRewind));
+		L.RegFunction("DORewind", new LuaCSFunction(DORewind));
+		L.RegFunction("DORestart", new LuaCSFunction(DORestart));
+		L.RegFunction("DOPlayForward", new LuaCSFunction(DOPlayForward));
+		L.RegFunction("DOPlayBackwards", new LuaCSFunction(DOPlayBackwards));
+		L.RegFunction("DOPlay", new LuaCSFunction(DOPlay));
+		L.RegFunction("DOPause", new LuaCSFunction(DOPause));
+		L.RegFunction("DOGoto", new LuaCSFunction(DOGoto));
+		L.RegFunction("DOFlip", new LuaCSFunction(DOFlip));
+		L.RegFunction("DOKill", new LuaCSFunction(DOKill));
+		L.RegFunction("DOComplete", new LuaCSFunction(DOComplete));
+		L.RegFunction("DOBlendableScaleBy", new LuaCSFunction(DOBlendableScaleBy));
+		L.RegFunction("DOBlendablePunchRotation", new LuaCSFunction(DOBlendablePunchRotation));
+		L.RegFunction("DOBlendableLocalRotateBy", new LuaCSFunction(DOBlendableLocalRotateBy));
+		L.RegFunction("DOBlendableRotateBy", new LuaCSFunction(DOBlendableRotateBy));
+		L.RegFunction("DOBlendableLocalMoveBy", new LuaCSFunction(DOBlendableLocalMoveBy));
+		L.RegFunction("DOBlendableMoveBy", new LuaCSFunction(DOBlendableMoveBy));
+		L.RegFunction("DOLocalPath", new LuaCSFunction(DOLocalPath));
+		L.RegFunction("DOPath", new LuaCSFunction(DOPath));
+		L.RegFunction("DOLocalJump", new LuaCSFunction(DOLocalJump));
+		L.RegFunction("DOJump", new LuaCSFunction(DOJump));
+		L.RegFunction("DOShakeScale", new LuaCSFunction(DOShakeScale));
+		L.RegFunction("DOShakeRotation", new LuaCSFunction(DOShakeRotation));
+		L.RegFunction("DOShakePosition", new LuaCSFunction(DOShakePosition));
+		L.RegFunction("DOPunchRotation", new LuaCSFunction(DOPunchRotation));
+		L.RegFunction("DOPunchScale", new LuaCSFunction(DOPunchScale));
+		L.RegFunction("DOPunchPosition", new LuaCSFunction(DOPunchPosition));
+		L.RegFunction("DOLookAt", new LuaCSFunction(DOLookAt));
+		L.RegFunction("DOScaleZ", new LuaCSFunction(DOScaleZ));
+		L.RegFunction("DOScaleY", new LuaCSFunction(DOScaleY));
+		L.RegFunction("DOScaleX", new LuaCSFunction(DOScaleX));
+		L.RegFunction("DOScale", new LuaCSFunction(DOScale));
+		L.RegFunction("DOLocalRotateQuaternion", new LuaCSFunction(DOLocalRotateQuaternion));
+		L.RegFunction("DOLocalRotate", new LuaCSFunction(DOLocalRotate));
+		L.RegFunction("DORotateQuaternion", new LuaCSFunction(DORotateQuaternion));
+		L.RegFunction("DORotate", new LuaCSFunction(DORotate));
+		L.RegFunction("DOLocalMoveZ", new LuaCSFunction(DOLocalMoveZ));
+		L.RegFunction("DOLocalMoveY", new LuaCSFunction(DOLocalMoveY));
+		L.RegFunction("DOLocalMoveX", new LuaCSFunction(DOLocalMoveX));
+		L.RegFunction("DOLocalMove", new LuaCSFunction(DOLocalMove));
+		L.RegFunction("DOMoveZ", new LuaCSFunction(DOMoveZ));
+		L.RegFunction("DOMoveY", new LuaCSFunction(DOMoveY));
+		L.RegFunction("DOMoveX", new LuaCSFunction(DOMoveX));
+		L.RegFunction("DOMove", new LuaCSFunction(DOMove));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("position", new LuaCSFunction(get_position), new LuaCSFunction(set_position));
+		L.RegVar("localPosition", new LuaCSFunction(get_localPosition), new LuaCSFunction(set_localPosition));
+		L.RegVar("eulerAngles", new LuaCSFunction(get_eulerAngles), new LuaCSFunction(set_eulerAngles));
+		L.RegVar("localEulerAngles", new LuaCSFunction(get_localEulerAngles), new LuaCSFunction(set_localEulerAngles));
+		L.RegVar("right", new LuaCSFunction(get_right), new LuaCSFunction(set_right));
+		L.RegVar("up", new LuaCSFunction(get_up), new LuaCSFunction(set_up));
+		L.RegVar("forward", new LuaCSFunction(get_forward), new LuaCSFunction(set_forward));
+		L.RegVar("rotation", new LuaCSFunction(get_rotation), new LuaCSFunction(set_rotation));
+		L.RegVar("localRotation", new LuaCSFunction(get_localRotation), new LuaCSFunction(set_localRotation));
+		L.RegVar("localScale", new LuaCSFunction(get_localScale), new LuaCSFunction(set_localScale));
+		L.RegVar("parent", new LuaCSFunction(get_parent), new LuaCSFunction(set_parent));
+		L.RegVar("worldToLocalMatrix", new LuaCSFunction(get_worldToLocalMatrix), null);
+		L.RegVar("localToWorldMatrix", new LuaCSFunction(get_localToWorldMatrix), null);
+		L.RegVar("root", new LuaCSFunction(get_root), null);
+		L.RegVar("childCount", new LuaCSFunction(get_childCount), null);
+		L.RegVar("lossyScale", new LuaCSFunction(get_lossyScale), null);
+		L.RegVar("hasChanged", new LuaCSFunction(get_hasChanged), new LuaCSFunction(set_hasChanged));
+		L.RegVar("hierarchyCapacity", new LuaCSFunction(get_hierarchyCapacity), new LuaCSFunction(set_hierarchyCapacity));
+		L.RegVar("hierarchyCount", new LuaCSFunction(get_hierarchyCount), null);
 		L.EndClass();
 	}
 
@@ -233,19 +233,19 @@ public class UnityEngine_TransformWrap
 				obj.Rotate(arg0);
 				return 0;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Space>(L, 3))
-			{
-				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-				UnityEngine.Space arg1 = (UnityEngine.Space)ToLua.ToObject(L, 3);
-				obj.Rotate(arg0, arg1);
-				return 0;
-			}
 			else if (count == 3 && TypeChecker.CheckTypes<float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
+				obj.Rotate(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Space>(L, 3))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+				UnityEngine.Space arg1 = (UnityEngine.Space)ToLua.ToObject(L, 3);
 				obj.Rotate(arg0, arg1);
 				return 0;
 			}
@@ -273,7 +273,7 @@ public class UnityEngine_TransformWrap
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
 				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
-				UnityEngine.Space arg3 = (UnityEngine.Space)ToLua.CheckObject(L, 5, typeof(UnityEngine.Space));
+				UnityEngine.Space arg3 = (UnityEngine.Space)ToLua.CheckObject(L, 5, TypeTraits<UnityEngine.Space>.type);
 				obj.Rotate(arg0, arg1, arg2, arg3);
 				return 0;
 			}
@@ -626,7 +626,7 @@ public class UnityEngine_TransformWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.SetSiblingIndex(arg0);
 			return 0;
 		}
@@ -713,7 +713,7 @@ public class UnityEngine_TransformWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			UnityEngine.Transform o = obj.GetChild(arg0);
 			ToLua.Push(L, o);
 			return 1;
@@ -1050,7 +1050,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				DG.Tweening.Tweener o = obj.DOBlendablePunchRotation(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1060,7 +1060,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOBlendablePunchRotation(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
@@ -1098,7 +1098,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, typeof(DG.Tweening.RotateMode));
+				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.RotateMode>.type);
 				DG.Tweening.Tweener o = obj.DOBlendableLocalRotateBy(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1135,7 +1135,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, typeof(DG.Tweening.RotateMode));
+				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.RotateMode>.type);
 				DG.Tweening.Tweener o = obj.DOBlendableRotateBy(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1275,8 +1275,8 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOLocalPath(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1286,9 +1286,9 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
-				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
+				int arg4 = (int)LuaDLL.luaL_checkinteger(L, 6);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOLocalPath(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1298,9 +1298,9 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
-				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
+				int arg4 = (int)LuaDLL.luaL_checkinteger(L, 6);
 				System.Nullable<UnityEngine.Color> arg5 = ToLua.CheckNullable<UnityEngine.Color>(L, 7);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOLocalPath(arg0, arg1, arg2, arg3, arg4, arg5);
 				ToLua.PushObject(L, o);
@@ -1367,8 +1367,8 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOPath(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1378,9 +1378,9 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
-				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
+				int arg4 = (int)LuaDLL.luaL_checkinteger(L, 6);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOPath(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1390,9 +1390,9 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, typeof(DG.Tweening.PathType));
-				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, typeof(DG.Tweening.PathMode));
-				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg2 = (DG.Tweening.PathType)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.PathType>.type);
+				DG.Tweening.PathMode arg3 = (DG.Tweening.PathMode)ToLua.CheckObject(L, 5, TypeTraits<DG.Tweening.PathMode>.type);
+				int arg4 = (int)LuaDLL.luaL_checkinteger(L, 6);
 				System.Nullable<UnityEngine.Color> arg5 = ToLua.CheckNullable<UnityEngine.Color>(L, 7);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Vector3,DG.Tweening.Plugins.Core.PathCore.Path,DG.Tweening.Plugins.Options.PathOptions> o = obj.DOPath(arg0, arg1, arg2, arg3, arg4, arg5);
 				ToLua.PushObject(L, o);
@@ -1421,7 +1421,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Sequence o = obj.DOLocalJump(arg0, arg1, arg2, arg3);
 				ToLua.PushSealed(L, o);
@@ -1432,7 +1432,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				DG.Tweening.Sequence o = obj.DOLocalJump(arg0, arg1, arg2, arg3, arg4);
@@ -1462,7 +1462,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Sequence o = obj.DOJump(arg0, arg1, arg2, arg3);
 				ToLua.PushSealed(L, o);
@@ -1473,7 +1473,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				DG.Tweening.Sequence o = obj.DOJump(arg0, arg1, arg2, arg3, arg4);
@@ -1506,15 +1506,6 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
-			{
-				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else if (count == 3 && TypeChecker.CheckTypes<float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
@@ -1524,13 +1515,12 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
+			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2);
+				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1539,19 +1529,18 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
+			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1560,21 +1549,20 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
+			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				bool arg4 = LuaDLL.lua_toboolean(L, 6);
-				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3, arg4);
+				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1583,7 +1571,19 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
+				bool arg4 = LuaDLL.lua_toboolean(L, 6);
+				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				bool arg4 = LuaDLL.lua_toboolean(L, 6);
 				DG.Tweening.Tweener o = obj.DOShakeScale(arg0, arg1, arg2, arg3, arg4);
@@ -1616,15 +1616,6 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
-			{
-				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else if (count == 3 && TypeChecker.CheckTypes<float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
@@ -1634,13 +1625,12 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
+			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2);
+				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1649,19 +1639,18 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
+			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1670,21 +1659,20 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
+			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				bool arg4 = LuaDLL.lua_toboolean(L, 6);
-				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3, arg4);
+				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1693,7 +1681,19 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
+				bool arg4 = LuaDLL.lua_toboolean(L, 6);
+				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				bool arg4 = LuaDLL.lua_toboolean(L, 6);
 				DG.Tweening.Tweener o = obj.DOShakeRotation(arg0, arg1, arg2, arg3, arg4);
@@ -1726,15 +1726,6 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
-			{
-				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else if (count == 3 && TypeChecker.CheckTypes<float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
@@ -1744,13 +1735,12 @@ public class UnityEngine_TransformWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
+			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.Vector3>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2);
+				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1759,19 +1749,18 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
+			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.Vector3, int>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
-				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1780,21 +1769,20 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
+			else if (count == 5 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
-				bool arg4 = LuaDLL.lua_toboolean(L, 6);
-				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3, arg4);
+				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1803,23 +1791,22 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				bool arg4 = LuaDLL.lua_toboolean(L, 6);
 				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 7 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool, bool>(L, 3))
+			else if (count == 6 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool>(L, 3))
 			{
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				bool arg4 = LuaDLL.lua_toboolean(L, 6);
-				bool arg5 = LuaDLL.lua_toboolean(L, 7);
-				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3, arg4, arg5);
+				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3, arg4);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -1828,7 +1815,20 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 				float arg1 = (float)LuaDLL.lua_tonumber(L, 3);
-				int arg2 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
+				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
+				bool arg4 = LuaDLL.lua_toboolean(L, 6);
+				bool arg5 = LuaDLL.lua_toboolean(L, 7);
+				DG.Tweening.Tweener o = obj.DOShakePosition(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7 && TypeChecker.CheckTypes<UnityEngine.Vector3, int, float, bool, bool>(L, 3))
+			{
+				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg1 = ToLua.ToVector3(L, 3);
+				int arg2 = (int)LuaDLL.lua_tointeger(L, 4);
 				float arg3 = (float)LuaDLL.lua_tonumber(L, 5);
 				bool arg4 = LuaDLL.lua_toboolean(L, 6);
 				bool arg5 = LuaDLL.lua_toboolean(L, 7);
@@ -1868,7 +1868,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				DG.Tweening.Tweener o = obj.DOPunchRotation(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1878,7 +1878,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOPunchRotation(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
@@ -1916,7 +1916,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				DG.Tweening.Tweener o = obj.DOPunchScale(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1926,7 +1926,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOPunchScale(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
@@ -1964,7 +1964,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				DG.Tweening.Tweener o = obj.DOPunchPosition(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -1974,7 +1974,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				DG.Tweening.Tweener o = obj.DOPunchPosition(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
@@ -1985,7 +1985,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				int arg2 = (int)LuaDLL.luaL_checknumber(L, 4);
+				int arg2 = (int)LuaDLL.luaL_checkinteger(L, 4);
 				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
 				bool arg4 = LuaDLL.luaL_checkboolean(L, 6);
 				DG.Tweening.Tweener o = obj.DOPunchPosition(arg0, arg1, arg2, arg3, arg4);
@@ -2024,7 +2024,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.AxisConstraint arg2 = (DG.Tweening.AxisConstraint)ToLua.CheckObject(L, 4, typeof(DG.Tweening.AxisConstraint));
+				DG.Tweening.AxisConstraint arg2 = (DG.Tweening.AxisConstraint)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.AxisConstraint>.type);
 				DG.Tweening.Tweener o = obj.DOLookAt(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -2034,7 +2034,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.AxisConstraint arg2 = (DG.Tweening.AxisConstraint)ToLua.CheckObject(L, 4, typeof(DG.Tweening.AxisConstraint));
+				DG.Tweening.AxisConstraint arg2 = (DG.Tweening.AxisConstraint)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.AxisConstraint>.type);
 				System.Nullable<UnityEngine.Vector3> arg3 = ToLua.CheckNullable<UnityEngine.Vector3>(L, 5);
 				DG.Tweening.Tweener o = obj.DOLookAt(arg0, arg1, arg2, arg3);
 				ToLua.PushObject(L, o);
@@ -2184,7 +2184,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, typeof(DG.Tweening.RotateMode));
+				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.RotateMode>.type);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Quaternion,UnityEngine.Vector3,DG.Tweening.Plugins.Options.QuaternionOptions> o = obj.DOLocalRotate(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -2240,7 +2240,7 @@ public class UnityEngine_TransformWrap
 				UnityEngine.Transform obj = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, typeof(DG.Tweening.RotateMode));
+				DG.Tweening.RotateMode arg2 = (DG.Tweening.RotateMode)ToLua.CheckObject(L, 4, TypeTraits<DG.Tweening.RotateMode>.type);
 				DG.Tweening.Core.TweenerCore<UnityEngine.Quaternion,UnityEngine.Vector3,DG.Tweening.Plugins.Options.QuaternionOptions> o = obj.DORotate(arg0, arg1, arg2);
 				ToLua.PushObject(L, o);
 				return 1;
@@ -3168,7 +3168,7 @@ public class UnityEngine_TransformWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Transform obj = (UnityEngine.Transform)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.hierarchyCapacity = arg0;
 			return 0;
 		}

@@ -7,23 +7,23 @@ public class UnityEngine_ScreenWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Screen");
-		L.RegFunction("SetResolution", SetResolution);
-		L.RegVar("width", get_width, null);
-		L.RegVar("height", get_height, null);
-		L.RegVar("dpi", get_dpi, null);
-		L.RegVar("currentResolution", get_currentResolution, null);
-		L.RegVar("resolutions", get_resolutions, null);
-		L.RegVar("fullScreen", get_fullScreen, set_fullScreen);
-		L.RegVar("fullScreenMode", get_fullScreenMode, set_fullScreenMode);
-		L.RegVar("safeArea", get_safeArea, null);
-		L.RegVar("cutouts", get_cutouts, null);
-		L.RegVar("autorotateToPortrait", get_autorotateToPortrait, set_autorotateToPortrait);
-		L.RegVar("autorotateToPortraitUpsideDown", get_autorotateToPortraitUpsideDown, set_autorotateToPortraitUpsideDown);
-		L.RegVar("autorotateToLandscapeLeft", get_autorotateToLandscapeLeft, set_autorotateToLandscapeLeft);
-		L.RegVar("autorotateToLandscapeRight", get_autorotateToLandscapeRight, set_autorotateToLandscapeRight);
-		L.RegVar("orientation", get_orientation, set_orientation);
-		L.RegVar("sleepTimeout", get_sleepTimeout, set_sleepTimeout);
-		L.RegVar("brightness", get_brightness, set_brightness);
+		L.RegFunction("SetResolution", new LuaCSFunction(SetResolution));
+		L.RegVar("width", new LuaCSFunction(get_width), null);
+		L.RegVar("height", new LuaCSFunction(get_height), null);
+		L.RegVar("dpi", new LuaCSFunction(get_dpi), null);
+		L.RegVar("currentResolution", new LuaCSFunction(get_currentResolution), null);
+		L.RegVar("resolutions", new LuaCSFunction(get_resolutions), null);
+		L.RegVar("fullScreen", new LuaCSFunction(get_fullScreen), new LuaCSFunction(set_fullScreen));
+		L.RegVar("fullScreenMode", new LuaCSFunction(get_fullScreenMode), new LuaCSFunction(set_fullScreenMode));
+		L.RegVar("safeArea", new LuaCSFunction(get_safeArea), null);
+		L.RegVar("cutouts", new LuaCSFunction(get_cutouts), null);
+		L.RegVar("autorotateToPortrait", new LuaCSFunction(get_autorotateToPortrait), new LuaCSFunction(set_autorotateToPortrait));
+		L.RegVar("autorotateToPortraitUpsideDown", new LuaCSFunction(get_autorotateToPortraitUpsideDown), new LuaCSFunction(set_autorotateToPortraitUpsideDown));
+		L.RegVar("autorotateToLandscapeLeft", new LuaCSFunction(get_autorotateToLandscapeLeft), new LuaCSFunction(set_autorotateToLandscapeLeft));
+		L.RegVar("autorotateToLandscapeRight", new LuaCSFunction(get_autorotateToLandscapeRight), new LuaCSFunction(set_autorotateToLandscapeRight));
+		L.RegVar("orientation", new LuaCSFunction(get_orientation), new LuaCSFunction(set_orientation));
+		L.RegVar("sleepTimeout", new LuaCSFunction(get_sleepTimeout), new LuaCSFunction(set_sleepTimeout));
+		L.RegVar("brightness", new LuaCSFunction(get_brightness), new LuaCSFunction(set_brightness));
 		L.EndStaticLibs();
 	}
 
@@ -34,37 +34,37 @@ public class UnityEngine_ScreenWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 3 && TypeChecker.CheckTypes<UnityEngine.FullScreenMode>(L, 3))
+			if (count == 3 && TypeChecker.CheckTypes<bool>(L, 3))
 			{
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
-				UnityEngine.FullScreenMode arg2 = (UnityEngine.FullScreenMode)ToLua.ToObject(L, 3);
-				UnityEngine.Screen.SetResolution(arg0, arg1, arg2);
-				return 0;
-			}
-			else if (count == 3 && TypeChecker.CheckTypes<bool>(L, 3))
-			{
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				bool arg2 = LuaDLL.lua_toboolean(L, 3);
 				UnityEngine.Screen.SetResolution(arg0, arg1, arg2);
 				return 0;
 			}
-			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.FullScreenMode, int>(L, 3))
+			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.FullScreenMode>(L, 3))
 			{
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				UnityEngine.FullScreenMode arg2 = (UnityEngine.FullScreenMode)ToLua.ToObject(L, 3);
-				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
-				UnityEngine.Screen.SetResolution(arg0, arg1, arg2, arg3);
+				UnityEngine.Screen.SetResolution(arg0, arg1, arg2);
 				return 0;
 			}
 			else if (count == 4 && TypeChecker.CheckTypes<bool, int>(L, 3))
 			{
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				bool arg2 = LuaDLL.lua_toboolean(L, 3);
-				int arg3 = (int)LuaDLL.lua_tonumber(L, 4);
+				int arg3 = (int)LuaDLL.lua_tointeger(L, 4);
+				UnityEngine.Screen.SetResolution(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 4 && TypeChecker.CheckTypes<UnityEngine.FullScreenMode, int>(L, 3))
+			{
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
+				UnityEngine.FullScreenMode arg2 = (UnityEngine.FullScreenMode)ToLua.ToObject(L, 3);
+				int arg3 = (int)LuaDLL.lua_tointeger(L, 4);
 				UnityEngine.Screen.SetResolution(arg0, arg1, arg2, arg3);
 				return 0;
 			}
@@ -310,6 +310,7 @@ public class UnityEngine_ScreenWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Screen.fullScreen = arg0;
+			UnityEngine.Screen.fullScreen = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -323,7 +324,8 @@ public class UnityEngine_ScreenWrap
 	{
 		try
 		{
-			UnityEngine.FullScreenMode arg0 = (UnityEngine.FullScreenMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.FullScreenMode));
+			UnityEngine.FullScreenMode arg0 = (UnityEngine.FullScreenMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.FullScreenMode>.type);
+			UnityEngine.Screen.fullScreenMode = arg0;
 			UnityEngine.Screen.fullScreenMode = arg0;
 			return 0;
 		}
@@ -340,6 +342,7 @@ public class UnityEngine_ScreenWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Screen.autorotateToPortrait = arg0;
+			UnityEngine.Screen.autorotateToPortrait = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -354,6 +357,7 @@ public class UnityEngine_ScreenWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			UnityEngine.Screen.autorotateToPortraitUpsideDown = arg0;
 			UnityEngine.Screen.autorotateToPortraitUpsideDown = arg0;
 			return 0;
 		}
@@ -370,6 +374,7 @@ public class UnityEngine_ScreenWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Screen.autorotateToLandscapeLeft = arg0;
+			UnityEngine.Screen.autorotateToLandscapeLeft = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -385,6 +390,7 @@ public class UnityEngine_ScreenWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Screen.autorotateToLandscapeRight = arg0;
+			UnityEngine.Screen.autorotateToLandscapeRight = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -398,7 +404,8 @@ public class UnityEngine_ScreenWrap
 	{
 		try
 		{
-			UnityEngine.ScreenOrientation arg0 = (UnityEngine.ScreenOrientation)ToLua.CheckObject(L, 2, typeof(UnityEngine.ScreenOrientation));
+			UnityEngine.ScreenOrientation arg0 = (UnityEngine.ScreenOrientation)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.ScreenOrientation>.type);
+			UnityEngine.Screen.orientation = arg0;
 			UnityEngine.Screen.orientation = arg0;
 			return 0;
 		}
@@ -413,7 +420,8 @@ public class UnityEngine_ScreenWrap
 	{
 		try
 		{
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			UnityEngine.Screen.sleepTimeout = arg0;
 			UnityEngine.Screen.sleepTimeout = arg0;
 			return 0;
 		}
@@ -429,6 +437,7 @@ public class UnityEngine_ScreenWrap
 		try
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Screen.brightness = arg0;
 			UnityEngine.Screen.brightness = arg0;
 			return 0;
 		}

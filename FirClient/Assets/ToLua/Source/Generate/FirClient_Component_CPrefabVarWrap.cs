@@ -7,12 +7,12 @@ public class FirClient_Component_CPrefabVarWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.CPrefabVar), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("GetVarArray", GetVarArray);
-		L.RegFunction("GetVarNameByType", GetVarNameByType);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("varData", get_varData, set_varData);
-		L.RegVar("varTypes", get_varTypes, null);
+		L.RegFunction("GetVarArray", new LuaCSFunction(GetVarArray));
+		L.RegFunction("GetVarNameByType", new LuaCSFunction(GetVarNameByType));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("varData", new LuaCSFunction(get_varData), new LuaCSFunction(set_varData));
+		L.RegVar("varTypes", new LuaCSFunction(get_varTypes), null);
 		L.EndClass();
 	}
 
@@ -40,7 +40,7 @@ public class FirClient_Component_CPrefabVarWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FirClient.Component.CPrefabVar obj = (FirClient.Component.CPrefabVar)ToLua.CheckObject<FirClient.Component.CPrefabVar>(L, 1);
-			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, typeof(FirClient.Component.VarType));
+			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, TypeTraits<FirClient.Component.VarType>.type);
 			string o = obj.GetVarNameByType(arg0);
 			LuaDLL.lua_pushstring(L, o);
 			return 1;
@@ -116,7 +116,7 @@ public class FirClient_Component_CPrefabVarWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Component.CPrefabVar obj = (FirClient.Component.CPrefabVar)o;
-			System.Collections.Generic.List<FirClient.Component.VarData> arg0 = (System.Collections.Generic.List<FirClient.Component.VarData>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<FirClient.Component.VarData>));
+			System.Collections.Generic.List<FirClient.Component.VarData> arg0 = (System.Collections.Generic.List<FirClient.Component.VarData>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.List<FirClient.Component.VarData>>.type);
 			obj.varData = arg0;
 			return 0;
 		}

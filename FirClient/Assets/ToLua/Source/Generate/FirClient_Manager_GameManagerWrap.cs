@@ -7,9 +7,9 @@ public class FirClient_Manager_GameManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.GameManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("ResInitialize", ResInitialize);
-		L.RegFunction("New", _CreateFirClient_Manager_GameManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("ResInitialize", new LuaCSFunction(ResInitialize));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_GameManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

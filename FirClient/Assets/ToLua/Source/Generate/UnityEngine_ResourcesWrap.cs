@@ -7,13 +7,13 @@ public class UnityEngine_ResourcesWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Resources");
-		L.RegFunction("FindObjectsOfTypeAll", FindObjectsOfTypeAll);
-		L.RegFunction("Load", Load);
-		L.RegFunction("LoadAsync", LoadAsync);
-		L.RegFunction("LoadAll", LoadAll);
-		L.RegFunction("GetBuiltinResource", GetBuiltinResource);
-		L.RegFunction("UnloadAsset", UnloadAsset);
-		L.RegFunction("UnloadUnusedAssets", UnloadUnusedAssets);
+		L.RegFunction("FindObjectsOfTypeAll", new LuaCSFunction(FindObjectsOfTypeAll));
+		L.RegFunction("Load", new LuaCSFunction(Load));
+		L.RegFunction("LoadAsync", new LuaCSFunction(LoadAsync));
+		L.RegFunction("LoadAll", new LuaCSFunction(LoadAll));
+		L.RegFunction("GetBuiltinResource", new LuaCSFunction(GetBuiltinResource));
+		L.RegFunction("UnloadAsset", new LuaCSFunction(UnloadAsset));
+		L.RegFunction("UnloadUnusedAssets", new LuaCSFunction(UnloadUnusedAssets));
 		L.EndStaticLibs();
 	}
 

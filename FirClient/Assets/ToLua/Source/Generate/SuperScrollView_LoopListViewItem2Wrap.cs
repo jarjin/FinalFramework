@@ -7,29 +7,29 @@ public class SuperScrollView_LoopListViewItem2Wrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(SuperScrollView.LoopListViewItem2), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("UserObjectData", get_UserObjectData, set_UserObjectData);
-		L.RegVar("UserIntData1", get_UserIntData1, set_UserIntData1);
-		L.RegVar("UserIntData2", get_UserIntData2, set_UserIntData2);
-		L.RegVar("UserStringData1", get_UserStringData1, set_UserStringData1);
-		L.RegVar("UserStringData2", get_UserStringData2, set_UserStringData2);
-		L.RegVar("DistanceWithViewPortSnapCenter", get_DistanceWithViewPortSnapCenter, set_DistanceWithViewPortSnapCenter);
-		L.RegVar("StartPosOffset", get_StartPosOffset, set_StartPosOffset);
-		L.RegVar("ItemCreatedCheckFrameCount", get_ItemCreatedCheckFrameCount, set_ItemCreatedCheckFrameCount);
-		L.RegVar("Padding", get_Padding, set_Padding);
-		L.RegVar("CachedRectTransform", get_CachedRectTransform, null);
-		L.RegVar("ItemPrefabName", get_ItemPrefabName, set_ItemPrefabName);
-		L.RegVar("ItemIndex", get_ItemIndex, set_ItemIndex);
-		L.RegVar("ItemId", get_ItemId, set_ItemId);
-		L.RegVar("IsInitHandlerCalled", get_IsInitHandlerCalled, set_IsInitHandlerCalled);
-		L.RegVar("ParentListView", get_ParentListView, set_ParentListView);
-		L.RegVar("TopY", get_TopY, null);
-		L.RegVar("BottomY", get_BottomY, null);
-		L.RegVar("LeftX", get_LeftX, null);
-		L.RegVar("RightX", get_RightX, null);
-		L.RegVar("ItemSize", get_ItemSize, null);
-		L.RegVar("ItemSizeWithPadding", get_ItemSizeWithPadding, null);
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("UserObjectData", new LuaCSFunction(get_UserObjectData), new LuaCSFunction(set_UserObjectData));
+		L.RegVar("UserIntData1", new LuaCSFunction(get_UserIntData1), new LuaCSFunction(set_UserIntData1));
+		L.RegVar("UserIntData2", new LuaCSFunction(get_UserIntData2), new LuaCSFunction(set_UserIntData2));
+		L.RegVar("UserStringData1", new LuaCSFunction(get_UserStringData1), new LuaCSFunction(set_UserStringData1));
+		L.RegVar("UserStringData2", new LuaCSFunction(get_UserStringData2), new LuaCSFunction(set_UserStringData2));
+		L.RegVar("DistanceWithViewPortSnapCenter", new LuaCSFunction(get_DistanceWithViewPortSnapCenter), new LuaCSFunction(set_DistanceWithViewPortSnapCenter));
+		L.RegVar("StartPosOffset", new LuaCSFunction(get_StartPosOffset), new LuaCSFunction(set_StartPosOffset));
+		L.RegVar("ItemCreatedCheckFrameCount", new LuaCSFunction(get_ItemCreatedCheckFrameCount), new LuaCSFunction(set_ItemCreatedCheckFrameCount));
+		L.RegVar("Padding", new LuaCSFunction(get_Padding), new LuaCSFunction(set_Padding));
+		L.RegVar("CachedRectTransform", new LuaCSFunction(get_CachedRectTransform), null);
+		L.RegVar("ItemPrefabName", new LuaCSFunction(get_ItemPrefabName), new LuaCSFunction(set_ItemPrefabName));
+		L.RegVar("ItemIndex", new LuaCSFunction(get_ItemIndex), new LuaCSFunction(set_ItemIndex));
+		L.RegVar("ItemId", new LuaCSFunction(get_ItemId), new LuaCSFunction(set_ItemId));
+		L.RegVar("IsInitHandlerCalled", new LuaCSFunction(get_IsInitHandlerCalled), new LuaCSFunction(set_IsInitHandlerCalled));
+		L.RegVar("ParentListView", new LuaCSFunction(get_ParentListView), new LuaCSFunction(set_ParentListView));
+		L.RegVar("TopY", new LuaCSFunction(get_TopY), null);
+		L.RegVar("BottomY", new LuaCSFunction(get_BottomY), null);
+		L.RegVar("LeftX", new LuaCSFunction(get_LeftX), null);
+		L.RegVar("RightX", new LuaCSFunction(get_RightX), null);
+		L.RegVar("ItemSize", new LuaCSFunction(get_ItemSize), null);
+		L.RegVar("ItemSizeWithPadding", new LuaCSFunction(get_ItemSizeWithPadding), null);
 		L.EndClass();
 	}
 
@@ -478,7 +478,7 @@ public class SuperScrollView_LoopListViewItem2Wrap
 		{
 			o = ToLua.ToObject(L, 1);
 			SuperScrollView.LoopListViewItem2 obj = (SuperScrollView.LoopListViewItem2)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.UserIntData1 = arg0;
 			return 0;
 		}
@@ -497,7 +497,7 @@ public class SuperScrollView_LoopListViewItem2Wrap
 		{
 			o = ToLua.ToObject(L, 1);
 			SuperScrollView.LoopListViewItem2 obj = (SuperScrollView.LoopListViewItem2)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.UserIntData2 = arg0;
 			return 0;
 		}
@@ -592,7 +592,7 @@ public class SuperScrollView_LoopListViewItem2Wrap
 		{
 			o = ToLua.ToObject(L, 1);
 			SuperScrollView.LoopListViewItem2 obj = (SuperScrollView.LoopListViewItem2)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.ItemCreatedCheckFrameCount = arg0;
 			return 0;
 		}
@@ -649,7 +649,7 @@ public class SuperScrollView_LoopListViewItem2Wrap
 		{
 			o = ToLua.ToObject(L, 1);
 			SuperScrollView.LoopListViewItem2 obj = (SuperScrollView.LoopListViewItem2)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.ItemIndex = arg0;
 			return 0;
 		}
@@ -668,7 +668,7 @@ public class SuperScrollView_LoopListViewItem2Wrap
 		{
 			o = ToLua.ToObject(L, 1);
 			SuperScrollView.LoopListViewItem2 obj = (SuperScrollView.LoopListViewItem2)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.ItemId = arg0;
 			return 0;
 		}

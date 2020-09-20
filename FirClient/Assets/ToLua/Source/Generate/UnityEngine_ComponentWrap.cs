@@ -7,23 +7,23 @@ public class UnityEngine_ComponentWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Component), typeof(UnityEngine.Object));
-		L.RegFunction("GetComponent", GetComponent);
-		L.RegFunction("TryGetComponent", TryGetComponent);
-		L.RegFunction("GetComponentInChildren", GetComponentInChildren);
-		L.RegFunction("GetComponentsInChildren", GetComponentsInChildren);
-		L.RegFunction("GetComponentInParent", GetComponentInParent);
-		L.RegFunction("GetComponentsInParent", GetComponentsInParent);
-		L.RegFunction("GetComponents", GetComponents);
-		L.RegFunction("CompareTag", CompareTag);
-		L.RegFunction("SendMessageUpwards", SendMessageUpwards);
-		L.RegFunction("SendMessage", SendMessage);
-		L.RegFunction("BroadcastMessage", BroadcastMessage);
-		L.RegFunction("New", _CreateUnityEngine_Component);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("transform", get_transform, null);
-		L.RegVar("gameObject", get_gameObject, null);
-		L.RegVar("tag", get_tag, set_tag);
+		L.RegFunction("GetComponent", new LuaCSFunction(GetComponent));
+		L.RegFunction("TryGetComponent", new LuaCSFunction(TryGetComponent));
+		L.RegFunction("GetComponentInChildren", new LuaCSFunction(GetComponentInChildren));
+		L.RegFunction("GetComponentsInChildren", new LuaCSFunction(GetComponentsInChildren));
+		L.RegFunction("GetComponentInParent", new LuaCSFunction(GetComponentInParent));
+		L.RegFunction("GetComponentsInParent", new LuaCSFunction(GetComponentsInParent));
+		L.RegFunction("GetComponents", new LuaCSFunction(GetComponents));
+		L.RegFunction("CompareTag", new LuaCSFunction(CompareTag));
+		L.RegFunction("SendMessageUpwards", new LuaCSFunction(SendMessageUpwards));
+		L.RegFunction("SendMessage", new LuaCSFunction(SendMessage));
+		L.RegFunction("BroadcastMessage", new LuaCSFunction(BroadcastMessage));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_Component));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("transform", new LuaCSFunction(get_transform), null);
+		L.RegVar("gameObject", new LuaCSFunction(get_gameObject), null);
+		L.RegVar("tag", new LuaCSFunction(get_tag), new LuaCSFunction(set_tag));
 		L.EndClass();
 	}
 
@@ -247,7 +247,7 @@ public class UnityEngine_ComponentWrap
 			{
 				UnityEngine.Component obj = (UnityEngine.Component)ToLua.CheckObject<UnityEngine.Component>(L, 1);
 				System.Type arg0 = ToLua.CheckMonoType(L, 2);
-				System.Collections.Generic.List<UnityEngine.Component> arg1 = (System.Collections.Generic.List<UnityEngine.Component>)ToLua.CheckObject(L, 3, typeof(System.Collections.Generic.List<UnityEngine.Component>));
+				System.Collections.Generic.List<UnityEngine.Component> arg1 = (System.Collections.Generic.List<UnityEngine.Component>)ToLua.CheckObject(L, 3, TypeTraits<System.Collections.Generic.List<UnityEngine.Component>>.type);
 				obj.GetComponents(arg0, arg1);
 				return 0;
 			}
@@ -315,7 +315,7 @@ public class UnityEngine_ComponentWrap
 				UnityEngine.Component obj = (UnityEngine.Component)ToLua.CheckObject<UnityEngine.Component>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				object arg1 = ToLua.ToVarObject(L, 3);
-				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, typeof(UnityEngine.SendMessageOptions));
+				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, TypeTraits<UnityEngine.SendMessageOptions>.type);
 				obj.SendMessageUpwards(arg0, arg1, arg2);
 				return 0;
 			}
@@ -365,7 +365,7 @@ public class UnityEngine_ComponentWrap
 				UnityEngine.Component obj = (UnityEngine.Component)ToLua.CheckObject<UnityEngine.Component>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				object arg1 = ToLua.ToVarObject(L, 3);
-				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, typeof(UnityEngine.SendMessageOptions));
+				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, TypeTraits<UnityEngine.SendMessageOptions>.type);
 				obj.SendMessage(arg0, arg1, arg2);
 				return 0;
 			}
@@ -415,7 +415,7 @@ public class UnityEngine_ComponentWrap
 				UnityEngine.Component obj = (UnityEngine.Component)ToLua.CheckObject<UnityEngine.Component>(L, 1);
 				string arg0 = ToLua.CheckString(L, 2);
 				object arg1 = ToLua.ToVarObject(L, 3);
-				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, typeof(UnityEngine.SendMessageOptions));
+				UnityEngine.SendMessageOptions arg2 = (UnityEngine.SendMessageOptions)ToLua.CheckObject(L, 4, TypeTraits<UnityEngine.SendMessageOptions>.type);
 				obj.BroadcastMessage(arg0, arg1, arg2);
 				return 0;
 			}

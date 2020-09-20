@@ -7,25 +7,25 @@ public class UnityEngine_RectTransformWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.RectTransform), typeof(UnityEngine.Transform));
-		L.RegFunction("ForceUpdateRectTransforms", ForceUpdateRectTransforms);
-		L.RegFunction("GetLocalCorners", GetLocalCorners);
-		L.RegFunction("GetWorldCorners", GetWorldCorners);
-		L.RegFunction("SetInsetAndSizeFromParentEdge", SetInsetAndSizeFromParentEdge);
-		L.RegFunction("SetSizeWithCurrentAnchors", SetSizeWithCurrentAnchors);
-		L.RegFunction("New", _CreateUnityEngine_RectTransform);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("rect", get_rect, null);
-		L.RegVar("anchorMin", get_anchorMin, set_anchorMin);
-		L.RegVar("anchorMax", get_anchorMax, set_anchorMax);
-		L.RegVar("anchoredPosition", get_anchoredPosition, set_anchoredPosition);
-		L.RegVar("sizeDelta", get_sizeDelta, set_sizeDelta);
-		L.RegVar("pivot", get_pivot, set_pivot);
-		L.RegVar("anchoredPosition3D", get_anchoredPosition3D, set_anchoredPosition3D);
-		L.RegVar("offsetMin", get_offsetMin, set_offsetMin);
-		L.RegVar("offsetMax", get_offsetMax, set_offsetMax);
-		L.RegVar("reapplyDrivenProperties", get_reapplyDrivenProperties, set_reapplyDrivenProperties);
-		L.RegFunction("ReapplyDrivenProperties", UnityEngine_RectTransform_ReapplyDrivenProperties);
+		L.RegFunction("ForceUpdateRectTransforms", new LuaCSFunction(ForceUpdateRectTransforms));
+		L.RegFunction("GetLocalCorners", new LuaCSFunction(GetLocalCorners));
+		L.RegFunction("GetWorldCorners", new LuaCSFunction(GetWorldCorners));
+		L.RegFunction("SetInsetAndSizeFromParentEdge", new LuaCSFunction(SetInsetAndSizeFromParentEdge));
+		L.RegFunction("SetSizeWithCurrentAnchors", new LuaCSFunction(SetSizeWithCurrentAnchors));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_RectTransform));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("rect", new LuaCSFunction(get_rect), null);
+		L.RegVar("anchorMin", new LuaCSFunction(get_anchorMin), new LuaCSFunction(set_anchorMin));
+		L.RegVar("anchorMax", new LuaCSFunction(get_anchorMax), new LuaCSFunction(set_anchorMax));
+		L.RegVar("anchoredPosition", new LuaCSFunction(get_anchoredPosition), new LuaCSFunction(set_anchoredPosition));
+		L.RegVar("sizeDelta", new LuaCSFunction(get_sizeDelta), new LuaCSFunction(set_sizeDelta));
+		L.RegVar("pivot", new LuaCSFunction(get_pivot), new LuaCSFunction(set_pivot));
+		L.RegVar("anchoredPosition3D", new LuaCSFunction(get_anchoredPosition3D), new LuaCSFunction(set_anchoredPosition3D));
+		L.RegVar("offsetMin", new LuaCSFunction(get_offsetMin), new LuaCSFunction(set_offsetMin));
+		L.RegVar("offsetMax", new LuaCSFunction(get_offsetMax), new LuaCSFunction(set_offsetMax));
+		L.RegVar("reapplyDrivenProperties", new LuaCSFunction(get_reapplyDrivenProperties), new LuaCSFunction(set_reapplyDrivenProperties));
+		L.RegFunction("ReapplyDrivenProperties", new LuaCSFunction(UnityEngine_RectTransform_ReapplyDrivenProperties));
 		L.EndClass();
 	}
 
@@ -59,7 +59,7 @@ public class UnityEngine_RectTransformWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
 			obj.ForceUpdateRectTransforms();
 			return 0;
 		}
@@ -78,7 +78,7 @@ public class UnityEngine_RectTransformWrap
 
             if (count == 1)
             {
-                UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+                UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
                 UnityEngine.Vector3[] arg0 = new UnityEngine.Vector3[4];
                 obj.GetLocalCorners(arg0);
                 ToLua.Push(L, arg0);
@@ -86,7 +86,7 @@ public class UnityEngine_RectTransformWrap
             }
 			else if (count == 2)
 			{
-				UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+				UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				obj.GetLocalCorners(arg0);
 				return 0;
@@ -111,7 +111,7 @@ public class UnityEngine_RectTransformWrap
 
             if (count == 1)
             {
-                UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+                UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
                 UnityEngine.Vector3[] arg0 = new UnityEngine.Vector3[4];
                 obj.GetWorldCorners(arg0);
                 ToLua.Push(L, arg0);
@@ -119,7 +119,7 @@ public class UnityEngine_RectTransformWrap
             }
 			else if (count == 2)
 			{
-				UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+				UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
 				UnityEngine.Vector3[] arg0 = ToLua.CheckStructArray<UnityEngine.Vector3>(L, 2);
 				obj.GetWorldCorners(arg0);
 				return 0;
@@ -141,8 +141,8 @@ public class UnityEngine_RectTransformWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 4);
-			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
-			UnityEngine.RectTransform.Edge arg0 = (UnityEngine.RectTransform.Edge)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform.Edge));
+			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
+			UnityEngine.RectTransform.Edge arg0 = (UnityEngine.RectTransform.Edge)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.RectTransform.Edge>.type);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
 			float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
 			obj.SetInsetAndSizeFromParentEdge(arg0, arg1, arg2);
@@ -160,8 +160,8 @@ public class UnityEngine_RectTransformWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
-			UnityEngine.RectTransform.Axis arg0 = (UnityEngine.RectTransform.Axis)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform.Axis));
+			UnityEngine.RectTransform obj = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 1);
+			UnityEngine.RectTransform.Axis arg0 = (UnityEngine.RectTransform.Axis)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.RectTransform.Axis>.type);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
 			obj.SetSizeWithCurrentAnchors(arg0, arg1);
 			return 0;
@@ -567,12 +567,15 @@ public class UnityEngine_RectTransformWrap
 			{
 				Delegate arg1 = DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Create(func);
 				ToLua.Push(L, arg1);
+				func.Dispose();
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Create(func, self);
 				ToLua.Push(L, arg1);
+				func.Dispose();
+				self.Dispose();
 			}
 			return 1;
 		}

@@ -7,11 +7,11 @@ public class QualityTableItemWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(QualityTableItem), typeof(System.Object));
-		L.RegFunction("New", _CreateQualityTableItem);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("icon", get_icon, set_icon);
+		L.RegFunction("New", new LuaCSFunction(_CreateQualityTableItem));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("icon", new LuaCSFunction(get_icon), new LuaCSFunction(set_icon));
 		L.EndClass();
 	}
 
@@ -105,7 +105,7 @@ public class QualityTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			QualityTableItem obj = (QualityTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}

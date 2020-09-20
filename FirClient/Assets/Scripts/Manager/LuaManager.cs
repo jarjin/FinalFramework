@@ -2,7 +2,6 @@ using UnityEngine;
 using LuaInterface;
 using FirClient.Behaviour;
 using FirClient.Utility;
-using System;
 
 namespace FirClient.Manager {
     public class LuaManager : BaseManager {
@@ -63,39 +62,35 @@ namespace FirClient.Manager {
             lua.LuaSetField(-2, "cjson.safe");
         }
 
-        protected void OpenLuaSocket()
-        {
-            LuaConst.openLuaSocket = true;
-
-            lua.BeginPreLoad();
-            lua.RegFunction("socket.core", LuaOpen_Socket_Core);
-            lua.RegFunction("mime.core", LuaOpen_Mime_Core);
-            lua.EndPreLoad();
-        }
-
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int LuaOpen_Socket_Core(IntPtr L)
-        {
-            return LuaDLL.luaopen_socket_core(L);
-        }
-
-        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-        static int LuaOpen_Mime_Core(IntPtr L)
-        {
-            return LuaDLL.luaopen_mime_core(L);
-        }
-
         /// <summary>
         /// 初始化加载第三方库
         /// </summary>
         void OpenLibs() 
         {
-            lua.OpenLibs(LuaDLL.luaopen_protobuf_c);
-            lua.OpenLibs(LuaDLL.luaopen_lpeg);
-            lua.OpenLibs(LuaDLL.luaopen_bit);
+            //保持库名字与5.1.5库中一致
+            lua.BeginPreLoad();
+            lua.AddPreLoadLib("pb2", new LuaCSFunction(LuaDLL.luaopen_pb));
+            lua.AddPreLoadLib("struct", new LuaCSFunction(LuaDLL.luaopen_struct));
+            lua.AddPreLoadLib("lpeg", new LuaCSFunction(LuaDLL.luaopen_lpeg));
+            lua.AddPreLoadLib("cjson", new LuaCSFunction(LuaDLL.luaopen_cjson));
+            lua.AddPreLoadLib("cjson.safe", new LuaCSFunction(LuaDLL.luaopen_cjson_safe));
+            lua.AddPreLoadLib("protobuf.c", new LuaCSFunction(LuaDLL.luaopen_protobuf_c));
+#if (UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX) && !LUAC_5_3
+            lua.AddPreLoadLib("bit", new LuaCSFunction(LuaDLL.luaopen_bit));
+#endif
 
-            this.OpenCJson();
-            this.OpenLuaSocket();
+            if (LuaConst.openLuaSocket || LuaConst.openLuaDebugger)
+            {
+                OpenLuaSocket();
+            }
+            lua.EndPreLoad();
+        }
+
+        void OpenLuaSocket()
+        {
+            LuaConst.openLuaSocket = true;
+            lua.AddPreLoadLib("socket.core", new LuaCSFunction(LuaDLL.luaopen_socket_core));
+            lua.AddPreLoadLib("mime.core", new LuaCSFunction(LuaDLL.luaopen_mime_core));
         }
 
         /// <summary>

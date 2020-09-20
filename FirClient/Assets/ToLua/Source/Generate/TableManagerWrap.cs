@@ -7,18 +7,18 @@ public class TableManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(TableManager), typeof(BaseObject));
-		L.RegFunction("Create", Create);
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("LoadTables", LoadTables);
-		L.RegFunction("OnUpdate", OnUpdate);
-		L.RegFunction("OnDispose", OnDispose);
-		L.RegFunction("New", _CreateTableManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("globalConfigTable", get_globalConfigTable, set_globalConfigTable);
-		L.RegVar("itemTable", get_itemTable, set_itemTable);
-		L.RegVar("npcTable", get_npcTable, set_npcTable);
-		L.RegVar("qualityTable", get_qualityTable, set_qualityTable);
-		L.RegVar("objectPoolTable", get_objectPoolTable, set_objectPoolTable);
+		L.RegFunction("Create", new LuaCSFunction(Create));
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("LoadTables", new LuaCSFunction(LoadTables));
+		L.RegFunction("OnUpdate", new LuaCSFunction(OnUpdate));
+		L.RegFunction("OnDispose", new LuaCSFunction(OnDispose));
+		L.RegFunction("New", new LuaCSFunction(_CreateTableManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("globalConfigTable", new LuaCSFunction(get_globalConfigTable), new LuaCSFunction(set_globalConfigTable));
+		L.RegVar("itemTable", new LuaCSFunction(get_itemTable), new LuaCSFunction(set_itemTable));
+		L.RegVar("npcTable", new LuaCSFunction(get_npcTable), new LuaCSFunction(set_npcTable));
+		L.RegVar("qualityTable", new LuaCSFunction(get_qualityTable), new LuaCSFunction(set_qualityTable));
+		L.RegVar("objectPoolTable", new LuaCSFunction(get_objectPoolTable), new LuaCSFunction(set_objectPoolTable));
 		L.EndClass();
 	}
 

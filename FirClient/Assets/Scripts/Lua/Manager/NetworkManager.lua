@@ -1,4 +1,4 @@
-require "3rd/pbc/protobuf"
+local protobuf = require "3rd/pbc/protobuf"
 
 local NetworkManager = class("NetworkManager")
 

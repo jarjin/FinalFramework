@@ -7,27 +7,27 @@ public class UnityEngine_DebugWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Debug), typeof(System.Object));
-		L.RegFunction("DrawLine", DrawLine);
-		L.RegFunction("DrawRay", DrawRay);
-		L.RegFunction("Break", Break);
-		L.RegFunction("DebugBreak", DebugBreak);
-		L.RegFunction("Log", Log);
-		L.RegFunction("LogFormat", LogFormat);
-		L.RegFunction("LogError", LogError);
-		L.RegFunction("LogErrorFormat", LogErrorFormat);
-		L.RegFunction("ClearDeveloperConsole", ClearDeveloperConsole);
-		L.RegFunction("LogException", LogException);
-		L.RegFunction("LogWarning", LogWarning);
-		L.RegFunction("LogWarningFormat", LogWarningFormat);
-		L.RegFunction("Assert", Assert);
-		L.RegFunction("AssertFormat", AssertFormat);
-		L.RegFunction("LogAssertion", LogAssertion);
-		L.RegFunction("LogAssertionFormat", LogAssertionFormat);
-		L.RegFunction("New", _CreateUnityEngine_Debug);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("unityLogger", get_unityLogger, null);
-		L.RegVar("developerConsoleVisible", get_developerConsoleVisible, set_developerConsoleVisible);
-		L.RegVar("isDebugBuild", get_isDebugBuild, null);
+		L.RegFunction("DrawLine", new LuaCSFunction(DrawLine));
+		L.RegFunction("DrawRay", new LuaCSFunction(DrawRay));
+		L.RegFunction("Break", new LuaCSFunction(Break));
+		L.RegFunction("DebugBreak", new LuaCSFunction(DebugBreak));
+		L.RegFunction("Log", new LuaCSFunction(Log));
+		L.RegFunction("LogFormat", new LuaCSFunction(LogFormat));
+		L.RegFunction("LogError", new LuaCSFunction(LogError));
+		L.RegFunction("LogErrorFormat", new LuaCSFunction(LogErrorFormat));
+		L.RegFunction("ClearDeveloperConsole", new LuaCSFunction(ClearDeveloperConsole));
+		L.RegFunction("LogException", new LuaCSFunction(LogException));
+		L.RegFunction("LogWarning", new LuaCSFunction(LogWarning));
+		L.RegFunction("LogWarningFormat", new LuaCSFunction(LogWarningFormat));
+		L.RegFunction("Assert", new LuaCSFunction(Assert));
+		L.RegFunction("AssertFormat", new LuaCSFunction(AssertFormat));
+		L.RegFunction("LogAssertion", new LuaCSFunction(LogAssertion));
+		L.RegFunction("LogAssertionFormat", new LuaCSFunction(LogAssertionFormat));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_Debug));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("unityLogger", new LuaCSFunction(get_unityLogger), null);
+		L.RegVar("developerConsoleVisible", new LuaCSFunction(get_developerConsoleVisible), new LuaCSFunction(set_developerConsoleVisible));
+		L.RegVar("isDebugBuild", new LuaCSFunction(get_isDebugBuild), null);
 		L.EndClass();
 	}
 
@@ -645,6 +645,7 @@ public class UnityEngine_DebugWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			UnityEngine.Debug.developerConsoleVisible = arg0;
 			UnityEngine.Debug.developerConsoleVisible = arg0;
 			return 0;
 		}

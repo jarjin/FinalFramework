@@ -7,13 +7,13 @@ public class FirClient_Manager_ResourceManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.ResourceManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("InitResManifest", InitResManifest);
-		L.RegFunction("TakeSnapshot", TakeSnapshot);
-		L.RegFunction("ClearSnapshot", ClearSnapshot);
-		L.RegFunction("DiffSnapshot", DiffSnapshot);
-		L.RegFunction("LoadAssetAsync", LoadAssetAsync);
-		L.RegFunction("New", _CreateFirClient_Manager_ResourceManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("InitResManifest", new LuaCSFunction(InitResManifest));
+		L.RegFunction("TakeSnapshot", new LuaCSFunction(TakeSnapshot));
+		L.RegFunction("ClearSnapshot", new LuaCSFunction(ClearSnapshot));
+		L.RegFunction("DiffSnapshot", new LuaCSFunction(DiffSnapshot));
+		L.RegFunction("LoadAssetAsync", new LuaCSFunction(LoadAssetAsync));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_ResourceManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

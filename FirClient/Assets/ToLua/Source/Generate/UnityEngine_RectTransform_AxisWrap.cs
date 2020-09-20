@@ -7,9 +7,9 @@ public class UnityEngine_RectTransform_AxisWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(UnityEngine.RectTransform.Axis));
-		L.RegVar("Horizontal", get_Horizontal, null);
-		L.RegVar("Vertical", get_Vertical, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Horizontal", new LuaCSFunction(get_Horizontal), null);
+		L.RegVar("Vertical", new LuaCSFunction(get_Vertical), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<UnityEngine.RectTransform.Axis>.Check = CheckType;
 		StackTraits<UnityEngine.RectTransform.Axis>.Push = Push;
@@ -20,9 +20,11 @@ public class UnityEngine_RectTransform_AxisWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_UnityEngine_RectTransform_Axis = typeof(UnityEngine.RectTransform.Axis);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(UnityEngine.RectTransform.Axis), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_UnityEngine_RectTransform_Axis, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -42,7 +44,7 @@ public class UnityEngine_RectTransform_AxisWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		UnityEngine.RectTransform.Axis o = (UnityEngine.RectTransform.Axis)arg0;
 		ToLua.Push(L, o);
 		return 1;

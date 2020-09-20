@@ -7,11 +7,11 @@ public class DG_Tweening_PathModeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(DG.Tweening.PathMode));
-		L.RegVar("Ignore", get_Ignore, null);
-		L.RegVar("Full3D", get_Full3D, null);
-		L.RegVar("TopDown2D", get_TopDown2D, null);
-		L.RegVar("Sidescroller2D", get_Sidescroller2D, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Ignore", new LuaCSFunction(get_Ignore), null);
+		L.RegVar("Full3D", new LuaCSFunction(get_Full3D), null);
+		L.RegVar("TopDown2D", new LuaCSFunction(get_TopDown2D), null);
+		L.RegVar("Sidescroller2D", new LuaCSFunction(get_Sidescroller2D), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<DG.Tweening.PathMode>.Check = CheckType;
 		StackTraits<DG.Tweening.PathMode>.Push = Push;
@@ -22,9 +22,11 @@ public class DG_Tweening_PathModeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_DG_Tweening_PathMode = typeof(DG.Tweening.PathMode);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(DG.Tweening.PathMode), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_DG_Tweening_PathMode, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -58,7 +60,7 @@ public class DG_Tweening_PathModeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		DG.Tweening.PathMode o = (DG.Tweening.PathMode)arg0;
 		ToLua.Push(L, o);
 		return 1;

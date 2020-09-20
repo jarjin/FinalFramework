@@ -7,14 +7,14 @@ public class QualityTableWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(QualityTable), typeof(System.Object));
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("GetItems", GetItems);
-		L.RegFunction("AddItem", AddItem);
-		L.RegFunction("GetItemByKey", GetItemByKey);
-		L.RegFunction("New", _CreateQualityTable);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("Items", get_Items, null);
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("GetItems", new LuaCSFunction(GetItems));
+		L.RegFunction("AddItem", new LuaCSFunction(AddItem));
+		L.RegFunction("GetItemByKey", new LuaCSFunction(GetItemByKey));
+		L.RegFunction("New", new LuaCSFunction(_CreateQualityTable));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("Items", new LuaCSFunction(get_Items), null);
 		L.EndClass();
 	}
 
@@ -99,7 +99,7 @@ public class QualityTableWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			QualityTable obj = (QualityTable)ToLua.CheckObject<QualityTable>(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			QualityTableItem o = obj.GetItemByKey(arg0);
 			ToLua.PushObject(L, o);
 			return 1;

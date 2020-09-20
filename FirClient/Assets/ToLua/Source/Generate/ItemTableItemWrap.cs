@@ -7,13 +7,13 @@ public class ItemTableItemWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ItemTableItem), typeof(System.Object));
-		L.RegFunction("New", _CreateItemTableItem);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("quality", get_quality, set_quality);
-		L.RegVar("typeid", get_typeid, set_typeid);
-		L.RegVar("icon", get_icon, set_icon);
+		L.RegFunction("New", new LuaCSFunction(_CreateItemTableItem));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("quality", new LuaCSFunction(get_quality), new LuaCSFunction(set_quality));
+		L.RegVar("typeid", new LuaCSFunction(get_typeid), new LuaCSFunction(set_typeid));
+		L.RegVar("icon", new LuaCSFunction(get_icon), new LuaCSFunction(set_icon));
 		L.EndClass();
 	}
 
@@ -145,7 +145,7 @@ public class ItemTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ItemTableItem obj = (ItemTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}
@@ -183,7 +183,7 @@ public class ItemTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ItemTableItem obj = (ItemTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.quality = arg0;
 			return 0;
 		}
@@ -202,7 +202,7 @@ public class ItemTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			ItemTableItem obj = (ItemTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.typeid = arg0;
 			return 0;
 		}

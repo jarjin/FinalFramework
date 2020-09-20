@@ -7,12 +7,12 @@ public class UnityEngine_UI_ContentSizeFitterWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.ContentSizeFitter), typeof(UnityEngine.EventSystems.UIBehaviour));
-		L.RegFunction("SetLayoutHorizontal", SetLayoutHorizontal);
-		L.RegFunction("SetLayoutVertical", SetLayoutVertical);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("horizontalFit", get_horizontalFit, set_horizontalFit);
-		L.RegVar("verticalFit", get_verticalFit, set_verticalFit);
+		L.RegFunction("SetLayoutHorizontal", new LuaCSFunction(SetLayoutHorizontal));
+		L.RegFunction("SetLayoutVertical", new LuaCSFunction(SetLayoutVertical));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("horizontalFit", new LuaCSFunction(get_horizontalFit), new LuaCSFunction(set_horizontalFit));
+		L.RegVar("verticalFit", new LuaCSFunction(get_verticalFit), new LuaCSFunction(set_verticalFit));
 		L.EndClass();
 	}
 
@@ -113,7 +113,7 @@ public class UnityEngine_UI_ContentSizeFitterWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.ContentSizeFitter obj = (UnityEngine.UI.ContentSizeFitter)o;
-			UnityEngine.UI.ContentSizeFitter.FitMode arg0 = (UnityEngine.UI.ContentSizeFitter.FitMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.ContentSizeFitter.FitMode));
+			UnityEngine.UI.ContentSizeFitter.FitMode arg0 = (UnityEngine.UI.ContentSizeFitter.FitMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.ContentSizeFitter.FitMode>.type);
 			obj.horizontalFit = arg0;
 			return 0;
 		}
@@ -132,7 +132,7 @@ public class UnityEngine_UI_ContentSizeFitterWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.ContentSizeFitter obj = (UnityEngine.UI.ContentSizeFitter)o;
-			UnityEngine.UI.ContentSizeFitter.FitMode arg0 = (UnityEngine.UI.ContentSizeFitter.FitMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.ContentSizeFitter.FitMode));
+			UnityEngine.UI.ContentSizeFitter.FitMode arg0 = (UnityEngine.UI.ContentSizeFitter.FitMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.ContentSizeFitter.FitMode>.type);
 			obj.verticalFit = arg0;
 			return 0;
 		}

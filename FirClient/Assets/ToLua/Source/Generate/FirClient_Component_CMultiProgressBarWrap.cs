@@ -7,11 +7,11 @@ public class FirClient_Component_CMultiProgressBarWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.CMultiProgressBar), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("SetColors", SetColors);
-		L.RegFunction("SetValue", SetValue);
-		L.RegFunction("Reset", Reset);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("SetColors", new LuaCSFunction(SetColors));
+		L.RegFunction("SetValue", new LuaCSFunction(SetValue));
+		L.RegFunction("Reset", new LuaCSFunction(Reset));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

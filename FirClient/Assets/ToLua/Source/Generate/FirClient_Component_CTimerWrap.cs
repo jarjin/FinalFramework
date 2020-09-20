@@ -7,16 +7,16 @@ public class FirClient_Component_CTimerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.CTimer), typeof(BaseObject));
-		L.RegFunction("Create", Create);
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("OnUpdate", OnUpdate);
-		L.RegFunction("AddTimer", AddTimer);
-		L.RegFunction("AddLuaTimer", AddLuaTimer);
-		L.RegFunction("RemoveTimer", RemoveTimer);
-		L.RegFunction("CreateTicker", CreateTicker);
-		L.RegFunction("OnDispose", OnDispose);
-		L.RegFunction("New", _CreateFirClient_Component_CTimer);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("Create", new LuaCSFunction(Create));
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("OnUpdate", new LuaCSFunction(OnUpdate));
+		L.RegFunction("AddTimer", new LuaCSFunction(AddTimer));
+		L.RegFunction("AddLuaTimer", new LuaCSFunction(AddLuaTimer));
+		L.RegFunction("RemoveTimer", new LuaCSFunction(RemoveTimer));
+		L.RegFunction("CreateTicker", new LuaCSFunction(CreateTicker));
+		L.RegFunction("OnDispose", new LuaCSFunction(OnDispose));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Component_CTimer));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -191,7 +191,7 @@ public class FirClient_Component_CTimerWrap
 		{
 			ToLua.CheckArgsCount(L, 4);
 			FirClient.Component.CTimer obj = (FirClient.Component.CTimer)ToLua.CheckObject<FirClient.Component.CTimer>(L, 1);
-			System.Collections.Generic.Dictionary<uint,uint> arg0 = (System.Collections.Generic.Dictionary<uint,uint>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.Dictionary<uint,uint>));
+			System.Collections.Generic.Dictionary<uint,uint> arg0 = (System.Collections.Generic.Dictionary<uint,uint>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.Dictionary<uint,uint>>.type);
 			object arg1 = ToLua.ToVarObject(L, 3);
 			System.Action<uint,object> arg2 = (System.Action<uint,object>)ToLua.CheckDelegate<System.Action<uint,object>>(L, 4);
 			obj.CreateTicker(arg0, arg1, arg2);

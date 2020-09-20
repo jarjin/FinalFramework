@@ -7,13 +7,13 @@ public class LuaInterface_DebuggerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Debugger");
-		L.RegFunction("Log", Log);
-		L.RegFunction("LogWarning", LogWarning);
-		L.RegFunction("LogError", LogError);
-		L.RegFunction("LogException", LogException);
-		L.RegVar("useLog", get_useLog, set_useLog);
-		L.RegVar("threadStack", get_threadStack, set_threadStack);
-		L.RegVar("logger", get_logger, set_logger);
+		L.RegFunction("Log", new LuaCSFunction(Log));
+		L.RegFunction("LogWarning", new LuaCSFunction(LogWarning));
+		L.RegFunction("LogError", new LuaCSFunction(LogError));
+		L.RegFunction("LogException", new LuaCSFunction(LogException));
+		L.RegVar("useLog", new LuaCSFunction(get_useLog), new LuaCSFunction(set_useLog));
+		L.RegVar("threadStack", new LuaCSFunction(get_threadStack), new LuaCSFunction(set_threadStack));
+		L.RegVar("logger", new LuaCSFunction(get_logger), new LuaCSFunction(set_logger));
 		L.EndStaticLibs();
 	}
 
@@ -280,6 +280,7 @@ public class LuaInterface_DebuggerWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			LuaInterface.Debugger.useLog = arg0;
+			LuaInterface.Debugger.useLog = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -295,6 +296,7 @@ public class LuaInterface_DebuggerWrap
 		{
 			string arg0 = ToLua.CheckString(L, 2);
 			LuaInterface.Debugger.threadStack = arg0;
+			LuaInterface.Debugger.threadStack = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -309,6 +311,7 @@ public class LuaInterface_DebuggerWrap
 		try
 		{
 			LuaInterface.ILogger arg0 = (LuaInterface.ILogger)ToLua.CheckObject<LuaInterface.ILogger>(L, 2);
+			LuaInterface.Debugger.logger = arg0;
 			LuaInterface.Debugger.logger = arg0;
 			return 0;
 		}

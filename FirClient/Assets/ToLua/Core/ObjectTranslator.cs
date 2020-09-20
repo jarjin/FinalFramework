@@ -1,5 +1,6 @@
 ﻿/*
-Copyright (c) 2015-2017 topameng(topameng@qq.com)
+Copyright (c) 2015-2021 topameng(topameng@qq.com)
+https://github.com/topameng/tolua
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +47,7 @@ namespace LuaInterface
         {
             public new bool Equals(object x, object y)
             {
-                return object.ReferenceEquals(x, y);                
+                return System.Object.ReferenceEquals(x, y);                
             }
 
             public int GetHashCode(object obj)
@@ -56,9 +57,10 @@ namespace LuaInterface
         }
 
         public bool LogGC { get; set; }
-        public readonly Dictionary<object, int> objectsBackMap = new Dictionary<object, int>(new CompareObject());
+        public readonly Dictionary<object, int> objectsBackMap = new Dictionary<object, int>(257, new CompareObject());
         public readonly LuaObjectPool objects = new LuaObjectPool();
         private List<DelayGC> gcList = new List<DelayGC>();
+        private Action<object, int> removeInvalidObject;
 
 #if !MULTI_STATE
         private static ObjectTranslator _translator = null;
@@ -70,6 +72,7 @@ namespace LuaInterface
 #if !MULTI_STATE
             _translator = this;
 #endif
+            removeInvalidObject = RemoveObject;
         }
 
         public int AddObject(object obj)
@@ -231,6 +234,11 @@ namespace LuaInterface
                     gcList[i].time = time;
                 }
             }
+        }
+
+        public void StepCollect()
+        {
+            objects.StepCollect(removeInvalidObject);
         }
 
         public void Dispose()

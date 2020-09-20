@@ -7,9 +7,9 @@ public class FirClient_Component_FollowTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(FirClient.Component.FollowType));
-		L.RegVar("ObjectFollowCamera", get_ObjectFollowCamera, null);
-		L.RegVar("CameraFollowRole", get_CameraFollowRole, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("ObjectFollowCamera", new LuaCSFunction(get_ObjectFollowCamera), null);
+		L.RegVar("CameraFollowRole", new LuaCSFunction(get_CameraFollowRole), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<FirClient.Component.FollowType>.Check = CheckType;
 		StackTraits<FirClient.Component.FollowType>.Push = Push;
@@ -20,9 +20,11 @@ public class FirClient_Component_FollowTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_FirClient_Component_FollowType = typeof(FirClient.Component.FollowType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(FirClient.Component.FollowType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_FirClient_Component_FollowType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -42,7 +44,7 @@ public class FirClient_Component_FollowTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		FirClient.Component.FollowType o = (FirClient.Component.FollowType)arg0;
 		ToLua.Push(L, o);
 		return 1;

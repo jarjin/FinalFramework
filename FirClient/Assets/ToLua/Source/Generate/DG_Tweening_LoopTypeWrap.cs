@@ -7,10 +7,10 @@ public class DG_Tweening_LoopTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(DG.Tweening.LoopType));
-		L.RegVar("Restart", get_Restart, null);
-		L.RegVar("Yoyo", get_Yoyo, null);
-		L.RegVar("Incremental", get_Incremental, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Restart", new LuaCSFunction(get_Restart), null);
+		L.RegVar("Yoyo", new LuaCSFunction(get_Yoyo), null);
+		L.RegVar("Incremental", new LuaCSFunction(get_Incremental), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<DG.Tweening.LoopType>.Check = CheckType;
 		StackTraits<DG.Tweening.LoopType>.Push = Push;
@@ -21,9 +21,11 @@ public class DG_Tweening_LoopTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_DG_Tweening_LoopType = typeof(DG.Tweening.LoopType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(DG.Tweening.LoopType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_DG_Tweening_LoopType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -50,7 +52,7 @@ public class DG_Tweening_LoopTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		DG.Tweening.LoopType o = (DG.Tweening.LoopType)arg0;
 		ToLua.Push(L, o);
 		return 1;

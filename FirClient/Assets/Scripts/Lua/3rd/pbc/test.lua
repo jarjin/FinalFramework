@@ -1,7 +1,6 @@
-require "protobuf"
+local protobuf = require "protobuf"
 
-path = Application.dataPath;
-addr = io.open(path.."/pbc/addressbook.pb", "rb")
+addr = io.open("../../build/addressbook.pb","rb")
 buffer = addr:read "*a"
 addr:close()
 

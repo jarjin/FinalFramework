@@ -7,44 +7,44 @@ public class UnityEngine_TextureWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Texture), typeof(UnityEngine.Object));
-		L.RegFunction("SetGlobalAnisotropicFilteringLimits", SetGlobalAnisotropicFilteringLimits);
-		L.RegFunction("GetNativeTexturePtr", GetNativeTexturePtr);
-		L.RegFunction("IncrementUpdateCount", IncrementUpdateCount);
-		L.RegFunction("SetStreamingTextureMaterialDebugProperties", SetStreamingTextureMaterialDebugProperties);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("GenerateAllMips", get_GenerateAllMips, null);
-		L.RegVar("masterTextureLimit", get_masterTextureLimit, set_masterTextureLimit);
-		L.RegVar("mipmapCount", get_mipmapCount, null);
-		L.RegVar("anisotropicFiltering", get_anisotropicFiltering, set_anisotropicFiltering);
-		L.RegVar("graphicsFormat", get_graphicsFormat, null);
-		L.RegVar("width", get_width, set_width);
-		L.RegVar("height", get_height, set_height);
-		L.RegVar("dimension", get_dimension, set_dimension);
-		L.RegVar("isReadable", get_isReadable, null);
-		L.RegVar("wrapMode", get_wrapMode, set_wrapMode);
-		L.RegVar("wrapModeU", get_wrapModeU, set_wrapModeU);
-		L.RegVar("wrapModeV", get_wrapModeV, set_wrapModeV);
-		L.RegVar("wrapModeW", get_wrapModeW, set_wrapModeW);
-		L.RegVar("filterMode", get_filterMode, set_filterMode);
-		L.RegVar("anisoLevel", get_anisoLevel, set_anisoLevel);
-		L.RegVar("mipMapBias", get_mipMapBias, set_mipMapBias);
-		L.RegVar("texelSize", get_texelSize, null);
-		L.RegVar("updateCount", get_updateCount, null);
-		L.RegVar("totalTextureMemory", get_totalTextureMemory, null);
-		L.RegVar("desiredTextureMemory", get_desiredTextureMemory, null);
-		L.RegVar("targetTextureMemory", get_targetTextureMemory, null);
-		L.RegVar("currentTextureMemory", get_currentTextureMemory, null);
-		L.RegVar("nonStreamingTextureMemory", get_nonStreamingTextureMemory, null);
-		L.RegVar("streamingMipmapUploadCount", get_streamingMipmapUploadCount, null);
-		L.RegVar("streamingRendererCount", get_streamingRendererCount, null);
-		L.RegVar("streamingTextureCount", get_streamingTextureCount, null);
-		L.RegVar("nonStreamingTextureCount", get_nonStreamingTextureCount, null);
-		L.RegVar("streamingTexturePendingLoadCount", get_streamingTexturePendingLoadCount, null);
-		L.RegVar("streamingTextureLoadingCount", get_streamingTextureLoadingCount, null);
-		L.RegVar("streamingTextureForceLoadAll", get_streamingTextureForceLoadAll, set_streamingTextureForceLoadAll);
-		L.RegVar("streamingTextureDiscardUnusedMips", get_streamingTextureDiscardUnusedMips, set_streamingTextureDiscardUnusedMips);
-		L.RegVar("allowThreadedTextureCreation", get_allowThreadedTextureCreation, set_allowThreadedTextureCreation);
+		L.RegFunction("SetGlobalAnisotropicFilteringLimits", new LuaCSFunction(SetGlobalAnisotropicFilteringLimits));
+		L.RegFunction("GetNativeTexturePtr", new LuaCSFunction(GetNativeTexturePtr));
+		L.RegFunction("IncrementUpdateCount", new LuaCSFunction(IncrementUpdateCount));
+		L.RegFunction("SetStreamingTextureMaterialDebugProperties", new LuaCSFunction(SetStreamingTextureMaterialDebugProperties));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("GenerateAllMips", new LuaCSFunction(get_GenerateAllMips), null);
+		L.RegVar("masterTextureLimit", new LuaCSFunction(get_masterTextureLimit), new LuaCSFunction(set_masterTextureLimit));
+		L.RegVar("mipmapCount", new LuaCSFunction(get_mipmapCount), null);
+		L.RegVar("anisotropicFiltering", new LuaCSFunction(get_anisotropicFiltering), new LuaCSFunction(set_anisotropicFiltering));
+		L.RegVar("graphicsFormat", new LuaCSFunction(get_graphicsFormat), null);
+		L.RegVar("width", new LuaCSFunction(get_width), new LuaCSFunction(set_width));
+		L.RegVar("height", new LuaCSFunction(get_height), new LuaCSFunction(set_height));
+		L.RegVar("dimension", new LuaCSFunction(get_dimension), new LuaCSFunction(set_dimension));
+		L.RegVar("isReadable", new LuaCSFunction(get_isReadable), null);
+		L.RegVar("wrapMode", new LuaCSFunction(get_wrapMode), new LuaCSFunction(set_wrapMode));
+		L.RegVar("wrapModeU", new LuaCSFunction(get_wrapModeU), new LuaCSFunction(set_wrapModeU));
+		L.RegVar("wrapModeV", new LuaCSFunction(get_wrapModeV), new LuaCSFunction(set_wrapModeV));
+		L.RegVar("wrapModeW", new LuaCSFunction(get_wrapModeW), new LuaCSFunction(set_wrapModeW));
+		L.RegVar("filterMode", new LuaCSFunction(get_filterMode), new LuaCSFunction(set_filterMode));
+		L.RegVar("anisoLevel", new LuaCSFunction(get_anisoLevel), new LuaCSFunction(set_anisoLevel));
+		L.RegVar("mipMapBias", new LuaCSFunction(get_mipMapBias), new LuaCSFunction(set_mipMapBias));
+		L.RegVar("texelSize", new LuaCSFunction(get_texelSize), null);
+		L.RegVar("updateCount", new LuaCSFunction(get_updateCount), null);
+		L.RegVar("totalTextureMemory", new LuaCSFunction(get_totalTextureMemory), null);
+		L.RegVar("desiredTextureMemory", new LuaCSFunction(get_desiredTextureMemory), null);
+		L.RegVar("targetTextureMemory", new LuaCSFunction(get_targetTextureMemory), null);
+		L.RegVar("currentTextureMemory", new LuaCSFunction(get_currentTextureMemory), null);
+		L.RegVar("nonStreamingTextureMemory", new LuaCSFunction(get_nonStreamingTextureMemory), null);
+		L.RegVar("streamingMipmapUploadCount", new LuaCSFunction(get_streamingMipmapUploadCount), null);
+		L.RegVar("streamingRendererCount", new LuaCSFunction(get_streamingRendererCount), null);
+		L.RegVar("streamingTextureCount", new LuaCSFunction(get_streamingTextureCount), null);
+		L.RegVar("nonStreamingTextureCount", new LuaCSFunction(get_nonStreamingTextureCount), null);
+		L.RegVar("streamingTexturePendingLoadCount", new LuaCSFunction(get_streamingTexturePendingLoadCount), null);
+		L.RegVar("streamingTextureLoadingCount", new LuaCSFunction(get_streamingTextureLoadingCount), null);
+		L.RegVar("streamingTextureForceLoadAll", new LuaCSFunction(get_streamingTextureForceLoadAll), new LuaCSFunction(set_streamingTextureForceLoadAll));
+		L.RegVar("streamingTextureDiscardUnusedMips", new LuaCSFunction(get_streamingTextureDiscardUnusedMips), new LuaCSFunction(set_streamingTextureDiscardUnusedMips));
+		L.RegVar("allowThreadedTextureCreation", new LuaCSFunction(get_allowThreadedTextureCreation), new LuaCSFunction(set_allowThreadedTextureCreation));
 		L.EndClass();
 	}
 
@@ -54,8 +54,8 @@ public class UnityEngine_TextureWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
-			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
+			int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			UnityEngine.Texture.SetGlobalAnisotropicFilteringLimits(arg0, arg1);
 			return 0;
 		}
@@ -449,7 +449,7 @@ public class UnityEngine_TextureWrap
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
 			uint ret = obj.updateCount;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -659,7 +659,8 @@ public class UnityEngine_TextureWrap
 	{
 		try
 		{
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			UnityEngine.Texture.masterTextureLimit = arg0;
 			UnityEngine.Texture.masterTextureLimit = arg0;
 			return 0;
 		}
@@ -674,7 +675,8 @@ public class UnityEngine_TextureWrap
 	{
 		try
 		{
-			UnityEngine.AnisotropicFiltering arg0 = (UnityEngine.AnisotropicFiltering)ToLua.CheckObject(L, 2, typeof(UnityEngine.AnisotropicFiltering));
+			UnityEngine.AnisotropicFiltering arg0 = (UnityEngine.AnisotropicFiltering)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.AnisotropicFiltering>.type);
+			UnityEngine.Texture.anisotropicFiltering = arg0;
 			UnityEngine.Texture.anisotropicFiltering = arg0;
 			return 0;
 		}
@@ -693,7 +695,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.width = arg0;
 			return 0;
 		}
@@ -712,7 +714,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.height = arg0;
 			return 0;
 		}
@@ -731,7 +733,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.Rendering.TextureDimension arg0 = (UnityEngine.Rendering.TextureDimension)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.TextureDimension));
+			UnityEngine.Rendering.TextureDimension arg0 = (UnityEngine.Rendering.TextureDimension)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.Rendering.TextureDimension>.type);
 			obj.dimension = arg0;
 			return 0;
 		}
@@ -750,7 +752,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.TextureWrapMode));
+			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TextureWrapMode>.type);
 			obj.wrapMode = arg0;
 			return 0;
 		}
@@ -769,7 +771,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.TextureWrapMode));
+			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TextureWrapMode>.type);
 			obj.wrapModeU = arg0;
 			return 0;
 		}
@@ -788,7 +790,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.TextureWrapMode));
+			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TextureWrapMode>.type);
 			obj.wrapModeV = arg0;
 			return 0;
 		}
@@ -807,7 +809,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.TextureWrapMode));
+			UnityEngine.TextureWrapMode arg0 = (UnityEngine.TextureWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TextureWrapMode>.type);
 			obj.wrapModeW = arg0;
 			return 0;
 		}
@@ -826,7 +828,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			UnityEngine.FilterMode arg0 = (UnityEngine.FilterMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.FilterMode));
+			UnityEngine.FilterMode arg0 = (UnityEngine.FilterMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.FilterMode>.type);
 			obj.filterMode = arg0;
 			return 0;
 		}
@@ -845,7 +847,7 @@ public class UnityEngine_TextureWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Texture obj = (UnityEngine.Texture)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.anisoLevel = arg0;
 			return 0;
 		}
@@ -881,6 +883,7 @@ public class UnityEngine_TextureWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Texture.streamingTextureForceLoadAll = arg0;
+			UnityEngine.Texture.streamingTextureForceLoadAll = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -896,6 +899,7 @@ public class UnityEngine_TextureWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Texture.streamingTextureDiscardUnusedMips = arg0;
+			UnityEngine.Texture.streamingTextureDiscardUnusedMips = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -910,6 +914,7 @@ public class UnityEngine_TextureWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			UnityEngine.Texture.allowThreadedTextureCreation = arg0;
 			UnityEngine.Texture.allowThreadedTextureCreation = arg0;
 			return 0;
 		}

@@ -11,6 +11,8 @@ public static class LuaConst
     public static string osDir = "Android";            
 #elif UNITY_IPHONE
     public static string osDir = "iOS";        
+#elif UNITY_WEBPLAYER
+    public static string osDir = "WebPlayer";
 #else
     public static string osDir = "";        
 #endif

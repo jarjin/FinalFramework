@@ -8,63 +8,63 @@ public class DG_Tweening_TweenWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(DG.Tweening.Tween), typeof(System.Object));
-		L.RegFunction("PathLength", PathLength);
-		L.RegFunction("PathGetDrawPoints", PathGetDrawPoints);
-		L.RegFunction("PathGetPoint", PathGetPoint);
-		L.RegFunction("Loops", Loops);
-		L.RegFunction("IsPlaying", IsPlaying);
-		L.RegFunction("IsInitialized", IsInitialized);
-		L.RegFunction("IsComplete", IsComplete);
-		L.RegFunction("IsBackwards", IsBackwards);
-		L.RegFunction("IsActive", IsActive);
-		L.RegFunction("ElapsedDirectionalPercentage", ElapsedDirectionalPercentage);
-		L.RegFunction("ElapsedPercentage", ElapsedPercentage);
-		L.RegFunction("Elapsed", Elapsed);
-		L.RegFunction("Duration", Duration);
-		L.RegFunction("Delay", Delay);
-		L.RegFunction("CompletedLoops", CompletedLoops);
-		L.RegFunction("WaitForStart", WaitForStart);
-		L.RegFunction("WaitForPosition", WaitForPosition);
-		L.RegFunction("WaitForElapsedLoops", WaitForElapsedLoops);
-		L.RegFunction("WaitForKill", WaitForKill);
-		L.RegFunction("WaitForRewind", WaitForRewind);
-		L.RegFunction("WaitForCompletion", WaitForCompletion);
-		L.RegFunction("GotoWaypoint", GotoWaypoint);
-		L.RegFunction("TogglePause", TogglePause);
-		L.RegFunction("SmoothRewind", SmoothRewind);
-		L.RegFunction("Rewind", Rewind);
-		L.RegFunction("Restart", Restart);
-		L.RegFunction("PlayForward", PlayForward);
-		L.RegFunction("PlayBackwards", PlayBackwards);
-		L.RegFunction("Play", Play);
-		L.RegFunction("Pause", Pause);
-		L.RegFunction("Kill", Kill);
-		L.RegFunction("Goto", Goto);
-		L.RegFunction("ForceInit", ForceInit);
-		L.RegFunction("Flip", Flip);
-		L.RegFunction("Complete", Complete);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("timeScale", get_timeScale, set_timeScale);
-		L.RegVar("isBackwards", get_isBackwards, set_isBackwards);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("stringId", get_stringId, set_stringId);
-		L.RegVar("intId", get_intId, set_intId);
-		L.RegVar("target", get_target, set_target);
-		L.RegVar("onPlay", get_onPlay, set_onPlay);
-		L.RegVar("onPause", get_onPause, set_onPause);
-		L.RegVar("onRewind", get_onRewind, set_onRewind);
-		L.RegVar("onUpdate", get_onUpdate, set_onUpdate);
-		L.RegVar("onStepComplete", get_onStepComplete, set_onStepComplete);
-		L.RegVar("onComplete", get_onComplete, set_onComplete);
-		L.RegVar("onKill", get_onKill, set_onKill);
-		L.RegVar("onWaypointChange", get_onWaypointChange, set_onWaypointChange);
-		L.RegVar("easeOvershootOrAmplitude", get_easeOvershootOrAmplitude, set_easeOvershootOrAmplitude);
-		L.RegVar("easePeriod", get_easePeriod, set_easePeriod);
-		L.RegVar("isRelative", get_isRelative, null);
-		L.RegVar("active", get_active, null);
-		L.RegVar("fullPosition", get_fullPosition, set_fullPosition);
-		L.RegVar("playedOnce", get_playedOnce, null);
-		L.RegVar("position", get_position, null);
+		L.RegFunction("PathLength", new LuaCSFunction(PathLength));
+		L.RegFunction("PathGetDrawPoints", new LuaCSFunction(PathGetDrawPoints));
+		L.RegFunction("PathGetPoint", new LuaCSFunction(PathGetPoint));
+		L.RegFunction("Loops", new LuaCSFunction(Loops));
+		L.RegFunction("IsPlaying", new LuaCSFunction(IsPlaying));
+		L.RegFunction("IsInitialized", new LuaCSFunction(IsInitialized));
+		L.RegFunction("IsComplete", new LuaCSFunction(IsComplete));
+		L.RegFunction("IsBackwards", new LuaCSFunction(IsBackwards));
+		L.RegFunction("IsActive", new LuaCSFunction(IsActive));
+		L.RegFunction("ElapsedDirectionalPercentage", new LuaCSFunction(ElapsedDirectionalPercentage));
+		L.RegFunction("ElapsedPercentage", new LuaCSFunction(ElapsedPercentage));
+		L.RegFunction("Elapsed", new LuaCSFunction(Elapsed));
+		L.RegFunction("Duration", new LuaCSFunction(Duration));
+		L.RegFunction("Delay", new LuaCSFunction(Delay));
+		L.RegFunction("CompletedLoops", new LuaCSFunction(CompletedLoops));
+		L.RegFunction("WaitForStart", new LuaCSFunction(WaitForStart));
+		L.RegFunction("WaitForPosition", new LuaCSFunction(WaitForPosition));
+		L.RegFunction("WaitForElapsedLoops", new LuaCSFunction(WaitForElapsedLoops));
+		L.RegFunction("WaitForKill", new LuaCSFunction(WaitForKill));
+		L.RegFunction("WaitForRewind", new LuaCSFunction(WaitForRewind));
+		L.RegFunction("WaitForCompletion", new LuaCSFunction(WaitForCompletion));
+		L.RegFunction("GotoWaypoint", new LuaCSFunction(GotoWaypoint));
+		L.RegFunction("TogglePause", new LuaCSFunction(TogglePause));
+		L.RegFunction("SmoothRewind", new LuaCSFunction(SmoothRewind));
+		L.RegFunction("Rewind", new LuaCSFunction(Rewind));
+		L.RegFunction("Restart", new LuaCSFunction(Restart));
+		L.RegFunction("PlayForward", new LuaCSFunction(PlayForward));
+		L.RegFunction("PlayBackwards", new LuaCSFunction(PlayBackwards));
+		L.RegFunction("Play", new LuaCSFunction(Play));
+		L.RegFunction("Pause", new LuaCSFunction(Pause));
+		L.RegFunction("Kill", new LuaCSFunction(Kill));
+		L.RegFunction("Goto", new LuaCSFunction(Goto));
+		L.RegFunction("ForceInit", new LuaCSFunction(ForceInit));
+		L.RegFunction("Flip", new LuaCSFunction(Flip));
+		L.RegFunction("Complete", new LuaCSFunction(Complete));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("timeScale", new LuaCSFunction(get_timeScale), new LuaCSFunction(set_timeScale));
+		L.RegVar("isBackwards", new LuaCSFunction(get_isBackwards), new LuaCSFunction(set_isBackwards));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("stringId", new LuaCSFunction(get_stringId), new LuaCSFunction(set_stringId));
+		L.RegVar("intId", new LuaCSFunction(get_intId), new LuaCSFunction(set_intId));
+		L.RegVar("target", new LuaCSFunction(get_target), new LuaCSFunction(set_target));
+		L.RegVar("onPlay", new LuaCSFunction(get_onPlay), new LuaCSFunction(set_onPlay));
+		L.RegVar("onPause", new LuaCSFunction(get_onPause), new LuaCSFunction(set_onPause));
+		L.RegVar("onRewind", new LuaCSFunction(get_onRewind), new LuaCSFunction(set_onRewind));
+		L.RegVar("onUpdate", new LuaCSFunction(get_onUpdate), new LuaCSFunction(set_onUpdate));
+		L.RegVar("onStepComplete", new LuaCSFunction(get_onStepComplete), new LuaCSFunction(set_onStepComplete));
+		L.RegVar("onComplete", new LuaCSFunction(get_onComplete), new LuaCSFunction(set_onComplete));
+		L.RegVar("onKill", new LuaCSFunction(get_onKill), new LuaCSFunction(set_onKill));
+		L.RegVar("onWaypointChange", new LuaCSFunction(get_onWaypointChange), new LuaCSFunction(set_onWaypointChange));
+		L.RegVar("easeOvershootOrAmplitude", new LuaCSFunction(get_easeOvershootOrAmplitude), new LuaCSFunction(set_easeOvershootOrAmplitude));
+		L.RegVar("easePeriod", new LuaCSFunction(get_easePeriod), new LuaCSFunction(set_easePeriod));
+		L.RegVar("isRelative", new LuaCSFunction(get_isRelative), null);
+		L.RegVar("active", new LuaCSFunction(get_active), null);
+		L.RegVar("fullPosition", new LuaCSFunction(get_fullPosition), new LuaCSFunction(set_fullPosition));
+		L.RegVar("playedOnce", new LuaCSFunction(get_playedOnce), null);
+		L.RegVar("position", new LuaCSFunction(get_position), null);
 		L.EndClass();
 	}
 
@@ -102,7 +102,7 @@ public class DG_Tweening_TweenWrap
 			else if (count == 2)
 			{
 				DG.Tweening.Tween obj = (DG.Tweening.Tween)ToLua.CheckObject<DG.Tweening.Tween>(L, 1);
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				UnityEngine.Vector3[] o = obj.PathGetDrawPoints(arg0);
 				ToLua.Push(L, o);
 				return 1;
@@ -430,7 +430,7 @@ public class DG_Tweening_TweenWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)ToLua.CheckObject<DG.Tweening.Tween>(L, 1);
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			UnityEngine.YieldInstruction o = obj.WaitForElapsedLoops(arg0);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -502,14 +502,14 @@ public class DG_Tweening_TweenWrap
 			if (count == 2)
 			{
 				DG.Tweening.Tween obj = (DG.Tweening.Tween)ToLua.CheckObject<DG.Tweening.Tween>(L, 1);
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				obj.GotoWaypoint(arg0);
 				return 0;
 			}
 			else if (count == 3)
 			{
 				DG.Tweening.Tween obj = (DG.Tweening.Tween)ToLua.CheckObject<DG.Tweening.Tween>(L, 1);
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
 				obj.GotoWaypoint(arg0, arg1);
 				return 0;
@@ -1304,7 +1304,7 @@ public class DG_Tweening_TweenWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.intId = arg0;
 			return 0;
 		}
@@ -1343,7 +1343,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onPlay = arg0;
+
+			if (!object.ReferenceEquals(obj.onPlay, arg0))
+			{
+				if (obj.onPlay != null) obj.onPlay.SubRef();
+				obj.onPlay = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1362,7 +1368,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onPause = arg0;
+
+			if (!object.ReferenceEquals(obj.onPause, arg0))
+			{
+				if (obj.onPause != null) obj.onPause.SubRef();
+				obj.onPause = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1381,7 +1393,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onRewind = arg0;
+
+			if (!object.ReferenceEquals(obj.onRewind, arg0))
+			{
+				if (obj.onRewind != null) obj.onRewind.SubRef();
+				obj.onRewind = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1400,7 +1418,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onUpdate = arg0;
+
+			if (!object.ReferenceEquals(obj.onUpdate, arg0))
+			{
+				if (obj.onUpdate != null) obj.onUpdate.SubRef();
+				obj.onUpdate = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1419,7 +1443,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onStepComplete = arg0;
+
+			if (!object.ReferenceEquals(obj.onStepComplete, arg0))
+			{
+				if (obj.onStepComplete != null) obj.onStepComplete.SubRef();
+				obj.onStepComplete = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1438,7 +1468,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onComplete = arg0;
+
+			if (!object.ReferenceEquals(obj.onComplete, arg0))
+			{
+				if (obj.onComplete != null) obj.onComplete.SubRef();
+				obj.onComplete = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1457,7 +1493,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback arg0 = (DG.Tweening.TweenCallback)ToLua.CheckDelegate<DG.Tweening.TweenCallback>(L, 2);
-			obj.onKill = arg0;
+
+			if (!object.ReferenceEquals(obj.onKill, arg0))
+			{
+				if (obj.onKill != null) obj.onKill.SubRef();
+				obj.onKill = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -1476,7 +1518,13 @@ public class DG_Tweening_TweenWrap
 			o = ToLua.ToObject(L, 1);
 			DG.Tweening.Tween obj = (DG.Tweening.Tween)o;
 			DG.Tweening.TweenCallback<int> arg0 = (DG.Tweening.TweenCallback<int>)ToLua.CheckDelegate<DG.Tweening.TweenCallback<int>>(L, 2);
-			obj.onWaypointChange = arg0;
+
+			if (!object.ReferenceEquals(obj.onWaypointChange, arg0))
+			{
+				if (obj.onWaypointChange != null) obj.onWaypointChange.SubRef();
+				obj.onWaypointChange = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)

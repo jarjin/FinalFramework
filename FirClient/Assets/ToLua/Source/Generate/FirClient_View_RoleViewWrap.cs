@@ -7,14 +7,14 @@ public class FirClient_View_RoleViewWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.View.RoleView), typeof(FirClient.View.NPCView));
-		L.RegFunction("ShowNpc", ShowNpc);
-		L.RegFunction("PlayRoleAnim", PlayRoleAnim);
-		L.RegFunction("LookAt", LookAt);
-		L.RegFunction("SetFaceDir", SetFaceDir);
-		L.RegFunction("NpcSkillAttack", NpcSkillAttack);
-		L.RegFunction("OnNpcDeath", OnNpcDeath);
-		L.RegFunction("New", _CreateFirClient_View_RoleView);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("ShowNpc", new LuaCSFunction(ShowNpc));
+		L.RegFunction("PlayRoleAnim", new LuaCSFunction(PlayRoleAnim));
+		L.RegFunction("LookAt", new LuaCSFunction(LookAt));
+		L.RegFunction("SetFaceDir", new LuaCSFunction(SetFaceDir));
+		L.RegFunction("NpcSkillAttack", new LuaCSFunction(NpcSkillAttack));
+		L.RegFunction("OnNpcDeath", new LuaCSFunction(OnNpcDeath));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_View_RoleView));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -132,7 +132,7 @@ public class FirClient_View_RoleViewWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FirClient.View.RoleView obj = (FirClient.View.RoleView)ToLua.CheckObject<FirClient.View.RoleView>(L, 1);
-			FirClient.Data.FaceDir arg0 = (FirClient.Data.FaceDir)ToLua.CheckObject(L, 2, typeof(FirClient.Data.FaceDir));
+			FirClient.Data.FaceDir arg0 = (FirClient.Data.FaceDir)ToLua.CheckObject(L, 2, TypeTraits<FirClient.Data.FaceDir>.type);
 			obj.SetFaceDir(arg0);
 			return 0;
 		}

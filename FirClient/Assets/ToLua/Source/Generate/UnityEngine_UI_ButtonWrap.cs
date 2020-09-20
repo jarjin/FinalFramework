@@ -7,11 +7,11 @@ public class UnityEngine_UI_ButtonWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Button), typeof(UnityEngine.UI.Selectable));
-		L.RegFunction("OnPointerClick", OnPointerClick);
-		L.RegFunction("OnSubmit", OnSubmit);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("onClick", get_onClick, set_onClick);
+		L.RegFunction("OnPointerClick", new LuaCSFunction(OnPointerClick));
+		L.RegFunction("OnSubmit", new LuaCSFunction(OnSubmit));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("onClick", new LuaCSFunction(get_onClick), new LuaCSFunction(set_onClick));
 		L.EndClass();
 	}
 

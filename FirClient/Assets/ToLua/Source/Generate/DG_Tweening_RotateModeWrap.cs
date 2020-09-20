@@ -7,11 +7,11 @@ public class DG_Tweening_RotateModeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(DG.Tweening.RotateMode));
-		L.RegVar("Fast", get_Fast, null);
-		L.RegVar("FastBeyond360", get_FastBeyond360, null);
-		L.RegVar("WorldAxisAdd", get_WorldAxisAdd, null);
-		L.RegVar("LocalAxisAdd", get_LocalAxisAdd, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Fast", new LuaCSFunction(get_Fast), null);
+		L.RegVar("FastBeyond360", new LuaCSFunction(get_FastBeyond360), null);
+		L.RegVar("WorldAxisAdd", new LuaCSFunction(get_WorldAxisAdd), null);
+		L.RegVar("LocalAxisAdd", new LuaCSFunction(get_LocalAxisAdd), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<DG.Tweening.RotateMode>.Check = CheckType;
 		StackTraits<DG.Tweening.RotateMode>.Push = Push;
@@ -22,9 +22,11 @@ public class DG_Tweening_RotateModeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_DG_Tweening_RotateMode = typeof(DG.Tweening.RotateMode);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(DG.Tweening.RotateMode), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_DG_Tweening_RotateMode, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -58,7 +60,7 @@ public class DG_Tweening_RotateModeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		DG.Tweening.RotateMode o = (DG.Tweening.RotateMode)arg0;
 		ToLua.Push(L, o);
 		return 1;

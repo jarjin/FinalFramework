@@ -7,34 +7,34 @@ public class UnityEngine_UI_SelectableWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Selectable), typeof(UnityEngine.EventSystems.UIBehaviour));
-		L.RegFunction("AllSelectablesNoAlloc", AllSelectablesNoAlloc);
-		L.RegFunction("IsInteractable", IsInteractable);
-		L.RegFunction("FindSelectable", FindSelectable);
-		L.RegFunction("FindSelectableOnLeft", FindSelectableOnLeft);
-		L.RegFunction("FindSelectableOnRight", FindSelectableOnRight);
-		L.RegFunction("FindSelectableOnUp", FindSelectableOnUp);
-		L.RegFunction("FindSelectableOnDown", FindSelectableOnDown);
-		L.RegFunction("OnMove", OnMove);
-		L.RegFunction("OnPointerDown", OnPointerDown);
-		L.RegFunction("OnPointerUp", OnPointerUp);
-		L.RegFunction("OnPointerEnter", OnPointerEnter);
-		L.RegFunction("OnPointerExit", OnPointerExit);
-		L.RegFunction("OnSelect", OnSelect);
-		L.RegFunction("OnDeselect", OnDeselect);
-		L.RegFunction("Select", Select);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("allSelectablesArray", get_allSelectablesArray, null);
-		L.RegVar("allSelectableCount", get_allSelectableCount, null);
-		L.RegVar("navigation", get_navigation, set_navigation);
-		L.RegVar("transition", get_transition, set_transition);
-		L.RegVar("colors", get_colors, set_colors);
-		L.RegVar("spriteState", get_spriteState, set_spriteState);
-		L.RegVar("animationTriggers", get_animationTriggers, set_animationTriggers);
-		L.RegVar("targetGraphic", get_targetGraphic, set_targetGraphic);
-		L.RegVar("interactable", get_interactable, set_interactable);
-		L.RegVar("image", get_image, set_image);
-		L.RegVar("animator", get_animator, null);
+		L.RegFunction("AllSelectablesNoAlloc", new LuaCSFunction(AllSelectablesNoAlloc));
+		L.RegFunction("IsInteractable", new LuaCSFunction(IsInteractable));
+		L.RegFunction("FindSelectable", new LuaCSFunction(FindSelectable));
+		L.RegFunction("FindSelectableOnLeft", new LuaCSFunction(FindSelectableOnLeft));
+		L.RegFunction("FindSelectableOnRight", new LuaCSFunction(FindSelectableOnRight));
+		L.RegFunction("FindSelectableOnUp", new LuaCSFunction(FindSelectableOnUp));
+		L.RegFunction("FindSelectableOnDown", new LuaCSFunction(FindSelectableOnDown));
+		L.RegFunction("OnMove", new LuaCSFunction(OnMove));
+		L.RegFunction("OnPointerDown", new LuaCSFunction(OnPointerDown));
+		L.RegFunction("OnPointerUp", new LuaCSFunction(OnPointerUp));
+		L.RegFunction("OnPointerEnter", new LuaCSFunction(OnPointerEnter));
+		L.RegFunction("OnPointerExit", new LuaCSFunction(OnPointerExit));
+		L.RegFunction("OnSelect", new LuaCSFunction(OnSelect));
+		L.RegFunction("OnDeselect", new LuaCSFunction(OnDeselect));
+		L.RegFunction("Select", new LuaCSFunction(Select));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("allSelectablesArray", new LuaCSFunction(get_allSelectablesArray), null);
+		L.RegVar("allSelectableCount", new LuaCSFunction(get_allSelectableCount), null);
+		L.RegVar("navigation", new LuaCSFunction(get_navigation), new LuaCSFunction(set_navigation));
+		L.RegVar("transition", new LuaCSFunction(get_transition), new LuaCSFunction(set_transition));
+		L.RegVar("colors", new LuaCSFunction(get_colors), new LuaCSFunction(set_colors));
+		L.RegVar("spriteState", new LuaCSFunction(get_spriteState), new LuaCSFunction(set_spriteState));
+		L.RegVar("animationTriggers", new LuaCSFunction(get_animationTriggers), new LuaCSFunction(set_animationTriggers));
+		L.RegVar("targetGraphic", new LuaCSFunction(get_targetGraphic), new LuaCSFunction(set_targetGraphic));
+		L.RegVar("interactable", new LuaCSFunction(get_interactable), new LuaCSFunction(set_interactable));
+		L.RegVar("image", new LuaCSFunction(get_image), new LuaCSFunction(set_image));
+		L.RegVar("animator", new LuaCSFunction(get_animator), null);
 		L.EndClass();
 	}
 
@@ -538,7 +538,7 @@ public class UnityEngine_UI_SelectableWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Selectable obj = (UnityEngine.UI.Selectable)o;
-			UnityEngine.UI.Selectable.Transition arg0 = (UnityEngine.UI.Selectable.Transition)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.Selectable.Transition));
+			UnityEngine.UI.Selectable.Transition arg0 = (UnityEngine.UI.Selectable.Transition)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.Selectable.Transition>.type);
 			obj.transition = arg0;
 			return 0;
 		}

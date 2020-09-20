@@ -7,11 +7,11 @@ public class FirClient_Data_ChapterDataWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Data.ChapterData), typeof(System.Object));
-		L.RegFunction("New", _CreateFirClient_Data_ChapterData);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("dungeonDatas", get_dungeonDatas, set_dungeonDatas);
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Data_ChapterData));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("dungeonDatas", new LuaCSFunction(get_dungeonDatas), new LuaCSFunction(set_dungeonDatas));
 		L.EndClass();
 	}
 
@@ -49,7 +49,7 @@ public class FirClient_Data_ChapterDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.ChapterData obj = (FirClient.Data.ChapterData)o;
 			uint ret = obj.id;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -105,7 +105,7 @@ public class FirClient_Data_ChapterDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.ChapterData obj = (FirClient.Data.ChapterData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}
@@ -143,7 +143,7 @@ public class FirClient_Data_ChapterDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.ChapterData obj = (FirClient.Data.ChapterData)o;
-			System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData> arg0 = (System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData>));
+			System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData> arg0 = (System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.Dictionary<uint,FirClient.Data.DungeonData>>.type);
 			obj.dungeonDatas = arg0;
 			return 0;
 		}

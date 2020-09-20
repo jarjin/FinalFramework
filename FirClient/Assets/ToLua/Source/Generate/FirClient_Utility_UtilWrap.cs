@@ -7,45 +7,45 @@ public class FirClient_Utility_UtilWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Util");
-		L.RegFunction("Random", Random);
-		L.RegFunction("GetTime", GetTime);
-		L.RegFunction("RandomTime", RandomTime);
-		L.RegFunction("Vibrate", Vibrate);
-		L.RegFunction("Encode", Encode);
-		L.RegFunction("Decode", Decode);
-		L.RegFunction("IsNumeric", IsNumeric);
-		L.RegFunction("HashToMD5Hex", HashToMD5Hex);
-		L.RegFunction("md5", md5);
-		L.RegFunction("md5file", md5file);
-		L.RegFunction("SetDebugState", SetDebugState);
-		L.RegFunction("GetKey", GetKey);
-		L.RegFunction("GetInt", GetInt);
-		L.RegFunction("HasKey", HasKey);
-		L.RegFunction("SetInt", SetInt);
-		L.RegFunction("GetString", GetString);
-		L.RegFunction("SetString", SetString);
-		L.RegFunction("RemoveData", RemoveData);
-		L.RegFunction("ClearMemory", ClearMemory);
-		L.RegFunction("IsNumber", IsNumber);
-		L.RegFunction("GetFileText", GetFileText);
-		L.RegFunction("AppContentPath", AppContentPath);
-		L.RegFunction("LuaPath", LuaPath);
-		L.RegFunction("CallMethod", CallMethod);
-		L.RegFunction("CallLuaMethod", CallLuaMethod);
-		L.RegFunction("UpdateLoadingProgress", UpdateLoadingProgress);
-		L.RegFunction("GetVersionInfo", GetVersionInfo);
-		L.RegFunction("InitVersionInfo", InitVersionInfo);
-		L.RegFunction("CopyDir", CopyDir);
-		L.RegFunction("StartCoroutine", StartCoroutine);
-		L.RegFunction("LoadGameSettings", LoadGameSettings);
-		L.RegFunction("AddHudObject", AddHudObject);
-		L.RegFunction("RemoveHudObject", RemoveHudObject);
-		L.RegFunction("GetFloatingTextPrefab", GetFloatingTextPrefab);
-		L.RegFunction("UnloadAsset", UnloadAsset);
-		L.RegFunction("CameraHalfWidth", CameraHalfWidth);
-		L.RegVar("NetAvailable", get_NetAvailable, null);
-		L.RegVar("IsWifi", get_IsWifi, null);
-		L.RegVar("DataPath", get_DataPath, null);
+		L.RegFunction("Random", new LuaCSFunction(Random));
+		L.RegFunction("GetTime", new LuaCSFunction(GetTime));
+		L.RegFunction("RandomTime", new LuaCSFunction(RandomTime));
+		L.RegFunction("Vibrate", new LuaCSFunction(Vibrate));
+		L.RegFunction("Encode", new LuaCSFunction(Encode));
+		L.RegFunction("Decode", new LuaCSFunction(Decode));
+		L.RegFunction("IsNumeric", new LuaCSFunction(IsNumeric));
+		L.RegFunction("HashToMD5Hex", new LuaCSFunction(HashToMD5Hex));
+		L.RegFunction("md5", new LuaCSFunction(md5));
+		L.RegFunction("md5file", new LuaCSFunction(md5file));
+		L.RegFunction("SetDebugState", new LuaCSFunction(SetDebugState));
+		L.RegFunction("GetKey", new LuaCSFunction(GetKey));
+		L.RegFunction("GetInt", new LuaCSFunction(GetInt));
+		L.RegFunction("HasKey", new LuaCSFunction(HasKey));
+		L.RegFunction("SetInt", new LuaCSFunction(SetInt));
+		L.RegFunction("GetString", new LuaCSFunction(GetString));
+		L.RegFunction("SetString", new LuaCSFunction(SetString));
+		L.RegFunction("RemoveData", new LuaCSFunction(RemoveData));
+		L.RegFunction("ClearMemory", new LuaCSFunction(ClearMemory));
+		L.RegFunction("IsNumber", new LuaCSFunction(IsNumber));
+		L.RegFunction("GetFileText", new LuaCSFunction(GetFileText));
+		L.RegFunction("AppContentPath", new LuaCSFunction(AppContentPath));
+		L.RegFunction("LuaPath", new LuaCSFunction(LuaPath));
+		L.RegFunction("CallMethod", new LuaCSFunction(CallMethod));
+		L.RegFunction("CallLuaMethod", new LuaCSFunction(CallLuaMethod));
+		L.RegFunction("UpdateLoadingProgress", new LuaCSFunction(UpdateLoadingProgress));
+		L.RegFunction("GetVersionInfo", new LuaCSFunction(GetVersionInfo));
+		L.RegFunction("InitVersionInfo", new LuaCSFunction(InitVersionInfo));
+		L.RegFunction("CopyDir", new LuaCSFunction(CopyDir));
+		L.RegFunction("StartCoroutine", new LuaCSFunction(StartCoroutine));
+		L.RegFunction("LoadGameSettings", new LuaCSFunction(LoadGameSettings));
+		L.RegFunction("AddHudObject", new LuaCSFunction(AddHudObject));
+		L.RegFunction("RemoveHudObject", new LuaCSFunction(RemoveHudObject));
+		L.RegFunction("GetFloatingTextPrefab", new LuaCSFunction(GetFloatingTextPrefab));
+		L.RegFunction("UnloadAsset", new LuaCSFunction(UnloadAsset));
+		L.RegFunction("CameraHalfWidth", new LuaCSFunction(CameraHalfWidth));
+		L.RegVar("NetAvailable", new LuaCSFunction(get_NetAvailable), null);
+		L.RegVar("IsWifi", new LuaCSFunction(get_IsWifi), null);
+		L.RegVar("DataPath", new LuaCSFunction(get_DataPath), null);
 		L.EndStaticLibs();
 	}
 
@@ -290,7 +290,7 @@ public class FirClient_Utility_UtilWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			string arg0 = ToLua.CheckString(L, 1);
-			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			FirClient.Utility.Util.SetInt(arg0, arg1);
 			return 0;
 		}
@@ -606,7 +606,7 @@ public class FirClient_Utility_UtilWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject<UnityEngine.GameObject>(L, 1);
 			FirClient.HUD.HUDObject o = FirClient.Utility.Util.AddHudObject(arg0);
 			ToLua.Push(L, o);
 			return 1;
@@ -655,7 +655,7 @@ public class FirClient_Utility_UtilWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject<UnityEngine.GameObject>(L, 1);
 			FirClient.Utility.Util.UnloadAsset(arg0);
 			return 0;
 		}

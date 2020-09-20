@@ -7,10 +7,10 @@ public class GlobalConfigTableItemWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(GlobalConfigTableItem), typeof(System.Object));
-		L.RegFunction("New", _CreateGlobalConfigTableItem);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("value", get_value, set_value);
+		L.RegFunction("New", new LuaCSFunction(_CreateGlobalConfigTableItem));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("value", new LuaCSFunction(get_value), new LuaCSFunction(set_value));
 		L.EndClass();
 	}
 

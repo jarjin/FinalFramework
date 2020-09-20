@@ -7,15 +7,15 @@ public class FirClient_Behaviour_LuaBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Behaviour.LuaBehaviour), typeof(GameBehaviour));
-		L.RegFunction("AddClick", AddClick);
-		L.RegFunction("RemoveClick", RemoveClick);
-		L.RegFunction("AddToggleClick", AddToggleClick);
-		L.RegFunction("RemoveToggleClick", RemoveToggleClick);
-		L.RegFunction("AddEndEdit", AddEndEdit);
-		L.RegFunction("RemoveEndEdit", RemoveEndEdit);
-		L.RegFunction("ClearLuaEvent", ClearLuaEvent);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("AddClick", new LuaCSFunction(AddClick));
+		L.RegFunction("RemoveClick", new LuaCSFunction(RemoveClick));
+		L.RegFunction("AddToggleClick", new LuaCSFunction(AddToggleClick));
+		L.RegFunction("RemoveToggleClick", new LuaCSFunction(RemoveToggleClick));
+		L.RegFunction("AddEndEdit", new LuaCSFunction(AddEndEdit));
+		L.RegFunction("RemoveEndEdit", new LuaCSFunction(RemoveEndEdit));
+		L.RegFunction("ClearLuaEvent", new LuaCSFunction(ClearLuaEvent));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

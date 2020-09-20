@@ -7,25 +7,25 @@ public class System_IO_PathWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Path");
-		L.RegFunction("ChangeExtension", ChangeExtension);
-		L.RegFunction("Combine", Combine);
-		L.RegFunction("GetDirectoryName", GetDirectoryName);
-		L.RegFunction("GetExtension", GetExtension);
-		L.RegFunction("GetFileName", GetFileName);
-		L.RegFunction("GetFileNameWithoutExtension", GetFileNameWithoutExtension);
-		L.RegFunction("GetFullPath", GetFullPath);
-		L.RegFunction("GetPathRoot", GetPathRoot);
-		L.RegFunction("GetTempFileName", GetTempFileName);
-		L.RegFunction("GetTempPath", GetTempPath);
-		L.RegFunction("HasExtension", HasExtension);
-		L.RegFunction("IsPathRooted", IsPathRooted);
-		L.RegFunction("GetInvalidFileNameChars", GetInvalidFileNameChars);
-		L.RegFunction("GetInvalidPathChars", GetInvalidPathChars);
-		L.RegFunction("GetRandomFileName", GetRandomFileName);
-		L.RegVar("AltDirectorySeparatorChar", get_AltDirectorySeparatorChar, null);
-		L.RegVar("DirectorySeparatorChar", get_DirectorySeparatorChar, null);
-		L.RegVar("PathSeparator", get_PathSeparator, null);
-		L.RegVar("VolumeSeparatorChar", get_VolumeSeparatorChar, null);
+		L.RegFunction("ChangeExtension", new LuaCSFunction(ChangeExtension));
+		L.RegFunction("Combine", new LuaCSFunction(Combine));
+		L.RegFunction("GetDirectoryName", new LuaCSFunction(GetDirectoryName));
+		L.RegFunction("GetExtension", new LuaCSFunction(GetExtension));
+		L.RegFunction("GetFileName", new LuaCSFunction(GetFileName));
+		L.RegFunction("GetFileNameWithoutExtension", new LuaCSFunction(GetFileNameWithoutExtension));
+		L.RegFunction("GetFullPath", new LuaCSFunction(GetFullPath));
+		L.RegFunction("GetPathRoot", new LuaCSFunction(GetPathRoot));
+		L.RegFunction("GetTempFileName", new LuaCSFunction(GetTempFileName));
+		L.RegFunction("GetTempPath", new LuaCSFunction(GetTempPath));
+		L.RegFunction("HasExtension", new LuaCSFunction(HasExtension));
+		L.RegFunction("IsPathRooted", new LuaCSFunction(IsPathRooted));
+		L.RegFunction("GetInvalidFileNameChars", new LuaCSFunction(GetInvalidFileNameChars));
+		L.RegFunction("GetInvalidPathChars", new LuaCSFunction(GetInvalidPathChars));
+		L.RegFunction("GetRandomFileName", new LuaCSFunction(GetRandomFileName));
+		L.RegVar("AltDirectorySeparatorChar", new LuaCSFunction(get_AltDirectorySeparatorChar), null);
+		L.RegVar("DirectorySeparatorChar", new LuaCSFunction(get_DirectorySeparatorChar), null);
+		L.RegVar("PathSeparator", new LuaCSFunction(get_PathSeparator), null);
+		L.RegVar("VolumeSeparatorChar", new LuaCSFunction(get_VolumeSeparatorChar), null);
 		L.EndStaticLibs();
 	}
 
@@ -320,7 +320,7 @@ public class System_IO_PathWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushnumber(L, System.IO.Path.AltDirectorySeparatorChar);
+			LuaDLL.lua_pushinteger(L, System.IO.Path.AltDirectorySeparatorChar);
 			return 1;
 		}
 		catch (Exception e)
@@ -334,7 +334,7 @@ public class System_IO_PathWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushnumber(L, System.IO.Path.DirectorySeparatorChar);
+			LuaDLL.lua_pushinteger(L, System.IO.Path.DirectorySeparatorChar);
 			return 1;
 		}
 		catch (Exception e)
@@ -348,7 +348,7 @@ public class System_IO_PathWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushnumber(L, System.IO.Path.PathSeparator);
+			LuaDLL.lua_pushinteger(L, System.IO.Path.PathSeparator);
 			return 1;
 		}
 		catch (Exception e)
@@ -362,7 +362,7 @@ public class System_IO_PathWrap
 	{
 		try
 		{
-			LuaDLL.lua_pushnumber(L, System.IO.Path.VolumeSeparatorChar);
+			LuaDLL.lua_pushinteger(L, System.IO.Path.VolumeSeparatorChar);
 			return 1;
 		}
 		catch (Exception e)

@@ -8,41 +8,41 @@ public class UnityEngine_UI_ImageWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Image), typeof(UnityEngine.UI.MaskableGraphic));
-		L.RegFunction("DisableSpriteOptimizations", DisableSpriteOptimizations);
-		L.RegFunction("OnBeforeSerialize", OnBeforeSerialize);
-		L.RegFunction("OnAfterDeserialize", OnAfterDeserialize);
-		L.RegFunction("SetNativeSize", SetNativeSize);
-		L.RegFunction("CalculateLayoutInputHorizontal", CalculateLayoutInputHorizontal);
-		L.RegFunction("CalculateLayoutInputVertical", CalculateLayoutInputVertical);
-		L.RegFunction("IsRaycastLocationValid", IsRaycastLocationValid);
-		L.RegFunction("Disable", Disable);
-		L.RegFunction("Enable", Enable);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("sprite", get_sprite, set_sprite);
-		L.RegVar("overrideSprite", get_overrideSprite, set_overrideSprite);
-		L.RegVar("type", get_type, set_type);
-		L.RegVar("preserveAspect", get_preserveAspect, set_preserveAspect);
-		L.RegVar("fillCenter", get_fillCenter, set_fillCenter);
-		L.RegVar("fillMethod", get_fillMethod, set_fillMethod);
-		L.RegVar("fillAmount", get_fillAmount, set_fillAmount);
-		L.RegVar("fillClockwise", get_fillClockwise, set_fillClockwise);
-		L.RegVar("fillOrigin", get_fillOrigin, set_fillOrigin);
-		L.RegVar("alphaHitTestMinimumThreshold", get_alphaHitTestMinimumThreshold, set_alphaHitTestMinimumThreshold);
-		L.RegVar("useSpriteMesh", get_useSpriteMesh, set_useSpriteMesh);
-		L.RegVar("defaultETC1GraphicMaterial", get_defaultETC1GraphicMaterial, null);
-		L.RegVar("mainTexture", get_mainTexture, null);
-		L.RegVar("hasBorder", get_hasBorder, null);
-		L.RegVar("pixelsPerUnitMultiplier", get_pixelsPerUnitMultiplier, set_pixelsPerUnitMultiplier);
-		L.RegVar("pixelsPerUnit", get_pixelsPerUnit, null);
-		L.RegVar("material", get_material, set_material);
-		L.RegVar("minWidth", get_minWidth, null);
-		L.RegVar("preferredWidth", get_preferredWidth, null);
-		L.RegVar("flexibleWidth", get_flexibleWidth, null);
-		L.RegVar("minHeight", get_minHeight, null);
-		L.RegVar("preferredHeight", get_preferredHeight, null);
-		L.RegVar("flexibleHeight", get_flexibleHeight, null);
-		L.RegVar("layoutPriority", get_layoutPriority, null);
+		L.RegFunction("DisableSpriteOptimizations", new LuaCSFunction(DisableSpriteOptimizations));
+		L.RegFunction("OnBeforeSerialize", new LuaCSFunction(OnBeforeSerialize));
+		L.RegFunction("OnAfterDeserialize", new LuaCSFunction(OnAfterDeserialize));
+		L.RegFunction("SetNativeSize", new LuaCSFunction(SetNativeSize));
+		L.RegFunction("CalculateLayoutInputHorizontal", new LuaCSFunction(CalculateLayoutInputHorizontal));
+		L.RegFunction("CalculateLayoutInputVertical", new LuaCSFunction(CalculateLayoutInputVertical));
+		L.RegFunction("IsRaycastLocationValid", new LuaCSFunction(IsRaycastLocationValid));
+		L.RegFunction("Disable", new LuaCSFunction(Disable));
+		L.RegFunction("Enable", new LuaCSFunction(Enable));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("sprite", new LuaCSFunction(get_sprite), new LuaCSFunction(set_sprite));
+		L.RegVar("overrideSprite", new LuaCSFunction(get_overrideSprite), new LuaCSFunction(set_overrideSprite));
+		L.RegVar("type", new LuaCSFunction(get_type), new LuaCSFunction(set_type));
+		L.RegVar("preserveAspect", new LuaCSFunction(get_preserveAspect), new LuaCSFunction(set_preserveAspect));
+		L.RegVar("fillCenter", new LuaCSFunction(get_fillCenter), new LuaCSFunction(set_fillCenter));
+		L.RegVar("fillMethod", new LuaCSFunction(get_fillMethod), new LuaCSFunction(set_fillMethod));
+		L.RegVar("fillAmount", new LuaCSFunction(get_fillAmount), new LuaCSFunction(set_fillAmount));
+		L.RegVar("fillClockwise", new LuaCSFunction(get_fillClockwise), new LuaCSFunction(set_fillClockwise));
+		L.RegVar("fillOrigin", new LuaCSFunction(get_fillOrigin), new LuaCSFunction(set_fillOrigin));
+		L.RegVar("alphaHitTestMinimumThreshold", new LuaCSFunction(get_alphaHitTestMinimumThreshold), new LuaCSFunction(set_alphaHitTestMinimumThreshold));
+		L.RegVar("useSpriteMesh", new LuaCSFunction(get_useSpriteMesh), new LuaCSFunction(set_useSpriteMesh));
+		L.RegVar("defaultETC1GraphicMaterial", new LuaCSFunction(get_defaultETC1GraphicMaterial), null);
+		L.RegVar("mainTexture", new LuaCSFunction(get_mainTexture), null);
+		L.RegVar("hasBorder", new LuaCSFunction(get_hasBorder), null);
+		L.RegVar("pixelsPerUnitMultiplier", new LuaCSFunction(get_pixelsPerUnitMultiplier), new LuaCSFunction(set_pixelsPerUnitMultiplier));
+		L.RegVar("pixelsPerUnit", new LuaCSFunction(get_pixelsPerUnit), null);
+		L.RegVar("material", new LuaCSFunction(get_material), new LuaCSFunction(set_material));
+		L.RegVar("minWidth", new LuaCSFunction(get_minWidth), null);
+		L.RegVar("preferredWidth", new LuaCSFunction(get_preferredWidth), null);
+		L.RegVar("flexibleWidth", new LuaCSFunction(get_flexibleWidth), null);
+		L.RegVar("minHeight", new LuaCSFunction(get_minHeight), null);
+		L.RegVar("preferredHeight", new LuaCSFunction(get_preferredHeight), null);
+		L.RegVar("flexibleHeight", new LuaCSFunction(get_flexibleHeight), null);
+		L.RegVar("layoutPriority", new LuaCSFunction(get_layoutPriority), null);
 		L.EndClass();
 	}
 
@@ -150,7 +150,7 @@ public class UnityEngine_UI_ImageWrap
 			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)ToLua.CheckObject<UnityEngine.UI.Image>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
-			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject(L, 3, typeof(UnityEngine.Camera));
+			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject<UnityEngine.Camera>(L, 3);
 			bool o = obj.IsRaycastLocationValid(arg0, arg1);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
@@ -671,7 +671,7 @@ public class UnityEngine_UI_ImageWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)o;
-			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject(L, 2, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 2);
 			obj.sprite = arg0;
 			return 0;
 		}
@@ -690,7 +690,7 @@ public class UnityEngine_UI_ImageWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)o;
-			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject(L, 2, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 2);
 			obj.overrideSprite = arg0;
 			return 0;
 		}
@@ -709,7 +709,7 @@ public class UnityEngine_UI_ImageWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)o;
-			UnityEngine.UI.Image.Type arg0 = (UnityEngine.UI.Image.Type)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.Image.Type));
+			UnityEngine.UI.Image.Type arg0 = (UnityEngine.UI.Image.Type)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.Image.Type>.type);
 			obj.type = arg0;
 			return 0;
 		}
@@ -766,7 +766,7 @@ public class UnityEngine_UI_ImageWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)o;
-			UnityEngine.UI.Image.FillMethod arg0 = (UnityEngine.UI.Image.FillMethod)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.Image.FillMethod));
+			UnityEngine.UI.Image.FillMethod arg0 = (UnityEngine.UI.Image.FillMethod)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.Image.FillMethod>.type);
 			obj.fillMethod = arg0;
 			return 0;
 		}
@@ -823,7 +823,7 @@ public class UnityEngine_UI_ImageWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Image obj = (UnityEngine.UI.Image)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.fillOrigin = arg0;
 			return 0;
 		}

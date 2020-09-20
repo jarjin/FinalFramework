@@ -7,11 +7,11 @@ public class UnityEngine_BehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Behaviour), typeof(UnityEngine.Component));
-		L.RegFunction("New", _CreateUnityEngine_Behaviour);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("enabled", get_enabled, set_enabled);
-		L.RegVar("isActiveAndEnabled", get_isActiveAndEnabled, null);
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_Behaviour));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("enabled", new LuaCSFunction(get_enabled), new LuaCSFunction(set_enabled));
+		L.RegVar("isActiveAndEnabled", new LuaCSFunction(get_isActiveAndEnabled), null);
 		L.EndClass();
 	}
 

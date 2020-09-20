@@ -7,10 +7,10 @@ public class FirClient_Component_CObjectFollowWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.CObjectFollow), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("AddItem", AddItem);
-		L.RegFunction("RemoveItem", RemoveItem);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("AddItem", new LuaCSFunction(AddItem));
+		L.RegFunction("RemoveItem", new LuaCSFunction(RemoveItem));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -22,7 +22,7 @@ public class FirClient_Component_CObjectFollowWrap
 			ToLua.CheckArgsCount(L, 6);
 			FirClient.Component.CObjectFollow obj = (FirClient.Component.CObjectFollow)ToLua.CheckObject<FirClient.Component.CObjectFollow>(L, 1);
 			string arg0 = ToLua.CheckString(L, 2);
-			FirClient.Component.FollowType arg1 = (FirClient.Component.FollowType)ToLua.CheckObject(L, 3, typeof(FirClient.Component.FollowType));
+			FirClient.Component.FollowType arg1 = (FirClient.Component.FollowType)ToLua.CheckObject(L, 3, TypeTraits<FirClient.Component.FollowType>.type);
 			float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
 			UnityEngine.Transform arg3 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 5);
 			UnityEngine.Transform arg4 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 6);

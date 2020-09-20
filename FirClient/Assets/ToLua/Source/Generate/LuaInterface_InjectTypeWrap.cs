@@ -7,13 +7,13 @@ public class LuaInterface_InjectTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(LuaInterface.InjectType));
-		L.RegVar("None", get_None, null);
-		L.RegVar("After", get_After, null);
-		L.RegVar("Before", get_Before, null);
-		L.RegVar("Replace", get_Replace, null);
-		L.RegVar("ReplaceWithPreInvokeBase", get_ReplaceWithPreInvokeBase, null);
-		L.RegVar("ReplaceWithPostInvokeBase", get_ReplaceWithPostInvokeBase, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("None", new LuaCSFunction(get_None), null);
+		L.RegVar("After", new LuaCSFunction(get_After), null);
+		L.RegVar("Before", new LuaCSFunction(get_Before), null);
+		L.RegVar("Replace", new LuaCSFunction(get_Replace), null);
+		L.RegVar("ReplaceWithPreInvokeBase", new LuaCSFunction(get_ReplaceWithPreInvokeBase), null);
+		L.RegVar("ReplaceWithPostInvokeBase", new LuaCSFunction(get_ReplaceWithPostInvokeBase), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<LuaInterface.InjectType>.Check = CheckType;
 		StackTraits<LuaInterface.InjectType>.Push = Push;
@@ -24,9 +24,11 @@ public class LuaInterface_InjectTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_LuaInterface_InjectType = typeof(LuaInterface.InjectType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(LuaInterface.InjectType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_LuaInterface_InjectType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -74,7 +76,7 @@ public class LuaInterface_InjectTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		LuaInterface.InjectType o = (LuaInterface.InjectType)arg0;
 		ToLua.Push(L, o);
 		return 1;

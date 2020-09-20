@@ -7,16 +7,16 @@ public class UnityEngine_UI_MaskableGraphicWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.MaskableGraphic), typeof(UnityEngine.UI.Graphic));
-		L.RegFunction("GetModifiedMaterial", GetModifiedMaterial);
-		L.RegFunction("Cull", Cull);
-		L.RegFunction("SetClipRect", SetClipRect);
-		L.RegFunction("RecalculateClipping", RecalculateClipping);
-		L.RegFunction("RecalculateMasking", RecalculateMasking);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("onCullStateChanged", get_onCullStateChanged, set_onCullStateChanged);
-		L.RegVar("maskable", get_maskable, set_maskable);
-		L.RegVar("isMaskingGraphic", get_isMaskingGraphic, set_isMaskingGraphic);
+		L.RegFunction("GetModifiedMaterial", new LuaCSFunction(GetModifiedMaterial));
+		L.RegFunction("Cull", new LuaCSFunction(Cull));
+		L.RegFunction("SetClipRect", new LuaCSFunction(SetClipRect));
+		L.RegFunction("RecalculateClipping", new LuaCSFunction(RecalculateClipping));
+		L.RegFunction("RecalculateMasking", new LuaCSFunction(RecalculateMasking));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("onCullStateChanged", new LuaCSFunction(get_onCullStateChanged), new LuaCSFunction(set_onCullStateChanged));
+		L.RegVar("maskable", new LuaCSFunction(get_maskable), new LuaCSFunction(set_maskable));
+		L.RegVar("isMaskingGraphic", new LuaCSFunction(get_isMaskingGraphic), new LuaCSFunction(set_isMaskingGraphic));
 		L.EndClass();
 	}
 

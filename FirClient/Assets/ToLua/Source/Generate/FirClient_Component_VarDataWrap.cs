@@ -7,20 +7,20 @@ public class FirClient_Component_VarDataWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Component.VarData), typeof(System.Object));
-		L.RegFunction("New", _CreateFirClient_Component_VarData);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("type", get_type, set_type);
-		L.RegVar("lastType", get_lastType, set_lastType);
-		L.RegVar("objValue", get_objValue, set_objValue);
-		L.RegVar("tranValue", get_tranValue, set_tranValue);
-		L.RegVar("imgValue", get_imgValue, set_imgValue);
-		L.RegVar("txtValue", get_txtValue, set_txtValue);
-		L.RegVar("btnValue", get_btnValue, set_btnValue);
-		L.RegVar("inputValue", get_inputValue, set_inputValue);
-		L.RegVar("toggleValue", get_toggleValue, set_toggleValue);
-		L.RegVar("sliderValue", get_sliderValue, set_sliderValue);
-		L.RegVar("multiProgreValue", get_multiProgreValue, set_multiProgreValue);
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Component_VarData));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("type", new LuaCSFunction(get_type), new LuaCSFunction(set_type));
+		L.RegVar("lastType", new LuaCSFunction(get_lastType), new LuaCSFunction(set_lastType));
+		L.RegVar("objValue", new LuaCSFunction(get_objValue), new LuaCSFunction(set_objValue));
+		L.RegVar("tranValue", new LuaCSFunction(get_tranValue), new LuaCSFunction(set_tranValue));
+		L.RegVar("imgValue", new LuaCSFunction(get_imgValue), new LuaCSFunction(set_imgValue));
+		L.RegVar("txtValue", new LuaCSFunction(get_txtValue), new LuaCSFunction(set_txtValue));
+		L.RegVar("btnValue", new LuaCSFunction(get_btnValue), new LuaCSFunction(set_btnValue));
+		L.RegVar("inputValue", new LuaCSFunction(get_inputValue), new LuaCSFunction(set_inputValue));
+		L.RegVar("toggleValue", new LuaCSFunction(get_toggleValue), new LuaCSFunction(set_toggleValue));
+		L.RegVar("sliderValue", new LuaCSFunction(get_sliderValue), new LuaCSFunction(set_sliderValue));
+		L.RegVar("multiProgreValue", new LuaCSFunction(get_multiProgreValue), new LuaCSFunction(set_multiProgreValue));
 		L.EndClass();
 	}
 
@@ -304,7 +304,7 @@ public class FirClient_Component_VarDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Component.VarData obj = (FirClient.Component.VarData)o;
-			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, typeof(FirClient.Component.VarType));
+			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, TypeTraits<FirClient.Component.VarType>.type);
 			obj.type = arg0;
 			return 0;
 		}
@@ -323,7 +323,7 @@ public class FirClient_Component_VarDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Component.VarData obj = (FirClient.Component.VarData)o;
-			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, typeof(FirClient.Component.VarType));
+			FirClient.Component.VarType arg0 = (FirClient.Component.VarType)ToLua.CheckObject(L, 2, TypeTraits<FirClient.Component.VarType>.type);
 			obj.lastType = arg0;
 			return 0;
 		}
@@ -342,7 +342,7 @@ public class FirClient_Component_VarDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Component.VarData obj = (FirClient.Component.VarData)o;
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject<UnityEngine.GameObject>(L, 2);
 			obj.objValue = arg0;
 			return 0;
 		}

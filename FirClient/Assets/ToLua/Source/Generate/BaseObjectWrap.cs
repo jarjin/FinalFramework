@@ -7,11 +7,11 @@ public class BaseObjectWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(BaseObject), typeof(System.Object));
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("OnUpdate", OnUpdate);
-		L.RegFunction("OnDispose", OnDispose);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("isOnUpdate", get_isOnUpdate, set_isOnUpdate);
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("OnUpdate", new LuaCSFunction(OnUpdate));
+		L.RegFunction("OnDispose", new LuaCSFunction(OnDispose));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("isOnUpdate", new LuaCSFunction(get_isOnUpdate), new LuaCSFunction(set_isOnUpdate));
 		L.EndClass();
 	}
 

@@ -30,6 +30,13 @@ public static class CustomSettings
 	public static string baseLuaDir = FrameworkPath + "/ToLua/Lua";
 	public static string injectionFilesPath = Application.dataPath + "/ToLua/Injection/";
 
+    //lua print或者error重定向
+    public const int PRINTLOGLINE = 208;                //ToLua.Print函数中Debugger.Log位置
+    public const int PCALLERRORLINE = 810;              //LuaState.Pcall函数中throw位置
+    public const int LUADLLERRORLINE = 803;             //LuaDLL.luaL_argerror函数中throw位置
+
+    public const string LUAJIT_CMD_OPTION = "-b -g";    //luajit.exe 编译命令行参数
+
     //导出时强制做为静态类的类型(注意customTypeList 还要添加这个类型才能导出)
     //unity 有些类作为sealed class, 其实完全等价于静态类
     public static List<Type> staticClassTypes = new List<Type>

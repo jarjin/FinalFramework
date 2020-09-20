@@ -7,12 +7,12 @@ public class FirClient_Data_DialogDataWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Data.DialogData), typeof(System.Object));
-		L.RegFunction("New", _CreateFirClient_Data_DialogData);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("roleid", get_roleid, set_roleid);
-		L.RegVar("posid", get_posid, set_posid);
-		L.RegVar("txtContent", get_txtContent, set_txtContent);
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Data_DialogData));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("roleid", new LuaCSFunction(get_roleid), new LuaCSFunction(set_roleid));
+		L.RegVar("posid", new LuaCSFunction(get_posid), new LuaCSFunction(set_posid));
+		L.RegVar("txtContent", new LuaCSFunction(get_txtContent), new LuaCSFunction(set_txtContent));
 		L.EndClass();
 	}
 
@@ -50,7 +50,7 @@ public class FirClient_Data_DialogDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
 			uint ret = obj.id;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -69,7 +69,7 @@ public class FirClient_Data_DialogDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
 			uint ret = obj.roleid;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -88,7 +88,7 @@ public class FirClient_Data_DialogDataWrap
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
 			uint ret = obj.posid;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -125,7 +125,7 @@ public class FirClient_Data_DialogDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}
@@ -144,7 +144,7 @@ public class FirClient_Data_DialogDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.roleid = arg0;
 			return 0;
 		}
@@ -163,7 +163,7 @@ public class FirClient_Data_DialogDataWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.Data.DialogData obj = (FirClient.Data.DialogData)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.posid = arg0;
 			return 0;
 		}

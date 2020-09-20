@@ -7,11 +7,11 @@ public class FirClient_Manager_ShaderManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.ShaderManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("LoadShaders", LoadShaders);
-		L.RegFunction("AddShader", AddShader);
-		L.RegFunction("GetShader", GetShader);
-		L.RegFunction("New", _CreateFirClient_Manager_ShaderManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("LoadShaders", new LuaCSFunction(LoadShaders));
+		L.RegFunction("AddShader", new LuaCSFunction(AddShader));
+		L.RegFunction("GetShader", new LuaCSFunction(GetShader));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_ShaderManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -78,7 +78,7 @@ public class FirClient_Manager_ShaderManagerWrap
 			ToLua.CheckArgsCount(L, 3);
 			FirClient.Manager.ShaderManager obj = (FirClient.Manager.ShaderManager)ToLua.CheckObject<FirClient.Manager.ShaderManager>(L, 1);
 			string arg0 = ToLua.CheckString(L, 2);
-			UnityEngine.Shader arg1 = (UnityEngine.Shader)ToLua.CheckObject(L, 3, typeof(UnityEngine.Shader));
+			UnityEngine.Shader arg1 = (UnityEngine.Shader)ToLua.CheckObject<UnityEngine.Shader>(L, 3);
 			obj.AddShader(arg0, arg1);
 			return 0;
 		}

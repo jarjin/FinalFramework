@@ -7,37 +7,37 @@ public class UnityEngine_UI_TextWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Text), typeof(UnityEngine.UI.MaskableGraphic));
-		L.RegFunction("FontTextureChanged", FontTextureChanged);
-		L.RegFunction("GetGenerationSettings", GetGenerationSettings);
-		L.RegFunction("GetTextAnchorPivot", GetTextAnchorPivot);
-		L.RegFunction("CalculateLayoutInputHorizontal", CalculateLayoutInputHorizontal);
-		L.RegFunction("CalculateLayoutInputVertical", CalculateLayoutInputVertical);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("cachedTextGenerator", get_cachedTextGenerator, null);
-		L.RegVar("cachedTextGeneratorForLayout", get_cachedTextGeneratorForLayout, null);
-		L.RegVar("mainTexture", get_mainTexture, null);
-		L.RegVar("font", get_font, set_font);
-		L.RegVar("text", get_text, set_text);
-		L.RegVar("supportRichText", get_supportRichText, set_supportRichText);
-		L.RegVar("resizeTextForBestFit", get_resizeTextForBestFit, set_resizeTextForBestFit);
-		L.RegVar("resizeTextMinSize", get_resizeTextMinSize, set_resizeTextMinSize);
-		L.RegVar("resizeTextMaxSize", get_resizeTextMaxSize, set_resizeTextMaxSize);
-		L.RegVar("alignment", get_alignment, set_alignment);
-		L.RegVar("alignByGeometry", get_alignByGeometry, set_alignByGeometry);
-		L.RegVar("fontSize", get_fontSize, set_fontSize);
-		L.RegVar("horizontalOverflow", get_horizontalOverflow, set_horizontalOverflow);
-		L.RegVar("verticalOverflow", get_verticalOverflow, set_verticalOverflow);
-		L.RegVar("lineSpacing", get_lineSpacing, set_lineSpacing);
-		L.RegVar("fontStyle", get_fontStyle, set_fontStyle);
-		L.RegVar("pixelsPerUnit", get_pixelsPerUnit, null);
-		L.RegVar("minWidth", get_minWidth, null);
-		L.RegVar("preferredWidth", get_preferredWidth, null);
-		L.RegVar("flexibleWidth", get_flexibleWidth, null);
-		L.RegVar("minHeight", get_minHeight, null);
-		L.RegVar("preferredHeight", get_preferredHeight, null);
-		L.RegVar("flexibleHeight", get_flexibleHeight, null);
-		L.RegVar("layoutPriority", get_layoutPriority, null);
+		L.RegFunction("FontTextureChanged", new LuaCSFunction(FontTextureChanged));
+		L.RegFunction("GetGenerationSettings", new LuaCSFunction(GetGenerationSettings));
+		L.RegFunction("GetTextAnchorPivot", new LuaCSFunction(GetTextAnchorPivot));
+		L.RegFunction("CalculateLayoutInputHorizontal", new LuaCSFunction(CalculateLayoutInputHorizontal));
+		L.RegFunction("CalculateLayoutInputVertical", new LuaCSFunction(CalculateLayoutInputVertical));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("cachedTextGenerator", new LuaCSFunction(get_cachedTextGenerator), null);
+		L.RegVar("cachedTextGeneratorForLayout", new LuaCSFunction(get_cachedTextGeneratorForLayout), null);
+		L.RegVar("mainTexture", new LuaCSFunction(get_mainTexture), null);
+		L.RegVar("font", new LuaCSFunction(get_font), new LuaCSFunction(set_font));
+		L.RegVar("text", new LuaCSFunction(get_text), new LuaCSFunction(set_text));
+		L.RegVar("supportRichText", new LuaCSFunction(get_supportRichText), new LuaCSFunction(set_supportRichText));
+		L.RegVar("resizeTextForBestFit", new LuaCSFunction(get_resizeTextForBestFit), new LuaCSFunction(set_resizeTextForBestFit));
+		L.RegVar("resizeTextMinSize", new LuaCSFunction(get_resizeTextMinSize), new LuaCSFunction(set_resizeTextMinSize));
+		L.RegVar("resizeTextMaxSize", new LuaCSFunction(get_resizeTextMaxSize), new LuaCSFunction(set_resizeTextMaxSize));
+		L.RegVar("alignment", new LuaCSFunction(get_alignment), new LuaCSFunction(set_alignment));
+		L.RegVar("alignByGeometry", new LuaCSFunction(get_alignByGeometry), new LuaCSFunction(set_alignByGeometry));
+		L.RegVar("fontSize", new LuaCSFunction(get_fontSize), new LuaCSFunction(set_fontSize));
+		L.RegVar("horizontalOverflow", new LuaCSFunction(get_horizontalOverflow), new LuaCSFunction(set_horizontalOverflow));
+		L.RegVar("verticalOverflow", new LuaCSFunction(get_verticalOverflow), new LuaCSFunction(set_verticalOverflow));
+		L.RegVar("lineSpacing", new LuaCSFunction(get_lineSpacing), new LuaCSFunction(set_lineSpacing));
+		L.RegVar("fontStyle", new LuaCSFunction(get_fontStyle), new LuaCSFunction(set_fontStyle));
+		L.RegVar("pixelsPerUnit", new LuaCSFunction(get_pixelsPerUnit), null);
+		L.RegVar("minWidth", new LuaCSFunction(get_minWidth), null);
+		L.RegVar("preferredWidth", new LuaCSFunction(get_preferredWidth), null);
+		L.RegVar("flexibleWidth", new LuaCSFunction(get_flexibleWidth), null);
+		L.RegVar("minHeight", new LuaCSFunction(get_minHeight), null);
+		L.RegVar("preferredHeight", new LuaCSFunction(get_preferredHeight), null);
+		L.RegVar("flexibleHeight", new LuaCSFunction(get_flexibleHeight), null);
+		L.RegVar("layoutPriority", new LuaCSFunction(get_layoutPriority), null);
 		L.EndClass();
 	}
 
@@ -81,7 +81,7 @@ public class UnityEngine_UI_TextWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.TextAnchor arg0 = (UnityEngine.TextAnchor)ToLua.CheckObject(L, 1, typeof(UnityEngine.TextAnchor));
+			UnityEngine.TextAnchor arg0 = (UnityEngine.TextAnchor)ToLua.CheckObject(L, 1, TypeTraits<UnityEngine.TextAnchor>.type);
 			UnityEngine.Vector2 o = UnityEngine.UI.Text.GetTextAnchorPivot(arg0);
 			ToLua.Push(L, o);
 			return 1;
@@ -607,7 +607,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			UnityEngine.Font arg0 = (UnityEngine.Font)ToLua.CheckObject(L, 2, typeof(UnityEngine.Font));
+			UnityEngine.Font arg0 = (UnityEngine.Font)ToLua.CheckObject<UnityEngine.Font>(L, 2);
 			obj.font = arg0;
 			return 0;
 		}
@@ -683,7 +683,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.resizeTextMinSize = arg0;
 			return 0;
 		}
@@ -702,7 +702,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.resizeTextMaxSize = arg0;
 			return 0;
 		}
@@ -721,7 +721,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			UnityEngine.TextAnchor arg0 = (UnityEngine.TextAnchor)ToLua.CheckObject(L, 2, typeof(UnityEngine.TextAnchor));
+			UnityEngine.TextAnchor arg0 = (UnityEngine.TextAnchor)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TextAnchor>.type);
 			obj.alignment = arg0;
 			return 0;
 		}
@@ -759,7 +759,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.fontSize = arg0;
 			return 0;
 		}
@@ -778,7 +778,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			UnityEngine.HorizontalWrapMode arg0 = (UnityEngine.HorizontalWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.HorizontalWrapMode));
+			UnityEngine.HorizontalWrapMode arg0 = (UnityEngine.HorizontalWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.HorizontalWrapMode>.type);
 			obj.horizontalOverflow = arg0;
 			return 0;
 		}
@@ -797,7 +797,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			UnityEngine.VerticalWrapMode arg0 = (UnityEngine.VerticalWrapMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.VerticalWrapMode));
+			UnityEngine.VerticalWrapMode arg0 = (UnityEngine.VerticalWrapMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.VerticalWrapMode>.type);
 			obj.verticalOverflow = arg0;
 			return 0;
 		}
@@ -835,7 +835,7 @@ public class UnityEngine_UI_TextWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Text obj = (UnityEngine.UI.Text)o;
-			UnityEngine.FontStyle arg0 = (UnityEngine.FontStyle)ToLua.CheckObject(L, 2, typeof(UnityEngine.FontStyle));
+			UnityEngine.FontStyle arg0 = (UnityEngine.FontStyle)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.FontStyle>.type);
 			obj.fontStyle = arg0;
 			return 0;
 		}

@@ -7,10 +7,10 @@ public class DG_Tweening_PathTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(DG.Tweening.PathType));
-		L.RegVar("Linear", get_Linear, null);
-		L.RegVar("CatmullRom", get_CatmullRom, null);
-		L.RegVar("CubicBezier", get_CubicBezier, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Linear", new LuaCSFunction(get_Linear), null);
+		L.RegVar("CatmullRom", new LuaCSFunction(get_CatmullRom), null);
+		L.RegVar("CubicBezier", new LuaCSFunction(get_CubicBezier), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<DG.Tweening.PathType>.Check = CheckType;
 		StackTraits<DG.Tweening.PathType>.Push = Push;
@@ -21,9 +21,11 @@ public class DG_Tweening_PathTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_DG_Tweening_PathType = typeof(DG.Tweening.PathType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(DG.Tweening.PathType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_DG_Tweening_PathType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -50,7 +52,7 @@ public class DG_Tweening_PathTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		DG.Tweening.PathType o = (DG.Tweening.PathType)arg0;
 		ToLua.Push(L, o);
 		return 1;

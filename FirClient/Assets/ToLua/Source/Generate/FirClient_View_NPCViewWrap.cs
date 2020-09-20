@@ -7,15 +7,15 @@ public class FirClient_View_NPCViewWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.View.NPCView), typeof(BaseBehaviour));
-		L.RegFunction("OnAwake", OnAwake);
-		L.RegFunction("Initialize", Initialize);
-		L.RegFunction("OnUpdate", OnUpdate);
-		L.RegFunction("OnDispose", OnDispose);
-		L.RegFunction("New", _CreateFirClient_View_NPCView);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("gameObject", get_gameObject, set_gameObject);
-		L.RegVar("viewObject", get_viewObject, set_viewObject);
-		L.RegVar("NpcData", get_NpcData, set_NpcData);
+		L.RegFunction("OnAwake", new LuaCSFunction(OnAwake));
+		L.RegFunction("Initialize", new LuaCSFunction(Initialize));
+		L.RegFunction("OnUpdate", new LuaCSFunction(OnUpdate));
+		L.RegFunction("OnDispose", new LuaCSFunction(OnDispose));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_View_NPCView));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("gameObject", new LuaCSFunction(get_gameObject), new LuaCSFunction(set_gameObject));
+		L.RegVar("viewObject", new LuaCSFunction(get_viewObject), new LuaCSFunction(set_viewObject));
+		L.RegVar("NpcData", new LuaCSFunction(get_NpcData), new LuaCSFunction(set_NpcData));
 		L.EndClass();
 	}
 
@@ -192,7 +192,7 @@ public class FirClient_View_NPCViewWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirClient.View.NPCView obj = (FirClient.View.NPCView)o;
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject<UnityEngine.GameObject>(L, 2);
 			obj.gameObject = arg0;
 			return 0;
 		}

@@ -7,22 +7,22 @@ public class BaseBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(BaseBehaviour), typeof(System.Object));
-		L.RegFunction("Instantiate", Instantiate);
-		L.RegFunction("Destroy", Destroy);
-		L.RegFunction("StartCoroutine", StartCoroutine);
-		L.RegFunction("GetExtManager", GetExtManager);
-		L.RegFunction("GetManager", GetManager);
-		L.RegFunction("OnUpdate", OnUpdate);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("configMgr", get_configMgr, null);
-		L.RegVar("battleViewMgr", get_battleViewMgr, null);
-		L.RegVar("luaMgr", get_luaMgr, null);
-		L.RegVar("gameMgr", get_gameMgr, null);
-		L.RegVar("tableMgr", get_tableMgr, null);
-		L.RegVar("updateMgr", get_updateMgr, null);
-		L.RegVar("extractMgr", get_extractMgr, null);
-		L.RegVar("shaderMgr", get_shaderMgr, null);
-		L.RegVar("fontMgr", get_fontMgr, null);
+		L.RegFunction("Instantiate", new LuaCSFunction(Instantiate));
+		L.RegFunction("Destroy", new LuaCSFunction(Destroy));
+		L.RegFunction("StartCoroutine", new LuaCSFunction(StartCoroutine));
+		L.RegFunction("GetExtManager", new LuaCSFunction(GetExtManager));
+		L.RegFunction("GetManager", new LuaCSFunction(GetManager));
+		L.RegFunction("OnUpdate", new LuaCSFunction(OnUpdate));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("configMgr", new LuaCSFunction(get_configMgr), null);
+		L.RegVar("battleViewMgr", new LuaCSFunction(get_battleViewMgr), null);
+		L.RegVar("luaMgr", new LuaCSFunction(get_luaMgr), null);
+		L.RegVar("gameMgr", new LuaCSFunction(get_gameMgr), null);
+		L.RegVar("tableMgr", new LuaCSFunction(get_tableMgr), null);
+		L.RegVar("updateMgr", new LuaCSFunction(get_updateMgr), null);
+		L.RegVar("extractMgr", new LuaCSFunction(get_extractMgr), null);
+		L.RegVar("shaderMgr", new LuaCSFunction(get_shaderMgr), null);
+		L.RegVar("fontMgr", new LuaCSFunction(get_fontMgr), null);
 		L.EndClass();
 	}
 

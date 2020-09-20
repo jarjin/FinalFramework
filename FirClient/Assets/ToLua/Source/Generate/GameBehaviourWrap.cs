@@ -7,8 +7,8 @@ public class GameBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(GameBehaviour), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

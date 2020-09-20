@@ -7,12 +7,12 @@ public class FirClient_Manager_SoundManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.SoundManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("CanPlayBackSound", CanPlayBackSound);
-		L.RegFunction("PlayBacksound", PlayBacksound);
-		L.RegFunction("CanPlaySoundEffect", CanPlaySoundEffect);
-		L.RegFunction("Play", Play);
-		L.RegFunction("New", _CreateFirClient_Manager_SoundManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("CanPlayBackSound", new LuaCSFunction(CanPlayBackSound));
+		L.RegFunction("PlayBacksound", new LuaCSFunction(PlayBacksound));
+		L.RegFunction("CanPlaySoundEffect", new LuaCSFunction(CanPlaySoundEffect));
+		L.RegFunction("Play", new LuaCSFunction(Play));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_SoundManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

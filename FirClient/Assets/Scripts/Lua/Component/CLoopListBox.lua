@@ -14,6 +14,7 @@ function CLoopListBox:InitListView(target, totalCount, onUpdateItem)
     self.itemTotalCount = totalCount
     self.mLoopListView = self.transform:Find("Scroll View"):GetComponent('LoopListView2')
     if self.mLoopListView ~= nil then
+        totalCount = tointeger(totalCount)
         self.mLoopListView:InitListView(self, totalCount, self.OnGetItemByIndex);
     end
 end

@@ -7,16 +7,16 @@ public class FirClient_Component_VarTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(FirClient.Component.VarType));
-		L.RegVar("GameObject", get_GameObject, null);
-		L.RegVar("Transform", get_Transform, null);
-		L.RegVar("Image", get_Image, null);
-		L.RegVar("Text", get_Text, null);
-		L.RegVar("Button", get_Button, null);
-		L.RegVar("TMP_InputField", get_TMP_InputField, null);
-		L.RegVar("Toggle", get_Toggle, null);
-		L.RegVar("Slider", get_Slider, null);
-		L.RegVar("CMultiProgressBar", get_CMultiProgressBar, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("GameObject", new LuaCSFunction(get_GameObject), null);
+		L.RegVar("Transform", new LuaCSFunction(get_Transform), null);
+		L.RegVar("Image", new LuaCSFunction(get_Image), null);
+		L.RegVar("Text", new LuaCSFunction(get_Text), null);
+		L.RegVar("Button", new LuaCSFunction(get_Button), null);
+		L.RegVar("TMP_InputField", new LuaCSFunction(get_TMP_InputField), null);
+		L.RegVar("Toggle", new LuaCSFunction(get_Toggle), null);
+		L.RegVar("Slider", new LuaCSFunction(get_Slider), null);
+		L.RegVar("CMultiProgressBar", new LuaCSFunction(get_CMultiProgressBar), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<FirClient.Component.VarType>.Check = CheckType;
 		StackTraits<FirClient.Component.VarType>.Push = Push;
@@ -27,9 +27,11 @@ public class FirClient_Component_VarTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_FirClient_Component_VarType = typeof(FirClient.Component.VarType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(FirClient.Component.VarType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_FirClient_Component_VarType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -98,7 +100,7 @@ public class FirClient_Component_VarTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		FirClient.Component.VarType o = (FirClient.Component.VarType)arg0;
 		ToLua.Push(L, o);
 		return 1;

@@ -7,18 +7,18 @@ public class UnityEngine_PlayerPrefsWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.PlayerPrefs), typeof(System.Object));
-		L.RegFunction("SetInt", SetInt);
-		L.RegFunction("GetInt", GetInt);
-		L.RegFunction("SetFloat", SetFloat);
-		L.RegFunction("GetFloat", GetFloat);
-		L.RegFunction("SetString", SetString);
-		L.RegFunction("GetString", GetString);
-		L.RegFunction("HasKey", HasKey);
-		L.RegFunction("DeleteKey", DeleteKey);
-		L.RegFunction("DeleteAll", DeleteAll);
-		L.RegFunction("Save", Save);
-		L.RegFunction("New", _CreateUnityEngine_PlayerPrefs);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("SetInt", new LuaCSFunction(SetInt));
+		L.RegFunction("GetInt", new LuaCSFunction(GetInt));
+		L.RegFunction("SetFloat", new LuaCSFunction(SetFloat));
+		L.RegFunction("GetFloat", new LuaCSFunction(GetFloat));
+		L.RegFunction("SetString", new LuaCSFunction(SetString));
+		L.RegFunction("GetString", new LuaCSFunction(GetString));
+		L.RegFunction("HasKey", new LuaCSFunction(HasKey));
+		L.RegFunction("DeleteKey", new LuaCSFunction(DeleteKey));
+		L.RegFunction("DeleteAll", new LuaCSFunction(DeleteAll));
+		L.RegFunction("Save", new LuaCSFunction(Save));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_PlayerPrefs));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -53,7 +53,7 @@ public class UnityEngine_PlayerPrefsWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			string arg0 = ToLua.CheckString(L, 1);
-			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			UnityEngine.PlayerPrefs.SetInt(arg0, arg1);
 			return 0;
 		}
@@ -80,7 +80,7 @@ public class UnityEngine_PlayerPrefsWrap
 			else if (count == 2)
 			{
 				string arg0 = ToLua.CheckString(L, 1);
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 2);
 				int o = UnityEngine.PlayerPrefs.GetInt(arg0, arg1);
 				LuaDLL.lua_pushinteger(L, o);
 				return 1;

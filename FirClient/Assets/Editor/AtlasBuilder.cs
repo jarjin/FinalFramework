@@ -32,6 +32,7 @@ public class AtlasBuilder : BaseEditor
         string texturePath = GetSelectedPathOrFallback();
         if (!texturePath.Contains(texPrefix) || texturePath.EndsWith(texPrefix))
         {
+            Debug.LogError("Texture Asset Path not found!!!");
             return;
         }
         string atlasName = Path.GetFileNameWithoutExtension(texturePath);

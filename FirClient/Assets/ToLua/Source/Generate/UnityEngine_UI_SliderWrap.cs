@@ -7,30 +7,30 @@ public class UnityEngine_UI_SliderWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Slider), typeof(UnityEngine.UI.Selectable));
-		L.RegFunction("SetValueWithoutNotify", SetValueWithoutNotify);
-		L.RegFunction("Rebuild", Rebuild);
-		L.RegFunction("LayoutComplete", LayoutComplete);
-		L.RegFunction("GraphicUpdateComplete", GraphicUpdateComplete);
-		L.RegFunction("OnPointerDown", OnPointerDown);
-		L.RegFunction("OnDrag", OnDrag);
-		L.RegFunction("OnMove", OnMove);
-		L.RegFunction("FindSelectableOnLeft", FindSelectableOnLeft);
-		L.RegFunction("FindSelectableOnRight", FindSelectableOnRight);
-		L.RegFunction("FindSelectableOnUp", FindSelectableOnUp);
-		L.RegFunction("FindSelectableOnDown", FindSelectableOnDown);
-		L.RegFunction("OnInitializePotentialDrag", OnInitializePotentialDrag);
-		L.RegFunction("SetDirection", SetDirection);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("fillRect", get_fillRect, set_fillRect);
-		L.RegVar("handleRect", get_handleRect, set_handleRect);
-		L.RegVar("direction", get_direction, set_direction);
-		L.RegVar("minValue", get_minValue, set_minValue);
-		L.RegVar("maxValue", get_maxValue, set_maxValue);
-		L.RegVar("wholeNumbers", get_wholeNumbers, set_wholeNumbers);
-		L.RegVar("value", get_value, set_value);
-		L.RegVar("normalizedValue", get_normalizedValue, set_normalizedValue);
-		L.RegVar("onValueChanged", get_onValueChanged, set_onValueChanged);
+		L.RegFunction("SetValueWithoutNotify", new LuaCSFunction(SetValueWithoutNotify));
+		L.RegFunction("Rebuild", new LuaCSFunction(Rebuild));
+		L.RegFunction("LayoutComplete", new LuaCSFunction(LayoutComplete));
+		L.RegFunction("GraphicUpdateComplete", new LuaCSFunction(GraphicUpdateComplete));
+		L.RegFunction("OnPointerDown", new LuaCSFunction(OnPointerDown));
+		L.RegFunction("OnDrag", new LuaCSFunction(OnDrag));
+		L.RegFunction("OnMove", new LuaCSFunction(OnMove));
+		L.RegFunction("FindSelectableOnLeft", new LuaCSFunction(FindSelectableOnLeft));
+		L.RegFunction("FindSelectableOnRight", new LuaCSFunction(FindSelectableOnRight));
+		L.RegFunction("FindSelectableOnUp", new LuaCSFunction(FindSelectableOnUp));
+		L.RegFunction("FindSelectableOnDown", new LuaCSFunction(FindSelectableOnDown));
+		L.RegFunction("OnInitializePotentialDrag", new LuaCSFunction(OnInitializePotentialDrag));
+		L.RegFunction("SetDirection", new LuaCSFunction(SetDirection));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("fillRect", new LuaCSFunction(get_fillRect), new LuaCSFunction(set_fillRect));
+		L.RegVar("handleRect", new LuaCSFunction(get_handleRect), new LuaCSFunction(set_handleRect));
+		L.RegVar("direction", new LuaCSFunction(get_direction), new LuaCSFunction(set_direction));
+		L.RegVar("minValue", new LuaCSFunction(get_minValue), new LuaCSFunction(set_minValue));
+		L.RegVar("maxValue", new LuaCSFunction(get_maxValue), new LuaCSFunction(set_maxValue));
+		L.RegVar("wholeNumbers", new LuaCSFunction(get_wholeNumbers), new LuaCSFunction(set_wholeNumbers));
+		L.RegVar("value", new LuaCSFunction(get_value), new LuaCSFunction(set_value));
+		L.RegVar("normalizedValue", new LuaCSFunction(get_normalizedValue), new LuaCSFunction(set_normalizedValue));
+		L.RegVar("onValueChanged", new LuaCSFunction(get_onValueChanged), new LuaCSFunction(set_onValueChanged));
 		L.EndClass();
 	}
 
@@ -58,7 +58,7 @@ public class UnityEngine_UI_SliderWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.UI.Slider obj = (UnityEngine.UI.Slider)ToLua.CheckObject<UnityEngine.UI.Slider>(L, 1);
-			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.CanvasUpdate));
+			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.CanvasUpdate>.type);
 			obj.Rebuild(arg0);
 			return 0;
 		}
@@ -243,7 +243,7 @@ public class UnityEngine_UI_SliderWrap
 		{
 			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.UI.Slider obj = (UnityEngine.UI.Slider)ToLua.CheckObject<UnityEngine.UI.Slider>(L, 1);
-			UnityEngine.UI.Slider.Direction arg0 = (UnityEngine.UI.Slider.Direction)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.Slider.Direction));
+			UnityEngine.UI.Slider.Direction arg0 = (UnityEngine.UI.Slider.Direction)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.Slider.Direction>.type);
 			bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
 			obj.SetDirection(arg0, arg1);
 			return 0;
@@ -452,7 +452,7 @@ public class UnityEngine_UI_SliderWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Slider obj = (UnityEngine.UI.Slider)o;
-			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform));
+			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 2);
 			obj.fillRect = arg0;
 			return 0;
 		}
@@ -471,7 +471,7 @@ public class UnityEngine_UI_SliderWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Slider obj = (UnityEngine.UI.Slider)o;
-			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform));
+			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 2);
 			obj.handleRect = arg0;
 			return 0;
 		}
@@ -490,7 +490,7 @@ public class UnityEngine_UI_SliderWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.UI.Slider obj = (UnityEngine.UI.Slider)o;
-			UnityEngine.UI.Slider.Direction arg0 = (UnityEngine.UI.Slider.Direction)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.Slider.Direction));
+			UnityEngine.UI.Slider.Direction arg0 = (UnityEngine.UI.Slider.Direction)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.Slider.Direction>.type);
 			obj.direction = arg0;
 			return 0;
 		}

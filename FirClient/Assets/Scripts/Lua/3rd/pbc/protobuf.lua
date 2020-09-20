@@ -11,16 +11,26 @@ local print = print
 local io = io
 local tinsert = table.insert
 local rawget = rawget
+local rawset = rawset
 
-module "protobuf"
+local M = {}
 
 local _pattern_cache = {}
 
--- skynet clear
-local P = c._env_new()
-local GC = c._gc(P)
+local P,GC
 
-function lasterror()
+P = debug.getregistry().PROTOBUF_ENV
+
+if P then
+	GC = c._gc()
+else
+	P= c._env_new()
+	GC = c._gc(P)
+end
+
+M.GC = GC
+
+function M.lasterror()
 	return c._last_error(P)
 end
 
@@ -35,10 +45,6 @@ end
 
 local _reader = {}
 
-function _reader:int(key)
-	return c._rmessage_integer(self._CObj , key , 0)
-end
-
 function _reader:real(key)
 	return c._rmessage_real(self._CObj , key , 0)
 end
@@ -48,7 +54,7 @@ function _reader:string(key)
 end
 
 function _reader:bool(key)
-	return c._rmessage_integer(self._CObj , key , 0) ~= 0
+	return c._rmessage_int(self._CObj , key , 0) ~= 0
 end
 
 function _reader:message(key, message_type)
@@ -63,30 +69,8 @@ function _reader:message(key, message_type)
 	end
 end
 
-function _reader:int32(key)
-	return c._rmessage_int32(self._CObj , key , 0)
-end
-
-function _reader:int64(key)
-	return c._rmessage_int64(self._CObj , key , 0)
-end
-
-function _reader:int52(key)
-	return c._rmessage_int52(self._CObj , key , 0)
-end
-
-function _reader:uint52(key)
-	return c._rmessage_uint52(self._CObj , key , 0)
-end
-
-function _reader:int_repeated(key)
-	local cobj = self._CObj
-	local n = c._rmessage_size(cobj , key)
-	local ret = {}
-	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_integer(cobj , key , i))
-	end
-	return ret
+function _reader:int(key)
+	return c._rmessage_int(self._CObj , key , 0)
 end
 
 function _reader:real_repeated(key)
@@ -114,7 +98,7 @@ function _reader:bool_repeated(key)
 	local n = c._rmessage_size(cobj , key)
 	local ret = {}
 	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_integer(cobj , key , i) ~= 0)
+		tinsert(ret,  c._rmessage_int(cobj , key , i) ~= 0)
 	end
 	return ret
 end
@@ -134,45 +118,31 @@ function _reader:message_repeated(key, message_type)
 	return ret
 end
 
-function _reader:int32_repeated(key)
+function _reader:int_repeated(key)
 	local cobj = self._CObj
 	local n = c._rmessage_size(cobj , key)
 	local ret = {}
 	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_int32(cobj , key , i))
+		tinsert(ret,  c._rmessage_int(cobj , key , i))
 	end
 	return ret
 end
 
-function _reader:int64_repeated(key)
-	local cobj = self._CObj
-	local n = c._rmessage_size(cobj , key)
-	local ret = {}
-	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_int64(cobj , key , i))
-	end
-	return ret
-end
-
-function _reader:int52_repeated(key)
-	local cobj = self._CObj
-	local n = c._rmessage_size(cobj , key)
-	local ret = {}
-	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_int52(cobj , key , i))
-	end
-	return ret
-end
-
-function _reader:uint52_repeated(key)
-	local cobj = self._CObj
-	local n = c._rmessage_size(cobj , key)
-	local ret = {}
-	for i=0,n-1 do
-		tinsert(ret,  c._rmessage_uint52(cobj , key , i))
-	end
-	return ret
-end
+--[[
+#define PBC_INT 1
+#define PBC_REAL 2
+#define PBC_BOOL 3
+#define PBC_ENUM 4
+#define PBC_STRING 5
+#define PBC_MESSAGE 6
+#define PBC_FIXED64 7
+#define PBC_FIXED32 8
+#define PBC_BYTES 9
+#define PBC_INT64 10
+#define PBC_UINT 11
+#define PBC_UNKNOWN 12
+#define PBC_REPEATED 128
+]]
 
 _reader[1] = function(msg) return _reader.int end
 _reader[2] = function(msg) return _reader.real end
@@ -185,11 +155,11 @@ _reader[6] = function(msg)
 			return message(self, key, msg)
 		end
 end
-_reader[7] = function(msg) return _reader.int64 end
-_reader[8] = function(msg) return _reader.int32 end
+_reader[7] = _reader[1]
+_reader[8] = _reader[1]
 _reader[9] = _reader[5]
-_reader[10] = function(msg) return _reader.int52 end
-_reader[11] = function(msg) return _reader.uint52 end
+_reader[10] = _reader[7]
+_reader[11] = _reader[7]
 
 _reader[128+1] = function(msg) return _reader.int_repeated end
 _reader[128+2] = function(msg) return _reader.real_repeated end
@@ -202,11 +172,11 @@ _reader[128+6] = function(msg)
 			return message(self, key, msg)
 		end
 end
-_reader[128+7] = function(msg) return _reader.int64_repeated end
-_reader[128+8] = function(msg) return _reader.int32_repeated end
+_reader[128+7] = _reader[128+1]
+_reader[128+8] = _reader[128+1]
 _reader[128+9] = _reader[128+5]
-_reader[128+10] = function(msg) return _reader.int52_repeated end
-_reader[128+11] = function(msg) return _reader.uint52_repeated end
+_reader[128+10] = _reader[128+7]
+_reader[128+11] = _reader[128+7]
 
 local _decode_type_meta = {}
 
@@ -250,29 +220,19 @@ local function encode_message(CObj, message_type, t)
 end
 
 local _writer = {
-	int = c._wmessage_integer,
 	real = c._wmessage_real,
 	enum = c._wmessage_string,
 	string = c._wmessage_string,
-	int64 = c._wmessage_int64,
-	int32 = c._wmessage_int32,
-	int52 = c._wmessage_int52,
-	uint52 = c._wmessage_uint52,
+	int = c._wmessage_int,
 }
 
 function _writer:bool(k,v)
-	c._wmessage_integer(self, k, v and 1 or 0)
+	c._wmessage_int(self, k, v and 1 or 0)
 end
 
 function _writer:message(k, v , message_type)
 	local submessage = c._wmessage_message(self, k)
 	encode_message(submessage, message_type, v)
-end
-
-function _writer:int_repeated(k,v)
-	for _,v in ipairs(v) do
-		c._wmessage_integer(self,k,v)
-	end
 end
 
 function _writer:real_repeated(k,v)
@@ -283,7 +243,7 @@ end
 
 function _writer:bool_repeated(k,v)
 	for _,v in ipairs(v) do
-		c._wmessage_integer(self, k, v and 1 or 0)
+		c._wmessage_int(self, k, v and 1 or 0)
 	end
 end
 
@@ -300,27 +260,9 @@ function _writer:message_repeated(k,v, message_type)
 	end
 end
 
-function _writer:int32_repeated(k,v)
+function _writer:int_repeated(k,v)
 	for _,v in ipairs(v) do
-		c._wmessage_int32(self,k,v)
-	end
-end
-
-function _writer:int64_repeated(k,v)
-	for _,v in ipairs(v) do
-		c._wmessage_int64(self,k,v)
-	end
-end
-
-function _writer:int52_repeated(k,v)
-	for _,v in ipairs(v) do
-		c._wmessage_int52(self,k,v)
-	end
-end
-
-function _writer:uint52_repeated(k,v)
-	for _,v in ipairs(v) do
-		c._wmessage_uint52(self,k,v)
+		c._wmessage_int(self,k,v)
 	end
 end
 
@@ -335,11 +277,11 @@ _writer[6] = function(msg)
 			return message(self, key, v, msg)
 		end
 end
-_writer[7] = function(msg) return _writer.int64 end
-_writer[8] = function(msg) return _writer.int32 end
+_writer[7] = _writer[1]
+_writer[8] = _writer[1]
 _writer[9] = _writer[5]
-_writer[10] = function(msg) return _writer.int52 end
-_writer[11] = function(msg) return _writer.uint52 end
+_writer[10] = _writer[7]
+_writer[11] = _writer[7]
 
 _writer[128+1] = function(msg) return _writer.int_repeated end
 _writer[128+2] = function(msg) return _writer.real_repeated end
@@ -352,11 +294,12 @@ _writer[128+6] = function(msg)
 			return message(self, key, v, msg)
 		end
 end
-_writer[128+7] = function(msg) return _writer.int64_repeated end
-_writer[128+8] = function(msg) return _writer.int32_repeated end
+
+_writer[128+7] = _writer[128+1]
+_writer[128+8] = _writer[128+1]
 _writer[128+9] = _writer[128+5]
-_writer[128+10] = function(msg) return _writer.int52_repeated end
-_writer[128+11] = function(msg) return _writer.uint52_repeated end
+_writer[128+10] = _writer[128+7]
+_writer[128+11] = _writer[128+7]
 
 local _encode_type_meta = {}
 
@@ -375,7 +318,7 @@ setmetatable(encode_type_cache , {
 	end
 })
 
-function encode( message, t , func , ...)
+function M.encode( message, t , func , ...)
 	local encoder = c._wmessage_new(P, message)
 	assert(encoder ,  message)
 	encode_message(encoder, message, t)
@@ -397,27 +340,27 @@ local _pattern_type = {
 	[1] = {"%d","i"},
 	[2] = {"%F","r"},
 	[3] = {"%d","b"},
-	[4] = {"%d","i"},
 	[5] = {"%s","s"},
 	[6] = {"%s","m"},
-	[7] = {"%D","x"},
-	[8] = {"%d","p"},
-	[10] =  {"%D","d"},
-	[11] =  {"%D","u"},
+	[7] = {"%D","d"},
 	[128+1] = {"%a","I"},
 	[128+2] = {"%a","R"},
 	[128+3] = {"%a","B"},
-	[128+4] = {"%a","I"},
 	[128+5] = {"%a","S"},
 	[128+6] = {"%a","M"},
-	[128+7] = {"%a","X"},
-	[128+8] = {"%a","P"},
-	[128+10] = {"%a", "D" },
-	[128+11] = {"%a", "U" },
+	[128+7] = {"%a","D"},
 }
 
+_pattern_type[4] = _pattern_type[1]
+_pattern_type[8] = _pattern_type[1]
 _pattern_type[9] = _pattern_type[5]
+_pattern_type[10] = _pattern_type[7]
+_pattern_type[11] = _pattern_type[7]
+_pattern_type[128+4] = _pattern_type[128+1]
+_pattern_type[128+8] = _pattern_type[128+1]
 _pattern_type[128+9] = _pattern_type[128+5]
+_pattern_type[128+10] = _pattern_type[128+7]
+_pattern_type[128+11] = _pattern_type[128+7]
 
 
 local function _pattern_create(pattern)
@@ -455,17 +398,17 @@ setmetatable(_pattern_cache, {
 	end
 })
 
-function unpack(pattern, buffer, length)
+function M.unpack(pattern, buffer, length)
 	local pat = _pattern_cache[pattern]
 	return c._pattern_unpack(pat.CObj , pat.format, pat.size, buffer, length)
 end
 
-function pack(pattern, ...)
+function M.pack(pattern, ...)
 	local pat = _pattern_cache[pattern]
 	return c._pattern_pack(pat.CObj, pat.format, pat.size , ...)
 end
 
-function check(typename , field)
+function M.check(typename , field)
 	if field == nil then
 		return c._env_type(P,typename)
 	else
@@ -485,7 +428,18 @@ local function default_table(typename)
 		return v
 	end
 
-	v = { __index = assert(decode_message(typename , "")) }
+	local default_inst = assert(decode_message(typename , ""))
+	v = { 
+		__index = function(tb, key)
+			local ret = default_inst[key]
+			if 'table' ~= type(ret) then
+				return ret
+			end 
+			ret = setmetatable({}, { __index = ret })
+			rawset(tb, key, ret)
+			return ret
+		end
+	}
 
 	default_cache[typename]  = v
 	return v
@@ -497,7 +451,7 @@ local function decode_message_cb(typename, buffer)
 	return setmetatable ( { typename, buffer } , decode_message_mt)
 end
 
-function decode(typename, buffer, length)
+function M.decode(typename, buffer, length)
 	local ret = {}
 	local ok = c._decode(P, decode_message_cb , ret , typename, buffer, length)
 	if ok then
@@ -541,15 +495,37 @@ local function set_default(typename, tbl)
 	return setmetatable(tbl , default_table(typename))
 end
 
-function register( buffer)
+function M.register(buffer)
 	c._env_register(P, buffer)
 end
 
-function register_file(filename)
+function M.register_file(filename)
 	local f = assert(io.open(filename , "rb"))
 	local buffer = f:read "*a"
 	c._env_register(P, buffer)
 	f:close()
 end
 
-default=set_default
+function M.enum_id(enum_type, enum_name)
+	return c._env_enum_id(P, enum_type, enum_name)
+end
+
+function M.extract(tbl)
+    local typename = rawget(tbl , 1)
+    local buffer = rawget(tbl , 2)
+    if type(typename) == "string" and type(buffer) == "string" then
+        if M.check(typename) then
+            expand(tbl)
+        end
+    end
+
+    for k, v in pairs(tbl) do
+        if type(v) == "table" then
+            M.extract(v)
+        end
+    end
+end
+
+M.default=set_default
+
+return M

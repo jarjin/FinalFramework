@@ -7,60 +7,60 @@ public class UnityEngine_ApplicationWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Application");
-		L.RegFunction("Quit", Quit);
-		L.RegFunction("Unload", Unload);
-		L.RegFunction("CanStreamedLevelBeLoaded", CanStreamedLevelBeLoaded);
-		L.RegFunction("IsPlaying", IsPlaying);
-		L.RegFunction("GetBuildTags", GetBuildTags);
-		L.RegFunction("SetBuildTags", SetBuildTags);
-		L.RegFunction("HasProLicense", HasProLicense);
-		L.RegFunction("RequestAdvertisingIdentifierAsync", RequestAdvertisingIdentifierAsync);
-		L.RegFunction("OpenURL", OpenURL);
-		L.RegFunction("GetStackTraceLogType", GetStackTraceLogType);
-		L.RegFunction("SetStackTraceLogType", SetStackTraceLogType);
-		L.RegFunction("RequestUserAuthorization", RequestUserAuthorization);
-		L.RegFunction("HasUserAuthorization", HasUserAuthorization);
-		L.RegVar("isPlaying", get_isPlaying, null);
-		L.RegVar("isFocused", get_isFocused, null);
-		L.RegVar("buildGUID", get_buildGUID, null);
-		L.RegVar("runInBackground", get_runInBackground, set_runInBackground);
-		L.RegVar("isBatchMode", get_isBatchMode, null);
-		L.RegVar("dataPath", get_dataPath, null);
-		L.RegVar("streamingAssetsPath", get_streamingAssetsPath, null);
-		L.RegVar("persistentDataPath", get_persistentDataPath, null);
-		L.RegVar("temporaryCachePath", get_temporaryCachePath, null);
-		L.RegVar("absoluteURL", get_absoluteURL, null);
-		L.RegVar("unityVersion", get_unityVersion, null);
-		L.RegVar("version", get_version, null);
-		L.RegVar("installerName", get_installerName, null);
-		L.RegVar("identifier", get_identifier, null);
-		L.RegVar("installMode", get_installMode, null);
-		L.RegVar("sandboxType", get_sandboxType, null);
-		L.RegVar("productName", get_productName, null);
-		L.RegVar("companyName", get_companyName, null);
-		L.RegVar("cloudProjectId", get_cloudProjectId, null);
-		L.RegVar("targetFrameRate", get_targetFrameRate, set_targetFrameRate);
-		L.RegVar("consoleLogPath", get_consoleLogPath, null);
-		L.RegVar("backgroundLoadingPriority", get_backgroundLoadingPriority, set_backgroundLoadingPriority);
-		L.RegVar("genuine", get_genuine, null);
-		L.RegVar("genuineCheckAvailable", get_genuineCheckAvailable, null);
-		L.RegVar("platform", get_platform, null);
-		L.RegVar("isMobilePlatform", get_isMobilePlatform, null);
-		L.RegVar("isConsolePlatform", get_isConsolePlatform, null);
-		L.RegVar("systemLanguage", get_systemLanguage, null);
-		L.RegVar("internetReachability", get_internetReachability, null);
-		L.RegVar("isEditor", get_isEditor, null);
-		L.RegVar("lowMemory", get_lowMemory, set_lowMemory);
-		L.RegVar("logMessageReceived", get_logMessageReceived, set_logMessageReceived);
-		L.RegVar("logMessageReceivedThreaded", get_logMessageReceivedThreaded, set_logMessageReceivedThreaded);
-		L.RegVar("onBeforeRender", get_onBeforeRender, set_onBeforeRender);
-		L.RegVar("focusChanged", get_focusChanged, set_focusChanged);
-		L.RegVar("deepLinkActivated", get_deepLinkActivated, set_deepLinkActivated);
-		L.RegVar("wantsToQuit", get_wantsToQuit, set_wantsToQuit);
-		L.RegVar("quitting", get_quitting, set_quitting);
-		L.RegFunction("AdvertisingIdentifierCallback", UnityEngine_Application_AdvertisingIdentifierCallback);
-		L.RegFunction("LogCallback", UnityEngine_Application_LogCallback);
-		L.RegFunction("LowMemoryCallback", UnityEngine_Application_LowMemoryCallback);
+		L.RegFunction("Quit", new LuaCSFunction(Quit));
+		L.RegFunction("Unload", new LuaCSFunction(Unload));
+		L.RegFunction("CanStreamedLevelBeLoaded", new LuaCSFunction(CanStreamedLevelBeLoaded));
+		L.RegFunction("IsPlaying", new LuaCSFunction(IsPlaying));
+		L.RegFunction("GetBuildTags", new LuaCSFunction(GetBuildTags));
+		L.RegFunction("SetBuildTags", new LuaCSFunction(SetBuildTags));
+		L.RegFunction("HasProLicense", new LuaCSFunction(HasProLicense));
+		L.RegFunction("RequestAdvertisingIdentifierAsync", new LuaCSFunction(RequestAdvertisingIdentifierAsync));
+		L.RegFunction("OpenURL", new LuaCSFunction(OpenURL));
+		L.RegFunction("GetStackTraceLogType", new LuaCSFunction(GetStackTraceLogType));
+		L.RegFunction("SetStackTraceLogType", new LuaCSFunction(SetStackTraceLogType));
+		L.RegFunction("RequestUserAuthorization", new LuaCSFunction(RequestUserAuthorization));
+		L.RegFunction("HasUserAuthorization", new LuaCSFunction(HasUserAuthorization));
+		L.RegVar("isPlaying", new LuaCSFunction(get_isPlaying), null);
+		L.RegVar("isFocused", new LuaCSFunction(get_isFocused), null);
+		L.RegVar("buildGUID", new LuaCSFunction(get_buildGUID), null);
+		L.RegVar("runInBackground", new LuaCSFunction(get_runInBackground), new LuaCSFunction(set_runInBackground));
+		L.RegVar("isBatchMode", new LuaCSFunction(get_isBatchMode), null);
+		L.RegVar("dataPath", new LuaCSFunction(get_dataPath), null);
+		L.RegVar("streamingAssetsPath", new LuaCSFunction(get_streamingAssetsPath), null);
+		L.RegVar("persistentDataPath", new LuaCSFunction(get_persistentDataPath), null);
+		L.RegVar("temporaryCachePath", new LuaCSFunction(get_temporaryCachePath), null);
+		L.RegVar("absoluteURL", new LuaCSFunction(get_absoluteURL), null);
+		L.RegVar("unityVersion", new LuaCSFunction(get_unityVersion), null);
+		L.RegVar("version", new LuaCSFunction(get_version), null);
+		L.RegVar("installerName", new LuaCSFunction(get_installerName), null);
+		L.RegVar("identifier", new LuaCSFunction(get_identifier), null);
+		L.RegVar("installMode", new LuaCSFunction(get_installMode), null);
+		L.RegVar("sandboxType", new LuaCSFunction(get_sandboxType), null);
+		L.RegVar("productName", new LuaCSFunction(get_productName), null);
+		L.RegVar("companyName", new LuaCSFunction(get_companyName), null);
+		L.RegVar("cloudProjectId", new LuaCSFunction(get_cloudProjectId), null);
+		L.RegVar("targetFrameRate", new LuaCSFunction(get_targetFrameRate), new LuaCSFunction(set_targetFrameRate));
+		L.RegVar("consoleLogPath", new LuaCSFunction(get_consoleLogPath), null);
+		L.RegVar("backgroundLoadingPriority", new LuaCSFunction(get_backgroundLoadingPriority), new LuaCSFunction(set_backgroundLoadingPriority));
+		L.RegVar("genuine", new LuaCSFunction(get_genuine), null);
+		L.RegVar("genuineCheckAvailable", new LuaCSFunction(get_genuineCheckAvailable), null);
+		L.RegVar("platform", new LuaCSFunction(get_platform), null);
+		L.RegVar("isMobilePlatform", new LuaCSFunction(get_isMobilePlatform), null);
+		L.RegVar("isConsolePlatform", new LuaCSFunction(get_isConsolePlatform), null);
+		L.RegVar("systemLanguage", new LuaCSFunction(get_systemLanguage), null);
+		L.RegVar("internetReachability", new LuaCSFunction(get_internetReachability), null);
+		L.RegVar("isEditor", new LuaCSFunction(get_isEditor), null);
+		L.RegVar("lowMemory", new LuaCSFunction(get_lowMemory), new LuaCSFunction(set_lowMemory));
+		L.RegVar("logMessageReceived", new LuaCSFunction(get_logMessageReceived), new LuaCSFunction(set_logMessageReceived));
+		L.RegVar("logMessageReceivedThreaded", new LuaCSFunction(get_logMessageReceivedThreaded), new LuaCSFunction(set_logMessageReceivedThreaded));
+		L.RegVar("onBeforeRender", new LuaCSFunction(get_onBeforeRender), new LuaCSFunction(set_onBeforeRender));
+		L.RegVar("focusChanged", new LuaCSFunction(get_focusChanged), new LuaCSFunction(set_focusChanged));
+		L.RegVar("deepLinkActivated", new LuaCSFunction(get_deepLinkActivated), new LuaCSFunction(set_deepLinkActivated));
+		L.RegVar("wantsToQuit", new LuaCSFunction(get_wantsToQuit), new LuaCSFunction(set_wantsToQuit));
+		L.RegVar("quitting", new LuaCSFunction(get_quitting), new LuaCSFunction(set_quitting));
+		L.RegFunction("AdvertisingIdentifierCallback", new LuaCSFunction(UnityEngine_Application_AdvertisingIdentifierCallback));
+		L.RegFunction("LogCallback", new LuaCSFunction(UnityEngine_Application_LogCallback));
+		L.RegFunction("LowMemoryCallback", new LuaCSFunction(UnityEngine_Application_LowMemoryCallback));
 		L.EndStaticLibs();
 	}
 
@@ -78,7 +78,7 @@ public class UnityEngine_ApplicationWrap
 			}
 			else if (count == 1)
 			{
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checkinteger(L, 1);
 				UnityEngine.Application.Quit(arg0);
 				return 0;
 			}
@@ -117,7 +117,7 @@ public class UnityEngine_ApplicationWrap
 
 			if (count == 1 && TypeChecker.CheckTypes<int>(L, 1))
 			{
-				int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+				int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 				bool o = UnityEngine.Application.CanStreamedLevelBeLoaded(arg0);
 				LuaDLL.lua_pushboolean(L, o);
 				return 1;
@@ -244,7 +244,7 @@ public class UnityEngine_ApplicationWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.LogType arg0 = (UnityEngine.LogType)ToLua.CheckObject(L, 1, typeof(UnityEngine.LogType));
+			UnityEngine.LogType arg0 = (UnityEngine.LogType)ToLua.CheckObject(L, 1, TypeTraits<UnityEngine.LogType>.type);
 			UnityEngine.StackTraceLogType o = UnityEngine.Application.GetStackTraceLogType(arg0);
 			ToLua.Push(L, o);
 			return 1;
@@ -261,8 +261,8 @@ public class UnityEngine_ApplicationWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
-			UnityEngine.LogType arg0 = (UnityEngine.LogType)ToLua.CheckObject(L, 1, typeof(UnityEngine.LogType));
-			UnityEngine.StackTraceLogType arg1 = (UnityEngine.StackTraceLogType)ToLua.CheckObject(L, 2, typeof(UnityEngine.StackTraceLogType));
+			UnityEngine.LogType arg0 = (UnityEngine.LogType)ToLua.CheckObject(L, 1, TypeTraits<UnityEngine.LogType>.type);
+			UnityEngine.StackTraceLogType arg1 = (UnityEngine.StackTraceLogType)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.StackTraceLogType>.type);
 			UnityEngine.Application.SetStackTraceLogType(arg0, arg1);
 			return 0;
 		}
@@ -278,7 +278,7 @@ public class UnityEngine_ApplicationWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.UserAuthorization arg0 = (UnityEngine.UserAuthorization)ToLua.CheckObject(L, 1, typeof(UnityEngine.UserAuthorization));
+			UnityEngine.UserAuthorization arg0 = (UnityEngine.UserAuthorization)ToLua.CheckObject(L, 1, TypeTraits<UnityEngine.UserAuthorization>.type);
 			UnityEngine.AsyncOperation o = UnityEngine.Application.RequestUserAuthorization(arg0);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -295,7 +295,7 @@ public class UnityEngine_ApplicationWrap
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.UserAuthorization arg0 = (UnityEngine.UserAuthorization)ToLua.CheckObject(L, 1, typeof(UnityEngine.UserAuthorization));
+			UnityEngine.UserAuthorization arg0 = (UnityEngine.UserAuthorization)ToLua.CheckObject(L, 1, TypeTraits<UnityEngine.UserAuthorization>.type);
 			bool o = UnityEngine.Application.HasUserAuthorization(arg0);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
@@ -789,6 +789,7 @@ public class UnityEngine_ApplicationWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			UnityEngine.Application.runInBackground = arg0;
+			UnityEngine.Application.runInBackground = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -802,7 +803,8 @@ public class UnityEngine_ApplicationWrap
 	{
 		try
 		{
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			UnityEngine.Application.targetFrameRate = arg0;
 			UnityEngine.Application.targetFrameRate = arg0;
 			return 0;
 		}
@@ -817,7 +819,8 @@ public class UnityEngine_ApplicationWrap
 	{
 		try
 		{
-			UnityEngine.ThreadPriority arg0 = (UnityEngine.ThreadPriority)ToLua.CheckObject(L, 2, typeof(UnityEngine.ThreadPriority));
+			UnityEngine.ThreadPriority arg0 = (UnityEngine.ThreadPriority)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.ThreadPriority>.type);
+			UnityEngine.Application.backgroundLoadingPriority = arg0;
 			UnityEngine.Application.backgroundLoadingPriority = arg0;
 			return 0;
 		}
@@ -1119,12 +1122,15 @@ public class UnityEngine_ApplicationWrap
 			{
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Create(func);
 				ToLua.Push(L, arg1);
+				func.Dispose();
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.AdvertisingIdentifierCallback>.Create(func, self);
 				ToLua.Push(L, arg1);
+				func.Dispose();
+				self.Dispose();
 			}
 			return 1;
 		}
@@ -1146,12 +1152,15 @@ public class UnityEngine_ApplicationWrap
 			{
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.LogCallback>.Create(func);
 				ToLua.Push(L, arg1);
+				func.Dispose();
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.LogCallback>.Create(func, self);
 				ToLua.Push(L, arg1);
+				func.Dispose();
+				self.Dispose();
 			}
 			return 1;
 		}
@@ -1173,12 +1182,15 @@ public class UnityEngine_ApplicationWrap
 			{
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Create(func);
 				ToLua.Push(L, arg1);
+				func.Dispose();
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UnityEngine.Application.LowMemoryCallback>.Create(func, self);
 				ToLua.Push(L, arg1);
+				func.Dispose();
+				self.Dispose();
 			}
 			return 1;
 		}

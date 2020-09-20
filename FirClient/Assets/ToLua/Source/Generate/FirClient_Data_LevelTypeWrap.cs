@@ -7,12 +7,12 @@ public class FirClient_Data_LevelTypeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginEnum(typeof(FirClient.Data.LevelType));
-		L.RegVar("Init", get_Init, null);
-		L.RegVar("Login", get_Login, null);
-		L.RegVar("Loader", get_Loader, null);
-		L.RegVar("Main", get_Main, null);
-		L.RegVar("Battle", get_Battle, null);
-		L.RegFunction("IntToEnum", IntToEnum);
+		L.RegVar("Init", new LuaCSFunction(get_Init), null);
+		L.RegVar("Login", new LuaCSFunction(get_Login), null);
+		L.RegVar("Loader", new LuaCSFunction(get_Loader), null);
+		L.RegVar("Main", new LuaCSFunction(get_Main), null);
+		L.RegVar("Battle", new LuaCSFunction(get_Battle), null);
+		L.RegFunction("IntToEnum", new LuaCSFunction(IntToEnum));
 		L.EndEnum();
 		TypeTraits<FirClient.Data.LevelType>.Check = CheckType;
 		StackTraits<FirClient.Data.LevelType>.Push = Push;
@@ -23,9 +23,11 @@ public class FirClient_Data_LevelTypeWrap
 		ToLua.Push(L, arg);
 	}
 
+	static Type TypeOf_FirClient_Data_LevelType = typeof(FirClient.Data.LevelType);
+
 	static bool CheckType(IntPtr L, int pos)
 	{
-		return TypeChecker.CheckEnumType(typeof(FirClient.Data.LevelType), L, pos);
+		return TypeChecker.CheckEnumType(TypeOf_FirClient_Data_LevelType, L, pos);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -66,7 +68,7 @@ public class FirClient_Data_LevelTypeWrap
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int IntToEnum(IntPtr L)
 	{
-		int arg0 = (int)LuaDLL.lua_tonumber(L, 1);
+		int arg0 = (int)LuaDLL.lua_tointeger(L, 1);
 		FirClient.Data.LevelType o = (FirClient.Data.LevelType)arg0;
 		ToLua.Push(L, o);
 		return 1;

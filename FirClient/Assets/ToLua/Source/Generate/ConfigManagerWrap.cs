@@ -7,21 +7,21 @@ public class ConfigManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ConfigManager), typeof(BaseObject));
-		L.RegFunction("Create", Create);
-		L.RegFunction("GetDialogDataByKey", GetDialogDataByKey);
-		L.RegFunction("GetEmbattlePosData", GetEmbattlePosData);
-		L.RegFunction("GetSkillData", GetSkillData);
-		L.RegFunction("GetChapterList", GetChapterList);
-		L.RegFunction("GetDungeonData", GetDungeonData);
-		L.RegFunction("GetTeamData", GetTeamData);
-		L.RegFunction("GetMapData", GetMapData);
-		L.RegFunction("GetRoleData", GetRoleData);
-		L.RegFunction("GetBulletData", GetBulletData);
-		L.RegFunction("GetBulletList", GetBulletList);
-		L.RegFunction("GetEffectData", GetEffectData);
-		L.RegFunction("GetEffectList", GetEffectList);
-		L.RegFunction("New", _CreateConfigManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("Create", new LuaCSFunction(Create));
+		L.RegFunction("GetDialogDataByKey", new LuaCSFunction(GetDialogDataByKey));
+		L.RegFunction("GetEmbattlePosData", new LuaCSFunction(GetEmbattlePosData));
+		L.RegFunction("GetSkillData", new LuaCSFunction(GetSkillData));
+		L.RegFunction("GetChapterList", new LuaCSFunction(GetChapterList));
+		L.RegFunction("GetDungeonData", new LuaCSFunction(GetDungeonData));
+		L.RegFunction("GetTeamData", new LuaCSFunction(GetTeamData));
+		L.RegFunction("GetMapData", new LuaCSFunction(GetMapData));
+		L.RegFunction("GetRoleData", new LuaCSFunction(GetRoleData));
+		L.RegFunction("GetBulletData", new LuaCSFunction(GetBulletData));
+		L.RegFunction("GetBulletList", new LuaCSFunction(GetBulletList));
+		L.RegFunction("GetEffectData", new LuaCSFunction(GetEffectData));
+		L.RegFunction("GetEffectList", new LuaCSFunction(GetEffectList));
+		L.RegFunction("New", new LuaCSFunction(_CreateConfigManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 
@@ -72,9 +72,9 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 4);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
-			uint arg1 = (uint)LuaDLL.luaL_checknumber(L, 3);
-			uint arg2 = (uint)LuaDLL.luaL_checknumber(L, 4);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
+			uint arg1 = (uint)LuaDLL.luaL_checkinteger(L, 3);
+			uint arg2 = (uint)LuaDLL.luaL_checkinteger(L, 4);
 			FirClient.Data.DialogData o = obj.GetDialogDataByKey(arg0, arg1, arg2);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -92,7 +92,7 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			FirClient.Data.EmbattleType arg0 = (FirClient.Data.EmbattleType)ToLua.CheckObject(L, 2, typeof(FirClient.Data.EmbattleType));
+			FirClient.Data.EmbattleType arg0 = (FirClient.Data.EmbattleType)ToLua.CheckObject(L, 2, TypeTraits<FirClient.Data.EmbattleType>.type);
 			System.Collections.Generic.Dictionary<uint,UnityEngine.Vector3> o = obj.GetEmbattlePosData(arg0);
 			ToLua.PushSealed(L, o);
 			return 1;
@@ -110,7 +110,7 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			System.Collections.Generic.Dictionary<string,FirClient.Data.SkillData> o = obj.GetSkillData(arg0);
 			ToLua.PushSealed(L, o);
 			return 1;
@@ -145,8 +145,8 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 3);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
-			uint arg1 = (uint)LuaDLL.luaL_checknumber(L, 3);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
+			uint arg1 = (uint)LuaDLL.luaL_checkinteger(L, 3);
 			FirClient.Data.DungeonData o = obj.GetDungeonData(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -164,7 +164,7 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			FirClient.Data.TeamData o = obj.GetTeamData(arg0);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -182,7 +182,7 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			FirClient.Data.MapData o = obj.GetMapData(arg0);
 			ToLua.PushObject(L, o);
 			return 1;
@@ -200,7 +200,7 @@ public class ConfigManagerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ConfigManager obj = (ConfigManager)ToLua.CheckObject<ConfigManager>(L, 1);
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			FirClient.Data.RoleData o = obj.GetRoleData(arg0);
 			ToLua.PushObject(L, o);
 			return 1;

@@ -7,28 +7,28 @@ public class FirClient_Define_EventNamesWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Define.EventNames), typeof(System.Object));
-		L.RegFunction("New", _CreateFirClient_Define_EventNames);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("EvLogicUpdate", get_EvLogicUpdate, null);
-		L.RegVar("EvNpcSpawn", get_EvNpcSpawn, null);
-		L.RegVar("EvNpcSpawnOK", get_EvNpcSpawnOK, null);
-		L.RegVar("EvEnterScene", get_EvEnterScene, null);
-		L.RegVar("EvBeginPlay", get_EvBeginPlay, null);
-		L.RegVar("EvMoveCamera", get_EvMoveCamera, null);
-		L.RegVar("EvNpcSkillAttack", get_EvNpcSkillAttack, null);
-		L.RegVar("EvNpcSkillAttackOK", get_EvNpcSkillAttackOK, null);
-		L.RegVar("EvNpcDeath", get_EvNpcDeath, null);
-		L.RegVar("EvEnterDungeon", get_EvEnterDungeon, null);
-		L.RegVar("EvEnterDungeonOK", get_EvEnterDungeonOK, null);
-		L.RegVar("EvBattleStart", get_EvBattleStart, null);
-		L.RegVar("EvBattleEnd", get_EvBattleEnd, null);
-		L.RegVar("EvChooseNpc", get_EvChooseNpc, null);
-		L.RegVar("EvNpcMove", get_EvNpcMove, null);
-		L.RegVar("EvNpcMoveOK", get_EvNpcMoveOK, null);
-		L.RegVar("EvNpcFaceDir", get_EvNpcFaceDir, null);
-		L.RegVar("EvNpcShow", get_EvNpcShow, null);
-		L.RegVar("EvNpcShowOK", get_EvNpcShowOK, null);
-		L.RegVar("EvShowDialog", get_EvShowDialog, null);
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Define_EventNames));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("EvLogicUpdate", new LuaCSFunction(get_EvLogicUpdate), null);
+		L.RegVar("EvNpcSpawn", new LuaCSFunction(get_EvNpcSpawn), null);
+		L.RegVar("EvNpcSpawnOK", new LuaCSFunction(get_EvNpcSpawnOK), null);
+		L.RegVar("EvEnterScene", new LuaCSFunction(get_EvEnterScene), null);
+		L.RegVar("EvBeginPlay", new LuaCSFunction(get_EvBeginPlay), null);
+		L.RegVar("EvMoveCamera", new LuaCSFunction(get_EvMoveCamera), null);
+		L.RegVar("EvNpcSkillAttack", new LuaCSFunction(get_EvNpcSkillAttack), null);
+		L.RegVar("EvNpcSkillAttackOK", new LuaCSFunction(get_EvNpcSkillAttackOK), null);
+		L.RegVar("EvNpcDeath", new LuaCSFunction(get_EvNpcDeath), null);
+		L.RegVar("EvEnterDungeon", new LuaCSFunction(get_EvEnterDungeon), null);
+		L.RegVar("EvEnterDungeonOK", new LuaCSFunction(get_EvEnterDungeonOK), null);
+		L.RegVar("EvBattleStart", new LuaCSFunction(get_EvBattleStart), null);
+		L.RegVar("EvBattleEnd", new LuaCSFunction(get_EvBattleEnd), null);
+		L.RegVar("EvChooseNpc", new LuaCSFunction(get_EvChooseNpc), null);
+		L.RegVar("EvNpcMove", new LuaCSFunction(get_EvNpcMove), null);
+		L.RegVar("EvNpcMoveOK", new LuaCSFunction(get_EvNpcMoveOK), null);
+		L.RegVar("EvNpcFaceDir", new LuaCSFunction(get_EvNpcFaceDir), null);
+		L.RegVar("EvNpcShow", new LuaCSFunction(get_EvNpcShow), null);
+		L.RegVar("EvNpcShowOK", new LuaCSFunction(get_EvNpcShowOK), null);
+		L.RegVar("EvShowDialog", new LuaCSFunction(get_EvShowDialog), null);
 		L.EndClass();
 	}
 

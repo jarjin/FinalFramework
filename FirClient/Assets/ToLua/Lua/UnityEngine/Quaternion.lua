@@ -81,7 +81,7 @@ function Quaternion:Get()
 	return self.x, self.y, self.z, self.w
 end
 
-function Quaternion.Dot(a, b)
+function Quaternion.Dot(a, b)	
 	return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
 end
 
@@ -109,6 +109,12 @@ function Quaternion.Equals(a, b)
 end
 
 function Quaternion.Euler(x, y, z)
+	if y == nil and z == nil then		
+		y = x.y
+		z = x.z	
+		x = x.x
+	end
+	
 	x = x * 0.0087266462599716
     y = y * 0.0087266462599716
     z = z * 0.0087266462599716
@@ -582,10 +588,10 @@ function Quaternion.MulVec3(self, point)
 	return vec
 end
 
-Quaternion.__mul = function(lhs, rhs)
-	if Quaternion == getmetatable(rhs) then
+Quaternion.__mul = function(lhs, rhs)	
+	if rawequal(Quaternion, getmetatable(rhs)) then			
 		return Quaternion.New((((lhs.w * rhs.x) + (lhs.x * rhs.w)) + (lhs.y * rhs.z)) - (lhs.z * rhs.y), (((lhs.w * rhs.y) + (lhs.y * rhs.w)) + (lhs.z * rhs.x)) - (lhs.x * rhs.z), (((lhs.w * rhs.z) + (lhs.z * rhs.w)) + (lhs.x * rhs.y)) - (lhs.y * rhs.x), (((lhs.w * rhs.w) - (lhs.x * rhs.x)) - (lhs.y * rhs.y)) - (lhs.z * rhs.z))	
-	elseif Vector3 == getmetatable(rhs) then
+	elseif rawequal(getmetatable(rhs), Vector3) then		
 		return lhs:MulVec3(rhs)
 	end
 end

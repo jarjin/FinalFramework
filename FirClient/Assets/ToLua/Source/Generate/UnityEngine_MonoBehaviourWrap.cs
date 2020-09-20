@@ -7,17 +7,17 @@ public class UnityEngine_MonoBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.MonoBehaviour), typeof(UnityEngine.Behaviour));
-		L.RegFunction("IsInvoking", IsInvoking);
-		L.RegFunction("CancelInvoke", CancelInvoke);
-		L.RegFunction("Invoke", Invoke);
-		L.RegFunction("InvokeRepeating", InvokeRepeating);
-		L.RegFunction("StartCoroutine", StartCoroutine);
-		L.RegFunction("StopCoroutine", StopCoroutine);
-		L.RegFunction("StopAllCoroutines", StopAllCoroutines);
-		L.RegFunction("print", print);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("useGUILayout", get_useGUILayout, set_useGUILayout);
+		L.RegFunction("IsInvoking", new LuaCSFunction(IsInvoking));
+		L.RegFunction("CancelInvoke", new LuaCSFunction(CancelInvoke));
+		L.RegFunction("Invoke", new LuaCSFunction(Invoke));
+		L.RegFunction("InvokeRepeating", new LuaCSFunction(InvokeRepeating));
+		L.RegFunction("StartCoroutine", new LuaCSFunction(StartCoroutine));
+		L.RegFunction("StopCoroutine", new LuaCSFunction(StopCoroutine));
+		L.RegFunction("StopAllCoroutines", new LuaCSFunction(StopAllCoroutines));
+		L.RegFunction("print", new LuaCSFunction(print));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("useGUILayout", new LuaCSFunction(get_useGUILayout), new LuaCSFunction(set_useGUILayout));
 		L.EndClass();
 	}
 

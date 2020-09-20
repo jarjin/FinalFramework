@@ -7,12 +7,12 @@ public class ManagementCenterWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ManagementCenter), typeof(System.Object));
-		L.RegFunction("GetManager", GetManager);
-		L.RegFunction("GetExtManager", GetExtManager);
-		L.RegFunction("New", _CreateManagementCenter);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("managerObject", get_managerObject, null);
-		L.RegVar("main", get_main, null);
+		L.RegFunction("GetManager", new LuaCSFunction(GetManager));
+		L.RegFunction("GetExtManager", new LuaCSFunction(GetExtManager));
+		L.RegFunction("New", new LuaCSFunction(_CreateManagementCenter));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("managerObject", new LuaCSFunction(get_managerObject), null);
+		L.RegVar("main", new LuaCSFunction(get_main), null);
 		L.EndClass();
 	}
 

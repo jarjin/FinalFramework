@@ -7,19 +7,19 @@ public class UnityEngine_SpriteRendererWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.SpriteRenderer), typeof(UnityEngine.Renderer));
-		L.RegFunction("New", _CreateUnityEngine_SpriteRenderer);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("sprite", get_sprite, set_sprite);
-		L.RegVar("drawMode", get_drawMode, set_drawMode);
-		L.RegVar("size", get_size, set_size);
-		L.RegVar("adaptiveModeThreshold", get_adaptiveModeThreshold, set_adaptiveModeThreshold);
-		L.RegVar("tileMode", get_tileMode, set_tileMode);
-		L.RegVar("color", get_color, set_color);
-		L.RegVar("maskInteraction", get_maskInteraction, set_maskInteraction);
-		L.RegVar("flipX", get_flipX, set_flipX);
-		L.RegVar("flipY", get_flipY, set_flipY);
-		L.RegVar("spriteSortPoint", get_spriteSortPoint, set_spriteSortPoint);
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_SpriteRenderer));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("sprite", new LuaCSFunction(get_sprite), new LuaCSFunction(set_sprite));
+		L.RegVar("drawMode", new LuaCSFunction(get_drawMode), new LuaCSFunction(set_drawMode));
+		L.RegVar("size", new LuaCSFunction(get_size), new LuaCSFunction(set_size));
+		L.RegVar("adaptiveModeThreshold", new LuaCSFunction(get_adaptiveModeThreshold), new LuaCSFunction(set_adaptiveModeThreshold));
+		L.RegVar("tileMode", new LuaCSFunction(get_tileMode), new LuaCSFunction(set_tileMode));
+		L.RegVar("color", new LuaCSFunction(get_color), new LuaCSFunction(set_color));
+		L.RegVar("maskInteraction", new LuaCSFunction(get_maskInteraction), new LuaCSFunction(set_maskInteraction));
+		L.RegVar("flipX", new LuaCSFunction(get_flipX), new LuaCSFunction(set_flipX));
+		L.RegVar("flipY", new LuaCSFunction(get_flipY), new LuaCSFunction(set_flipY));
+		L.RegVar("spriteSortPoint", new LuaCSFunction(get_spriteSortPoint), new LuaCSFunction(set_spriteSortPoint));
 		L.EndClass();
 	}
 
@@ -264,7 +264,7 @@ public class UnityEngine_SpriteRendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.SpriteRenderer obj = (UnityEngine.SpriteRenderer)o;
-			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject(L, 2, typeof(UnityEngine.Sprite));
+			UnityEngine.Sprite arg0 = (UnityEngine.Sprite)ToLua.CheckObject<UnityEngine.Sprite>(L, 2);
 			obj.sprite = arg0;
 			return 0;
 		}
@@ -283,7 +283,7 @@ public class UnityEngine_SpriteRendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.SpriteRenderer obj = (UnityEngine.SpriteRenderer)o;
-			UnityEngine.SpriteDrawMode arg0 = (UnityEngine.SpriteDrawMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.SpriteDrawMode));
+			UnityEngine.SpriteDrawMode arg0 = (UnityEngine.SpriteDrawMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.SpriteDrawMode>.type);
 			obj.drawMode = arg0;
 			return 0;
 		}
@@ -340,7 +340,7 @@ public class UnityEngine_SpriteRendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.SpriteRenderer obj = (UnityEngine.SpriteRenderer)o;
-			UnityEngine.SpriteTileMode arg0 = (UnityEngine.SpriteTileMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.SpriteTileMode));
+			UnityEngine.SpriteTileMode arg0 = (UnityEngine.SpriteTileMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.SpriteTileMode>.type);
 			obj.tileMode = arg0;
 			return 0;
 		}
@@ -378,7 +378,7 @@ public class UnityEngine_SpriteRendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.SpriteRenderer obj = (UnityEngine.SpriteRenderer)o;
-			UnityEngine.SpriteMaskInteraction arg0 = (UnityEngine.SpriteMaskInteraction)ToLua.CheckObject(L, 2, typeof(UnityEngine.SpriteMaskInteraction));
+			UnityEngine.SpriteMaskInteraction arg0 = (UnityEngine.SpriteMaskInteraction)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.SpriteMaskInteraction>.type);
 			obj.maskInteraction = arg0;
 			return 0;
 		}
@@ -435,7 +435,7 @@ public class UnityEngine_SpriteRendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.SpriteRenderer obj = (UnityEngine.SpriteRenderer)o;
-			UnityEngine.SpriteSortPoint arg0 = (UnityEngine.SpriteSortPoint)ToLua.CheckObject(L, 2, typeof(UnityEngine.SpriteSortPoint));
+			UnityEngine.SpriteSortPoint arg0 = (UnityEngine.SpriteSortPoint)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.SpriteSortPoint>.type);
 			obj.spriteSortPoint = arg0;
 			return 0;
 		}

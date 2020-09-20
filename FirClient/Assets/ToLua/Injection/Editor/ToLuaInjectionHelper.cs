@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Collections.Generic;
 using Unity.CecilTools;
 using System.Linq;
 
@@ -95,6 +96,7 @@ public static class ToLuaInjectionHelper
     {
         MethodDefinition baseMethodDef = null;
         var baseType = target.DeclaringType.BaseType;
+        Collection<TypeReference> availableArgs = null;
 
         while (baseType != null)
         {
@@ -102,30 +104,33 @@ public static class ToLuaInjectionHelper
             {
                 break;
             }
+            GenericInstanceType baseTypeInstance = null;
+            if (baseType.IsGenericInstance)
+            {
+                baseTypeInstance = (GenericInstanceType)baseType;
+                bool bGenericArgumentsAvailable = !baseTypeInstance
+                    .GenericArguments
+                    .Any(arg => arg.MetadataType == MetadataType.Var);
+                if (bGenericArgumentsAvailable)
+                {
+                    availableArgs = baseTypeInstance.GenericArguments;
+                }
+            }
 
             var baseTypeDef = baseType.Resolve();
-            baseMethodDef = baseTypeDef.Methods.FirstOrDefault(method =>
-            {
-                return method.Name == target.Name
-                    && target.Parameters
-                        .Select(param => param.ParameterType.FullName)
-                        .SequenceEqual(method.Parameters.Select(param => param.ParameterType.FullName))
-                    && method.ReturnType.FullName == target.ReturnType.FullName;
-            });
-
+            baseMethodDef = MetadataResolver.GetMethod(baseTypeDef.Methods, target);
             if (baseMethodDef != null && !baseMethodDef.IsAbstract)
             {
                 if (baseType.IsGenericInstance)
                 {
-                    MethodReference baseMethodRef = baseTypeDef.Module.Import(baseMethodDef);
-                    var baseTypeInstance = (GenericInstanceType)baseType;
-                    return baseMethodRef.MakeGenericMethod(baseTypeInstance.GenericArguments.ToArray());
+                    MethodReference baseMethodRef = baseType.Module.Import(baseMethodDef);
+                    return baseMethodRef.MakeGenericMethod(availableArgs.ToArray());
                 }
                 break;
             }
             else baseMethodDef = null;
 
-           baseType = baseTypeDef.BaseType;
+            baseType = baseTypeDef.BaseType;
         }
 
         return baseMethodDef;

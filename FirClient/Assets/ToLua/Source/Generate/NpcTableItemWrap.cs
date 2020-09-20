@@ -7,14 +7,14 @@ public class NpcTableItemWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(NpcTableItem), typeof(System.Object));
-		L.RegFunction("New", _CreateNpcTableItem);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("id", get_id, set_id);
-		L.RegVar("name", get_name, set_name);
-		L.RegVar("isMainCharacter", get_isMainCharacter, set_isMainCharacter);
-		L.RegVar("sex", get_sex, set_sex);
-		L.RegVar("country", get_country, set_country);
-		L.RegVar("itemid", get_itemid, set_itemid);
+		L.RegFunction("New", new LuaCSFunction(_CreateNpcTableItem));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("id", new LuaCSFunction(get_id), new LuaCSFunction(set_id));
+		L.RegVar("name", new LuaCSFunction(get_name), new LuaCSFunction(set_name));
+		L.RegVar("isMainCharacter", new LuaCSFunction(get_isMainCharacter), new LuaCSFunction(set_isMainCharacter));
+		L.RegVar("sex", new LuaCSFunction(get_sex), new LuaCSFunction(set_sex));
+		L.RegVar("country", new LuaCSFunction(get_country), new LuaCSFunction(set_country));
+		L.RegVar("itemid", new LuaCSFunction(get_itemid), new LuaCSFunction(set_itemid));
 		L.EndClass();
 	}
 
@@ -165,7 +165,7 @@ public class NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			NpcTableItem obj = (NpcTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.id = arg0;
 			return 0;
 		}
@@ -222,7 +222,7 @@ public class NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			NpcTableItem obj = (NpcTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.sex = arg0;
 			return 0;
 		}
@@ -241,7 +241,7 @@ public class NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			NpcTableItem obj = (NpcTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.country = arg0;
 			return 0;
 		}
@@ -260,7 +260,7 @@ public class NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			NpcTableItem obj = (NpcTableItem)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.itemid = arg0;
 			return 0;
 		}

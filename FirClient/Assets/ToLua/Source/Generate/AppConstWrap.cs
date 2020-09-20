@@ -7,15 +7,15 @@ public class AppConstWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(AppConst), typeof(System.Object));
-		L.RegFunction("New", _CreateAppConst);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("DebugMode", get_DebugMode, set_DebugMode);
-		L.RegVar("LogMode", get_LogMode, set_LogMode);
-		L.RegVar("UpdateMode", get_UpdateMode, set_UpdateMode);
-		L.RegVar("LuaByteMode", get_LuaByteMode, set_LuaByteMode);
-		L.RegVar("ShowFps", get_ShowFps, set_ShowFps);
-		L.RegVar("AppState", get_AppState, set_AppState);
-		L.RegVar("GameFrameRate", get_GameFrameRate, set_GameFrameRate);
+		L.RegFunction("New", new LuaCSFunction(_CreateAppConst));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("DebugMode", new LuaCSFunction(get_DebugMode), new LuaCSFunction(set_DebugMode));
+		L.RegVar("LogMode", new LuaCSFunction(get_LogMode), new LuaCSFunction(set_LogMode));
+		L.RegVar("UpdateMode", new LuaCSFunction(get_UpdateMode), new LuaCSFunction(set_UpdateMode));
+		L.RegVar("LuaByteMode", new LuaCSFunction(get_LuaByteMode), new LuaCSFunction(set_LuaByteMode));
+		L.RegVar("ShowFps", new LuaCSFunction(get_ShowFps), new LuaCSFunction(set_ShowFps));
+		L.RegVar("AppState", new LuaCSFunction(get_AppState), new LuaCSFunction(set_AppState));
+		L.RegVar("GameFrameRate", new LuaCSFunction(get_GameFrameRate), new LuaCSFunction(set_GameFrameRate));
 		L.RegConstant("BatchProcCount", 5);
 		L.RegConstant("TotalCreateMapBatch", 2);
 		L.RegConstant("TimerInterval", 1);
@@ -25,22 +25,22 @@ public class AppConstWrap
 		L.RegConstant("TilemapSortLayer", 1);
 		L.RegConstant("RoleSortLayer", 3);
 		L.RegConstant("BattleTempSortingOrder", 100);
-		L.RegVar("AppName", get_AppName, null);
-		L.RegVar("AppPrefix", get_AppPrefix, null);
-		L.RegVar("ExtName", get_ExtName, null);
-		L.RegVar("LuaTempDir", get_LuaTempDir, null);
-		L.RegVar("ABDir", get_ABDir, null);
-		L.RegVar("ResIndexFile", get_ResIndexFile, null);
-		L.RegVar("GameSettingName", get_GameSettingName, null);
-		L.RegVar("ResUrl", get_ResUrl, null);
-		L.RegVar("PatchUrl", get_PatchUrl, null);
-		L.RegVar("SocketAddress", get_SocketAddress, null);
+		L.RegVar("AppName", new LuaCSFunction(get_AppName), null);
+		L.RegVar("AppPrefix", new LuaCSFunction(get_AppPrefix), null);
+		L.RegVar("ExtName", new LuaCSFunction(get_ExtName), null);
+		L.RegVar("LuaTempDir", new LuaCSFunction(get_LuaTempDir), null);
+		L.RegVar("ABDir", new LuaCSFunction(get_ABDir), null);
+		L.RegVar("ResIndexFile", new LuaCSFunction(get_ResIndexFile), null);
+		L.RegVar("GameSettingName", new LuaCSFunction(get_GameSettingName), null);
+		L.RegVar("ResUrl", new LuaCSFunction(get_ResUrl), null);
+		L.RegVar("PatchUrl", new LuaCSFunction(get_PatchUrl), null);
+		L.RegVar("SocketAddress", new LuaCSFunction(get_SocketAddress), null);
 		L.RegConstant("SocketPort", 9001);
-		L.RegVar("TablePath", get_TablePath, set_TablePath);
-		L.RegVar("DataPrefixs", get_DataPrefixs, set_DataPrefixs);
-		L.RegVar("AssetPaths", get_AssetPaths, set_AssetPaths);
-		L.RegVar("WaitForSeconds_01", get_WaitForSeconds_01, null);
-		L.RegVar("WaitForEndOfFrame", get_WaitForEndOfFrame, null);
+		L.RegVar("TablePath", new LuaCSFunction(get_TablePath), new LuaCSFunction(set_TablePath));
+		L.RegVar("DataPrefixs", new LuaCSFunction(get_DataPrefixs), new LuaCSFunction(set_DataPrefixs));
+		L.RegVar("AssetPaths", new LuaCSFunction(get_AssetPaths), new LuaCSFunction(set_AssetPaths));
+		L.RegVar("WaitForSeconds_01", new LuaCSFunction(get_WaitForSeconds_01), null);
+		L.RegVar("WaitForEndOfFrame", new LuaCSFunction(get_WaitForEndOfFrame), null);
 		L.EndClass();
 	}
 
@@ -383,6 +383,7 @@ public class AppConstWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			AppConst.DebugMode = arg0;
+			AppConst.DebugMode = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -397,6 +398,7 @@ public class AppConstWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			AppConst.LogMode = arg0;
 			AppConst.LogMode = arg0;
 			return 0;
 		}
@@ -413,6 +415,7 @@ public class AppConstWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			AppConst.UpdateMode = arg0;
+			AppConst.UpdateMode = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -427,6 +430,7 @@ public class AppConstWrap
 		try
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			AppConst.LuaByteMode = arg0;
 			AppConst.LuaByteMode = arg0;
 			return 0;
 		}
@@ -443,6 +447,7 @@ public class AppConstWrap
 		{
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 			AppConst.ShowFps = arg0;
+			AppConst.ShowFps = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -456,7 +461,8 @@ public class AppConstWrap
 	{
 		try
 		{
-			AppState arg0 = (AppState)ToLua.CheckObject(L, 2, typeof(AppState));
+			AppState arg0 = (AppState)ToLua.CheckObject(L, 2, TypeTraits<AppState>.type);
+			AppConst.AppState = arg0;
 			AppConst.AppState = arg0;
 			return 0;
 		}
@@ -471,7 +477,8 @@ public class AppConstWrap
 	{
 		try
 		{
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			AppConst.GameFrameRate = arg0;
 			AppConst.GameFrameRate = arg0;
 			return 0;
 		}
@@ -488,6 +495,7 @@ public class AppConstWrap
 		{
 			string arg0 = ToLua.CheckString(L, 2);
 			AppConst.TablePath = arg0;
+			AppConst.TablePath = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -503,6 +511,7 @@ public class AppConstWrap
 		{
 			string[] arg0 = ToLua.CheckStringArray(L, 2);
 			AppConst.DataPrefixs = arg0;
+			AppConst.DataPrefixs = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -517,6 +526,7 @@ public class AppConstWrap
 		try
 		{
 			string[] arg0 = ToLua.CheckStringArray(L, 2);
+			AppConst.AssetPaths = arg0;
 			AppConst.AssetPaths = arg0;
 			return 0;
 		}

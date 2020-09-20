@@ -7,14 +7,14 @@ public class FirClient_Manager_NPCManagerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FirClient.Manager.NPCManager), typeof(FirClient.Manager.BaseManager));
-		L.RegFunction("AddNpc", AddNpc);
-		L.RegFunction("GetNpc", GetNpc);
-		L.RegFunction("RemoveNpc", RemoveNpc);
-		L.RegFunction("GetCurrentNpc", GetCurrentNpc);
-		L.RegFunction("New", _CreateFirClient_Manager_NPCManager);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("Current", get_Current, set_Current);
-		L.RegVar("Npcs", get_Npcs, null);
+		L.RegFunction("AddNpc", new LuaCSFunction(AddNpc));
+		L.RegFunction("GetNpc", new LuaCSFunction(GetNpc));
+		L.RegFunction("RemoveNpc", new LuaCSFunction(RemoveNpc));
+		L.RegFunction("GetCurrentNpc", new LuaCSFunction(GetCurrentNpc));
+		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_NPCManager));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("Current", new LuaCSFunction(get_Current), new LuaCSFunction(set_Current));
+		L.RegVar("Npcs", new LuaCSFunction(get_Npcs), null);
 		L.EndClass();
 	}
 

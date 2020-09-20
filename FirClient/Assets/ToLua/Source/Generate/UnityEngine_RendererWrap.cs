@@ -7,44 +7,44 @@ public class UnityEngine_RendererWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.Renderer), typeof(UnityEngine.Component));
-		L.RegFunction("HasPropertyBlock", HasPropertyBlock);
-		L.RegFunction("SetPropertyBlock", SetPropertyBlock);
-		L.RegFunction("GetPropertyBlock", GetPropertyBlock);
-		L.RegFunction("GetMaterials", GetMaterials);
-		L.RegFunction("GetSharedMaterials", GetSharedMaterials);
-		L.RegFunction("GetClosestReflectionProbes", GetClosestReflectionProbes);
-		L.RegFunction("New", _CreateUnityEngine_Renderer);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("bounds", get_bounds, null);
-		L.RegVar("enabled", get_enabled, set_enabled);
-		L.RegVar("isVisible", get_isVisible, null);
-		L.RegVar("shadowCastingMode", get_shadowCastingMode, set_shadowCastingMode);
-		L.RegVar("receiveShadows", get_receiveShadows, set_receiveShadows);
-		L.RegVar("forceRenderingOff", get_forceRenderingOff, set_forceRenderingOff);
-		L.RegVar("motionVectorGenerationMode", get_motionVectorGenerationMode, set_motionVectorGenerationMode);
-		L.RegVar("lightProbeUsage", get_lightProbeUsage, set_lightProbeUsage);
-		L.RegVar("reflectionProbeUsage", get_reflectionProbeUsage, set_reflectionProbeUsage);
-		L.RegVar("renderingLayerMask", get_renderingLayerMask, set_renderingLayerMask);
-		L.RegVar("rendererPriority", get_rendererPriority, set_rendererPriority);
-		L.RegVar("rayTracingMode", get_rayTracingMode, set_rayTracingMode);
-		L.RegVar("sortingLayerName", get_sortingLayerName, set_sortingLayerName);
-		L.RegVar("sortingLayerID", get_sortingLayerID, set_sortingLayerID);
-		L.RegVar("sortingOrder", get_sortingOrder, set_sortingOrder);
-		L.RegVar("allowOcclusionWhenDynamic", get_allowOcclusionWhenDynamic, set_allowOcclusionWhenDynamic);
-		L.RegVar("isPartOfStaticBatch", get_isPartOfStaticBatch, null);
-		L.RegVar("worldToLocalMatrix", get_worldToLocalMatrix, null);
-		L.RegVar("localToWorldMatrix", get_localToWorldMatrix, null);
-		L.RegVar("lightProbeProxyVolumeOverride", get_lightProbeProxyVolumeOverride, set_lightProbeProxyVolumeOverride);
-		L.RegVar("probeAnchor", get_probeAnchor, set_probeAnchor);
-		L.RegVar("lightmapIndex", get_lightmapIndex, set_lightmapIndex);
-		L.RegVar("realtimeLightmapIndex", get_realtimeLightmapIndex, set_realtimeLightmapIndex);
-		L.RegVar("lightmapScaleOffset", get_lightmapScaleOffset, set_lightmapScaleOffset);
-		L.RegVar("realtimeLightmapScaleOffset", get_realtimeLightmapScaleOffset, set_realtimeLightmapScaleOffset);
-		L.RegVar("materials", get_materials, set_materials);
-		L.RegVar("material", get_material, set_material);
-		L.RegVar("sharedMaterial", get_sharedMaterial, set_sharedMaterial);
-		L.RegVar("sharedMaterials", get_sharedMaterials, set_sharedMaterials);
+		L.RegFunction("HasPropertyBlock", new LuaCSFunction(HasPropertyBlock));
+		L.RegFunction("SetPropertyBlock", new LuaCSFunction(SetPropertyBlock));
+		L.RegFunction("GetPropertyBlock", new LuaCSFunction(GetPropertyBlock));
+		L.RegFunction("GetMaterials", new LuaCSFunction(GetMaterials));
+		L.RegFunction("GetSharedMaterials", new LuaCSFunction(GetSharedMaterials));
+		L.RegFunction("GetClosestReflectionProbes", new LuaCSFunction(GetClosestReflectionProbes));
+		L.RegFunction("New", new LuaCSFunction(_CreateUnityEngine_Renderer));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("bounds", new LuaCSFunction(get_bounds), null);
+		L.RegVar("enabled", new LuaCSFunction(get_enabled), new LuaCSFunction(set_enabled));
+		L.RegVar("isVisible", new LuaCSFunction(get_isVisible), null);
+		L.RegVar("shadowCastingMode", new LuaCSFunction(get_shadowCastingMode), new LuaCSFunction(set_shadowCastingMode));
+		L.RegVar("receiveShadows", new LuaCSFunction(get_receiveShadows), new LuaCSFunction(set_receiveShadows));
+		L.RegVar("forceRenderingOff", new LuaCSFunction(get_forceRenderingOff), new LuaCSFunction(set_forceRenderingOff));
+		L.RegVar("motionVectorGenerationMode", new LuaCSFunction(get_motionVectorGenerationMode), new LuaCSFunction(set_motionVectorGenerationMode));
+		L.RegVar("lightProbeUsage", new LuaCSFunction(get_lightProbeUsage), new LuaCSFunction(set_lightProbeUsage));
+		L.RegVar("reflectionProbeUsage", new LuaCSFunction(get_reflectionProbeUsage), new LuaCSFunction(set_reflectionProbeUsage));
+		L.RegVar("renderingLayerMask", new LuaCSFunction(get_renderingLayerMask), new LuaCSFunction(set_renderingLayerMask));
+		L.RegVar("rendererPriority", new LuaCSFunction(get_rendererPriority), new LuaCSFunction(set_rendererPriority));
+		L.RegVar("rayTracingMode", new LuaCSFunction(get_rayTracingMode), new LuaCSFunction(set_rayTracingMode));
+		L.RegVar("sortingLayerName", new LuaCSFunction(get_sortingLayerName), new LuaCSFunction(set_sortingLayerName));
+		L.RegVar("sortingLayerID", new LuaCSFunction(get_sortingLayerID), new LuaCSFunction(set_sortingLayerID));
+		L.RegVar("sortingOrder", new LuaCSFunction(get_sortingOrder), new LuaCSFunction(set_sortingOrder));
+		L.RegVar("allowOcclusionWhenDynamic", new LuaCSFunction(get_allowOcclusionWhenDynamic), new LuaCSFunction(set_allowOcclusionWhenDynamic));
+		L.RegVar("isPartOfStaticBatch", new LuaCSFunction(get_isPartOfStaticBatch), null);
+		L.RegVar("worldToLocalMatrix", new LuaCSFunction(get_worldToLocalMatrix), null);
+		L.RegVar("localToWorldMatrix", new LuaCSFunction(get_localToWorldMatrix), null);
+		L.RegVar("lightProbeProxyVolumeOverride", new LuaCSFunction(get_lightProbeProxyVolumeOverride), new LuaCSFunction(set_lightProbeProxyVolumeOverride));
+		L.RegVar("probeAnchor", new LuaCSFunction(get_probeAnchor), new LuaCSFunction(set_probeAnchor));
+		L.RegVar("lightmapIndex", new LuaCSFunction(get_lightmapIndex), new LuaCSFunction(set_lightmapIndex));
+		L.RegVar("realtimeLightmapIndex", new LuaCSFunction(get_realtimeLightmapIndex), new LuaCSFunction(set_realtimeLightmapIndex));
+		L.RegVar("lightmapScaleOffset", new LuaCSFunction(get_lightmapScaleOffset), new LuaCSFunction(set_lightmapScaleOffset));
+		L.RegVar("realtimeLightmapScaleOffset", new LuaCSFunction(get_realtimeLightmapScaleOffset), new LuaCSFunction(set_realtimeLightmapScaleOffset));
+		L.RegVar("materials", new LuaCSFunction(get_materials), new LuaCSFunction(set_materials));
+		L.RegVar("material", new LuaCSFunction(get_material), new LuaCSFunction(set_material));
+		L.RegVar("sharedMaterial", new LuaCSFunction(get_sharedMaterial), new LuaCSFunction(set_sharedMaterial));
+		L.RegVar("sharedMaterials", new LuaCSFunction(get_sharedMaterials), new LuaCSFunction(set_sharedMaterials));
 		L.EndClass();
 	}
 
@@ -99,15 +99,15 @@ public class UnityEngine_RendererWrap
 			if (count == 2)
 			{
 				UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
+				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject<UnityEngine.MaterialPropertyBlock>(L, 2);
 				obj.SetPropertyBlock(arg0);
 				return 0;
 			}
 			else if (count == 3)
 			{
 				UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject<UnityEngine.MaterialPropertyBlock>(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 3);
 				obj.SetPropertyBlock(arg0, arg1);
 				return 0;
 			}
@@ -132,15 +132,15 @@ public class UnityEngine_RendererWrap
 			if (count == 2)
 			{
 				UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
+				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject<UnityEngine.MaterialPropertyBlock>(L, 2);
 				obj.GetPropertyBlock(arg0);
 				return 0;
 			}
 			else if (count == 3)
 			{
 				UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject(L, 2, typeof(UnityEngine.MaterialPropertyBlock));
-				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				UnityEngine.MaterialPropertyBlock arg0 = (UnityEngine.MaterialPropertyBlock)ToLua.CheckObject<UnityEngine.MaterialPropertyBlock>(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checkinteger(L, 3);
 				obj.GetPropertyBlock(arg0, arg1);
 				return 0;
 			}
@@ -162,7 +162,7 @@ public class UnityEngine_RendererWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-			System.Collections.Generic.List<UnityEngine.Material> arg0 = (System.Collections.Generic.List<UnityEngine.Material>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Material>));
+			System.Collections.Generic.List<UnityEngine.Material> arg0 = (System.Collections.Generic.List<UnityEngine.Material>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.List<UnityEngine.Material>>.type);
 			obj.GetMaterials(arg0);
 			return 0;
 		}
@@ -179,7 +179,7 @@ public class UnityEngine_RendererWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-			System.Collections.Generic.List<UnityEngine.Material> arg0 = (System.Collections.Generic.List<UnityEngine.Material>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Material>));
+			System.Collections.Generic.List<UnityEngine.Material> arg0 = (System.Collections.Generic.List<UnityEngine.Material>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.List<UnityEngine.Material>>.type);
 			obj.GetSharedMaterials(arg0);
 			return 0;
 		}
@@ -196,7 +196,7 @@ public class UnityEngine_RendererWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)ToLua.CheckObject<UnityEngine.Renderer>(L, 1);
-			System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo> arg0 = (System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>));
+			System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo> arg0 = (System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>)ToLua.CheckObject(L, 2, TypeTraits<System.Collections.Generic.List<UnityEngine.Rendering.ReflectionProbeBlendInfo>>.type);
 			obj.GetClosestReflectionProbes(arg0);
 			return 0;
 		}
@@ -405,7 +405,7 @@ public class UnityEngine_RendererWrap
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
 			uint ret = obj.renderingLayerMask;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -803,7 +803,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.Rendering.ShadowCastingMode arg0 = (UnityEngine.Rendering.ShadowCastingMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ShadowCastingMode));
+			UnityEngine.Rendering.ShadowCastingMode arg0 = (UnityEngine.Rendering.ShadowCastingMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.Rendering.ShadowCastingMode>.type);
 			obj.shadowCastingMode = arg0;
 			return 0;
 		}
@@ -860,7 +860,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.MotionVectorGenerationMode arg0 = (UnityEngine.MotionVectorGenerationMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.MotionVectorGenerationMode));
+			UnityEngine.MotionVectorGenerationMode arg0 = (UnityEngine.MotionVectorGenerationMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.MotionVectorGenerationMode>.type);
 			obj.motionVectorGenerationMode = arg0;
 			return 0;
 		}
@@ -879,7 +879,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.Rendering.LightProbeUsage arg0 = (UnityEngine.Rendering.LightProbeUsage)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.LightProbeUsage));
+			UnityEngine.Rendering.LightProbeUsage arg0 = (UnityEngine.Rendering.LightProbeUsage)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.Rendering.LightProbeUsage>.type);
 			obj.lightProbeUsage = arg0;
 			return 0;
 		}
@@ -898,7 +898,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.Rendering.ReflectionProbeUsage arg0 = (UnityEngine.Rendering.ReflectionProbeUsage)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.ReflectionProbeUsage));
+			UnityEngine.Rendering.ReflectionProbeUsage arg0 = (UnityEngine.Rendering.ReflectionProbeUsage)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.Rendering.ReflectionProbeUsage>.type);
 			obj.reflectionProbeUsage = arg0;
 			return 0;
 		}
@@ -917,7 +917,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			uint arg0 = (uint)LuaDLL.luaL_checknumber(L, 2);
+			uint arg0 = (uint)LuaDLL.luaL_checkinteger(L, 2);
 			obj.renderingLayerMask = arg0;
 			return 0;
 		}
@@ -936,7 +936,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.rendererPriority = arg0;
 			return 0;
 		}
@@ -955,7 +955,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.Experimental.Rendering.RayTracingMode arg0 = (UnityEngine.Experimental.Rendering.RayTracingMode)ToLua.CheckObject(L, 2, typeof(UnityEngine.Experimental.Rendering.RayTracingMode));
+			UnityEngine.Experimental.Rendering.RayTracingMode arg0 = (UnityEngine.Experimental.Rendering.RayTracingMode)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.Experimental.Rendering.RayTracingMode>.type);
 			obj.rayTracingMode = arg0;
 			return 0;
 		}
@@ -993,7 +993,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.sortingLayerID = arg0;
 			return 0;
 		}
@@ -1012,7 +1012,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.sortingOrder = arg0;
 			return 0;
 		}
@@ -1050,7 +1050,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject<UnityEngine.GameObject>(L, 2);
 			obj.lightProbeProxyVolumeOverride = arg0;
 			return 0;
 		}
@@ -1088,7 +1088,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.lightmapIndex = arg0;
 			return 0;
 		}
@@ -1107,7 +1107,7 @@ public class UnityEngine_RendererWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UnityEngine.Renderer obj = (UnityEngine.Renderer)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.realtimeLightmapIndex = arg0;
 			return 0;
 		}

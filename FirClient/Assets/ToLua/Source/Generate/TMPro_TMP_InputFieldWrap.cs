@@ -7,92 +7,92 @@ public class TMPro_TMP_InputFieldWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(TMPro.TMP_InputField), typeof(UnityEngine.UI.Selectable));
-		L.RegFunction("SetTextWithoutNotify", SetTextWithoutNotify);
-		L.RegFunction("MoveTextEnd", MoveTextEnd);
-		L.RegFunction("MoveTextStart", MoveTextStart);
-		L.RegFunction("MoveToEndOfLine", MoveToEndOfLine);
-		L.RegFunction("MoveToStartOfLine", MoveToStartOfLine);
-		L.RegFunction("OnBeginDrag", OnBeginDrag);
-		L.RegFunction("OnDrag", OnDrag);
-		L.RegFunction("OnEndDrag", OnEndDrag);
-		L.RegFunction("OnPointerDown", OnPointerDown);
-		L.RegFunction("ProcessEvent", ProcessEvent);
-		L.RegFunction("OnUpdateSelected", OnUpdateSelected);
-		L.RegFunction("OnScroll", OnScroll);
-		L.RegFunction("ForceLabelUpdate", ForceLabelUpdate);
-		L.RegFunction("Rebuild", Rebuild);
-		L.RegFunction("LayoutComplete", LayoutComplete);
-		L.RegFunction("GraphicUpdateComplete", GraphicUpdateComplete);
-		L.RegFunction("ActivateInputField", ActivateInputField);
-		L.RegFunction("OnSelect", OnSelect);
-		L.RegFunction("OnPointerClick", OnPointerClick);
-		L.RegFunction("OnControlClick", OnControlClick);
-		L.RegFunction("ReleaseSelection", ReleaseSelection);
-		L.RegFunction("DeactivateInputField", DeactivateInputField);
-		L.RegFunction("OnDeselect", OnDeselect);
-		L.RegFunction("OnSubmit", OnSubmit);
-		L.RegFunction("CalculateLayoutInputHorizontal", CalculateLayoutInputHorizontal);
-		L.RegFunction("CalculateLayoutInputVertical", CalculateLayoutInputVertical);
-		L.RegFunction("SetGlobalPointSize", SetGlobalPointSize);
-		L.RegFunction("SetGlobalFontAsset", SetGlobalFontAsset);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("shouldHideMobileInput", get_shouldHideMobileInput, set_shouldHideMobileInput);
-		L.RegVar("shouldHideSoftKeyboard", get_shouldHideSoftKeyboard, set_shouldHideSoftKeyboard);
-		L.RegVar("text", get_text, set_text);
-		L.RegVar("isFocused", get_isFocused, null);
-		L.RegVar("caretBlinkRate", get_caretBlinkRate, set_caretBlinkRate);
-		L.RegVar("caretWidth", get_caretWidth, set_caretWidth);
-		L.RegVar("textViewport", get_textViewport, set_textViewport);
-		L.RegVar("textComponent", get_textComponent, set_textComponent);
-		L.RegVar("placeholder", get_placeholder, set_placeholder);
-		L.RegVar("verticalScrollbar", get_verticalScrollbar, set_verticalScrollbar);
-		L.RegVar("scrollSensitivity", get_scrollSensitivity, set_scrollSensitivity);
-		L.RegVar("caretColor", get_caretColor, set_caretColor);
-		L.RegVar("customCaretColor", get_customCaretColor, set_customCaretColor);
-		L.RegVar("selectionColor", get_selectionColor, set_selectionColor);
-		L.RegVar("onEndEdit", get_onEndEdit, set_onEndEdit);
-		L.RegVar("onSubmit", get_onSubmit, set_onSubmit);
-		L.RegVar("onSelect", get_onSelect, set_onSelect);
-		L.RegVar("onDeselect", get_onDeselect, set_onDeselect);
-		L.RegVar("onTextSelection", get_onTextSelection, set_onTextSelection);
-		L.RegVar("onEndTextSelection", get_onEndTextSelection, set_onEndTextSelection);
-		L.RegVar("onValueChanged", get_onValueChanged, set_onValueChanged);
-		L.RegVar("onTouchScreenKeyboardStatusChanged", get_onTouchScreenKeyboardStatusChanged, set_onTouchScreenKeyboardStatusChanged);
-		L.RegVar("onValidateInput", get_onValidateInput, set_onValidateInput);
-		L.RegVar("characterLimit", get_characterLimit, set_characterLimit);
-		L.RegVar("pointSize", get_pointSize, set_pointSize);
-		L.RegVar("fontAsset", get_fontAsset, set_fontAsset);
-		L.RegVar("onFocusSelectAll", get_onFocusSelectAll, set_onFocusSelectAll);
-		L.RegVar("resetOnDeActivation", get_resetOnDeActivation, set_resetOnDeActivation);
-		L.RegVar("restoreOriginalTextOnEscape", get_restoreOriginalTextOnEscape, set_restoreOriginalTextOnEscape);
-		L.RegVar("isRichTextEditingAllowed", get_isRichTextEditingAllowed, set_isRichTextEditingAllowed);
-		L.RegVar("contentType", get_contentType, set_contentType);
-		L.RegVar("lineType", get_lineType, set_lineType);
-		L.RegVar("lineLimit", get_lineLimit, set_lineLimit);
-		L.RegVar("inputType", get_inputType, set_inputType);
-		L.RegVar("keyboardType", get_keyboardType, set_keyboardType);
-		L.RegVar("characterValidation", get_characterValidation, set_characterValidation);
-		L.RegVar("inputValidator", get_inputValidator, set_inputValidator);
-		L.RegVar("readOnly", get_readOnly, set_readOnly);
-		L.RegVar("richText", get_richText, set_richText);
-		L.RegVar("multiLine", get_multiLine, null);
-		L.RegVar("asteriskChar", get_asteriskChar, set_asteriskChar);
-		L.RegVar("wasCanceled", get_wasCanceled, null);
-		L.RegVar("caretPosition", get_caretPosition, set_caretPosition);
-		L.RegVar("selectionAnchorPosition", get_selectionAnchorPosition, set_selectionAnchorPosition);
-		L.RegVar("selectionFocusPosition", get_selectionFocusPosition, set_selectionFocusPosition);
-		L.RegVar("stringPosition", get_stringPosition, set_stringPosition);
-		L.RegVar("selectionStringAnchorPosition", get_selectionStringAnchorPosition, set_selectionStringAnchorPosition);
-		L.RegVar("selectionStringFocusPosition", get_selectionStringFocusPosition, set_selectionStringFocusPosition);
-		L.RegVar("minWidth", get_minWidth, null);
-		L.RegVar("preferredWidth", get_preferredWidth, null);
-		L.RegVar("flexibleWidth", get_flexibleWidth, null);
-		L.RegVar("minHeight", get_minHeight, null);
-		L.RegVar("preferredHeight", get_preferredHeight, null);
-		L.RegVar("flexibleHeight", get_flexibleHeight, null);
-		L.RegVar("layoutPriority", get_layoutPriority, null);
-		L.RegFunction("OnValidateInput", TMPro_TMP_InputField_OnValidateInput);
+		L.RegFunction("SetTextWithoutNotify", new LuaCSFunction(SetTextWithoutNotify));
+		L.RegFunction("MoveTextEnd", new LuaCSFunction(MoveTextEnd));
+		L.RegFunction("MoveTextStart", new LuaCSFunction(MoveTextStart));
+		L.RegFunction("MoveToEndOfLine", new LuaCSFunction(MoveToEndOfLine));
+		L.RegFunction("MoveToStartOfLine", new LuaCSFunction(MoveToStartOfLine));
+		L.RegFunction("OnBeginDrag", new LuaCSFunction(OnBeginDrag));
+		L.RegFunction("OnDrag", new LuaCSFunction(OnDrag));
+		L.RegFunction("OnEndDrag", new LuaCSFunction(OnEndDrag));
+		L.RegFunction("OnPointerDown", new LuaCSFunction(OnPointerDown));
+		L.RegFunction("ProcessEvent", new LuaCSFunction(ProcessEvent));
+		L.RegFunction("OnUpdateSelected", new LuaCSFunction(OnUpdateSelected));
+		L.RegFunction("OnScroll", new LuaCSFunction(OnScroll));
+		L.RegFunction("ForceLabelUpdate", new LuaCSFunction(ForceLabelUpdate));
+		L.RegFunction("Rebuild", new LuaCSFunction(Rebuild));
+		L.RegFunction("LayoutComplete", new LuaCSFunction(LayoutComplete));
+		L.RegFunction("GraphicUpdateComplete", new LuaCSFunction(GraphicUpdateComplete));
+		L.RegFunction("ActivateInputField", new LuaCSFunction(ActivateInputField));
+		L.RegFunction("OnSelect", new LuaCSFunction(OnSelect));
+		L.RegFunction("OnPointerClick", new LuaCSFunction(OnPointerClick));
+		L.RegFunction("OnControlClick", new LuaCSFunction(OnControlClick));
+		L.RegFunction("ReleaseSelection", new LuaCSFunction(ReleaseSelection));
+		L.RegFunction("DeactivateInputField", new LuaCSFunction(DeactivateInputField));
+		L.RegFunction("OnDeselect", new LuaCSFunction(OnDeselect));
+		L.RegFunction("OnSubmit", new LuaCSFunction(OnSubmit));
+		L.RegFunction("CalculateLayoutInputHorizontal", new LuaCSFunction(CalculateLayoutInputHorizontal));
+		L.RegFunction("CalculateLayoutInputVertical", new LuaCSFunction(CalculateLayoutInputVertical));
+		L.RegFunction("SetGlobalPointSize", new LuaCSFunction(SetGlobalPointSize));
+		L.RegFunction("SetGlobalFontAsset", new LuaCSFunction(SetGlobalFontAsset));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("shouldHideMobileInput", new LuaCSFunction(get_shouldHideMobileInput), new LuaCSFunction(set_shouldHideMobileInput));
+		L.RegVar("shouldHideSoftKeyboard", new LuaCSFunction(get_shouldHideSoftKeyboard), new LuaCSFunction(set_shouldHideSoftKeyboard));
+		L.RegVar("text", new LuaCSFunction(get_text), new LuaCSFunction(set_text));
+		L.RegVar("isFocused", new LuaCSFunction(get_isFocused), null);
+		L.RegVar("caretBlinkRate", new LuaCSFunction(get_caretBlinkRate), new LuaCSFunction(set_caretBlinkRate));
+		L.RegVar("caretWidth", new LuaCSFunction(get_caretWidth), new LuaCSFunction(set_caretWidth));
+		L.RegVar("textViewport", new LuaCSFunction(get_textViewport), new LuaCSFunction(set_textViewport));
+		L.RegVar("textComponent", new LuaCSFunction(get_textComponent), new LuaCSFunction(set_textComponent));
+		L.RegVar("placeholder", new LuaCSFunction(get_placeholder), new LuaCSFunction(set_placeholder));
+		L.RegVar("verticalScrollbar", new LuaCSFunction(get_verticalScrollbar), new LuaCSFunction(set_verticalScrollbar));
+		L.RegVar("scrollSensitivity", new LuaCSFunction(get_scrollSensitivity), new LuaCSFunction(set_scrollSensitivity));
+		L.RegVar("caretColor", new LuaCSFunction(get_caretColor), new LuaCSFunction(set_caretColor));
+		L.RegVar("customCaretColor", new LuaCSFunction(get_customCaretColor), new LuaCSFunction(set_customCaretColor));
+		L.RegVar("selectionColor", new LuaCSFunction(get_selectionColor), new LuaCSFunction(set_selectionColor));
+		L.RegVar("onEndEdit", new LuaCSFunction(get_onEndEdit), new LuaCSFunction(set_onEndEdit));
+		L.RegVar("onSubmit", new LuaCSFunction(get_onSubmit), new LuaCSFunction(set_onSubmit));
+		L.RegVar("onSelect", new LuaCSFunction(get_onSelect), new LuaCSFunction(set_onSelect));
+		L.RegVar("onDeselect", new LuaCSFunction(get_onDeselect), new LuaCSFunction(set_onDeselect));
+		L.RegVar("onTextSelection", new LuaCSFunction(get_onTextSelection), new LuaCSFunction(set_onTextSelection));
+		L.RegVar("onEndTextSelection", new LuaCSFunction(get_onEndTextSelection), new LuaCSFunction(set_onEndTextSelection));
+		L.RegVar("onValueChanged", new LuaCSFunction(get_onValueChanged), new LuaCSFunction(set_onValueChanged));
+		L.RegVar("onTouchScreenKeyboardStatusChanged", new LuaCSFunction(get_onTouchScreenKeyboardStatusChanged), new LuaCSFunction(set_onTouchScreenKeyboardStatusChanged));
+		L.RegVar("onValidateInput", new LuaCSFunction(get_onValidateInput), new LuaCSFunction(set_onValidateInput));
+		L.RegVar("characterLimit", new LuaCSFunction(get_characterLimit), new LuaCSFunction(set_characterLimit));
+		L.RegVar("pointSize", new LuaCSFunction(get_pointSize), new LuaCSFunction(set_pointSize));
+		L.RegVar("fontAsset", new LuaCSFunction(get_fontAsset), new LuaCSFunction(set_fontAsset));
+		L.RegVar("onFocusSelectAll", new LuaCSFunction(get_onFocusSelectAll), new LuaCSFunction(set_onFocusSelectAll));
+		L.RegVar("resetOnDeActivation", new LuaCSFunction(get_resetOnDeActivation), new LuaCSFunction(set_resetOnDeActivation));
+		L.RegVar("restoreOriginalTextOnEscape", new LuaCSFunction(get_restoreOriginalTextOnEscape), new LuaCSFunction(set_restoreOriginalTextOnEscape));
+		L.RegVar("isRichTextEditingAllowed", new LuaCSFunction(get_isRichTextEditingAllowed), new LuaCSFunction(set_isRichTextEditingAllowed));
+		L.RegVar("contentType", new LuaCSFunction(get_contentType), new LuaCSFunction(set_contentType));
+		L.RegVar("lineType", new LuaCSFunction(get_lineType), new LuaCSFunction(set_lineType));
+		L.RegVar("lineLimit", new LuaCSFunction(get_lineLimit), new LuaCSFunction(set_lineLimit));
+		L.RegVar("inputType", new LuaCSFunction(get_inputType), new LuaCSFunction(set_inputType));
+		L.RegVar("keyboardType", new LuaCSFunction(get_keyboardType), new LuaCSFunction(set_keyboardType));
+		L.RegVar("characterValidation", new LuaCSFunction(get_characterValidation), new LuaCSFunction(set_characterValidation));
+		L.RegVar("inputValidator", new LuaCSFunction(get_inputValidator), new LuaCSFunction(set_inputValidator));
+		L.RegVar("readOnly", new LuaCSFunction(get_readOnly), new LuaCSFunction(set_readOnly));
+		L.RegVar("richText", new LuaCSFunction(get_richText), new LuaCSFunction(set_richText));
+		L.RegVar("multiLine", new LuaCSFunction(get_multiLine), null);
+		L.RegVar("asteriskChar", new LuaCSFunction(get_asteriskChar), new LuaCSFunction(set_asteriskChar));
+		L.RegVar("wasCanceled", new LuaCSFunction(get_wasCanceled), null);
+		L.RegVar("caretPosition", new LuaCSFunction(get_caretPosition), new LuaCSFunction(set_caretPosition));
+		L.RegVar("selectionAnchorPosition", new LuaCSFunction(get_selectionAnchorPosition), new LuaCSFunction(set_selectionAnchorPosition));
+		L.RegVar("selectionFocusPosition", new LuaCSFunction(get_selectionFocusPosition), new LuaCSFunction(set_selectionFocusPosition));
+		L.RegVar("stringPosition", new LuaCSFunction(get_stringPosition), new LuaCSFunction(set_stringPosition));
+		L.RegVar("selectionStringAnchorPosition", new LuaCSFunction(get_selectionStringAnchorPosition), new LuaCSFunction(set_selectionStringAnchorPosition));
+		L.RegVar("selectionStringFocusPosition", new LuaCSFunction(get_selectionStringFocusPosition), new LuaCSFunction(set_selectionStringFocusPosition));
+		L.RegVar("minWidth", new LuaCSFunction(get_minWidth), null);
+		L.RegVar("preferredWidth", new LuaCSFunction(get_preferredWidth), null);
+		L.RegVar("flexibleWidth", new LuaCSFunction(get_flexibleWidth), null);
+		L.RegVar("minHeight", new LuaCSFunction(get_minHeight), null);
+		L.RegVar("preferredHeight", new LuaCSFunction(get_preferredHeight), null);
+		L.RegVar("flexibleHeight", new LuaCSFunction(get_flexibleHeight), null);
+		L.RegVar("layoutPriority", new LuaCSFunction(get_layoutPriority), null);
+		L.RegFunction("OnValidateInput", new LuaCSFunction(TMPro_TMP_InputField_OnValidateInput));
 		L.EndClass();
 	}
 
@@ -258,7 +258,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)ToLua.CheckObject<TMPro.TMP_InputField>(L, 1);
-			UnityEngine.Event arg0 = (UnityEngine.Event)ToLua.CheckObject(L, 2, typeof(UnityEngine.Event));
+			UnityEngine.Event arg0 = (UnityEngine.Event)ToLua.CheckObject<UnityEngine.Event>(L, 2);
 			obj.ProcessEvent(arg0);
 			return 0;
 		}
@@ -325,7 +325,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)ToLua.CheckObject<TMPro.TMP_InputField>(L, 1);
-			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.CanvasUpdate));
+			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.CanvasUpdate>.type);
 			obj.Rebuild(arg0);
 			return 0;
 		}
@@ -1368,7 +1368,7 @@ public class TMPro_TMP_InputFieldWrap
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
 			char ret = obj.asteriskChar;
-			LuaDLL.lua_pushnumber(L, ret);
+			LuaDLL.lua_pushinteger(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -1728,7 +1728,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.caretWidth = arg0;
 			return 0;
 		}
@@ -1747,7 +1747,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform));
+			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject<UnityEngine.RectTransform>(L, 2);
 			obj.textViewport = arg0;
 			return 0;
 		}
@@ -2052,7 +2052,13 @@ public class TMPro_TMP_InputFieldWrap
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
 			TMPro.TMP_InputField.OnValidateInput arg0 = (TMPro.TMP_InputField.OnValidateInput)ToLua.CheckDelegate<TMPro.TMP_InputField.OnValidateInput>(L, 2);
-			obj.onValidateInput = arg0;
+
+			if (!object.ReferenceEquals(obj.onValidateInput, arg0))
+			{
+				if (obj.onValidateInput != null) obj.onValidateInput.SubRef();
+				obj.onValidateInput = arg0;
+			}
+
 			return 0;
 		}
 		catch(Exception e)
@@ -2070,7 +2076,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.characterLimit = arg0;
 			return 0;
 		}
@@ -2203,7 +2209,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			TMPro.TMP_InputField.ContentType arg0 = (TMPro.TMP_InputField.ContentType)ToLua.CheckObject(L, 2, typeof(TMPro.TMP_InputField.ContentType));
+			TMPro.TMP_InputField.ContentType arg0 = (TMPro.TMP_InputField.ContentType)ToLua.CheckObject(L, 2, TypeTraits<TMPro.TMP_InputField.ContentType>.type);
 			obj.contentType = arg0;
 			return 0;
 		}
@@ -2222,7 +2228,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			TMPro.TMP_InputField.LineType arg0 = (TMPro.TMP_InputField.LineType)ToLua.CheckObject(L, 2, typeof(TMPro.TMP_InputField.LineType));
+			TMPro.TMP_InputField.LineType arg0 = (TMPro.TMP_InputField.LineType)ToLua.CheckObject(L, 2, TypeTraits<TMPro.TMP_InputField.LineType>.type);
 			obj.lineType = arg0;
 			return 0;
 		}
@@ -2241,7 +2247,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.lineLimit = arg0;
 			return 0;
 		}
@@ -2260,7 +2266,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			TMPro.TMP_InputField.InputType arg0 = (TMPro.TMP_InputField.InputType)ToLua.CheckObject(L, 2, typeof(TMPro.TMP_InputField.InputType));
+			TMPro.TMP_InputField.InputType arg0 = (TMPro.TMP_InputField.InputType)ToLua.CheckObject(L, 2, TypeTraits<TMPro.TMP_InputField.InputType>.type);
 			obj.inputType = arg0;
 			return 0;
 		}
@@ -2279,7 +2285,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			UnityEngine.TouchScreenKeyboardType arg0 = (UnityEngine.TouchScreenKeyboardType)ToLua.CheckObject(L, 2, typeof(UnityEngine.TouchScreenKeyboardType));
+			UnityEngine.TouchScreenKeyboardType arg0 = (UnityEngine.TouchScreenKeyboardType)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.TouchScreenKeyboardType>.type);
 			obj.keyboardType = arg0;
 			return 0;
 		}
@@ -2298,7 +2304,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			TMPro.TMP_InputField.CharacterValidation arg0 = (TMPro.TMP_InputField.CharacterValidation)ToLua.CheckObject(L, 2, typeof(TMPro.TMP_InputField.CharacterValidation));
+			TMPro.TMP_InputField.CharacterValidation arg0 = (TMPro.TMP_InputField.CharacterValidation)ToLua.CheckObject(L, 2, TypeTraits<TMPro.TMP_InputField.CharacterValidation>.type);
 			obj.characterValidation = arg0;
 			return 0;
 		}
@@ -2374,7 +2380,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			char arg0 = (char)LuaDLL.luaL_checknumber(L, 2);
+			char arg0 = (char)LuaDLL.luaL_checkinteger(L, 2);
 			obj.asteriskChar = arg0;
 			return 0;
 		}
@@ -2393,7 +2399,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.caretPosition = arg0;
 			return 0;
 		}
@@ -2412,7 +2418,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.selectionAnchorPosition = arg0;
 			return 0;
 		}
@@ -2431,7 +2437,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.selectionFocusPosition = arg0;
 			return 0;
 		}
@@ -2450,7 +2456,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.stringPosition = arg0;
 			return 0;
 		}
@@ -2469,7 +2475,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.selectionStringAnchorPosition = arg0;
 			return 0;
 		}
@@ -2488,7 +2494,7 @@ public class TMPro_TMP_InputFieldWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			TMPro.TMP_InputField obj = (TMPro.TMP_InputField)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
 			obj.selectionStringFocusPosition = arg0;
 			return 0;
 		}
@@ -2510,12 +2516,15 @@ public class TMPro_TMP_InputFieldWrap
 			{
 				Delegate arg1 = DelegateTraits<TMPro.TMP_InputField.OnValidateInput>.Create(func);
 				ToLua.Push(L, arg1);
+				func.Dispose();
 			}
 			else
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<TMPro.TMP_InputField.OnValidateInput>.Create(func, self);
 				ToLua.Push(L, arg1);
+				func.Dispose();
+				self.Dispose();
 			}
 			return 1;
 		}

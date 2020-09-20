@@ -7,25 +7,25 @@ public class UnityEngine_TimeWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginStaticLibs("Time");
-		L.RegVar("time", get_time, null);
-		L.RegVar("timeSinceLevelLoad", get_timeSinceLevelLoad, null);
-		L.RegVar("deltaTime", get_deltaTime, null);
-		L.RegVar("fixedTime", get_fixedTime, null);
-		L.RegVar("unscaledTime", get_unscaledTime, null);
-		L.RegVar("fixedUnscaledTime", get_fixedUnscaledTime, null);
-		L.RegVar("unscaledDeltaTime", get_unscaledDeltaTime, null);
-		L.RegVar("fixedUnscaledDeltaTime", get_fixedUnscaledDeltaTime, null);
-		L.RegVar("fixedDeltaTime", get_fixedDeltaTime, set_fixedDeltaTime);
-		L.RegVar("maximumDeltaTime", get_maximumDeltaTime, set_maximumDeltaTime);
-		L.RegVar("smoothDeltaTime", get_smoothDeltaTime, null);
-		L.RegVar("maximumParticleDeltaTime", get_maximumParticleDeltaTime, set_maximumParticleDeltaTime);
-		L.RegVar("timeScale", get_timeScale, set_timeScale);
-		L.RegVar("frameCount", get_frameCount, null);
-		L.RegVar("renderedFrameCount", get_renderedFrameCount, null);
-		L.RegVar("realtimeSinceStartup", get_realtimeSinceStartup, null);
-		L.RegVar("captureDeltaTime", get_captureDeltaTime, set_captureDeltaTime);
-		L.RegVar("captureFramerate", get_captureFramerate, set_captureFramerate);
-		L.RegVar("inFixedTimeStep", get_inFixedTimeStep, null);
+		L.RegVar("time", new LuaCSFunction(get_time), null);
+		L.RegVar("timeSinceLevelLoad", new LuaCSFunction(get_timeSinceLevelLoad), null);
+		L.RegVar("deltaTime", new LuaCSFunction(get_deltaTime), null);
+		L.RegVar("fixedTime", new LuaCSFunction(get_fixedTime), null);
+		L.RegVar("unscaledTime", new LuaCSFunction(get_unscaledTime), null);
+		L.RegVar("fixedUnscaledTime", new LuaCSFunction(get_fixedUnscaledTime), null);
+		L.RegVar("unscaledDeltaTime", new LuaCSFunction(get_unscaledDeltaTime), null);
+		L.RegVar("fixedUnscaledDeltaTime", new LuaCSFunction(get_fixedUnscaledDeltaTime), null);
+		L.RegVar("fixedDeltaTime", new LuaCSFunction(get_fixedDeltaTime), new LuaCSFunction(set_fixedDeltaTime));
+		L.RegVar("maximumDeltaTime", new LuaCSFunction(get_maximumDeltaTime), new LuaCSFunction(set_maximumDeltaTime));
+		L.RegVar("smoothDeltaTime", new LuaCSFunction(get_smoothDeltaTime), null);
+		L.RegVar("maximumParticleDeltaTime", new LuaCSFunction(get_maximumParticleDeltaTime), new LuaCSFunction(set_maximumParticleDeltaTime));
+		L.RegVar("timeScale", new LuaCSFunction(get_timeScale), new LuaCSFunction(set_timeScale));
+		L.RegVar("frameCount", new LuaCSFunction(get_frameCount), null);
+		L.RegVar("renderedFrameCount", new LuaCSFunction(get_renderedFrameCount), null);
+		L.RegVar("realtimeSinceStartup", new LuaCSFunction(get_realtimeSinceStartup), null);
+		L.RegVar("captureDeltaTime", new LuaCSFunction(get_captureDeltaTime), new LuaCSFunction(set_captureDeltaTime));
+		L.RegVar("captureFramerate", new LuaCSFunction(get_captureFramerate), new LuaCSFunction(set_captureFramerate));
+		L.RegVar("inFixedTimeStep", new LuaCSFunction(get_inFixedTimeStep), null);
 		L.EndStaticLibs();
 	}
 
@@ -302,6 +302,7 @@ public class UnityEngine_TimeWrap
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Time.fixedDeltaTime = arg0;
+			UnityEngine.Time.fixedDeltaTime = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -316,6 +317,7 @@ public class UnityEngine_TimeWrap
 		try
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.maximumDeltaTime = arg0;
 			UnityEngine.Time.maximumDeltaTime = arg0;
 			return 0;
 		}
@@ -332,6 +334,7 @@ public class UnityEngine_TimeWrap
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Time.maximumParticleDeltaTime = arg0;
+			UnityEngine.Time.maximumParticleDeltaTime = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -346,6 +349,7 @@ public class UnityEngine_TimeWrap
 		try
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			UnityEngine.Time.timeScale = arg0;
 			UnityEngine.Time.timeScale = arg0;
 			return 0;
 		}
@@ -362,6 +366,7 @@ public class UnityEngine_TimeWrap
 		{
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			UnityEngine.Time.captureDeltaTime = arg0;
+			UnityEngine.Time.captureDeltaTime = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -375,7 +380,8 @@ public class UnityEngine_TimeWrap
 	{
 		try
 		{
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			int arg0 = (int)LuaDLL.luaL_checkinteger(L, 2);
+			UnityEngine.Time.captureFramerate = arg0;
 			UnityEngine.Time.captureFramerate = arg0;
 			return 0;
 		}

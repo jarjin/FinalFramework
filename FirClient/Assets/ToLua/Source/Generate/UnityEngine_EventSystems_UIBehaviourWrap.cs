@@ -7,10 +7,10 @@ public class UnityEngine_EventSystems_UIBehaviourWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.EventSystems.UIBehaviour), typeof(UnityEngine.MonoBehaviour));
-		L.RegFunction("IsActive", IsActive);
-		L.RegFunction("IsDestroyed", IsDestroyed);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegFunction("IsActive", new LuaCSFunction(IsActive));
+		L.RegFunction("IsDestroyed", new LuaCSFunction(IsDestroyed));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
 		L.EndClass();
 	}
 

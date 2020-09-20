@@ -7,39 +7,39 @@ public class UnityEngine_UI_GraphicWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(UnityEngine.UI.Graphic), typeof(UnityEngine.EventSystems.UIBehaviour));
-		L.RegFunction("SetAllDirty", SetAllDirty);
-		L.RegFunction("SetLayoutDirty", SetLayoutDirty);
-		L.RegFunction("SetVerticesDirty", SetVerticesDirty);
-		L.RegFunction("SetMaterialDirty", SetMaterialDirty);
-		L.RegFunction("OnCullingChanged", OnCullingChanged);
-		L.RegFunction("Rebuild", Rebuild);
-		L.RegFunction("LayoutComplete", LayoutComplete);
-		L.RegFunction("GraphicUpdateComplete", GraphicUpdateComplete);
-		L.RegFunction("SetNativeSize", SetNativeSize);
-		L.RegFunction("Raycast", Raycast);
-		L.RegFunction("PixelAdjustPoint", PixelAdjustPoint);
-		L.RegFunction("GetPixelAdjustedRect", GetPixelAdjustedRect);
-		L.RegFunction("CrossFadeColor", CrossFadeColor);
-		L.RegFunction("CrossFadeAlpha", CrossFadeAlpha);
-		L.RegFunction("RegisterDirtyLayoutCallback", RegisterDirtyLayoutCallback);
-		L.RegFunction("UnregisterDirtyLayoutCallback", UnregisterDirtyLayoutCallback);
-		L.RegFunction("RegisterDirtyVerticesCallback", RegisterDirtyVerticesCallback);
-		L.RegFunction("UnregisterDirtyVerticesCallback", UnregisterDirtyVerticesCallback);
-		L.RegFunction("RegisterDirtyMaterialCallback", RegisterDirtyMaterialCallback);
-		L.RegFunction("UnregisterDirtyMaterialCallback", UnregisterDirtyMaterialCallback);
-		L.RegFunction("__eq", op_Equality);
-		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("defaultGraphicMaterial", get_defaultGraphicMaterial, null);
-		L.RegVar("color", get_color, set_color);
-		L.RegVar("raycastTarget", get_raycastTarget, set_raycastTarget);
-		L.RegVar("depth", get_depth, null);
-		L.RegVar("rectTransform", get_rectTransform, null);
-		L.RegVar("canvas", get_canvas, null);
-		L.RegVar("canvasRenderer", get_canvasRenderer, null);
-		L.RegVar("defaultMaterial", get_defaultMaterial, null);
-		L.RegVar("material", get_material, set_material);
-		L.RegVar("materialForRendering", get_materialForRendering, null);
-		L.RegVar("mainTexture", get_mainTexture, null);
+		L.RegFunction("SetAllDirty", new LuaCSFunction(SetAllDirty));
+		L.RegFunction("SetLayoutDirty", new LuaCSFunction(SetLayoutDirty));
+		L.RegFunction("SetVerticesDirty", new LuaCSFunction(SetVerticesDirty));
+		L.RegFunction("SetMaterialDirty", new LuaCSFunction(SetMaterialDirty));
+		L.RegFunction("OnCullingChanged", new LuaCSFunction(OnCullingChanged));
+		L.RegFunction("Rebuild", new LuaCSFunction(Rebuild));
+		L.RegFunction("LayoutComplete", new LuaCSFunction(LayoutComplete));
+		L.RegFunction("GraphicUpdateComplete", new LuaCSFunction(GraphicUpdateComplete));
+		L.RegFunction("SetNativeSize", new LuaCSFunction(SetNativeSize));
+		L.RegFunction("Raycast", new LuaCSFunction(Raycast));
+		L.RegFunction("PixelAdjustPoint", new LuaCSFunction(PixelAdjustPoint));
+		L.RegFunction("GetPixelAdjustedRect", new LuaCSFunction(GetPixelAdjustedRect));
+		L.RegFunction("CrossFadeColor", new LuaCSFunction(CrossFadeColor));
+		L.RegFunction("CrossFadeAlpha", new LuaCSFunction(CrossFadeAlpha));
+		L.RegFunction("RegisterDirtyLayoutCallback", new LuaCSFunction(RegisterDirtyLayoutCallback));
+		L.RegFunction("UnregisterDirtyLayoutCallback", new LuaCSFunction(UnregisterDirtyLayoutCallback));
+		L.RegFunction("RegisterDirtyVerticesCallback", new LuaCSFunction(RegisterDirtyVerticesCallback));
+		L.RegFunction("UnregisterDirtyVerticesCallback", new LuaCSFunction(UnregisterDirtyVerticesCallback));
+		L.RegFunction("RegisterDirtyMaterialCallback", new LuaCSFunction(RegisterDirtyMaterialCallback));
+		L.RegFunction("UnregisterDirtyMaterialCallback", new LuaCSFunction(UnregisterDirtyMaterialCallback));
+		L.RegFunction("__eq", new LuaCSFunction(op_Equality));
+		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
+		L.RegVar("defaultGraphicMaterial", new LuaCSFunction(get_defaultGraphicMaterial), null);
+		L.RegVar("color", new LuaCSFunction(get_color), new LuaCSFunction(set_color));
+		L.RegVar("raycastTarget", new LuaCSFunction(get_raycastTarget), new LuaCSFunction(set_raycastTarget));
+		L.RegVar("depth", new LuaCSFunction(get_depth), null);
+		L.RegVar("rectTransform", new LuaCSFunction(get_rectTransform), null);
+		L.RegVar("canvas", new LuaCSFunction(get_canvas), null);
+		L.RegVar("canvasRenderer", new LuaCSFunction(get_canvasRenderer), null);
+		L.RegVar("defaultMaterial", new LuaCSFunction(get_defaultMaterial), null);
+		L.RegVar("material", new LuaCSFunction(get_material), new LuaCSFunction(set_material));
+		L.RegVar("materialForRendering", new LuaCSFunction(get_materialForRendering), null);
+		L.RegVar("mainTexture", new LuaCSFunction(get_mainTexture), null);
 		L.EndClass();
 	}
 
@@ -130,7 +130,7 @@ public class UnityEngine_UI_GraphicWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.UI.Graphic obj = (UnityEngine.UI.Graphic)ToLua.CheckObject<UnityEngine.UI.Graphic>(L, 1);
-			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, typeof(UnityEngine.UI.CanvasUpdate));
+			UnityEngine.UI.CanvasUpdate arg0 = (UnityEngine.UI.CanvasUpdate)ToLua.CheckObject(L, 2, TypeTraits<UnityEngine.UI.CanvasUpdate>.type);
 			obj.Rebuild(arg0);
 			return 0;
 		}
@@ -196,7 +196,7 @@ public class UnityEngine_UI_GraphicWrap
 			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.UI.Graphic obj = (UnityEngine.UI.Graphic)ToLua.CheckObject<UnityEngine.UI.Graphic>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
-			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject(L, 3, typeof(UnityEngine.Camera));
+			UnityEngine.Camera arg1 = (UnityEngine.Camera)ToLua.CheckObject<UnityEngine.Camera>(L, 3);
 			bool o = obj.Raycast(arg0, arg1);
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;

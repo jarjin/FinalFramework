@@ -48,6 +48,7 @@ public class ResPackager : BaseEditor
         if (gameSettings.debugMode)
         {
             Debug.LogError("BuildAssetResource cannot run DebugMode!!!");
+            Selection.activeObject = Util.LoadGameSettings();
             return;
         }
         BuildAssetBundles();
