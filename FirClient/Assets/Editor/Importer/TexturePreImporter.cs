@@ -55,15 +55,18 @@ public static class TexturePreImporter
     static TextureCompressInfo GetTexCompressInfo(string assetPath)
     {
         TextureCompressInfo info = null;
-        var list = BaseEditor.gameSettings.atlasSettings;
-        if (list != null)
+        if (BaseEditor.gameSettings != null)
         {
-            foreach (var item in list)
+            var list = BaseEditor.gameSettings.atlasSettings;
+            if (list != null)
             {
-                var path = "Assets/" + item.assetPath;
-                if (assetPath.Contains(path))
+                foreach (var item in list)
                 {
-                    return item;
+                    var path = "Assets/" + item.assetPath;
+                    if (assetPath.Contains(path))
+                    {
+                        return item;
+                    }
                 }
             }
         }
