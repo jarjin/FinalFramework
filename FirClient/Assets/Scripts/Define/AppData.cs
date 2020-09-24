@@ -6,6 +6,13 @@ namespace FirClient.Define
         DataDisk = 1,       //数据磁盘
     }
 
+    public enum AppState
+    {
+        None,
+        IsPlaying,
+        Exiting,
+    }
+
     public class VersionInfo
     {
         public string mainVersion;         //大版本号

@@ -54,6 +54,7 @@ public class DataBundlePackInfo
 
 public class GameSettings : ScriptableObject
 {
+    [Header("General Settings")]
     [Tooltip("游戏的调试模式")]
     public bool debugMode;
 
@@ -69,9 +70,13 @@ public class GameSettings : ScriptableObject
     [Tooltip("显示帧频数据")]
     public bool showFps;
 
+    [Tooltip("游戏的运行帧频，默认30帧")]
+    public int GameFrameRate;                        //游戏帧频
+
     [Tooltip("AStar的调试模式")]
     public bool aStarDebugMode;
 
+    [Header("Atlas Settings")]
     [Tooltip("UI图集的路径")]
     public string uiAtlasPath;
 
@@ -80,9 +85,6 @@ public class GameSettings : ScriptableObject
 
     [Tooltip("TexturePacker的exe安装路径")]
     public string texturePackerPath;
-
-    [Tooltip("游戏的运行帧频，默认30帧")]
-    public int GameFrameRate;                        //游戏帧频
 
     [SerializeField][HideInInspector]
     private int selectedAtlasIndex = -1;
