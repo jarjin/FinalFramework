@@ -9,7 +9,7 @@ FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29
 FirToolkit: Visual Studio 2019  
 
 #### 框架特征：
-（0）采用tolua53分支代码(lua5.3.5版本代码) + pbc3.0 + sproto最新版。 （PS:mac+ios底层库暂时没上传） 
+（0）采用tolua53分支代码(lua5.3.5版本代码) + pbc3.0 + sproto最新版。 （PS:mac+ios底层库暂时没上传）   
 （1）逻辑层、视图层代码分离，中间使用消息组件通信消息，可以完全隔离。  
 （2）仿照UE4+Unlua的蓝图式组件访问方式，彻底抛弃了Lua View层导出代码，代码简洁性能更好。  
 （3）Lua层代码OOP架构方式，完全的单向访问（Lua->C#）避免交叉访问带来的弊端。  
