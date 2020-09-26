@@ -3,13 +3,15 @@
 #### 开发背景
 2018年公司同事要做自走棋项目跟我寻求框架，LuaFramework过于示例化并不合适，NewFramework过于轻量，因此在NewFramework基础上，将LuaFramework合并过来，变成了一个新的架构。因此自那时起到今年一直在利用业余时间完善这个新的框架，今天很开心将它开源给大家使用。
 
+![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
+
 #### 运行环境（版本太低的需要自力更生了）
 FirClient： Unity 2019.4.8f1 (64-bit) + Visual Studio 2019  
 FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
 FirToolkit: Visual Studio 2019  
 
 #### 框架特征：
-（0）采用tolua53分支代码(lua5.3.5版本代码) + pbc3.0 + sproto最新版。 （PS:mac+ios底层库暂时没上传）   
+（0）采用tolua53分支代码(lua5.3.5版本代码) + pbc3.0 + sproto最新版。    
 （1）逻辑层、视图层代码分离，中间使用消息组件通信消息，可以完全隔离。  
 （2）仿照UE4+Unlua的蓝图式组件访问方式，彻底抛弃了Lua View层导出代码，代码简洁性能更好。  
 （3）Lua层代码OOP架构方式，完全的单向访问（Lua->C#）避免交叉访问带来的弊端。  
