@@ -1,8 +1,8 @@
 # FinalFramework
 
 #### 开发背景
-2018年公司同事要做自走棋项目跟我寻求框架，LuaFramework过于示例化并不合适，NewFramework过于轻量，因此在NewFramework基础上，将LuaFramework合并过来，变成了一个新的架构。因此自那时起到今年一直在利用业余时间完善这个新的框架，今天很开心将它开源给大家使用。
-
+LuaFramework过于示例化并不合适，NewFramework过于轻量，因此在NewFramework基础上，将LuaFramework合并过来，变成了一个新的架构。因此自那时起到今年一直在利用业余时间完善这个新的框架，今天将它开源给大家使用。
+项目示例运行如下：    
 ![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
 
 #### 运行环境（版本太低的需要自力更生了）
