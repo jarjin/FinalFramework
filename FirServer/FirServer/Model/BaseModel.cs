@@ -66,7 +66,7 @@ namespace FirServer.Model
         /// <summary>
         /// 查询结果集
         /// </summary>
-        public List<T> Query<T>(Expression<Func<T, bool>> filter) 
+        public List<T> Query<T>(Expression<Func<T, bool>> filter = null) 
         {
             if (string.IsNullOrEmpty(tableName) || dataMgr == null)
             {

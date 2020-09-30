@@ -100,14 +100,17 @@ namespace FirServer.Utility
 
 
         #region Select Function 
-        public List<T> Select<T>(string collectionName, Expression<Func<T, bool>> filter) 
+        public List<T> Select<T>(string collectionName, Expression<Func<T, bool>> filter = null) 
         {
             if (mDatabase == null)
             {
                 throw new Exception("MongoDB database was null!!!");
             }
             var collection = mDatabase.GetCollection<T>(collectionName);
-            var result = collection.Find(filter).ToList<T>();
+            if (filter == null)
+            {
+                return collection.Find(new BsonDocument()).ToList<T>();
+            }         
             return collection.Find(filter).ToList<T>();
         }
 

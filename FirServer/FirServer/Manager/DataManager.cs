@@ -73,7 +73,7 @@ namespace FirServer.Manager
         /// <summary>
         /// 组合查询
         /// </summary>
-        public List<T> Query<T>(string tabName, Expression<Func<T, bool>> filter) 
+        public List<T> Query<T>(string tabName, Expression<Func<T, bool>> filter = null) 
         {
             return mongoHelper.Select<T>(tabName, filter);
         }
