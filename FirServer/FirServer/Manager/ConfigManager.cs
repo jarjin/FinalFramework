@@ -1,18 +1,16 @@
 ﻿using System.Security;
 using Utility;
 using FirServer.Define;
-using FirServer.Interface;
 
 namespace FirServer.Manager
 {
-    public class ConfigManager : BaseBehaviour, IManager
+    public class ConfigManager : BaseManager
     {
         private static GlobalConfig globalConfig = new GlobalConfig();
         private static DatabaseConfig _databaseConfig = new DatabaseConfig();
 
-        public void Initialize()
+        public override void Initialize()
         {
-            configMgr = this;
             LoadGlobalConfig();
         }
 
@@ -118,11 +116,6 @@ namespace FirServer.Manager
                     _databaseConfig = database;
                 }
             }
-        }
-
-        public void OnDispose()
-        {
-            configMgr = null;
         }
     }
 }

@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using FirServer.Define;
-using FirServer.Interface;
 
 namespace FirServer.Manager
 {
-    public class UserManager : BaseBehaviour, IManager
+    public class UserManager : BaseManager
     {
         private static Dictionary<long, User> users = new Dictionary<long, User>();
-        public void Initialize()
+        public override void Initialize()
         {
-            userMgr = this;
             users.Clear();
         }
 
@@ -43,11 +41,6 @@ namespace FirServer.Manager
             {
                 users.Remove(socketid);
             }
-        }
-
-        public void OnDispose()
-        {
-            userMgr = null;
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using log4net;
-using FirServer.Define;
 using FirServer.Model;
-using FirServer.Interface;
 
 namespace FirServer.Manager
 {
-    public class ModelManager : BaseBehaviour, IManager
+    public class ModelManager : BaseManager
     {
         private static Dictionary<string, BaseModel> models = new Dictionary<string, BaseModel>();
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ModelManager));
@@ -16,10 +14,8 @@ namespace FirServer.Manager
         {
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            modelMgr = this;
-
             models.Clear();
         }
 
@@ -47,11 +43,6 @@ namespace FirServer.Manager
             {
                 models.Remove(strKey);
             }
-        }
-
-        public void OnDispose()
-        {
-            modelMgr = null;
         }
     }
 }

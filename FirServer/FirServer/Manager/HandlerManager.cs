@@ -8,7 +8,7 @@ using System;
 
 namespace FirServer.Manager
 {
-    public class HandlerManager : BaseBehaviour, IManager
+    public class HandlerManager : BaseManager
     {
         static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(HandlerManager));
         Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>()
@@ -20,9 +20,8 @@ namespace FirServer.Manager
         /// <summary>
         /// 初始化消息处理器映射
         /// </summary>
-        public void Initialize()
+        public override void Initialize()
         {
-            handlerMgr = this;
         }
 
         /// <summary>
@@ -89,10 +88,6 @@ namespace FirServer.Manager
                     logger.Error(ex.Message);
                 }
             }
-        }
-
-        public void OnDispose()
-        {
         }
     }
 }

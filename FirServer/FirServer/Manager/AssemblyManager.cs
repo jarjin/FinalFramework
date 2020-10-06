@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
-using FirServer.Interface;
-using Utility;
 
 namespace FirServer.Manager
 {
-    public class AssemblyManager : BaseBehaviour, IManager
+    public class AssemblyManager : BaseManager
     {
         private Dictionary<string, Assembly> assemblys = new Dictionary<string, Assembly>();
 
-        public AssemblyManager()
-        {
-            assemblyMgr = this;
-        }
-
-        public void Initialize()
+        public override void Initialize()
         {
             var config = configMgr.GetGlobalConfig();
             var games = config.gameList;
@@ -57,11 +50,6 @@ namespace FirServer.Manager
 
         private void UnloadAssembly(string assemblyName)
         {
-        }
-
-        public void OnDispose()
-        {
-            assemblyMgr = null;
         }
     }
 }

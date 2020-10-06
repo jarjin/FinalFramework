@@ -4,11 +4,11 @@ using FirServer.Interface;
 
 namespace FirServer.Manager
 {
-    public class WorldManager : BaseBehaviour, IManager
+    public class WorldManager : BaseManager
     {
         Dictionary<string, IWorld> worlds = new Dictionary<string, IWorld>();
 
-        public void Initialize()
+        public override void Initialize()
         {
             var config = configMgr.GetGlobalConfig();
             var gameList = config.gameList;
@@ -26,10 +26,6 @@ namespace FirServer.Manager
                     }
                 }
             }
-        }
-
-        public void OnDispose()
-        {
         }
     }
 }

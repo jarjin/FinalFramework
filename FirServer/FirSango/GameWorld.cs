@@ -18,18 +18,30 @@ namespace GameLibs.FirSango
         {
             InitManager();
             RegHandler();
-            TestDBServer();
+            TestServer();
         }
 
-        private async void TestDBServer()
+        ///初始化管理器
+        void InitManager()
         {
-            //var item = tableMgr.globalConfigTable.GetItemByKey("CommonWhite");
-            //logger.Info(string.Format("id={0} value={1}", item.id, item.value));
+            tableMgr.Initialize();
+
+            modelMgr.AddModel(ModelNames.User, new UserModel());
+            modelMgr.AddModel(ModelNames.Battle, new BattleModel());
+
+            roomMgr.Initialize();
+        }
+
+        private async void TestServer()
+        {
+            //Test Table
+            var item = tableMgr.globalConfigTable.GetItemByKey("CommonWhite");
+            logger.Info(string.Format("id={0} value={1}", item.id, item.value));
 
 
             ///Open DB
             dataMgr.Connect(GameConst.DB_URL);
-            dataMgr.DropDB(GameConst.DB_NAME);
+            //dataMgr.DropDB(GameConst.DB_NAME);
 
             await AppUtil.Waitforms(1000);
             dataMgr.OpenDB(GameConst.DB_NAME);
@@ -56,16 +68,6 @@ namespace GameLibs.FirSango
             userModel?.SetUserName(uid.Value, "李四");
             var newName = userModel?.GetUserName(uid.Value);
             logger.Info("NewName:" + newName);
-        }
-
-        ///初始化管理器
-        void InitManager() 
-        {
-            modelMgr.AddModel(ModelNames.User, new UserModel());
-            modelMgr.AddModel(ModelNames.Battle, new BattleModel());
-
-            //tableMgr.Initialize();
-            roomMgr.Initialize();
         }
 
         ///注册处理器

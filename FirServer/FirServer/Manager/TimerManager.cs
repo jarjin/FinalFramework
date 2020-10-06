@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
-using FirServer.Interface;
 
 namespace FirServer.Manager
 {
@@ -13,16 +12,14 @@ namespace FirServer.Manager
         public Action action;
     }
 
-    public class TimerManager : BaseBehaviour, IManager
+    public class TimerManager : BaseManager
     {
         private Timer mloopTimer = new Timer();
         private Dictionary<string, TimerInfo> mTimers = new Dictionary<string, TimerInfo>();
 
 
-        public void Initialize()
+        public override void Initialize()
         {
-            timerMgr = this;
-
             mloopTimer = new Timer(1000);
             mloopTimer.AutoReset = true;
             mloopTimer.Elapsed += new ElapsedEventHandler(OnTimer);
@@ -83,11 +80,6 @@ namespace FirServer.Manager
                 action();
                 timer.Dispose();
             });
-        }
-
-        public void OnDispose()
-        {
-            timerMgr = null;
         }
     }
 }

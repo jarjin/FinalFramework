@@ -2,19 +2,19 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Security;
 using FirServer;
-using FirServer.Interface;
+using FirServer.Manager;
 using GameLibs.FirSango.Interface;
 using log4net;
 using Utility;
 
 namespace GameLibs.FirSango.Managers
 {
-    public class RoomManager : BaseBehaviour, IManager
+    public class RoomManager : BaseManager
     {
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(RoomManager));
         private Dictionary<uint, Dictionary<uint, IRoom>> gameRooms = new Dictionary<uint, Dictionary<uint, IRoom>>();
 
-        public void Initialize()
+        public override void Initialize()
         {
             LoadParseXml();
         }
@@ -87,10 +87,6 @@ namespace GameLibs.FirSango.Managers
                 }
             }
             return null;
-        }
-
-        public void OnDispose()
-        {
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FirServer.Define;
-using FirServer.Interface;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using log4net;
@@ -8,13 +7,12 @@ using System.IO;
 
 namespace FirServer.Manager
 {
-    public class NetworkManager : BaseBehaviour, IManager
+    public class NetworkManager : BaseManager
     {
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(NetworkManager));
 
-        public void Initialize()
+        public override void Initialize()
         {
-            netMgr = this;
         }
 
         internal void OnConnected(NetPeer peer)
@@ -63,10 +61,6 @@ namespace FirServer.Manager
                 Serializer.Serialize<T>(ms, t);
                 return ms.ToArray();
             }
-        }
-
-        public void OnDispose()
-        {
         }
     }
 }

@@ -5,10 +5,10 @@ using FirServer.Interface;
 
 namespace FirServer.Common
 {
-    public class ManagerCenter
+    public class ManagementCenter
     {
         private static readonly Dictionary<string, IManager> mManagers = new Dictionary<string, IManager>();
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ManagerCenter));
+        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ManagementCenter));
 
         /// <summary>
         /// 初始化管理器

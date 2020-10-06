@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using log4net;
-using FirServer.Interface;
 using FirServer.Utility;
 using MongoDB.Driver;
 using System.Linq.Expressions;
@@ -8,7 +7,7 @@ using System;
 
 namespace FirServer.Manager
 {
-    public class DataManager : BaseBehaviour, IManager
+    public class DataManager : BaseManager
     {
         private static MongoHelper mongoHelper = null;
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(DataManager));
@@ -16,9 +15,8 @@ namespace FirServer.Manager
         /// <summary>
         /// 初始化
         /// </summary>
-        public void Initialize()
+        public override void Initialize()
         {
-            dataMgr = this;
         }
 
         /// <summary>
@@ -100,11 +98,6 @@ namespace FirServer.Manager
         public void Close()
         {
             mongoHelper = null;
-        }
-
-        public void OnDispose()
-        {
-            dataMgr = null;
         }
     }
 }

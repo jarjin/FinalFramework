@@ -1,58 +1,112 @@
-﻿using System.Collections.Generic;
-using System.Net.WebSockets;
-using FirServer.Define;
+﻿using FirServer.Common;
 using FirServer.Manager;
-using LitJson;
 
 namespace FirServer
 {
     public class BaseBehaviour
     {
-        protected static AppServer appServer { get; set; }
-        protected static DataManager dataMgr { get; set; }
-        protected static TimerManager timerMgr { get; set; }
-        protected static ModelManager modelMgr { get; set; }
-        protected static ConfigManager configMgr { get; set; }
-        protected static UserManager userMgr { get; set; }
-        protected static AssemblyManager assemblyMgr { get; set; }
-        protected static NetworkManager netMgr { get; set; }
-        protected static HandlerManager handlerMgr { get; set; }
-
-
-        /// <summary>
-        /// 广播消息
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public void BroadcastMessage(List<User> users, ushort protocal, JsonData json)
+        private static DataManager _dataMgr = null;
+        protected static DataManager dataMgr 
         {
-            var message = new Message()
+            get 
+            { 
+                if (_dataMgr == null)
+                {
+                    _dataMgr = ManagementCenter.GetManager<DataManager>();
+                }
+                return _dataMgr;
+            } 
+        }
+
+        private static TimerManager _timerMgr = null;
+        protected static TimerManager timerMgr
+        {
+            get
             {
-                CommandId = protocal,
-                MessageType = MessageType.Json,
-                Data = JsonMapper.ToJson(json)
-            };
-            foreach (var user in users)
-            {
-                //await appServer.SendMessageAsync(user.socket, message);
+                if (_timerMgr == null)
+                {
+                    _timerMgr = ManagementCenter.GetManager<TimerManager>();
+                }
+                return _timerMgr;
             }
         }
 
-        /// <summary>
-        /// 发送消息
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public void SendJsonMessage(WebSocket socket, ushort protocal, JsonData json)
+        private static ModelManager _modelMgr = null;
+        protected static ModelManager modelMgr
         {
-            var message = new Message()
+            get
             {
-                CommandId = protocal,
-                MessageType = MessageType.Json,
-                Data = JsonMapper.ToJson(json)
-            };
-            //await appServer.SendMessageAsync(socket, message);
+                if (_modelMgr == null)
+                {
+                    _modelMgr = ManagementCenter.GetManager<ModelManager>();
+                }
+                return _modelMgr;
+            }
+        }
+
+        private static ConfigManager _configMgr = null;
+        protected static ConfigManager configMgr
+        {
+            get
+            {
+                if (_configMgr == null)
+                {
+                    _configMgr = ManagementCenter.GetManager<ConfigManager>();
+                }
+                return _configMgr;
+            }
+        }
+
+        private static UserManager _userMgr = null;
+        protected static UserManager userMgr
+        {
+            get
+            {
+                if (_userMgr == null)
+                {
+                    _userMgr = ManagementCenter.GetManager<UserManager>();
+                }
+                return _userMgr;
+            }
+        }
+
+        private static AssemblyManager _assemblyMgr = null;
+        protected static AssemblyManager assemblyMgr
+        {
+            get
+            {
+                if (_assemblyMgr == null)
+                {
+                    _assemblyMgr = ManagementCenter.GetManager<AssemblyManager>();
+                }
+                return _assemblyMgr;
+            }
+        }
+
+        private static NetworkManager _netMgr = null;
+        protected static NetworkManager netMgr
+        {
+            get
+            {
+                if (_netMgr == null)
+                {
+                    _netMgr = ManagementCenter.GetManager<NetworkManager>();
+                }
+                return _netMgr;
+            }
+        }
+
+        private static HandlerManager _handlerMgr = null;
+        protected static HandlerManager handlerMgr
+        {
+            get
+            {
+                if (_handlerMgr == null)
+                {
+                    _handlerMgr = ManagementCenter.GetManager<HandlerManager>();
+                }
+                return _handlerMgr;
+            }
         }
     }
 }
