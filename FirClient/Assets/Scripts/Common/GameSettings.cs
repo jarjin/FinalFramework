@@ -52,6 +52,7 @@ public class DataBundlePackInfo
     public string fileExtName;
 }
 
+[CreateAssetMenu(fileName = "GameSettings", menuName = "My Game/GameSettings")]
 public class GameSettings : ScriptableObject
 {
     [Header("General Settings")]

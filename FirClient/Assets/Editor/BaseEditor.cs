@@ -161,21 +161,6 @@ public class BaseEditor : Editor
         return new FileInfo(filePath).Length;
     }
 
-    [MenuItem("Assets/Create/Game/Game Settings", false, 82)]
-    static void CreateGameSettings()
-    {
-        string gameSettingName = "Assets/res/Resources/" + AppConst.GameSettingName + ".asset";
-        string fullPath = AppDataWithoutAssetPath + "/" + gameSettingName;
-        if (!File.Exists(fullPath))
-        {
-            var scriptObj = ScriptableObject.CreateInstance<GameSettings>();
-            AssetDatabase.CreateAsset(scriptObj, gameSettingName);
-            AssetDatabase.Refresh();
-            Debug.LogWarning("Create GameSettings OK!!");
-        }
-        Selection.activeObject = gameSettings;
-    }
-
     public static string GetSelectedPathOrFallback()
     {
         string path = "Assets";
