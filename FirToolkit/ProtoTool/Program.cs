@@ -42,7 +42,7 @@ namespace ProtoTool
         static void CompileProtoCS(string protoPath)
         {
             var name = Path.GetFileNameWithoutExtension(protoPath);
-            var protogenPath = currDir + "Tools/protogen.exe";
+            var protogenPath = currDir + "Tools/protoc.exe";
 
             foreach (var path in protoCfg.protocs)
             {
@@ -57,7 +57,8 @@ namespace ProtoTool
                 {
                     Directory.CreateDirectory(cscDir);
                 }
-                Execute(protogenPath, "-i:" + protoPath + " -o:" + csPath, protoCfg.protoDir);
+                var incDir = Path.GetDirectoryName(protoPath);
+                Execute(protogenPath, "--proto_path=" + incDir + " --csharp_out=" + cscDir + " " + protoPath, protoCfg.protoDir);
             }
         }
 
