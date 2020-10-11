@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="protobuf-net">
-      <HintPath>..\Libraries\Protobuf\protobuf-net.dll</HintPath>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\..\firsango\FirServer\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

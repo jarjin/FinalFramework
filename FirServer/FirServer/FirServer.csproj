@@ -19,15 +19,15 @@
     <PackageReference Include="MongoDB.Libmongocrypt" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="protobuf-net">
-      <HintPath>..\Libraries\Protobuf\protobuf-net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Remove="C:\Users\Administrator\.nuget\packages\mongodb.libmongocrypt\1.0.0\build\../x64/native/windows/mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libraries\LiteNetLib\LiteNetLib.csproj" />
     <ProjectReference Include="..\Libraries\Mono.Xml\Mono.Xml.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\..\firsango\FirServer\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
