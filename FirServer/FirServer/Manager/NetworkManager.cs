@@ -19,13 +19,9 @@ namespace FirServer.Manager
             logger.Info(peer.EndPoint + " OnConnected!!");
         }
 
-        public void SendData<T>(NetPeer peer, ProtoType protoType, string protoName, T t)
+        public void SendData(NetPeer peer, ProtoType protoType, string protoName, byte[] buffer)
         {
-            var bytes = Serialize<T>(t);
-            if (bytes != null)
-            {
-                SendDataInternal(peer, protoType, protoName, bytes);
-            }
+            SendDataInternal(peer, protoType, protoName, buffer);
         }
 
         private void SendDataInternal(NetPeer peer, ProtoType protoType, string protoName, byte[] buffer)
@@ -53,13 +49,13 @@ namespace FirServer.Manager
             logger.Error("ConnectId:>" + peer.Id + " Disconnected!");
         }
 
-        public byte[] Serialize<T>(T t)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Serializer.Serialize<T>(ms, t);
-                return ms.ToArray();
-            }
-        }
+        //public byte[] Serialize<T>(T t)
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        Serializer.Serialize<T>(ms, t);
+        //        return ms.ToArray();
+        //    }
+        //}
     }
 }

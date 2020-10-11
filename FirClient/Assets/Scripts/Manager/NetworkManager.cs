@@ -6,8 +6,6 @@ using LiteNetLib.Utils;
 using FirClient.Network;
 using FirClient.Define;
 using LuaInterface;
-using System.IO;
-using ProtoBuf;
 
 namespace FirClient.Manager
 {
@@ -92,13 +90,9 @@ namespace FirClient.Manager
         }
 
         [NoToLua]
-        public void SendData<T>(string protoName, T t) 
+        public void SendData(string protoName, byte[] bytes) 
         {
-            var bytes = Serialize<T>(t);
-            if (bytes != null)
-            {
-                SendDataInternal(ProtoType.CSProtoMsg, protoName, bytes);
-            }
+            SendDataInternal(ProtoType.CSProtoMsg, protoName, bytes);
         }
 
         public void SendData(string protoName, LuaByteBuffer luaBuffer) 
@@ -158,14 +152,14 @@ namespace FirClient.Manager
             }
         }
 
-        private byte[] Serialize<T>(T t)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                Serializer.Serialize<T>(ms, t);
-                return ms.ToArray();
-            }
-        }
+        //private byte[] Serialize<T>(T t)
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        Serializer.Serialize<T>(ms, t);
+        //        return ms.ToArray();
+        //    }
+        //}
 
         [NoToLua]
         public override void OnDispose()

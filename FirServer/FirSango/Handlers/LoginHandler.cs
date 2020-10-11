@@ -6,6 +6,9 @@ using FirServer.Handler;
 using FirServer;
 using GameLibs.FirSango.Defines;
 using GameLibs.FirSango.Model;
+using Tutorial;
+using System.IO;
+using Google.Protobuf;
 
 namespace GameLibs.FirSango.Handlers
 {
@@ -16,14 +19,18 @@ namespace GameLibs.FirSango.Handlers
         public override void OnMessage(NetPeer peer, byte[] bytes)
         {
             ///解析使用
-            var proto = DeSerialize<AcountLoginAsk>(bytes);
-            logger.Info(proto.username);
-            logger.Info(proto.password);
+            var person = Person.Parser.ParseFrom(bytes);
+            logger.Info(person.Name);
+            logger.Info(person.Email);
 
             ///封装发送
-            var writer = new NetDataWriter();
-            var reply = new AccountLoginReply();
-            netMgr.SendData<AccountLoginReply>(peer, ProtoType.CSProtoMsg, "AccountLoginReply", reply);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                // Save the person to a stream
+                person.WriteTo(stream);
+                bytes = stream.ToArray();
+                netMgr.SendData(peer, ProtoType.CSProtoMsg, "Person", bytes);
+            }
 
             var username = string.Empty;
             var password = string.Empty;

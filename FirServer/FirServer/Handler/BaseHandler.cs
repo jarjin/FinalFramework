@@ -8,13 +8,13 @@ namespace FirServer.Handler
     {
         public abstract void OnMessage(NetPeer peer, byte[] bytes);
 
-        public T DeSerialize<T>(byte[] bytes)
-        {
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                T t = Serializer.Deserialize<T>(ms);
-                return t;
-            }
-        }
+        //public T DeSerialize<T>(byte[] bytes)
+        //{
+        //    using (MemoryStream ms = new MemoryStream(bytes))
+        //    {
+        //        T t = Serializer.Deserialize<T>(ms);
+        //        return t;
+        //    }
+        //}
     }
 }
