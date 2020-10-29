@@ -84,9 +84,7 @@ namespace FirClient.Manager
         /// <returns></returns>
         public Shader GetShader(string shaderName)
         {
-            Shader shader = null;
-            mShaders.TryGetValue(shaderName, out shader);
-            return Shader.Find(shaderName);
+            return mShaders.TryGetValue(shaderName, out var shader) ? shader : Shader.Find(shaderName);
         }
 
         [NoToLua]
