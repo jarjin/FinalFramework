@@ -20,6 +20,16 @@ public class PrefabEditor : BaseEditor
         base.OnInspectorGUI();
         serializedObject.Update();
         mReordList.DoLayoutList();
+        if (GUILayout.Button("Auto bind"))
+        {
+            Undo.RecordObject(mPrefabVar, "Auto Bind");
+            mPrefabVar.AutoBind();
+        }
+        if (GUILayout.Button("Clear bind"))
+        {
+            Undo.RecordObject(mPrefabVar, "Clear Bind");
+            mPrefabVar.varData.Clear();
+        }
         serializedObject.ApplyModifiedProperties();
     }
 
