@@ -14,10 +14,10 @@ namespace FirClient.Manager {
         public AssetBundle m_AssetBundle;
         public int m_ReferencedCount;
 
-        public AssetBundleInfo(AssetBundle assetBundle)
+        public AssetBundleInfo(AssetBundle assetBundle, int RefCount = 1)
         {
             m_AssetBundle = assetBundle;
-            m_ReferencedCount = 1;
+            m_ReferencedCount = RefCount;
         }
     }
 
@@ -43,7 +43,7 @@ namespace FirClient.Manager {
         Dictionary<string, string[]> m_Dependencies = new Dictionary<string, string[]>();
         Dictionary<string, AssetBundleInfo> m_LoadedAssetBundles = new Dictionary<string, AssetBundleInfo>();
         Dictionary<string, List<LoadAssetRequest>> m_LoadRequests = new Dictionary<string, List<LoadAssetRequest>>();
-        List<string> m_AssetBundleLoadingList = new List<string>();
+        Dictionary<string, int> m_AssetBundleLoadingList = new Dictionary<string, int>();
         Dictionary<string, UnloadAssetBundleRequest> m_AssetBundleUnloadingList = new Dictionary<string, UnloadAssetBundleRequest>();
 
         public Dictionary<string, AssetBundleInfo> LoadedAssetBundles
@@ -212,15 +212,14 @@ namespace FirClient.Manager {
         IEnumerator OnLoadAssetBundle(string abName, Type type)
         {
             string url = GetAssetFullPath(abName);
-            GLogger.Gray(url);
-            if (!m_AssetBundleLoadingList.Contains(url))
+            if (m_AssetBundleLoadingList.ContainsKey(url))
             {
-                m_AssetBundleLoadingList.Add(url);
+                m_AssetBundleLoadingList[url]++;
+                yield break;
             }
-
+            m_AssetBundleLoadingList.Add(url, 1);
+            GLogger.Gray(url);
             var abUrl = Application.isEditor ? abName : url;
-            Debugger.Log(url);
-
             var request = AssetBundle.LoadFromFileAsync(url);
             if (abName != AppConst.ResIndexFile)
             {
@@ -248,7 +247,9 @@ namespace FirClient.Manager {
             AssetBundle assetObj = request.assetBundle;
             if (assetObj != null)
             {
-                m_LoadedAssetBundles.Add(abName, new AssetBundleInfo(assetObj));
+                var RefCount = m_AssetBundleLoadingList[url];
+                var bundleInfo = new AssetBundleInfo(assetObj, RefCount);
+                m_LoadedAssetBundles.Add(abName, bundleInfo);
             }
             m_AssetBundleLoadingList.Remove(url);
         }
@@ -290,7 +291,7 @@ namespace FirClient.Manager {
             }
             foreach (var de in m_AssetBundleUnloadingList)
             {
-                if (m_AssetBundleLoadingList.Contains(de.Key))
+                if (m_AssetBundleLoadingList.ContainsKey(de.Key))
                 {
                     continue;
                 }
@@ -340,7 +341,7 @@ namespace FirClient.Manager {
 
             if (--bundle.m_ReferencedCount <= 0)
             {
-                if (m_AssetBundleLoadingList.Contains(abName))
+                if (m_AssetBundleLoadingList.ContainsKey(abName))
                 {
                     var request = new UnloadAssetBundleRequest();
                     request.abName = abName;
