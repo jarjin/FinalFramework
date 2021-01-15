@@ -68,7 +68,7 @@ public class AtlasBuilder : BaseEditor
         content = content.Replace("[TEX_HEIGHT]", size.y.ToString());
         content = content.Replace("[TPS_FILE]", tpsfile);
         content = content.Replace("[DATA_PATH]", atlasName + ".tpsheet");
-        content = content.Replace("[FILE_LIST]", texturePath.Replace("Assets", "../../../.."));
+        content = content.Replace("[FILE_LIST]", texturePath.Replace("Assets", AppDataPath));
         File.WriteAllText(tpsfile, content);
     }
 
@@ -103,7 +103,17 @@ public class AtlasBuilder : BaseEditor
 
     static void PublishAtlas(string tpsfile)
     {
-        string tpath = gameSettings.texturePackerPath + "\\TexturePacker.exe";
+        string tpath = string.Empty;
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            tpath = gameSettings.texturePackerPath + "\\TexturePacker.exe";
+        }
+        else  if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            //Mac 下的默认安装目录是 /Applications
+            tpath = gameSettings.texturePackerPath + "/TexturePacker.app/Contents/MacOS/TexturePacker";
+        }
+       
         try
         {
             ExecuteProc(tpath, tpsfile);
