@@ -1,5 +1,16 @@
 syntax = "proto3";
-package tutorial;
+package pb_common;
+
+enum ResultCode {
+	Success = 0;             //操作成功
+	Failed = 1;              //操作失败
+}
+
+message UserInfo {
+	string userid = 1;
+	string name = 2;
+	int64 money = 3;
+}
 
 message Person {
   string name = 1;

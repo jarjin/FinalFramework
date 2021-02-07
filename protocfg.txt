@@ -1,3 +1,5 @@
 protodir=Protos
 protopb=FirClient/Assets/res/Datas/LuaPB
 protocs=FirClient/Assets/Scripts/Network/ProtoCS|FirServer/FirSango/ProtoCS
+file=common.proto
+file=pbuser.proto

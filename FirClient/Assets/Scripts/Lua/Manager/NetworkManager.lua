@@ -71,7 +71,7 @@ end
 function NetworkManager:OnReceived(name, bytes)
     local data, err = protobuf.decode(name, bytes)
     if err ~= nil then
-        logError('protobuf.decode '..name..' failed!~')
+        logError('recv proto protobuf.decode '..name..' failed!~'..err)
         return
     end
     local funcs = self.ProtoMsgs[name]
@@ -81,6 +81,13 @@ function NetworkManager:OnReceived(name, bytes)
                 func.call(func.obj, data)
             end
         end
+    end
+end
+
+function NetworkManager:Connect(ip, port, caller, func)
+    if self.socket then
+        self.socket:Connect(ip, port, caller, func)
+        log("Connect Server [ip]:"..ip.." [port]:"..port)
     end
 end
 

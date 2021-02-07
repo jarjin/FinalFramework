@@ -10,11 +10,7 @@ namespace FirClient.Manager
     {
         Dictionary<string, BaseHandler> mHandlers = new Dictionary<string, BaseHandler>()
         {
-            { Protocal.Disconnect, new DisconnectHandler() },
-            { Protocal.Login, new RetLoginHandler() },
-            { Protocal.Logout, new RetLogoutHandler() },
-            { Protocal.Register, new RetRegisterHandler() },
-            { Protocal.ReqUserInfo, new RetUserInfoHandler() },
+            { Protocal.Default, new DefaultHandler() },
         };
 
         public override void OnMessage(NetPeer peer, NetDataReader reader)

@@ -1,38 +1,23 @@
-local gmCmdCtrl = require "Controller/GMCmdCtrl"
-local preloadCtrl = require "Controller/PreloadCtrl"
-
-local uiMainCtrl = require "UIController/UIMainCtrl"
-local uiLoaderCtrl = require "UIController/UILoaderCtrl"
-local uiLoginCtrl = require "UIController/UILoginCtrl"
-local uiMainRoleCtrl = require "UIController/UIMainRoleCtrl"
-local uiBattleCtrl = require "UIController/UIBattleCtrl"
-local uiHeroCtrl = require "UIController/UIHeroCtrl"
-local uiDungeonCtrl = require "UIController/UIDungeonCtrl"
-local uiTipsCtrl = require "UIController/UITipsCtrl"
-local uiItemTipsCtrl = require "UIController/UIItemTipsCtrl"
-local uiBagCtrl = require "UIController/UIBagCtrl"
-local uiChooseActorCtrl = require "UIController/UIChooseActorCtrl"
-
 local CtrlManager = class("CtrlManager")
 
 function CtrlManager:Initialize()
 	self.controllers = {}
 	--lua controller--
-	self:AddCtrl(CtrlNames.GMCmd, gmCmdCtrl)
-	self:AddCtrl(CtrlNames.Preload, preloadCtrl)
+	self:AddCtrl(CtrlNames.GMCmd, require "Controller/GMCmdCtrl")
+	self:AddCtrl(CtrlNames.Preload, require "Controller/PreloadCtrl")
 	
 	--ui controller--
-	self:AddCtrl(UiNames.Main, uiMainCtrl)
-	self:AddCtrl(UiNames.Loader, uiLoaderCtrl)
-	self:AddCtrl(UiNames.Login, uiLoginCtrl)
-	self:AddCtrl(UiNames.MainRole, uiMainRoleCtrl)
-	self:AddCtrl(UiNames.Battle, uiBattleCtrl)
-	self:AddCtrl(UiNames.Hero, uiHeroCtrl)
-	self:AddCtrl(UiNames.Dungeon, uiDungeonCtrl)
-	self:AddCtrl(UiNames.Tips, uiTipsCtrl)
-	self:AddCtrl(UiNames.ItemTips, uiItemTipsCtrl)
-	self:AddCtrl(UiNames.Bag, uiBagCtrl)
-	self:AddCtrl(UiNames.ChooseActor, uiChooseActorCtrl)
+	self:AddCtrl(UiNames.Main, require "UIController/UIMainCtrl")
+	self:AddCtrl(UiNames.Loader, require "UIController/UILoaderCtrl")
+	self:AddCtrl(UiNames.Login, require "UIController/UILoginCtrl")
+	self:AddCtrl(UiNames.MainRole, require "UIController/UIMainRoleCtrl")
+	self:AddCtrl(UiNames.Battle, require "UIController/UIBattleCtrl")
+	self:AddCtrl(UiNames.Hero, require "UIController/UIHeroCtrl")
+	self:AddCtrl(UiNames.Dungeon, require "UIController/UIDungeonCtrl")
+	self:AddCtrl(UiNames.Tips, require "UIController/UITipsCtrl")
+	self:AddCtrl(UiNames.ItemTips, require "UIController/UIItemTipsCtrl")
+	self:AddCtrl(UiNames.Bag, require "UIController/UIBagCtrl")
+	self:AddCtrl(UiNames.ChooseActor, require "UIController/UIChooseActorCtrl")
 
 	logWarn('CtrlManager:InitializeOK...')
 end

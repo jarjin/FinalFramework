@@ -1,7 +1,4 @@
 local DungeonModule = class("DungeonModule")
-
-local mTreeItemDataList = nil
-
 --[[
     to check the index'th item is a TreeItem or a TreeChildItem.for example,
 
@@ -24,7 +21,7 @@ local mTreeItemDataList = nil
     then we should return TreeItem1 to SuperScrollView
 ]]
 function DungeonModule:Initialize()
-	mTreeItemDataList = {}
+	self.mTreeItemDataList = {}
 
 	local configMgr = MgrCenter:GetManager(ManagerNames.Config)
 	local chapters = configMgr:GetChapterList()
@@ -53,22 +50,22 @@ function DungeonModule:Initialize()
 			table.insert(treeItem.mChilds, childItem)
 			j = j + 1
 		end
-		table.insert(mTreeItemDataList, treeItem)
+		table.insert(self.mTreeItemDataList, treeItem)
 		i = i + 1
 	end
 	self:UpdateAllTreeItemDataIndex()
 end
 
 function DungeonModule:GetDataListSize()
-	return #mTreeItemDataList
+	return #self.mTreeItemDataList
 end
 
 function DungeonModule:GetTotalItemAndChildCount()
-    local count = #mTreeItemDataList
+    local count = #self.mTreeItemDataList
     if count == 0 then
         return 0
     end
-    return mTreeItemDataList[count].mEndIndex + 1
+    return self.mTreeItemDataList[count].mEndIndex + 1
 end
 
 function DungeonModule:QueryTreeItemByTotalIndex(totalIndex)
@@ -79,8 +76,8 @@ function DungeonModule:QueryTreeItemByTotalIndex(totalIndex)
 	if count == 0 then
 		return nil
 	end
-	for i = 1, #mTreeItemDataList do
-		local data = mTreeItemDataList[i]
+	for i = 1, #self.mTreeItemDataList do
+		local data = self.mTreeItemDataList[i]
 		if data.mBeginIndex <= totalIndex and data.mEndIndex >= totalIndex then
 			return data
 		end
@@ -89,10 +86,10 @@ function DungeonModule:QueryTreeItemByTotalIndex(totalIndex)
 end
 
 function DungeonModule:GetDataByIndex(index)
-	if index < 0 or index > #mTreeItemDataList then
+	if index < 0 or index > #self.mTreeItemDataList then
 		return nil
 	end
-	return mTreeItemDataList[index]
+	return self.mTreeItemDataList[index]
 end
 
 function DungeonModule:GetItemChildDataByIndex(itemIndex, childIndex)
@@ -111,12 +108,12 @@ function DungeonModule:ToggleItemExpand(treeIndex)
 end
 
 function DungeonModule:UpdateAllTreeItemDataIndex()
-	local count = #mTreeItemDataList
+	local count = #self.mTreeItemDataList
 	if count == 0 then return end
 
 	local curEnd = 0
-	for i = 1, #mTreeItemDataList do
-		local data = mTreeItemDataList[i]
+	for i = 1, #self.mTreeItemDataList do
+		local data = self.mTreeItemDataList[i]
 		if i == 1 then
 			data.mBeginIndex = 0
 			data.mEndIndex = data.mIsExpand and #data.mChilds or 0

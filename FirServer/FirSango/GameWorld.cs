@@ -76,7 +76,7 @@ namespace GameLibs.FirSango
             handlerMgr.AddHandler(GameProtocal.Login, new LoginHandler());
             handlerMgr.AddHandler(GameProtocal.Register, new RegisterHandler());
             handlerMgr.AddHandler(GameProtocal.Logout, new LogoutHandler());
-            handlerMgr.AddHandler(GameProtocal.ReqUserInfo, new ReqUserInfoHandler());
+            handlerMgr.AddHandler(GameProtocal.UserInfo, new ReqUserInfoHandler());
         }
 
         public uint GetGameId() 

@@ -1,16 +1,18 @@
-local BattleModule = require "Module/BattleModule"
-local DungeonModule = require "Module/DungeonModule"
-local HeroModule = require "Module/HeroModule"
-local MainRoleModule = require "Module/MainRoleModule"
-
 local ModuleManager = class("ModuleManager")
 
 function ModuleManager:Initialize()
     self.modules = {}
-	self:AddModule(ModuleNames.Battle, BattleModule)
-	self:AddModule(ModuleNames.Dungeon, DungeonModule)
-	self:AddModule(ModuleNames.Hero, HeroModule)
-	self:AddModule(ModuleNames.MainRole, MainRoleModule)
+	self:AddModule(ModuleNames.Battle, require "Module.BattleModule")
+	self:AddModule(ModuleNames.Dungeon, require "Module.DungeonModule")
+	self:AddModule(ModuleNames.Hero, require "Module.HeroModule")
+	self:AddModule(ModuleNames.MainRole, require "Module.MainRoleModule")
+	self:AddModule(ModuleNames.User, require "Module.UserModule")
+
+	for _, module in pairs(self.modules) do
+		if module then
+			module:Initialize()
+		end
+	end
     logWarn('ModuleManager:InitializeOK...')
 end
 
