@@ -6,6 +6,7 @@ public class AppConst
     public static bool DebugMode = false;                       //调试模式-用于内部测试
     public static bool LogMode = false;                         //日志模式
     public static bool UpdateMode = false;                      //更新模式
+    public static bool NetworkMode = false;                     //网络模式
     public static bool LuaByteMode = false;                     //Lua字节码模式-默认关闭 
     public static bool ShowFps = false;                         //显示帧频
     public static AppState AppState = AppState.None;            //APP的状态

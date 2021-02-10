@@ -65,6 +65,9 @@ public class GameSettings : ScriptableObject
     [Tooltip("游戏的更新模式")]
     public bool updateMode;
 
+    [Tooltip("游戏的网络模式")]
+    public bool networkMode;
+
     [Tooltip("Lua的字节码模式")]
     public bool luaByteMode;
 

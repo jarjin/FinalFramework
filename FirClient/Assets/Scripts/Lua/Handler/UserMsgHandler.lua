@@ -8,14 +8,14 @@ end
 function UserMsgHandler:OnRecvLogin(data)
     if type(data) ~= 'table' then return end
     if self.userModule then
-        self.userModule:Res_UserLogin(data)
+        self.userModule:ResLogin(data)
     end
 end
 
 function UserMsgHandler:OnRecvRegister(data)
     if type(data) ~= 'table' then return end
     if self.userModule then
-        self.userModule:Res_UserRegister(data)
+        self.userModule:ResRegister(data)
     end
 end
 
