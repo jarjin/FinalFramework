@@ -13,7 +13,7 @@ function LoginAdapter:ConnectServer()
 	self.netMgr = MgrCenter:GetManager(ManagerNames.Network)
 	if self.netMgr ~= nil then
 		local ip = AppConst.SocketAddress
-		local port = AppConst.SocketPort
+		local port = tointeger(AppConst.SocketPort)
 		self.netMgr:Connect(ip, port, self, self.OnConnectOK)
 	end
 end

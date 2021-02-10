@@ -1,4 +1,5 @@
 using FirServer;
+using FirServer.Define;
 using FirServer.Interface;
 using GameLibs.FirSango.Defines;
 using GameLibs.FirSango.Handlers;
@@ -18,7 +19,7 @@ namespace GameLibs.FirSango
         {
             InitManager();
             RegHandler();
-            TestServer();
+            //TestDBServer();     //需要安装Mongodb
         }
 
         ///初始化管理器
@@ -32,12 +33,11 @@ namespace GameLibs.FirSango
             roomMgr.Initialize();
         }
 
-        private async void TestServer()
+        private async void TestDBServer()
         {
             //Test Table
             var item = tableMgr.globalConfigTable.GetItemByKey("CommonWhite");
             logger.Info(string.Format("id={0} value={1}", item.id, item.value));
-
 
             ///Open DB
             dataMgr.Connect(GameConst.DB_URL);
@@ -71,7 +71,9 @@ namespace GameLibs.FirSango
         ///注册处理器
         void RegHandler() 
         {
-            handlerMgr.AddHandler(GameProtocal.Login, new LoginHandler());
+            handlerMgr.AddHandler(Protocal.Connected, new ConnectedHandler());
+            handlerMgr.AddHandler(Protocal.Disconnect, new DisconnectHandler());
+            handlerMgr.AddHandler(GameProtocal.ReqLogin, new LoginHandler());
         }
 
         public uint GetGameId() 

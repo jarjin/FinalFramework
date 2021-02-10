@@ -20,7 +20,7 @@ namespace FirServer.Define
     /// <summary>
     /// 网络协议文件
     /// </summary>
-    static class Protocal
+    public static class Protocal
     {
         public const string Default = "Default";
         public const string Connected = "Connected";

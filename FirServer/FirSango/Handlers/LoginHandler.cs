@@ -32,7 +32,7 @@ namespace GameLibs.FirSango.Handlers
                     Userid = uid.ToString(),
                 };
             }
-            netMgr.SendData(peer, ProtoType.LuaProtoMsg, GameProtocal.Login, resData);
+            netMgr.SendData(peer, ProtoType.LuaProtoMsg, GameProtocal.ResLogin, resData);
 
             logger.Info(person.Name + " " + person.Pass);
         }

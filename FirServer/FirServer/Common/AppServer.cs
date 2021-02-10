@@ -28,6 +28,11 @@ namespace FirServer
 
             ManagementCenter.Initialize();
 
+            StartServer(port);
+        }
+
+        public void StartServer(int port)
+        {
             mListener = new ServerListener();
             mListener.StartServer(port);
             IsRunning = true;
