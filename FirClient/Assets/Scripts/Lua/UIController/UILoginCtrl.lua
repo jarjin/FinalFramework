@@ -73,9 +73,9 @@ end
 --进入游戏--
 function UILoginCtrl:OnStartClick(go)
 	if AppConst.NetworkMode then
-		self.userModule:ReqLogin('user', 'password', function(userid) 
+		self.userModule:ReqLogin('user', 'password', function(userinfo) 
 			self.loginCtrl:StartLogin()
-			logError("login ok!!! userid>>", userid)
+			logError("login ok!!! userid>>"..userinfo.userid)
 		end)
 	else
 		self.loginCtrl:StartLogin()

@@ -15,8 +15,8 @@ namespace FirClient.Manager
 
         public override void OnMessage(NetPeer peer, NetDataReader reader)
         {
-            string protoName = string.Empty;
             byte[] bytes = null;
+            string protoName = null;
             ParseProtoBytes(reader, ref protoName, ref bytes);
 
             BaseHandler handler = null;

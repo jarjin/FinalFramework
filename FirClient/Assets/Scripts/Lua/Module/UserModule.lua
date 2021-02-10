@@ -18,10 +18,9 @@ end
 --解包使用--
 function UserModule:ResLogin(data)
     self.loginData = table.deepcopy(data)
-    local userid = self.loginData.userid
-    if userid then
+    if type(self.loginData.userinfo) == 'table' then
         if self.loginCallback then
-            self.loginCallback(userid)
+            self.loginCallback(self.loginData.userinfo)
         end
     end
 end

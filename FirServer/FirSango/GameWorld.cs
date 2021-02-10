@@ -71,6 +71,7 @@ namespace GameLibs.FirSango
         ///注册处理器
         void RegHandler() 
         {
+            handlerMgr.AddHandler(Protocal.Default, new DefaultHandler());
             handlerMgr.AddHandler(Protocal.Connected, new ConnectedHandler());
             handlerMgr.AddHandler(Protocal.Disconnect, new DisconnectHandler());
             handlerMgr.AddHandler(GameProtocal.ReqLogin, new LoginHandler());

@@ -6,9 +6,12 @@
 ![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
 
 #### 运行环境（版本太低的需要自力更生了）
-FirClient： Unity 2019.4.8f1 (64-bit) + Visual Studio 2019  
+FirClient： Unity 2019.4.17f1 (64-bit) + Visual Studio 2019  
 FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
-FirToolkit: Visual Studio 2019  
+FirToolkit: Visual Studio 2019 
+
+#### 2021.02.11 更新日志：
+（1）梳理了前后端通讯流程，客户端工程设置里面有“NetworkMode”,默认关闭。 
 
 #### 框架特征：
 （0）采用tolua53分支代码(lua5.3.5版本) + pbc3.0 + sproto最新版。    

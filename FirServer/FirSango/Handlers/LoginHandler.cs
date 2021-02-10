@@ -22,7 +22,7 @@ namespace GameLibs.FirSango.Handlers
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var uid = 10000L;
+                var uid = Utility.AppUtil.NewGuidId();
                 //var uid = userModel.ExistUser(person.Name, person.Pass);
                 resData.Result = PbCommon.ResultCode.Success;
                 resData.Userinfo = new PbCommon.UserInfo()

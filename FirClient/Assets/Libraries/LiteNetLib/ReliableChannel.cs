@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 
 namespace LiteNetLib
 {
@@ -43,7 +42,7 @@ namespace LiteNetLib
             {
                 if (_packet != null)
                 {
-                    peer.Recycle(_packet);
+                    peer.RecycleAndDeliver(_packet);
                     _packet = null;
                     return true;
                 }
@@ -63,6 +62,7 @@ namespace LiteNetLib
 
         private bool _mustSendAcks;
 
+        private readonly DeliveryMethod _deliveryMethod;
         private readonly bool _ordered;
         private readonly int _windowSize;
         private const int BitsInByte = 8;
@@ -78,9 +78,15 @@ namespace LiteNetLib
                 _pendingPackets[i] = new PendingPacket();
 
             if (_ordered)
+            {
+                _deliveryMethod = DeliveryMethod.ReliableOrdered;
                 _receivedPackets = new NetPacket[_windowSize];
+            }
             else
+            {
+                _deliveryMethod = DeliveryMethod.ReliableUnordered;
                 _earlyReceived = new bool[_windowSize];
+            }
 
             _localWindowStart = 0;
             _localSeqence = 0;
@@ -114,95 +120,99 @@ namespace LiteNetLib
             }
 
             byte[] acksData = packet.RawData;
-            Monitor.Enter(_pendingPackets);
-            for(int pendingSeq = _localWindowStart; pendingSeq != _localSeqence; pendingSeq = (pendingSeq + 1) % NetConstants.MaxSequence)
+            lock (_pendingPackets)
             {
-                int rel = NetUtils.RelativeSequenceNumber(pendingSeq, ackWindowStart);
-                if (rel >= _windowSize)
+                for (int pendingSeq = _localWindowStart;
+                    pendingSeq != _localSeqence;
+                    pendingSeq = (pendingSeq + 1) % NetConstants.MaxSequence)
                 {
-                    NetDebug.Write("[PA]REL: " + rel);
-                    break;
-                }
+                    int rel = NetUtils.RelativeSequenceNumber(pendingSeq, ackWindowStart);
+                    if (rel >= _windowSize)
+                    {
+                        NetDebug.Write("[PA]REL: " + rel);
+                        break;
+                    }
 
-                int pendingIdx = pendingSeq % _windowSize;
-                int currentByte = NetConstants.ChanneledHeaderSize + pendingIdx / BitsInByte;
-                int currentBit = pendingIdx % BitsInByte;
-                if ((acksData[currentByte] & (1 << currentBit)) == 0)
-                {
-#if STATS_ENABLED || DEBUG
-                    Peer.Statistics.PacketLoss++;
+                    int pendingIdx = pendingSeq % _windowSize;
+                    int currentByte = NetConstants.ChanneledHeaderSize + pendingIdx / BitsInByte;
+                    int currentBit = pendingIdx % BitsInByte;
+                    if ((acksData[currentByte] & (1 << currentBit)) == 0)
+                    {
+#if DEBUG
+                        Peer.Statistics.PacketLoss++;
+#else
+                        if (Peer.NetManager.EnableStatistics) 
+                        {
+                            Peer.Statistics.PacketLoss++;
+                        }
 #endif
-                    //Skip false ack
-                    NetDebug.Write("[PA]False ack: {0}", pendingSeq);
-                    continue;
-                }
-                if (pendingSeq == _localWindowStart)
-                {
-                    //Move window                
-                    _localWindowStart = (_localWindowStart + 1) % NetConstants.MaxSequence;
-                }
 
-                //clear packet
-                if (_pendingPackets[pendingIdx].Clear(Peer))
-                    NetDebug.Write("[PA]Removing reliableInOrder ack: {0} - true", pendingSeq);
+                        //Skip false ack
+                        NetDebug.Write("[PA]False ack: {0}", pendingSeq);
+                        continue;
+                    }
+
+                    if (pendingSeq == _localWindowStart)
+                    {
+                        //Move window                
+                        _localWindowStart = (_localWindowStart + 1) % NetConstants.MaxSequence;
+                    }
+
+                    //clear packet
+                    if (_pendingPackets[pendingIdx].Clear(Peer))
+                        NetDebug.Write("[PA]Removing reliableInOrder ack: {0} - true", pendingSeq);
+                }
             }
-            Monitor.Exit(_pendingPackets);
         }
 
         public override void SendNextPackets()
         {
-            //check sending acks
             if (_mustSendAcks)
             {
                 _mustSendAcks = false;
                 NetDebug.Write("[RR]SendAcks");
-                Monitor.Enter(_outgoingAcks);
-                Peer.SendUserData(_outgoingAcks);
-                Monitor.Exit(_outgoingAcks);
+                lock(_outgoingAcks)
+                    Peer.SendUserData(_outgoingAcks);
             }
 
             long currentTime = DateTime.UtcNow.Ticks;
-            Monitor.Enter(_pendingPackets);
-            //get packets from queue
-            Monitor.Enter(OutgoingQueue);
-            while (OutgoingQueue.Count > 0)
+            lock (_pendingPackets)
             {
-                int relate = NetUtils.RelativeSequenceNumber(_localSeqence, _localWindowStart);
-                if (relate < _windowSize)
+                //get packets from queue
+                lock (OutgoingQueue)
                 {
-                    var netPacket = OutgoingQueue.Dequeue();
-                    netPacket.Sequence = (ushort) _localSeqence;
-                    netPacket.ChannelId = _id;
-                    _pendingPackets[_localSeqence % _windowSize].Init(netPacket);
-                    _localSeqence = (_localSeqence + 1) % NetConstants.MaxSequence;
+                    while (OutgoingQueue.Count > 0)
+                    {
+                        int relate = NetUtils.RelativeSequenceNumber(_localSeqence, _localWindowStart);
+                        if (relate >= _windowSize)
+                            break;
+
+                        var netPacket = OutgoingQueue.Dequeue();
+                        netPacket.Sequence = (ushort) _localSeqence;
+                        netPacket.ChannelId = _id;
+                        _pendingPackets[_localSeqence % _windowSize].Init(netPacket);
+                        _localSeqence = (_localSeqence + 1) % NetConstants.MaxSequence;
+                    }
                 }
-                else //Queue filled
-                {
-                    break;
-                }
+                //send
+                for (int pendingSeq = _localWindowStart; pendingSeq != _localSeqence; pendingSeq = (pendingSeq + 1) % NetConstants.MaxSequence)
+                    _pendingPackets[pendingSeq % _windowSize].TrySend(currentTime, Peer);
             }
-            Monitor.Exit(OutgoingQueue);
-            //send
-            for (int pendingSeq = _localWindowStart; pendingSeq != _localSeqence; pendingSeq = (pendingSeq + 1) % NetConstants.MaxSequence)
-            {
-                _pendingPackets[pendingSeq % _windowSize].TrySend(currentTime, Peer);
-            }
-            Monitor.Exit(_pendingPackets);
         }
 
         //Process incoming packet
-        public override void ProcessPacket(NetPacket packet)
+        public override bool ProcessPacket(NetPacket packet)
         {
             if (packet.Property == PacketProperty.Ack)
             {
                 ProcessAck(packet);
-                return;
+                return false;
             }
             int seq = packet.Sequence;
             if (seq >= NetConstants.MaxSequence)
             {
                 NetDebug.Write("[RR]Bad sequence");
-                return;
+                return false;
             }
 
             int relate = NetUtils.RelativeSequenceNumber(seq, _remoteWindowStart);
@@ -211,7 +221,7 @@ namespace LiteNetLib
             if (relateSeq > _windowSize)
             {
                 NetDebug.Write("[RR]Bad sequence");
-                return;
+                return false;
             }
 
             //Drop bad packets
@@ -219,59 +229,59 @@ namespace LiteNetLib
             {
                 //Too old packet doesn't ack
                 NetDebug.Write("[RR]ReliableInOrder too old");
-                return;
+                return false;
             }
             if (relate >= _windowSize * 2)
             {
                 //Some very new packet
                 NetDebug.Write("[RR]ReliableInOrder too new");
-                return;
+                return false;
             }
 
             //If very new - move window
             int ackIdx;
             int ackByte;
             int ackBit;
-            Monitor.Enter(_outgoingAcks);
-            if (relate >= _windowSize)
+            lock (_outgoingAcks)
             {
-                //New window position
-                int newWindowStart = (_remoteWindowStart + relate - _windowSize + 1) % NetConstants.MaxSequence;
-                _outgoingAcks.Sequence = (ushort)newWindowStart;
-
-                //Clean old data
-                while (_remoteWindowStart != newWindowStart)
+                if (relate >= _windowSize)
                 {
-                    ackIdx = _remoteWindowStart % _windowSize;
-                    ackByte = NetConstants.ChanneledHeaderSize + ackIdx / BitsInByte;
-                    ackBit = ackIdx % BitsInByte;
-                    _outgoingAcks.RawData[ackByte] &= (byte)~(1 << ackBit);
-                    _remoteWindowStart = (_remoteWindowStart + 1) % NetConstants.MaxSequence;
+                    //New window position
+                    int newWindowStart = (_remoteWindowStart + relate - _windowSize + 1) % NetConstants.MaxSequence;
+                    _outgoingAcks.Sequence = (ushort) newWindowStart;
+
+                    //Clean old data
+                    while (_remoteWindowStart != newWindowStart)
+                    {
+                        ackIdx = _remoteWindowStart % _windowSize;
+                        ackByte = NetConstants.ChanneledHeaderSize + ackIdx / BitsInByte;
+                        ackBit = ackIdx % BitsInByte;
+                        _outgoingAcks.RawData[ackByte] &= (byte) ~(1 << ackBit);
+                        _remoteWindowStart = (_remoteWindowStart + 1) % NetConstants.MaxSequence;
+                    }
                 }
-            }
 
-            //Final stage - process valid packet
-            //trigger acks send
-            _mustSendAcks = true;
-            ackIdx = seq % _windowSize;
-            ackByte = NetConstants.ChanneledHeaderSize + ackIdx / BitsInByte;
-            ackBit = ackIdx % BitsInByte;
-            if ((_outgoingAcks.RawData[ackByte] & (1 << ackBit)) != 0)
-            {
-                NetDebug.Write("[RR]ReliableInOrder duplicate");
-                Monitor.Exit(_outgoingAcks);
-                return;
-            }
+                //Final stage - process valid packet
+                //trigger acks send
+                _mustSendAcks = true;
+                ackIdx = seq % _windowSize;
+                ackByte = NetConstants.ChanneledHeaderSize + ackIdx / BitsInByte;
+                ackBit = ackIdx % BitsInByte;
+                if ((_outgoingAcks.RawData[ackByte] & (1 << ackBit)) != 0)
+                {
+                    NetDebug.Write("[RR]ReliableInOrder duplicate");
+                    return false;
+                }
 
-            //save ack
-            _outgoingAcks.RawData[ackByte] |= (byte)(1 << ackBit);
-            Monitor.Exit(_outgoingAcks);
+                //save ack
+                _outgoingAcks.RawData[ackByte] |= (byte) (1 << ackBit);
+            }
 
             //detailed check
             if (seq == _remoteSequence)
             {
                 NetDebug.Write("[RR]ReliableInOrder packet succes");
-                Peer.AddIncomingPacket(packet);
+                Peer.AddReliablePacket(_deliveryMethod, packet);
                 _remoteSequence = (_remoteSequence + 1) % NetConstants.MaxSequence;
 
                 if (_ordered)
@@ -279,9 +289,9 @@ namespace LiteNetLib
                     NetPacket p;
                     while ((p = _receivedPackets[_remoteSequence % _windowSize]) != null)
                     {
-                        //process holded packet
+                        //process holden packet
                         _receivedPackets[_remoteSequence % _windowSize] = null;
-                        Peer.AddIncomingPacket(p);
+                        Peer.AddReliablePacket(_deliveryMethod, p);
                         _remoteSequence = (_remoteSequence + 1) % NetConstants.MaxSequence;
                     }
                 }
@@ -294,11 +304,10 @@ namespace LiteNetLib
                         _remoteSequence = (_remoteSequence + 1) % NetConstants.MaxSequence;
                     }
                 }
-
-                return;
+                return true;
             }
 
-            //holded packet
+            //holden packet
             if (_ordered)
             {
                 _receivedPackets[ackIdx] = packet;
@@ -306,8 +315,9 @@ namespace LiteNetLib
             else
             {
                 _earlyReceived[ackIdx] = true;
-                Peer.AddIncomingPacket(packet);
+                Peer.AddReliablePacket(_deliveryMethod, packet);
             }
+            return true;
         }
     }
 }
