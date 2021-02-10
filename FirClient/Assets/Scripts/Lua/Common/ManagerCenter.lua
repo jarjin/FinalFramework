@@ -19,33 +19,34 @@ function ManagerCenter:Initialize()
 	self:AddManager(ManagerNames.Map, require "Manager.MapManager", true)
 	self:AddManager(ManagerNames.Level, require "Manager.LevelManager", true)
 	self:AddManager(ManagerNames.Network, require "Manager.NetworkManager", true)
-	self:AddManager(ManagerNames.Handler, require "Manager.HandlerManager", true)
 	self:AddManager(ManagerNames.UI, require "Manager.UIManager", true)
 	self:AddManager(ManagerNames.Panel, require "Manager.PanelManager", true)
 	self:AddManager(ManagerNames.Component, require "Manager.ComponentManager", true)
 	self:AddManager(ManagerNames.Module, require "Manager.ModuleManager", true)
+	self:AddManager(ManagerNames.Handler, require "Manager.HandlerManager", true)
 
-	for _, value in pairs(self.managers) do
-		if value.needInit then
-			value.mgr:Initialize()
-		end
-	end
 	logWarn('ManagerCenter:InitializeOK...')
 end
 
-function ManagerCenter:AddManager(name, manager, hasInit)
+function ManagerCenter:AddManager(name, manager, needInit)
 	if name == nil or manager == nil then
 		logError('ManagerCenter:AddManager Error!! '..name..' was nil.')
 		return
 	end
-	self.managers[name] = {
-		mgr = manager,
-		needInit = hasInit or false
-	}
+	self.managers[name] = manager
+
+	needInit = needInit or nil
+	if needInit == true then
+		if name == ManagerNames.Table then
+			manager.Initialize()
+		else
+			manager:Initialize()
+		end
+	end
 end
 
 function ManagerCenter:GetManager(name)
-	return self.managers[name].mgr
+	return self.managers[name]
 end
 
 function ManagerCenter:RemoveManager(name)

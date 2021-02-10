@@ -3,12 +3,12 @@ package pb_user;
 
 import "common.proto";
 
-message Req_Login {
+message ReqLogin {
 	string name = 1;
 	string pass = 2;
 }
 
-message Res_Login {
+message ResLogin {
 	pb_common.ResultCode result = 1;
 	pb_common.UserInfo userinfo = 2;
 }

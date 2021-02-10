@@ -22,25 +22,25 @@ namespace PbUser {
     static PbuserReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxwYnVzZXIucHJvdG8SB3BiX3VzZXIaDGNvbW1vbi5wcm90byInCglSZXFf",
-            "TG9naW4SDAoEbmFtZRgBIAEoCRIMCgRwYXNzGAIgASgJIlkKCVJlc19Mb2dp",
-            "bhIlCgZyZXN1bHQYASABKA4yFS5wYl9jb21tb24uUmVzdWx0Q29kZRIlCgh1",
-            "c2VyaW5mbxgCIAEoCzITLnBiX2NvbW1vbi5Vc2VySW5mb2IGcHJvdG8z"));
+            "CgxwYnVzZXIucHJvdG8SB3BiX3VzZXIaDGNvbW1vbi5wcm90byImCghSZXFM",
+            "b2dpbhIMCgRuYW1lGAEgASgJEgwKBHBhc3MYAiABKAkiWAoIUmVzTG9naW4S",
+            "JQoGcmVzdWx0GAEgASgOMhUucGJfY29tbW9uLlJlc3VsdENvZGUSJQoIdXNl",
+            "cmluZm8YAiABKAsyEy5wYl9jb21tb24uVXNlckluZm9iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::PbCommon.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.Req_Login), global::PbUser.Req_Login.Parser, new[]{ "Name", "Pass" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.Res_Login), global::PbUser.Res_Login.Parser, new[]{ "Result", "Userinfo" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.ReqLogin), global::PbUser.ReqLogin.Parser, new[]{ "Name", "Pass" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.ResLogin), global::PbUser.ResLogin.Parser, new[]{ "Result", "Userinfo" }, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class Req_Login : pb::IMessage<Req_Login> {
-    private static readonly pb::MessageParser<Req_Login> _parser = new pb::MessageParser<Req_Login>(() => new Req_Login());
+  public sealed partial class ReqLogin : pb::IMessage<ReqLogin> {
+    private static readonly pb::MessageParser<ReqLogin> _parser = new pb::MessageParser<ReqLogin>(() => new ReqLogin());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Req_Login> Parser { get { return _parser; } }
+    public static pb::MessageParser<ReqLogin> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -53,21 +53,21 @@ namespace PbUser {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Req_Login() {
+    public ReqLogin() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Req_Login(Req_Login other) : this() {
+    public ReqLogin(ReqLogin other) : this() {
       name_ = other.name_;
       pass_ = other.pass_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Req_Login Clone() {
-      return new Req_Login(this);
+    public ReqLogin Clone() {
+      return new ReqLogin(this);
     }
 
     /// <summary>Field number for the "name" field.</summary>
@@ -94,11 +94,11 @@ namespace PbUser {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Req_Login);
+      return Equals(other as ReqLogin);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Req_Login other) {
+    public bool Equals(ReqLogin other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -148,7 +148,7 @@ namespace PbUser {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Req_Login other) {
+    public void MergeFrom(ReqLogin other) {
       if (other == null) {
         return;
       }
@@ -182,10 +182,10 @@ namespace PbUser {
 
   }
 
-  public sealed partial class Res_Login : pb::IMessage<Res_Login> {
-    private static readonly pb::MessageParser<Res_Login> _parser = new pb::MessageParser<Res_Login>(() => new Res_Login());
+  public sealed partial class ResLogin : pb::IMessage<ResLogin> {
+    private static readonly pb::MessageParser<ResLogin> _parser = new pb::MessageParser<ResLogin>(() => new ResLogin());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Res_Login> Parser { get { return _parser; } }
+    public static pb::MessageParser<ResLogin> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -198,21 +198,21 @@ namespace PbUser {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Res_Login() {
+    public ResLogin() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Res_Login(Res_Login other) : this() {
+    public ResLogin(ResLogin other) : this() {
       result_ = other.result_;
       Userinfo = other.userinfo_ != null ? other.Userinfo.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Res_Login Clone() {
-      return new Res_Login(this);
+    public ResLogin Clone() {
+      return new ResLogin(this);
     }
 
     /// <summary>Field number for the "result" field.</summary>
@@ -239,11 +239,11 @@ namespace PbUser {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Res_Login);
+      return Equals(other as ResLogin);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Res_Login other) {
+    public bool Equals(ResLogin other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -293,7 +293,7 @@ namespace PbUser {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Res_Login other) {
+    public void MergeFrom(ResLogin other) {
       if (other == null) {
         return;
       }

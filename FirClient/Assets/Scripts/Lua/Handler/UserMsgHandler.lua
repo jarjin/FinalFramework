@@ -14,7 +14,7 @@ end
 
 UserMsgHandler.MsgFuncs = 
 {
-    ["pb_user.Res_Login"] = UserMsgHandler.OnRecvLogin,
+    ["pb_user.ResLogin"] = UserMsgHandler.OnRecvLogin,
 }
 
 return UserMsgHandler
