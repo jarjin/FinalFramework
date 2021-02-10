@@ -10,16 +10,13 @@ end
 
 function NetworkManager:RegProtoPB()
     local pb = require "ProtoMsg/pb"
-    for key, value in pairs(pb) do
+    for _, value in ipairs(pb) do
         local path = Util.DataPath..'Datas/LuaPB/'..value
-        log('RegProtoPB:>'..path)
-
         local addr = io.open(path, "rb")
         local buffer = addr:read "*a"
         addr:close()
         protobuf.register(buffer)
-
-        print("RegProtoPB:>", key)
+        log("RegProto:>"..path)
     end
 end
 

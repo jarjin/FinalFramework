@@ -74,8 +74,8 @@ end
 function UILoginCtrl:OnStartClick(go)
 	if AppConst.NetworkMode then
 		self.userModule:ReqLogin('user', 'password', function(userid) 
-			logError("login ok!!! userid>>", userid)
 			self.loginCtrl:StartLogin()
+			logError("login ok!!! userid>>", userid)
 		end)
 	else
 		self.loginCtrl:StartLogin()

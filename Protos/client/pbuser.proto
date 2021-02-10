@@ -10,34 +10,5 @@ message Req_Login {
 
 message Res_Login {
 	pb_common.ResultCode result = 1;
-	string userid = 2;
-}
-
-message Req_Logout {
-	string userid = 2;
-}
-
-message Res_Logout {
-	pb_common.ResultCode result = 1;
-}
-
-message Req_Register {
-	string name = 1;
-	string pass = 2;
-	string email = 3;
-	int64 phoneNum = 4;
-}
-
-message Res_Register {
-	pb_common.ResultCode result = 1;
-	string userid = 2;
-}
-
-message Req_UserInfo {
-	string userid = 1;
-}
-
-message Res_UserInfo {
-	pb_common.ResultCode result = 1;
-	pb_common.UserInfo userInfo = 2;
+	pb_common.UserInfo userinfo = 2;
 }

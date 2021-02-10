@@ -12,17 +12,9 @@ function UserMsgHandler:OnRecvLogin(data)
     end
 end
 
-function UserMsgHandler:OnRecvRegister(data)
-    if type(data) ~= 'table' then return end
-    if self.userModule then
-        self.userModule:ResRegister(data)
-    end
-end
-
 UserMsgHandler.MsgFuncs = 
 {
     ["pb_user.Res_Login"] = UserMsgHandler.OnRecvLogin,
-    ["pb_user.Res_Register"] = UserMsgHandler.OnRecvLogin,
 }
 
 return UserMsgHandler

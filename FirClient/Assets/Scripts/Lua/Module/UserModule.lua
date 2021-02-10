@@ -26,17 +26,4 @@ function UserModule:ResLogin(data)
     end
 end
 
-function UserModule:ReqRegister(username, password)
-    local sendData = {
-        name = username,
-        pass = password,
-    }
-    self.netMgr:SendMessage("pb_user.ReqRegister", sendData)
-end
-
-function UserModule:ResRegister(data)
-    self.regData = table.deepcopy(data)
-    print("Res_UserRegister", self.regData.userid)
-end
-
 return UserModule

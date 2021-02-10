@@ -28,6 +28,7 @@ public class ResPackager : BaseEditor
     [MenuItem("GameAsset/Clear Persistent Data", false, 11)]
     static void ClearPersistentData()
     {
+        PlayerPrefs.DeleteAll();
         var persistentPath = Path.GetDirectoryName(AppDataPath) + "/PersistentData";
         if (Directory.Exists(persistentPath))
         {

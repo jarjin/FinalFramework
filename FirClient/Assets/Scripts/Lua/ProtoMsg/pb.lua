@@ -1,6 +1,5 @@
-local pb = {}
-
-pb["common"] = "client/common.pb"
-pb["user"] = "client/pbuser.pb"
-
+local pb = {
+    'client/common.pb',
+    'client/pbuser.pb',
+}
 return pb
