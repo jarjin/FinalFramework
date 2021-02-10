@@ -30,7 +30,7 @@ public class AppConst
     public const string PatchUrl = ResUrl +"patchs/";           //测试更新地址
 
     public const string SocketAddress = "127.0.0.1";            //Socket服务器地址
-    public const ushort SocketPort = 9001;                      //Socket服务器端口
+    public const ushort SocketPort = 15940;                      //Socket服务器端口
 
     public static string TablePath = Application.dataPath + "/res/Tables/";
     public static string[] DataPrefixs = {"datas_", "scripts_", "tables_"};

@@ -15,15 +15,22 @@ namespace GameLibs.FirSango.Handlers
 
         public override void OnMessage(NetPeer peer, byte[] bytes)
         {
-            var person = Req_Login.Parser.ParseFrom(bytes);
+            var person = ReqLogin.Parser.ParseFrom(bytes);
 
-            var resData = new Res_Login();
+            var resData = new ResLogin();
+            resData.Result = PbCommon.ResultCode.Failed;
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var uid = userModel.ExistUser(person.Name, person.Pass);
+                var uid = 10000L;
+                //var uid = userModel.ExistUser(person.Name, person.Pass);
                 resData.Result = PbCommon.ResultCode.Success;
-                resData.Userid = uid.ToString();
+                resData.Userinfo = new PbCommon.UserInfo()
+                {
+                    Name = person.Name,
+                    Money = 10000,
+                    Userid = uid.ToString(),
+                };
             }
             netMgr.SendData(peer, ProtoType.LuaProtoMsg, GameProtocal.Login, resData);
 

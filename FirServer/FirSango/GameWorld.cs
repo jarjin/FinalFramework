@@ -42,8 +42,6 @@ namespace GameLibs.FirSango
             ///Open DB
             dataMgr.Connect(GameConst.DB_URL);
             //dataMgr.DropDB(GameConst.DB_NAME);
-
-            await AppUtil.Waitforms(1000);
             dataMgr.OpenDB(GameConst.DB_NAME);
 
             //Test Insert to DB
@@ -74,9 +72,6 @@ namespace GameLibs.FirSango
         void RegHandler() 
         {
             handlerMgr.AddHandler(GameProtocal.Login, new LoginHandler());
-            handlerMgr.AddHandler(GameProtocal.Register, new RegisterHandler());
-            handlerMgr.AddHandler(GameProtocal.Logout, new LogoutHandler());
-            handlerMgr.AddHandler(GameProtocal.UserInfo, new ReqUserInfoHandler());
         }
 
         public uint GetGameId() 
