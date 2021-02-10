@@ -14,36 +14,38 @@ function ManagerCenter:Initialize()
 	self:AddManager(ManagerNames.Config, self:GetExtManager("ConfigManager"))
 
 	--Lua Manager--
-	self:AddManager(ManagerNames.Ctrl, require "Manager/CtrlManager", true)
-	self:AddManager(ManagerNames.Adapter, require "Manager/AdapterManager", true)
-	self:AddManager(ManagerNames.Map, require "Manager/MapManager", true)
-	self:AddManager(ManagerNames.Level, require "Manager/LevelManager", true)
-	self:AddManager(ManagerNames.Module, require "Manager/ModuleManager", true)
-	self:AddManager(ManagerNames.Network, require "Manager/NetworkManager", true)
-	self:AddManager(ManagerNames.Handler, require "Manager/HandlerManager", true)
+	self:AddManager(ManagerNames.Ctrl, require "Manager.CtrlManager", true)
+	self:AddManager(ManagerNames.Adapter, require "Manager.AdapterManager", true)
+	self:AddManager(ManagerNames.Map, require "Manager.MapManager", true)
+	self:AddManager(ManagerNames.Level, require "Manager.LevelManager", true)
+	self:AddManager(ManagerNames.Network, require "Manager.NetworkManager", true)
+	self:AddManager(ManagerNames.Handler, require "Manager.HandlerManager", true)
+	self:AddManager(ManagerNames.UI, require "Manager.UIManager", true)
+	self:AddManager(ManagerNames.Panel, require "Manager.PanelManager", true)
+	self:AddManager(ManagerNames.Component, require "Manager.ComponentManager", true)
+	self:AddManager(ManagerNames.Module, require "Manager.ModuleManager", true)
 
-	self:AddManager(ManagerNames.UI, require "Manager/UIManager", true)
-	self:AddManager(ManagerNames.Panel, require "Manager/PanelManager", true)
-	self:AddManager(ManagerNames.Component, require "Manager/ComponentManager", true)
-
+	for _, value in pairs(self.managers) do
+		if value.needInit then
+			value.mgr:Initialize()
+		end
+	end
 	logWarn('ManagerCenter:InitializeOK...')
 end
 
-function ManagerCenter:AddManager(name, manager, needInit)
+function ManagerCenter:AddManager(name, manager, hasInit)
 	if name == nil or manager == nil then
 		logError('ManagerCenter:AddManager Error!! '..name..' was nil.')
 		return
 	end
-	self.managers[name] = manager
-
-	needInit = needInit or nil
-	if needInit == true then
-		manager:Initialize()
-	end
+	self.managers[name] = {
+		mgr = manager,
+		needInit = hasInit or false
+	}
 end
 
 function ManagerCenter:GetManager(name)
-	return self.managers[name]
+	return self.managers[name].mgr
 end
 
 function ManagerCenter:RemoveManager(name)
