@@ -1,90 +1,109 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "FirGame/Unlit/Transparent Colored Gray"
+﻿Shader "FirGame/Unlit/Transparent Colored Gray"
 {
 	Properties
 	{
-		_MainTex ("Base (RGB), Alpha (A)", 2D) = "white" {}
-		_StencilComp ("Stencil Comparison", Float) = 8
-		_Stencil ("Stencil ID", Float) = 0
-		_StencilOp ("Stencil Operation", Float) = 0
-		_StencilWriteMask ("Stencil Write Mask", Float) = 255
-		_StencilReadMask ("Stencil Read Mask", Float) = 255
-		
-		_ColorMask ("Color Mask", Float) = 15
+		_MainTex("Base (RGB), Alpha (A)", 2D) = "white" {}
+		_Color("Tint", Color) = (1,1,1,1)
+
+		_StencilComp("Stencil Comparison", Float) = 8
+		_Stencil("Stencil ID", Float) = 0
+		_StencilOp("Stencil Operation", Float) = 0
+		_StencilWriteMask("Stencil Write Mask", Float) = 255
+		_StencilReadMask("Stencil Read Mask", Float) = 255
+
+		_ColorMask("Color Mask", Float) = 15
+
+		[Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip("Use Alpha Clip", Float) = 0
 	}
- 
+
 	SubShader
 	{
-		LOD 200
-
 		Tags
-		{ 
-			"Queue"="Transparent" 
-			"IgnoreProjector"="True" 
-			"RenderType"="Transparent" 
+		{
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
+			"RenderType" = "Transparent"
+			"PreviewType" = "Plane"
+			"CanUseSpriteAtlas" = "True"
 		}
- 
+
 		Stencil
 		{
-			Ref [_Stencil]
-			Comp [_StencilComp]
-			Pass [_StencilOp]
-			ReadMask [_StencilReadMask]
-			WriteMask [_StencilWriteMask]
+			Ref[_Stencil]
+			Comp[_StencilComp]
+			Pass[_StencilOp]
+			ReadMask[_StencilReadMask]
+			WriteMask[_StencilWriteMask]
 		}
- 
+
+		Cull Off
+		Lighting Off
+		ZWrite Off
+		ZTest[unity_GUIZTestMode]
+		Blend SrcAlpha OneMinusSrcAlpha
+		ColorMask[_ColorMask]
+
 		Pass
 		{
-			Cull Off
-			Lighting Off
-			ZWrite Off
-			Fog {Mode Off}
-			Offset -1, -1
-			ColorMask [_ColorMask]
-			AlphaTest Greater .01
-			Blend SrcAlpha OneMinusSrcAlpha
-			ColorMaterial AmbientAndDiffuse
-
-		CGPROGRAM
+			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#include "UnityCG.cginc"
 
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			
+			#include "UnityCG.cginc"
+			#include "UnityUI.cginc"
+
+			#pragma multi_compile __ UNITY_UI_ALPHACLIP
+
 			struct appdata_t
 			{
 				float4 vertex   : POSITION;
 				float4 color    : COLOR;
 				float2 texcoord : TEXCOORD0;
 			};
- 
+
 			struct v2f
 			{
-				float4 vertex   : POSITION;
-				half4 color    : COLOR;
-				float2 texcoord  : TEXCOORD0;
+				float4 vertex   : SV_POSITION;
+				fixed4 color : COLOR;
+				half2 texcoord  : TEXCOORD0;
+				float4 worldPosition : TEXCOORD1;
 			};
-			
-			v2f vert(appdata_t v)
+
+			fixed4 _Color;
+			fixed4 _TextureSampleAdd;
+			float4 _ClipRect;
+
+			v2f vert(appdata_t IN)
 			{
-				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.color = v.color;
-				o.texcoord = v.texcoord;
-				return o;
+				v2f OUT;
+				OUT.worldPosition = IN.vertex;
+				OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
+
+
+				OUT.texcoord = IN.texcoord;
+
+				#ifdef UNITY_HALF_TEXEL_OFFSET
+				OUT.vertex.xy += (_ScreenParams.zw - 1.0) * float2(-1,1);
+				#endif
+
+				OUT.color = IN.color * _Color;
+				return OUT;
 			}
- 
-			half4 frag(v2f IN) : COLOR
+			sampler2D _MainTex;
+
+			fixed4 frag(v2f IN) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, IN.texcoord) * IN.color;
-				float c = 0.299 * col.r + 0.587 * col.g + 0.184 * col.b;
-				col.r = col.g = col.b = c;
-				return col;
+				// Sample the texture
+				half4 color = tex2D(_MainTex, IN.texcoord) * IN.color;
+				float c = 0.299 * color.r + 0.587 * color.g + 0.184 * color.b;
+				color.r = color.g = color.b = c;
+				color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+				#ifdef UNITY_UI_ALPHACLIP
+					clip(color.a - 0.001);
+				#endif
+				return color;
 			}
-		ENDCG
+			ENDCG
 		}
 	}
 }
