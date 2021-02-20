@@ -8,7 +8,7 @@ function HeroModule:Initialize()
 
 	while iter:MoveNext() do
 		local npcItem = iter.Current
-		if not npcItem.isMainCharacter and npcItem.country >= 1 and npcItem.country <= 3 then
+		if not npcItem.isMainCharacter then
 			local item = {
 				name = npcItem.name,
 				itemid = npcItem.itemid,

@@ -1,4 +1,5 @@
-﻿using FirServer;
+﻿using FirCommon.Data;
+using FirServer;
 using FirServer.Common;
 using GameLibs.FirSango.Managers;
 

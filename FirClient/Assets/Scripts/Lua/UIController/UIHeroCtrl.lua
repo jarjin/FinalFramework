@@ -1,17 +1,13 @@
 local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UIHeroCtrl = class("UIHeroCtrl", UIBaseCtrl)
 
-local loopView = nil
-local heroModule = nil
-local panelMgr = nil
-
 function UIHeroCtrl:Awake()
 	local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-	heroModule = moduleMgr:GetModule(ModuleNames.Hero)
-	heroModule.Initialize()
+	self.heroModule = moduleMgr:GetModule(ModuleNames.Hero)
+	self.heroModule.Initialize()
 
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.Hero, self.OnCreateOK)
+	self.panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Hero, self.OnCreateOK)
 	logWarn("UIHeroCtrl.Awake--->>") 
 end
 
@@ -23,22 +19,22 @@ function UIHeroCtrl:OnCreateOK(behaviour)
 
 	local scrollView = self.gameObject.transform:Find("ScrollViewRoot")
 	if not isnil(scrollView) then
-		local totalCount = heroModule:GetDataListSize()
-		loopView = LuaUtil.GetComponent(scrollView.gameObject, ComponentNames.LoopListBox)
-		loopView:InitListView(self, totalCount, self.OnItemUpdate)
+		local totalCount = self.heroModule:GetDataListSize()
+		self.loopView = LuaUtil.GetComponent(scrollView.gameObject, ComponentNames.LoopListBox)
+		self.loopView:InitListView(self, totalCount, self.OnItemUpdate)
 	end
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
 
 function UIHeroCtrl:OnItemUpdate(index)
-	local item = loopView:NewListViewItem("ItemPrefab")
+	local item = self.loopView:NewListViewItem("ItemPrefab")
 	self:SetItemData(index, item.gameObject)
 	return item
 end
 
 function UIHeroCtrl:SetItemData(index, gameObj)
 	index = index + 1
-	local item = heroModule:GetDataByIndex(index)
+	local item = self.heroModule:GetDataByIndex(index)
 
 	local prefabVar = LuaUtil.GetComponent(gameObj, ComponentNames.ItemPrefabVar)
 	if prefabVar ~= nil then
@@ -59,7 +55,7 @@ end
 --关闭事件--
 function UIHeroCtrl:Close()
 	self:Dispose()
-	panelMgr:ClosePanel(UiNames.Skill)
+	self.panelMgr:ClosePanel(UiNames.Skill)
 end
 
 function UIHeroCtrl:Show(isShow)

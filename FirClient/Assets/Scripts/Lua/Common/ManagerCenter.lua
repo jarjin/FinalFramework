@@ -10,7 +10,6 @@ function ManagerCenter:Initialize()
 
 	--C# Ext Manager--
 	self:AddManager(ManagerNames.Timer, self:GetExtManager("TimerManager"))
-	self:AddManager(ManagerNames.Table, self:GetExtManager("TableManager"))
 	self:AddManager(ManagerNames.Config, self:GetExtManager("ConfigManager"))
 
 	--Lua Manager--
@@ -19,6 +18,7 @@ function ManagerCenter:Initialize()
 	self:AddManager(ManagerNames.Map, require "Manager.MapManager", true)
 	self:AddManager(ManagerNames.Level, require "Manager.LevelManager", true)
 	self:AddManager(ManagerNames.Network, require "Manager.NetworkManager", true)
+	self:AddManager(ManagerNames.Table, require "Data.TableManager", true)
 	self:AddManager(ManagerNames.UI, require "Manager.UIManager", true)
 	self:AddManager(ManagerNames.Panel, require "Manager.PanelManager", true)
 	self:AddManager(ManagerNames.Component, require "Manager.ComponentManager", true)

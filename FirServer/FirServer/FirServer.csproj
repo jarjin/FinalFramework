@@ -29,5 +29,8 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\..\..\firsango\FirServer\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\Libraries\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@ namespace GameLibs.FirSango
         {
             InitManager();
             RegHandler();
+            TestTable();
             //TestDBServer();     //需要安装Mongodb
         }
 
@@ -33,12 +34,15 @@ namespace GameLibs.FirSango
             roomMgr.Initialize();
         }
 
-        private async void TestDBServer()
+        void TestTable()
         {
             //Test Table
             var item = tableMgr.globalConfigTable.GetItemByKey("CommonWhite");
             logger.Info(string.Format("id={0} value={1}", item.id, item.value));
+        }
 
+        private async void TestDBServer()
+        {
             ///Open DB
             dataMgr.Connect(GameConst.DB_URL);
             //dataMgr.DropDB(GameConst.DB_NAME);
