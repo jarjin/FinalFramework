@@ -1,7 +1,7 @@
 # FinalFramework
 
-#### 开发背景
-2018年公司同事要做自走棋项目跟我寻求框架，LuaFramework过于示例化并不合适，NewFramework过于轻量，因此在NewFramework基础上，将LuaFramework合并过来，变成了一个新的架构。因此自那时起到今年一直在利用业余时间完善这个新的框架，今天很开心将它开源给大家使用。
+#### 开发目标
+FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、WebServer（HTTP埋点，管理后台，后台直接通过Jenkins发行版本）、多端定义共享功能来方便开发者。
 
 ![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
 
