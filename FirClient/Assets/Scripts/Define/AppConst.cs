@@ -6,6 +6,7 @@ public class AppConst
     public static bool DebugMode = false;                       //调试模式-用于内部测试
     public static bool LogMode = false;                         //日志模式
     public static bool UpdateMode = false;                      //更新模式
+    public static bool NetworkMode = false;                     //网络模式
     public static bool LuaByteMode = false;                     //Lua字节码模式-默认关闭 
     public static bool ShowFps = false;                         //显示帧频
     public static AppState AppState = AppState.None;            //APP的状态
@@ -29,7 +30,7 @@ public class AppConst
     public const string PatchUrl = ResUrl +"patchs/";           //测试更新地址
 
     public const string SocketAddress = "127.0.0.1";            //Socket服务器地址
-    public const ushort SocketPort = 9001;                      //Socket服务器端口
+    public const ushort SocketPort = 15940;                      //Socket服务器端口
 
     public static string TablePath = Application.dataPath + "/res/Tables/";
     public static string[] DataPrefixs = {"datas_", "scripts_", "tables_"};

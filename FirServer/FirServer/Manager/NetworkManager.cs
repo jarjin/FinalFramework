@@ -1,8 +1,9 @@
 ﻿using FirServer.Define;
+using Google.Protobuf;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using log4net;
-using System.IO;
+using FirServer.Utility;
 
 namespace FirServer.Manager
 {
@@ -16,18 +17,23 @@ namespace FirServer.Manager
 
         internal void OnConnected(NetPeer peer)
         {
-            logger.Info(peer.EndPoint + " OnConnected!!");
+            var handler = handlerMgr.GetHandler(Protocal.Connected);
+            if (handler != null)
+            {
+                handler.OnMessage(peer, null);
+            }
         }
 
-        public void SendData(NetPeer peer, ProtoType protoType, string protoName, byte[] buffer)
+        public void SendData(NetPeer peer, ProtoType protoType, string protoName, IMessage msg)
         {
+            var buffer = msg.Serialize();
             SendDataInternal(peer, protoType, protoName, buffer);
         }
 
         private void SendDataInternal(NetPeer peer, ProtoType protoType, string protoName, byte[] buffer)
         {
             var writer = new NetDataWriter();
-            writer.Put((ushort)protoType);
+            writer.Put((byte)protoType);
             writer.Put(protoName);
             writer.Put(buffer.Length);
             writer.Put(buffer);
@@ -48,14 +54,5 @@ namespace FirServer.Manager
             }
             logger.Error("ConnectId:>" + peer.Id + " Disconnected!");
         }
-
-        //public byte[] Serialize<T>(T t)
-        //{
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        Serializer.Serialize<T>(ms, t);
-        //        return ms.ToArray();
-        //    }
-        //}
     }
 }

@@ -1,0 +1,37 @@
+syntax = "proto3";
+package pb_common;
+
+enum ResultCode {
+	Success = 0;             //操作成功
+	Failed = 1;              //操作失败
+}
+
+message UserInfo {
+	string userid = 1;
+	string name = 2;
+	int64 money = 3;
+}
+
+message Person {
+  string name = 1;
+  int32 id = 2;  // Unique ID number for this person.
+  string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phones = 4;
+}
+
+// Our address book file is just one of these.
+message AddressBook {
+  repeated Person people = 1;
+}

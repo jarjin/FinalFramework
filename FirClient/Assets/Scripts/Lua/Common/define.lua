@@ -17,6 +17,7 @@ _G.ModuleNames = {
 	Dungeon = "DungeonModule",
 	Hero = "HeroModule",
 	MainRole = "MainRoleModule",
+	User = "UserModule",
 }
 
 _G.ManagerNames = {
@@ -44,7 +45,7 @@ _G.ManagerNames = {
 }
 
 _G.HandlerNames = {
-	Test = "TestMsgHandler"
+	User = "UserMsgHandler"
 }
 
 _G.Path = System.IO.Path
@@ -103,4 +104,9 @@ _G.ItemBoxState = {
 	Normal = 0,
 	Highlighted = 1,
 	Disabled = 2
+}
+
+_G.MsgType = {
+	Text = 0,
+	Image = 1,
 }

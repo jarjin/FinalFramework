@@ -19,10 +19,6 @@ namespace FirClient.Define
 
     public static class Protocal
     {
-        public const string Disconnect = "Disconnect";             //异常掉线
-        public const string Register = "Register";                 //注册账号
-        public const string Login = "Login";                       //用户登录
-        public const string Logout = "Logout";                     //退出游戏
-        public const string ReqUserInfo = "ReqUserInfo";           //用户信息
+        public const string Default = "Default";             //异常掉线
     }
 }

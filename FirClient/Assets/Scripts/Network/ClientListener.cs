@@ -23,17 +23,13 @@ namespace FirClient.Network
             Debug.LogWarning("[CLIENT] OnPeerConnected: " + peer.Id);
         }
 
-        public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
-        {
-            Debug.LogError("[CLIENT] disconnected: " + disconnectInfo.Reason);
-        }
-
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
             if (netMgr != null)
             {
                 netMgr.OnReceived(peer, reader);
             }
+            reader.Recycle();
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)
@@ -46,7 +42,7 @@ namespace FirClient.Network
             if (messageType == UnconnectedMessageType.BasicMessage)
             {
                 Debug.Log("[CLIENT] Received discovery response. Connecting to: " + remoteEndPoint);
-                if (netMgr.mClient != null && netMgr.mClient.PeersCount == 0)
+                if (messageType == UnconnectedMessageType.BasicMessage && netMgr.mClient.ConnectedPeersCount == 0 && reader.GetInt() == 1)
                 {
                     netMgr.mClient.Connect(remoteEndPoint, AppConst.AppName);
                 }
@@ -59,7 +55,15 @@ namespace FirClient.Network
 
         public void OnConnectionRequest(ConnectionRequest request)
         {
-            throw new System.NotImplementedException();
+        }
+
+        public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
+        {
+            if (netMgr != null)
+            {
+                netMgr.OnConnected(peer, disconnectInfo.Reason.ToString());
+            }
+            Debug.Log("[CLIENT] We disconnected because " + disconnectInfo.Reason);
         }
     }
 

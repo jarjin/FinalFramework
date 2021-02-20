@@ -171,7 +171,7 @@ function Main.CallTableFunc(typeName, uniqueid, funcName)
 end
 
 function Main.OnReceived(name, bytes)
-	local netMgr = ManagerCenter:GetManager(ManagerNames.Network)
+	local netMgr = MgrCenter:GetManager(ManagerNames.Network)
 	if netMgr ~= nil then
 		netMgr:OnReceived(name, bytes)
 	end

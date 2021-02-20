@@ -10,16 +10,13 @@ end
 
 function NetworkManager:RegProtoPB()
     local pb = require "ProtoMsg/pb"
-    for key, value in pairs(pb) do
+    for _, value in ipairs(pb) do
         local path = Util.DataPath..'Datas/LuaPB/'..value
-        log('RegProtoPB:>'..path)
-
         local addr = io.open(path, "rb")
         local buffer = addr:read "*a"
         addr:close()
         protobuf.register(buffer)
-
-        print("RegProtoPB:>", key)
+        log("RegProto:>"..path)
     end
 end
 
@@ -71,7 +68,7 @@ end
 function NetworkManager:OnReceived(name, bytes)
     local data, err = protobuf.decode(name, bytes)
     if err ~= nil then
-        logError('protobuf.decode '..name..' failed!~')
+        logError('recv proto protobuf.decode '..name..' failed!~'..err)
         return
     end
     local funcs = self.ProtoMsgs[name]
@@ -81,6 +78,13 @@ function NetworkManager:OnReceived(name, bytes)
                 func.call(func.obj, data)
             end
         end
+    end
+end
+
+function NetworkManager:Connect(ip, port, caller, func)
+    if self.socket then
+        self.socket:Connect(ip, port, caller, func)
+        log("Connect Server [ip]:"..ip.." [port]:"..port)
     end
 end
 

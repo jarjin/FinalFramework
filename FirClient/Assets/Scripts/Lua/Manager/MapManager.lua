@@ -1,19 +1,18 @@
 local MapManager = class("MapManager")
 
-local mapObject = nil
-local sceneMapData = nil
-
 function MapManager:Initialize()
+	self.mapObject = nil
+	self.sceneMapData = nil
 	logWarn('MapManager:InitializeOK...')
 end
 
 function MapManager:GetCurrMapData()
-	return sceneMapdata
+	return self.sceneMapdata
 end
 
 ----------------------------SceneMap----------------------------
 function MapManager:CreateMap(createOK)
-    if isnil(mapObject) then
+    if isnil(self.mapObject) then
 		local path = "Prefabs/Maps/MapObject"
 		local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
         resMgr:LoadAssetAsync(path, { "MapObject" }, typeof(GameObject), function(objs)
@@ -21,11 +20,11 @@ function MapManager:CreateMap(createOK)
                 return
             end
 			local parent = find('/MainGame/BattleScene')
-            mapObject = newObject(objs[0])
-            mapObject.name = 'MapObject'
-            mapObject.transform:SetParent(parent.transform)
-            mapObject.transform.localPosition = Vector3.zero
-            mapObject.transform.localScale = Vector3.one
+            self.mapObject = newObject(objs[0])
+            self.mapObject.name = 'MapObject'
+            self.mapObject.transform:SetParent(parent.transform)
+            self.mapObject.transform.localPosition = Vector3.zero
+            self.mapObject.transform.localScale = Vector3.one
 
 			if createOK ~= nil then 
 				createOK()
@@ -41,9 +40,9 @@ end
 function MapManager:LoadSceneMap(mapid, createOK)
 	log('mapid:'..mapid)
 	local configMgr = MgrCenter:GetManager(ManagerNames.Config)
-	sceneMapdata = configMgr:GetMapData(mapid)
-	if sceneMapdata ~= nil then
-		local atlasName = sceneMapdata.atlas
+	self.sceneMapdata = configMgr:GetMapData(mapid)
+	if self.sceneMapdata ~= nil then
+		local atlasName = self.sceneMapdata.atlas
 		local atlasPath = "Maps/"..atlasName
 		log('atlasName:'..atlasName)
 		log('atlasPath:'..atlasPath)
@@ -60,7 +59,7 @@ function MapManager:LoadBattleMap(dungeonMapData, createOK)
 end
 
 function MapManager:LoadMapAtlas(mapType, mapAtlasName, atlasPath, createOK)
-	if mapObject ~= nil then
+	if self.mapObject ~= nil then
 		local componentMgr = MgrCenter:GetManager(ManagerNames.Component)
 		local mapAtlas = componentMgr:GetComponent(mapAtlasName)
 		if mapAtlas == nil then
@@ -81,7 +80,7 @@ function MapManager:LoadMapAtlas(mapType, mapAtlasName, atlasPath, createOK)
 end
 
 function MapManager:DoInitMap(mapType, atlas, createOK)
-	local parent = mapObject.transform
+	local parent = self.mapObject.transform
 
 	local bg_vista = atlas:GetSprite("bg_vista")
 	self:SetChildSprite(parent, "bg_vista", bg_vista)
@@ -109,7 +108,7 @@ end
 function MapManager:AddVistaFollowCamera()
 	local objFollow = find('/MainGame'):GetComponent('CObjectFollow')
 	if not isnil(objFollow) then
-		local objTarget = mapObject.transform:Find("bg_vista")
+		local objTarget = self.mapObject.transform:Find("bg_vista")
 		local type = FirClient.Component.FollowType.ObjectFollowCamera
 		objFollow:AddItem('ObjectFollowCamera', type, 0.2, nil, objTarget)
 	end
@@ -180,10 +179,10 @@ function MapManager:UpdateBattleMap(cameraWidth, bg_vista, bg_main, fg_left, fg_
 end
 
 function MapManager:GetMapNodeRender(nodeName)
-	if isnil(mapObject) then 
+	if isnil(self.mapObject) then 
 		return nil 
 	end
-	local node = mapObject.transform:Find(nodeName)
+	local node = self.mapObject.transform:Find(nodeName)
 	if isnil(node) then
 		return nil
 	end

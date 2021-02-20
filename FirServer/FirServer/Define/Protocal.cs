@@ -20,9 +20,10 @@ namespace FirServer.Define
     /// <summary>
     /// 网络协议文件
     /// </summary>
-    static class Protocal
+    public static class Protocal
     {
-        public const string Default = "Default";                 //缺省消息
-        public const string Disconnect = "Disconnect";              //异常掉线
+        public const string Default = "Default";
+        public const string Connected = "Connected";
+        public const string Disconnect = "Disconnect";
     }
 }

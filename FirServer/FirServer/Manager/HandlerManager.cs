@@ -11,11 +11,7 @@ namespace FirServer.Manager
     public class HandlerManager : BaseManager
     {
         static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(HandlerManager));
-        Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>()
-        {
-            { Protocal.Default, new DefaultHandler() },
-            { Protocal.Disconnect, new DisconnectHandler() },
-        };
+        Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>();
 
         /// <summary>
         /// 初始化消息处理器映射
@@ -67,10 +63,11 @@ namespace FirServer.Manager
 
             if (!mHandlers.ContainsKey(protoName))
             {
+                logger.Error("Proto ["+ protoName + "] not found!~~Reset to default!!!~");
                 protoName = Protocal.Default;
             }
-            byte[] bytes = null;
             var count = reader.GetInt();
+            byte[] bytes = new byte[count];
             reader.GetBytes(bytes, count);
 
             IHandler handler = null;

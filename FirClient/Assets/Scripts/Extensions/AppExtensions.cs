@@ -1,5 +1,7 @@
+using Google.Protobuf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -148,6 +150,20 @@ namespace FirClient.Extensions
         public static string ToStr(this Vector3 vec, string splitChar)
         {
             return vec.x + splitChar + vec.y + splitChar + vec.z;
+        }
+
+        public static byte[] Serialize(this IMessage message)
+        {
+            byte[] data = null;
+            if (message != null)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    Google.Protobuf.MessageExtensions.WriteTo(message, stream);
+                    data = stream.ToArray();
+                }
+            }
+            return data;
         }
     }
 }

@@ -6,12 +6,15 @@ function LoginAdapter:OnEnterLevel(execOK)
 	if execOK ~= nil then
 		execAction(execOK)
 	end
+	self:ConnectServer()
 end
 
-function LoginAdapter:OnConnectServer(func)
-	local netMgr = MgrCenter:GetManager(ManagerNames.Network)
-	if netMgr ~= nil then
-		netMgr.Connect(func)
+function LoginAdapter:ConnectServer()
+	self.netMgr = MgrCenter:GetManager(ManagerNames.Network)
+	if self.netMgr ~= nil then
+		local ip = AppConst.SocketAddress
+		local port = tointeger(AppConst.SocketPort)
+		self.netMgr:Connect(ip, port, self, self.OnConnectOK)
 	end
 end
 
@@ -23,23 +26,12 @@ function LoginAdapter:StartLogin()
 	Main.CloseUI(UiNames.Login)
 end
 
-function LoginAdapter:OnLoginOK(retCode)
-	if retCode == ResultCode.Success then
+function LoginAdapter:OnConnectOK(disReason)
+	if disReason then
+		logError('Connection failed!!! reason: '..disReason)
 	else
-	--[[
-		var dw = new NetDataWriter()
-		dw.Put("testName")
-		dw.Put("testPass")
-		networkMgr.SendData(GameProtocal.Register, dw)
-	]]
+		logWarn("OnConnectOK---->>>")
 	end
-	logWarn("OnLoginOK:"..retCode)
-end
-
-function LoginAdapter:OnRegisterOK(retCode)
-	if retCode == ResultCode.Success then
-	end
-	logWarn("OnRegisterOK:"..retCode)
 end
 
 function LoginAdapter:OnLeaveLevel(execOK)

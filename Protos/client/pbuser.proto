@@ -1,0 +1,14 @@
+syntax = "proto3";
+package pb_user;
+
+import "common.proto";
+
+message ReqLogin {
+	string name = 1;
+	string pass = 2;
+}
+
+message ResLogin {
+	pb_common.ResultCode result = 1;
+	pb_common.UserInfo userinfo = 2;
+}

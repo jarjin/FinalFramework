@@ -10,6 +10,7 @@ namespace ProtoTool
         public string protoDir;
         public string protopb;
         public List<string> protocs;
+        public List<string> protofiles;
     }
 
     class Program
@@ -85,6 +86,11 @@ namespace ProtoTool
             currDir = Environment.CurrentDirectory + "/";
             string cfgFile = currDir + "protocfg.txt";
             Console.WriteLine(cfgFile);
+
+            protoCfg = new ProtoCfgInfo();
+            protoCfg.protocs = new List<string>();
+            protoCfg.protofiles = new List<string>();
+
             if (File.Exists(cfgFile))
             {
                 var lines = File.ReadAllLines(cfgFile);
@@ -99,18 +105,20 @@ namespace ProtoTool
                     {
                         case "protodir":
                             protoCfg.protoDir = (currDir + strs[1].Trim()).Replace('\\', '/');
-                            break;
+                        break;
                         case "protopb":
                             protoCfg.protopb = (currDir + strs[1].Trim()).Replace('\\', '/');
-                            break;
+                        break;
                         case "protocs":
-                            protoCfg.protocs = new List<string>();
                             var paths = strs[1].Split('|');
                             foreach(var path in paths)
                             {
                                 protoCfg.protocs.Add((currDir + path.Trim()).Replace('\\', '/'));
                             }
-                            break;
+                        break;
+                        case "file":
+                            protoCfg.protofiles.Add(strs[1].Trim());
+                        break;
                     }
                 }
                 return true;
@@ -123,17 +131,30 @@ namespace ProtoTool
             if (!ParseConfig())
             {
                 Console.WriteLine("Don't found protocfg.txt!!!");
-                Console.ReadKey();
+                return;
             }
-            else
+            handleProtoPath();
+            foreach (var file in protoCfg.protofiles)
             {
-                var files = Directory.GetFiles(protoCfg.protoDir, "*.proto", SearchOption.AllDirectories);
-                foreach (var file in files)
-                {
-                    var f = file.Replace('\\', '/');
-                    CompileProtoCS(f);
-                    CompileProtoPB(f);
-                }
+                CompileProtoCS(file);
+                Console.WriteLine();
+
+                CompileProtoPB(file);
+                Console.WriteLine();
+            }
+            Console.WriteLine("Build Photo OK!!!");
+            Console.ReadKey();
+        }
+
+        static void handleProtoPath()
+        {
+            var files = Directory.GetFiles(protoCfg.protoDir, "*.proto", SearchOption.AllDirectories);
+            var protofiles = protoCfg.protofiles;
+            for(int i = 0; i < files.Length; i++)
+            {
+                var filename = Path.GetFileName(files[i]);
+                var index = protoCfg.protofiles.IndexOf(filename);
+                protoCfg.protofiles[index] = files[i].Replace('\\', '/');
             }
         }
     }

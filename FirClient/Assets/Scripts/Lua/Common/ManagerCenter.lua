@@ -1,14 +1,3 @@
-local ctrlManager = require "Manager/CtrlManager"
-local adapterManager = require "Manager/AdapterManager"
-local mapManager = require "Manager/MapManager"
-local levelManager = require "Manager/LevelManager"
-local moduleManager = require "Manager/ModuleManager"
-local uiManager = require "Manager/UIManager"
-local panelManager = require "Manager/PanelManager"
-local componentManager = require "Manager/ComponentManager"
-local networkManager = require "Manager/NetworkManager"
-local handlerManager = require "Manager/HandlerManager"
-
 local ManagerCenter = class("ManagerCenter")
 
 function ManagerCenter:Initialize()
@@ -25,17 +14,16 @@ function ManagerCenter:Initialize()
 	self:AddManager(ManagerNames.Config, self:GetExtManager("ConfigManager"))
 
 	--Lua Manager--
-	self:AddManager(ManagerNames.Ctrl, ctrlManager, true)
-	self:AddManager(ManagerNames.Adapter, adapterManager, true)
-	self:AddManager(ManagerNames.Map, mapManager, true)
-	self:AddManager(ManagerNames.Level, levelManager, true)
-	self:AddManager(ManagerNames.Module, moduleManager, true)
-	self:AddManager(ManagerNames.Network, networkManager, true)
-	self:AddManager(ManagerNames.Handler, handlerManager, true)
-
-	self:AddManager(ManagerNames.UI, uiManager, true)
-	self:AddManager(ManagerNames.Panel, panelManager, true)
-	self:AddManager(ManagerNames.Component, componentManager, true)
+	self:AddManager(ManagerNames.Ctrl, require "Manager.CtrlManager", true)
+	self:AddManager(ManagerNames.Adapter, require "Manager.AdapterManager", true)
+	self:AddManager(ManagerNames.Map, require "Manager.MapManager", true)
+	self:AddManager(ManagerNames.Level, require "Manager.LevelManager", true)
+	self:AddManager(ManagerNames.Network, require "Manager.NetworkManager", true)
+	self:AddManager(ManagerNames.UI, require "Manager.UIManager", true)
+	self:AddManager(ManagerNames.Panel, require "Manager.PanelManager", true)
+	self:AddManager(ManagerNames.Component, require "Manager.ComponentManager", true)
+	self:AddManager(ManagerNames.Module, require "Manager.ModuleManager", true)
+	self:AddManager(ManagerNames.Handler, require "Manager.HandlerManager", true)
 
 	logWarn('ManagerCenter:InitializeOK...')
 end
@@ -49,7 +37,11 @@ function ManagerCenter:AddManager(name, manager, needInit)
 
 	needInit = needInit or nil
 	if needInit == true then
-		manager:Initialize()
+		if name == ManagerNames.Table then
+			manager.Initialize()
+		else
+			manager:Initialize()
+		end
 	end
 end
 

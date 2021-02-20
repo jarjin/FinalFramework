@@ -1,9 +1,9 @@
 local MainRoleModule = class("MainRoleModule")
 
-local mMainRoleDataList = {}
-local mCurrMainRoleData = {}
-
 function MainRoleModule:Initialize()
+	self.mMainRoleDataList = {}
+	self.mCurrMainRoleData = {}
+
 	local i = 1
 	local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
 	local items = tableMgr.npcTable:GetItems()
@@ -14,27 +14,27 @@ function MainRoleModule:Initialize()
 				index = i,
 				mIsExpand = false,
 			}
-			table.insert(mMainRoleDataList, item)
+			table.insert(self.mMainRoleDataList, item)
 		end
 		i = i + 1
 	end
 end
 
 function MainRoleModule:GetDataListSize()
-	return #mMainRoleDataList
+	return #self.mMainRoleDataList
 end
 
 function MainRoleModule:GetDataByIndex(index)
-	return mMainRoleDataList[index]
+	return self.mMainRoleDataList[index]
 end
 
 function MainRoleModule:AssignMainRoleData(roleid, rolesex)
-	mCurrMainRoleData['roleid'] = roleid
-	mCurrMainRoleData['rolesex'] = rolesex
+	self.mCurrMainRoleData['roleid'] = roleid
+	self.mCurrMainRoleData['rolesex'] = rolesex
 end
 
 function MainRoleModule:GetMainRoleData()
-	return mCurrMainRoleData
+	return self.mCurrMainRoleData
 end
 
 return MainRoleModule

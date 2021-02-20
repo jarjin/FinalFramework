@@ -7,10 +7,11 @@ namespace FirClient.Manager
     {
         public abstract void OnMessage(NetPeer peer, NetDataReader reader);
 
-        protected void ParseProtoBytes(NetDataReader reader, ref string name, ref byte[] bytes)
+        protected void ParseProtoBytes(NetDataReader reader, ref string protoName, ref byte[] bytes)
         {
-            var protoName = reader.GetString();
+            protoName = reader.GetString();
             var count = reader.GetInt();
+            bytes = new byte[count];
             reader.GetBytes(bytes, count);
         }
     }
