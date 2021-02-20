@@ -2,6 +2,7 @@
 using StoryEditor;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Security;
 using System.Windows.Forms;
@@ -16,9 +17,15 @@ namespace WindowsFormsApp1
 
     public partial class Form1 : KryptonForm
     {
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool MessageBeep(uint uType);
+
         private static StoryInfo data = null;
         private static string xmlcfg = string.Empty;
         private static string npccfg = string.Empty;
+        private static bool relativeXml = true;
+        private static bool relativeNpc = true;
+        private static bool expandAll = true;
         public static Dictionary<string, string> roles = new Dictionary<string, string>();
 
         public Form1()
@@ -50,7 +57,10 @@ namespace WindowsFormsApp1
                 (data = new StoryInfo()).Init(xmlData);
                 InitTreeView();
             }
-            //treeView.ExpandAll();
+            if (expandAll)
+            {
+                treeView.ExpandAll();
+            }
         }
 
         private void ResetXmlData()
@@ -109,18 +119,23 @@ namespace WindowsFormsApp1
 
         private void kryptonDataGridView_SelectionChanged(object sender, EventArgs e)
         {
+            kryptonRichTextBox1.Text = string.Empty;
             if (kryptonDataGridView.SelectedRows.Count == 1)
             {
                 var row = kryptonDataGridView.SelectedRows[0];
 
-                string details = string.Format("{0}\n{1}\n{2}",
+                string details = string.Format("[ {0} ]\n{1}\n{2}\n{3}",
+                                    GetLink(),
                                     row.Cells[1].Value.ToString(),
                                     row.Cells[2].Value.ToString(),
                                     row.Cells[3].Value.ToString());
+                var count = details.IndexOf('\n');
                 kryptonRichTextBox1.Text = details;
+                kryptonRichTextBox1.Select(0, count);
+                kryptonRichTextBox1.SelectionColor = Color.Red;
+                kryptonRichTextBox1.SelectionBackColor = Color.Black;
+                kryptonRichTextBox1.SelectionFont = new Font("微软雅黑", 12, FontStyle.Bold); ;
             }
-            else
-                kryptonRichTextBox1.Text = string.Empty;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -310,14 +325,25 @@ namespace WindowsFormsApp1
         {
             Form6.settingCfgPath = xmlcfg;
             Form6.npcCfgPath = npccfg;
+            Form6.relativeXml = relativeXml;
+            Form6.relativeNpc = relativeNpc;
+            Form6.expandAll = expandAll;
+
             (new Form6()).ShowDialog();
 
             xmlcfg = Form6.settingCfgPath;
             npccfg = Form6.npcCfgPath;
+            relativeXml = Form6.relativeXml;
+            relativeNpc = Form6.relativeNpc;
+            expandAll = Form6.expandAll;
+
             var keyValues = new List<string>();
             keyValues.Add("xmlcfg=" + Form6.settingCfgPath);
             keyValues.Add("npccfg=" + Form6.npcCfgPath);
-            foreach(var de in roles)
+            keyValues.Add("relativexml=" + (Form6.relativeXml ? 1 : 0));
+            keyValues.Add("relativenpc=" + (Form6.relativeNpc ? 1 : 0));
+            keyValues.Add("expandall=" + (Form6.expandAll ? 1 : 0));
+            foreach (var de in roles)
             {
                 keyValues.Add("role_" + de.Key + "=" + de.Value);
             }
@@ -344,6 +370,18 @@ namespace WindowsFormsApp1
                     else if (strs[0] == "npccfg")
                     {
                         npccfg = strs[1].Trim();
+                    }
+                    else if (strs[0] == "relativexml")
+                    {
+                        relativeXml = strs[1].Trim() == "1" ? true : false;
+                    }
+                    else if (strs[0] == "relativenpc")
+                    {
+                        relativeNpc = strs[1].Trim() == "1" ? true : false;
+                    }
+                    else if (strs[0] == "expandall")
+                    {
+                        expandAll = strs[1].Trim() == "1" ? true : false;
                     }
                 }
                 LoadNpcCfg();
@@ -429,14 +467,24 @@ namespace WindowsFormsApp1
 
         private void CopyLink_Click(object sender, EventArgs e)
         {
+            if (kryptonDataGridView.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            var link = GetLink();
+            Clipboard.SetDataObject(link);
+            MessageBeep(0);
+            //MessageBox.Show("链接已复制: " + link, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private string GetLink()
+        {
             var row = kryptonDataGridView.SelectedRows[0];
             var tags = treeView.SelectedNode.Tag.ToString().Split('_');
             var dataid = int.Parse(tags[0]);
             var pageid = int.Parse(tags[1]);
             var id = int.Parse(row.Cells[0].Value.ToString());
-            var link = string.Format("{0},{1},{2}", dataid, pageid, id);
-            Clipboard.SetDataObject(link);
-            MessageBox.Show("链接已复制: " + link, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return string.Format("{0},{1},{2},1", dataid, pageid, id);
         }
 
         private void insertDialog_Click(object sender, EventArgs e)
@@ -467,6 +515,48 @@ namespace WindowsFormsApp1
             var pos = Form3.pos == PosType.Left.ToString() ? PosType.Left : PosType.Right;
             var text = Form3.text;
             data.InsertDialog(dataid, pageid, index, roleid, pos.ToString(), text);
+        }
+
+        private void ExportText_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files(*.*)|*>**";
+            saveFileDialog1.FilterIndex = 0;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var txtpath = saveFileDialog1.FileName;
+                if (!string.IsNullOrEmpty(txtpath))
+                {
+                    data.exportText(txtpath);
+                    MessageBox.Show("导出完成!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ExportLua_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Lua files (*.lua)|*.lua|All files(*.*)|*>**";
+            saveFileDialog1.FilterIndex = 0;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var txtpath = saveFileDialog1.FileName;
+                if (!string.IsNullOrEmpty(txtpath))
+                {
+                    data.exportLua(txtpath);
+                    MessageBox.Show("导出完成!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void kryptonDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Control | Keys.C))
+            {
+                CopyLink_Click(null, null);
+            }
         }
     }
 }

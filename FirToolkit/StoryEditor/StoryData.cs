@@ -84,7 +84,7 @@ namespace StoryEditor
     public class StoryInfo
     {
         public static bool isModify = false;
-        static string template = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        static string xmlTemplate = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <datas>
 [DATA]</datas>
 ";
@@ -327,15 +327,81 @@ namespace StoryEditor
                 }
                 content.AppendLine("    </data>");
             }
-            string alltxt = template.Replace("[DATA]", content.ToString().TrimEnd('\n', '\t'));
-            File.WriteAllText(xmlpath, alltxt, Encoding.UTF8);
+            string alltxt = xmlTemplate.Replace("[DATA]", content.ToString().TrimEnd('\n', '\t'));
+            File.WriteAllText(xmlpath, alltxt, new UTF8Encoding(false));
             isModify = false;
         }
 
+        public void exportText(string txtpath)
+        {
+            StringBuilder content = new StringBuilder();
+            foreach (var data in datas)
+            {
+                content.AppendLine(data.Value.name);  
+                foreach (var page in data.Value.pages)
+                {
+                    content.AppendLine("    " + page.Value.title);
+                    var dataTable = page.Value.dialogTable;
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        var row = dataTable.Rows[i];
+                        var text = row["text"].ToString();
+                        content.AppendLine("    " + text);
+                        content.AppendLine("");
+                    }
+                    content.AppendLine("");
+                }
+                content.AppendLine("");
+            }
+            File.WriteAllText(txtpath, content.ToString(), new UTF8Encoding(false));
+        }
 
         public void Clear()
         {
             datas.Clear();
+        }
+
+        internal void exportLua(string luapath)
+        {
+            StringBuilder content = new StringBuilder();
+            content.AppendLine("local storyline = {");
+            foreach (var data in datas)
+            {
+                content.AppendLine("    ["+ data.Key + "] = {");
+                content.AppendLine("        name = \"" + data.Value.name + "\",");
+                content.AppendLine("        pages = {");
+                foreach (var page in data.Value.pages)
+                {
+                    content.AppendLine("            [" + page.Key + "] = {");
+                    content.AppendLine("                title = \"" + page.Value.title + "\",");
+                    content.AppendLine("                dialogs = {");
+                    var dataTable = page.Value.dialogTable;
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        var row = dataTable.Rows[i];
+                        var id = row["id"].ToString();
+                        var text = row["text"].ToString();
+
+                        var pos = row["pos"].ToString();
+                        var posid = (int)Enum.Parse(typeof(PosType), pos);
+
+                        var role = row["role"].ToString();
+                        var rolestr = role == "系统" ? "0" : Form1.roles[role];
+                        content.AppendLine("                    [" + id + "] = {");
+                        content.AppendLine("                        roleid = " + rolestr + ", posid = " + posid + ",");
+                        content.AppendLine("                        text = \"" + text + "\",");
+                        content.AppendLine("                    },");
+                    }
+                    content.AppendLine("                },");
+                    content.AppendLine("            },");
+                }
+                content.AppendLine("        }");
+                content.AppendLine("    },");
+            }
+            content.AppendLine("}");
+            content.AppendLine("return storyline");
+            string alltxt = content.ToString().TrimEnd('\n', '\t');
+            File.WriteAllText(luapath, alltxt, new UTF8Encoding(false));
         }
     }
 }

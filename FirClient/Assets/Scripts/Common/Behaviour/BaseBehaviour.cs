@@ -5,6 +5,7 @@ using FirClient.Manager;
 using FirClient.Component;
 using FirClient.Utility;
 using LuaInterface;
+using FirCommon.Data;
 
 public abstract class BaseBehaviour
 {

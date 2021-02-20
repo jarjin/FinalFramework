@@ -1,6 +1,7 @@
 using FirClient.Component;
 using FirClient.Logic.FSM;
 using FirClient.Logic.Manager;
+using FirCommon.Data;
 using System.Collections.Generic;
 
 namespace FirClient.Logic

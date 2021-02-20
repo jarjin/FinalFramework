@@ -8,6 +8,9 @@ namespace StoryEditor
     {
         public static string settingCfgPath = string.Empty;
         public static string npcCfgPath = string.Empty;
+        internal static bool relativeXml;
+        internal static bool relativeNpc;
+        internal static bool expandAll;
 
         public Form6()
         {
@@ -18,6 +21,9 @@ namespace StoryEditor
         {
             textBox1.Text = settingCfgPath;
             textBox2.Text = npcCfgPath;
+            checkBox1.Checked = relativeXml;
+            checkBox2.Checked = relativeNpc;
+            checkBox3.Checked = expandAll;
 
             listView1.BeginUpdate();
             listView1.Groups.Clear();
@@ -52,18 +58,33 @@ namespace StoryEditor
         {
             settingCfgPath = textBox1.Text.Trim();
             npcCfgPath = textBox2.Text.Trim();
+            relativeXml = checkBox1.Checked;
+            relativeNpc = checkBox2.Checked;
+            expandAll = checkBox3.Checked;
             Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var currDir = Environment.CurrentDirectory;
+
             openFileDialog1.FileName = string.Empty;
-            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            openFileDialog1.InitialDirectory = currDir;
             openFileDialog1.Filter = "剧情文件(*.xml)|*.xml";
             var result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                textBox1.Text = openFileDialog1.FileName.Replace('\\', '/');
+                var selPath = openFileDialog1.FileName;
+                if (checkBox1.Checked)
+                {
+                    if (!selPath.ToLower().Contains(currDir.ToLower()))
+                    {
+                        MessageBox.Show("请选择当前工作空间的相对路径！！！");
+                        return;
+                    }
+                    selPath = selPath.Remove(0, currDir.Length + 1);
+                }
+                textBox1.Text = selPath.Replace('\\', '/');
             }
         }
 
@@ -93,13 +114,24 @@ namespace StoryEditor
 
         private void button3_Click(object sender, EventArgs e)
         {
+            var currDir = Environment.CurrentDirectory;
             openFileDialog1.FileName = string.Empty;
-            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            openFileDialog1.InitialDirectory = currDir;
             openFileDialog1.Filter = "角色配置(*.xml)|*.xml";
             var result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                textBox2.Text = openFileDialog1.FileName.Replace('\\', '/');
+                var selPath = openFileDialog1.FileName;
+                if (checkBox2.Checked)
+                {
+                    if (!selPath.ToLower().Contains(currDir.ToLower()))
+                    {
+                        MessageBox.Show("请选择当前工作空间的相对路径！！！");
+                        return;
+                    }
+                    selPath = selPath.Remove(0, currDir.Length + 1);
+                }
+                textBox2.Text = selPath.Replace('\\', '/');
             }
         }
     }

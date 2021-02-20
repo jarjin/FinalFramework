@@ -1,5 +1,6 @@
 using UnityEngine;
 using FirClient.Manager;
+using FirCommon.Data;
 
 /// <summary>
 /// Interface Manager Object 

@@ -69,6 +69,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.saveData = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportText = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportLua = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +79,7 @@
             this.kryptonPanelMain = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonSplitContainerMain = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainerDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainerDetails.Panel1)).BeginInit();
@@ -128,7 +131,7 @@
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.SelectedImageIndex = 0;
-            this.treeView.Size = new System.Drawing.Size(336, 510);
+            this.treeView.Size = new System.Drawing.Size(336, 511);
             this.treeView.TabIndex = 0;
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
@@ -206,7 +209,7 @@
             // 
             this.kryptonSplitContainerDetails.Panel2.Controls.Add(this.kryptonReadingGroupOuter);
             this.kryptonSplitContainerDetails.Panel2MinSize = 50;
-            this.kryptonSplitContainerDetails.Size = new System.Drawing.Size(697, 563);
+            this.kryptonSplitContainerDetails.Size = new System.Drawing.Size(697, 564);
             this.kryptonSplitContainerDetails.SplitterDistance = 317;
             this.kryptonSplitContainerDetails.TabIndex = 0;
             // 
@@ -249,6 +252,7 @@
             this.kryptonDataGridView.AllowUserToDeleteRows = false;
             this.kryptonDataGridView.AllowUserToOrderColumns = true;
             this.kryptonDataGridView.AllowUserToResizeRows = false;
+            this.kryptonDataGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.kryptonDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgName,
             this.dgDetails,
@@ -265,12 +269,13 @@
             this.kryptonDataGridView.ReadOnly = true;
             this.kryptonDataGridView.RowHeadersVisible = false;
             this.kryptonDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.kryptonDataGridView.Size = new System.Drawing.Size(695, 282);
+            this.kryptonDataGridView.Size = new System.Drawing.Size(695, 284);
             this.kryptonDataGridView.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.ControlClient;
             this.kryptonDataGridView.StateCommon.DataCell.Content.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.kryptonDataGridView.TabIndex = 0;
             this.kryptonDataGridView.SelectionChanged += new System.EventHandler(this.kryptonDataGridView_SelectionChanged);
             this.kryptonDataGridView.DoubleClick += new System.EventHandler(this.kryptonDataGridView_DoubleClick);
+            this.kryptonDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.kryptonDataGridView_KeyDown);
             // 
             // dgName
             // 
@@ -294,6 +299,7 @@
             // dgDepartment
             // 
             this.dgDepartment.DataPropertyName = "pos";
+            this.dgDepartment.DataSource = null;
             this.dgDepartment.DropDownWidth = 121;
             this.dgDepartment.HeaderText = "Position";
             this.dgDepartment.Name = "dgDepartment";
@@ -363,7 +369,7 @@
             // 
             this.kryptonReadingGroupOuter.Panel.Controls.Add(this.kryptonRichTextBox1);
             this.kryptonReadingGroupOuter.Panel.Padding = new System.Windows.Forms.Padding(5);
-            this.kryptonReadingGroupOuter.Size = new System.Drawing.Size(697, 241);
+            this.kryptonReadingGroupOuter.Size = new System.Drawing.Size(697, 242);
             this.kryptonReadingGroupOuter.TabIndex = 0;
             // 
             // kryptonRichTextBox1
@@ -374,10 +380,12 @@
             this.kryptonRichTextBox1.Name = "kryptonRichTextBox1";
             this.kryptonRichTextBox1.ReadOnly = true;
             this.kryptonRichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.kryptonRichTextBox1.Size = new System.Drawing.Size(685, 229);
+            this.kryptonRichTextBox1.Size = new System.Drawing.Size(685, 230);
             this.kryptonRichTextBox1.StateCommon.Back.Color1 = System.Drawing.Color.LightSteelBlue;
             this.kryptonRichTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.kryptonRichTextBox1.StateCommon.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Inherit;
             this.kryptonRichTextBox1.StateNormal.Content.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.kryptonRichTextBox1.StateNormal.Content.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Inherit;
             this.kryptonRichTextBox1.TabIndex = 0;
             this.kryptonRichTextBox1.Text = "";
             // 
@@ -452,7 +460,7 @@
             // kryptonHeaderGroupNavigation.Panel
             // 
             this.kryptonHeaderGroupNavigation.Panel.Controls.Add(this.treeView);
-            this.kryptonHeaderGroupNavigation.Size = new System.Drawing.Size(338, 563);
+            this.kryptonHeaderGroupNavigation.Size = new System.Drawing.Size(338, 564);
             this.kryptonHeaderGroupNavigation.TabIndex = 0;
             this.kryptonHeaderGroupNavigation.ValuesPrimary.Heading = "Navigation";
             this.kryptonHeaderGroupNavigation.ValuesPrimary.Image = null;
@@ -461,13 +469,13 @@
             // menuStrip
             // 
             this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.menuStrip.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1048, 25);
+            this.menuStrip.Size = new System.Drawing.Size(1048, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -476,16 +484,18 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingConfig,
             this.saveData,
+            this.ExportText,
+            this.ExportLua,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.fileToolStripMenuItem.Text = "文件(&F)";
             // 
             // settingConfig
             // 
             this.settingConfig.Name = "settingConfig";
-            this.settingConfig.Size = new System.Drawing.Size(124, 22);
+            this.settingConfig.Size = new System.Drawing.Size(125, 22);
             this.settingConfig.Text = "设置";
             this.settingConfig.Click += new System.EventHandler(this.settingConfig_Click);
             // 
@@ -493,19 +503,33 @@
             // 
             this.saveData.Image = ((System.Drawing.Image)(resources.GetObject("saveData.Image")));
             this.saveData.Name = "saveData";
-            this.saveData.Size = new System.Drawing.Size(124, 22);
+            this.saveData.Size = new System.Drawing.Size(125, 22);
             this.saveData.Text = "保存数据";
             this.saveData.Click += new System.EventHandler(this.saveData_Click);
+            // 
+            // ExportText
+            // 
+            this.ExportText.Name = "ExportText";
+            this.ExportText.Size = new System.Drawing.Size(125, 22);
+            this.ExportText.Text = "导出TEXT";
+            this.ExportText.Click += new System.EventHandler(this.ExportText_Click);
+            // 
+            // ExportLua
+            // 
+            this.ExportLua.Name = "ExportLua";
+            this.ExportLua.Size = new System.Drawing.Size(125, 22);
+            this.ExportLua.Text = "导出LUA";
+            this.ExportLua.Click += new System.EventHandler(this.ExportLua_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(122, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.exitToolStripMenuItem.Text = "退出";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -514,13 +538,13 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.readingPaneToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(62, 21);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.toolsToolStripMenuItem.Text = "关于(&O)";
             // 
             // readingPaneToolStripMenuItem
             // 
             this.readingPaneToolStripMenuItem.Name = "readingPaneToolStripMenuItem";
-            this.readingPaneToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.readingPaneToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.readingPaneToolStripMenuItem.Text = "关于编辑器";
             // 
             // toolStripContainer1
@@ -530,7 +554,7 @@
             // 
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.kryptonPanelMain);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1048, 571);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1048, 572);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -549,7 +573,7 @@
             this.kryptonPanelMain.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanelMain.Name = "kryptonPanelMain";
             this.kryptonPanelMain.Padding = new System.Windows.Forms.Padding(4);
-            this.kryptonPanelMain.Size = new System.Drawing.Size(1048, 571);
+            this.kryptonPanelMain.Size = new System.Drawing.Size(1048, 572);
             this.kryptonPanelMain.TabIndex = 0;
             // 
             // kryptonSplitContainerMain
@@ -567,13 +591,13 @@
             // kryptonSplitContainerMain.Panel2
             // 
             this.kryptonSplitContainerMain.Panel2.Controls.Add(this.kryptonSplitContainerDetails);
-            this.kryptonSplitContainerMain.Size = new System.Drawing.Size(1040, 563);
+            this.kryptonSplitContainerMain.Size = new System.Drawing.Size(1040, 564);
             this.kryptonSplitContainerMain.SplitterDistance = 338;
             this.kryptonSplitContainerMain.TabIndex = 0;
             // 
-            // kryptonManager1
+            // saveFileDialog1
             // 
-            this.kryptonManager1.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.ProfessionalSystem;
+            this.saveFileDialog1.DefaultExt = "txt";
             // 
             // Form1
             // 
@@ -680,6 +704,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewComboBoxColumn dgDepartment;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn dgDescription;
         private System.Windows.Forms.ToolStripMenuItem insertDialog;
+        private System.Windows.Forms.ToolStripMenuItem ExportText;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem ExportLua;
     }
 }
 

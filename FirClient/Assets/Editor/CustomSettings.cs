@@ -20,6 +20,7 @@ using System.IO;
 using FirClient.View;
 using FirClient.Extensions;
 using TMPro;
+using FirCommon.Data;
 
 public static class CustomSettings
 {

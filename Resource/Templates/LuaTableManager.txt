@@ -1,0 +1,27 @@
+local TableBase = {}
+function TableBase.New(o)
+    o = o or {}
+    setmetatable(o, {
+		__index = TableBase.Search
+	})
+    return o
+end
+
+function TableBase.Search(_, k)
+    if TableBase.tableMgr == nil then
+        TableBase.tableMgr = ManagementCenter.GetExtManager("TableManager")
+    end
+	return TableBase.tableMgr[k]
+end
+
+local TableManager = TableBase.New()
+
+function TableManager.Initialize()
+[DECLARE_TABLES_VARS]
+end
+
+function TableManager.print(...)
+	print(...)
+end
+
+return TableManager

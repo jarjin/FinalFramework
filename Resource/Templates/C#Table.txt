@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace FirCommon.Data
+{
+	[Serializable]
+	public class [NAME]
+	{
+		public string name;
+
+		private Dictionary<[TYPE], [NAME]Item> dics = null;
+		private List<[NAME]Item> items = new List<[NAME]Item>();
+
+		public List<[NAME]Item> Items
+		{
+			get {
+				return items;
+			}
+		}
+
+		public void Initialize()
+		{
+			dics = new Dictionary<[TYPE], [NAME]Item>();
+			foreach ([NAME]Item item in items)
+			{
+				dics.Add(item.id, item);
+			}
+		}
+
+		public List<[NAME]Item> GetItems()
+		{
+			return items;
+		}
+
+		public void AddItem([NAME]Item item)
+		{
+			items.Add(item);
+		}
+
+		public [NAME]Item GetItemByKey([TYPE] key)
+		{
+			[NAME]Item item = null;
+			if (dics.ContainsKey(key))
+			{
+				dics.TryGetValue(key, out item);
+			}
+			return item;
+		}
+	}
+
+	[Serializable]
+	public class [NAME]Item
+	{
+[BODY]
+	}
+}

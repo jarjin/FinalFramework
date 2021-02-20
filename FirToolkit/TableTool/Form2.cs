@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TableTool
 {
     public partial class Form2 : Form
     {
+        Dictionary<string, TableData> temps = new Dictionary<string, TableData>();
+
         public Form2()
         {
             InitializeComponent();
@@ -12,59 +18,201 @@ namespace TableTool
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            listView1.BeginUpdate();
-            listView1.Groups.Clear();
-            listView1.Items.Clear();
-            listView1.Columns.Clear();
-
-            var columnHeader0 = new ColumnHeader();
-            columnHeader0.Text = "表名称";
-            columnHeader0.Width = 250;
-
-            var columnHeader1 = new ColumnHeader();
-            columnHeader1.Text = "MD5";
-            columnHeader1.Width = 320;
-
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader0, columnHeader1 });
-
-            var table = fmMain.md5Values;
-            foreach(var de in table)
+            temps.Clear();
+            dataGridView1.Rows.Clear();
+            var tables = fmMain.GetTables();
+            foreach (var de in tables)
             {
-                listView1.Items.Add(new ListViewItem(new[] { de.Key, de.Value }));
+                AddOne(de.Key, de.Value.Clone());
             }
-            listView1.View = View.Details;
-            listView1.ShowGroups = true;
-            listView1.MultiSelect = false;
+        }
 
-            listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listView1.FullRowSelect = true;
-            listView1.EndUpdate();
+        private void AddOne(string key, TableData value)
+        {
+            var row = new DataGridViewRow();
+            var cell1 = new DataGridViewTextBoxCell();
+            cell1.Value = key;
+            row.Cells.Add(cell1);
+
+            var cell2 = new DataGridViewTextBoxCell();
+            cell2.Value = value.md5value;
+            row.Cells.Add(cell2);
+
+            var cell3 = new DataGridViewCheckBoxCell();
+            cell3.Value = value.format == TableFormat.CSharp;
+            row.Cells.Add(cell3);
+
+            var cell4 = new DataGridViewCheckBoxCell();
+            cell4.Value = value.format == TableFormat.Lua;
+            row.Cells.Add(cell4);
+
+            var cell5 = new DataGridViewCheckBoxCell();
+            cell5.Value = value.withServer;
+            row.Cells.Add(cell5);
+
+            dataGridView1.Rows.Add(row);
+
+            temps.Add(key, value);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < listView1.SelectedItems.Count; i++)
+            for (int i = dataGridView1.SelectedRows.Count - 1; i >= 0; i--)
             {
-                var item = listView1.SelectedItems[i];
-                listView1.Items.Remove(item);
+                var item = dataGridView1.SelectedRows[i];
+                dataGridView1.Rows.Remove(item);
+
+                var strKey = item.Cells[0].Value;
+                temps.Remove(strKey.ToString());
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            listView1.Clear();
+            dataGridView1.Rows.Clear();
+            temps.Clear();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            fmMain.md5Values.Clear();
-            for (int i = 0; i < listView1.Items.Count; i++)
+            var tables = fmMain.GetTables();
+            tables.Clear();
+            foreach (var de in temps)
             {
-                var keyItem = listView1.Items[i].SubItems[0];
-                var valueItem = listView1.Items[i].SubItems[1];
-                fmMain.md5Values.Add(keyItem.Text, valueItem.Text);
+                tables.Add(de.Key, de.Value.Clone());
             }
+            temps.Clear();
             Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4))
+            {
+                var row = dataGridView1.Rows[e.RowIndex];
+                var tableName = row.Cells["Column1"].Value.ToString();
+                if (e.ColumnIndex == 2)
+                {
+                    row.Cells["Column3"].Value = true;
+                    row.Cells["Column4"].Value = false;
+                    temps[tableName].format = TableFormat.CSharp;
+                }
+                else if (e.ColumnIndex == 3)
+                {
+                    row.Cells["Column3"].Value = false;
+                    row.Cells["Column4"].Value = true;
+                    temps[tableName].format = TableFormat.Lua;
+                }
+                else if (e.ColumnIndex == 4)
+                {
+                    var v = (bool)row.Cells["Column5"].Value;
+                    row.Cells["Column5"].Value = !v;
+                    temps[tableName].withServer = !v;
+                }
+            }
+        }
+
+        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if ((e.ColumnIndex == 2 || e.ColumnIndex == 3) && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.ClipBounds, true);
+
+                // TODO: The radio button flickers on mouse over.
+                // I tried setting DoubleBuffered on the parent panel, but the flickering persists.
+                // If someone figures out how to resolve this, please leave a comment.
+
+                Rectangle rectRadioButton = new Rectangle();
+                // TODO: Would be nice to not use magic numbers here.
+                rectRadioButton.Width = 14;
+                rectRadioButton.Height = 14;
+                rectRadioButton.X = e.CellBounds.X + (e.CellBounds.Width - rectRadioButton.Width) / 2;
+                rectRadioButton.Y = e.CellBounds.Y + (e.CellBounds.Height - rectRadioButton.Height) / 2;
+
+                ButtonState buttonState;
+                if (e.Value == DBNull.Value || (bool)(e.Value) == false)
+                {
+                    buttonState = ButtonState.Normal;
+                }
+                else
+                {
+                    buttonState = ButtonState.Checked;
+                }
+                ControlPaint.DrawRadioButton(e.Graphics, rectRadioButton, buttonState);
+
+                e.Paint(e.ClipBounds, DataGridViewPaintParts.Focus);
+
+                e.Handled = true;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.FileName = string.Empty;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var fs = openFileDialog1.FileNames;
+                foreach(string f in fs)
+                {
+                    if (!string.IsNullOrEmpty(f))
+                    {
+                        AddFileToList(f);
+                    }
+                }
+            }
+        }
+
+        private void dataGridView1_DragDrop(object sender, DragEventArgs e)
+        {
+            var path = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (path != null && path.Length > 0)
+            {
+                for(int i = 0; i < path.Count(); i++)
+                {
+                    var f = path[i];
+                    if (!string.IsNullOrEmpty(f))
+                    {
+                        AddFileToList(f);
+                    }
+                }
+            }
+        }
+
+        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) 
+                e.Effect = DragDropEffects.Link;
+            else 
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void AddFileToList(string filePath)
+        {
+            if (!filePath.ToLower().EndsWith(".xlsx"))
+            {
+                return;
+            }
+            filePath = filePath.Replace('\\', '/');
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+
+            foreach (var de in temps)
+            {
+                if (de.Key == fileName)
+                {
+                    return;
+                }
+            }
+            AddOne(fileName, new TableData() 
+            { 
+                fileName = filePath,
+                md5value = string.Empty,
+                format = TableFormat.CSharp,
+            });;
         }
     }
 }

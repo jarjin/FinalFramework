@@ -10,6 +10,10 @@ FirClient： Unity 2019.4.17f1 (64-bit) + Visual Studio 2019
 FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
 FirToolkit: Visual Studio 2019 
 
+#### 2021.02.20 更新日志：
+（1）升级打表工具TableTool V2。
+（2）升级剧情编辑器StoryEditor V2。 
+
 #### 2021.02.11 更新日志：
 （1）梳理了前后端通讯流程，客户端工程设置里面有“NetworkMode”,默认关闭。 
 

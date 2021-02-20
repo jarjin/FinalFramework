@@ -1,0 +1,17 @@
+local [NAME] = class("[NAME]")
+[REFTYPE]
+function [NAME]:Initialize()
+    self.Items = {
+[TABLE_BODY]
+	}
+end
+
+function [NAME]:GetItems()
+    return self.Items
+end
+
+function [NAME]:GetItemByKey(key)
+    return self.Items[key]
+end
+
+return [NAME]
