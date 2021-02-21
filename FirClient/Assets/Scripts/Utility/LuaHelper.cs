@@ -1,5 +1,6 @@
 using FirClient.Data;
 using FirClient.Define;
+using FirClient.Extensions;
 using LuaInterface;
 using System;
 using System.Collections;
@@ -73,8 +74,11 @@ namespace FirClient.Utility
         /// </summary>
         static IEnumerator OnLoadLevel(LevelType levelType, LuaTable self, LuaFunction onLeave, LuaFunction onEnter)
         {
-            int levelid = (int)levelType;
-            var op = SceneManager.LoadSceneAsync(levelid);
+            Scene scene = SceneManager.GetActiveScene();
+            var levelName = scene.name.FirstCharToUpper();
+            LevelType currLevel = (LevelType)Enum.Parse(typeof(LevelType), levelName);
+
+            var op = SceneManager.LoadSceneAsync(levelType.ToString());
             yield return op;
             yield return new WaitForSeconds(0.1f);
 
@@ -82,7 +86,7 @@ namespace FirClient.Utility
             {
                 if (onLeave != null)
                 {
-                    onLeave.Call<LuaTable, LevelType, Action>(self, levelType, (Action)delegate ()
+                    onLeave.Call<LuaTable, LevelType, Action>(self, currLevel, delegate ()
                     {
                         Util.StartCoroutine(OnLoadLevel(newLevel, self, onLeave, onEnter));
                     });

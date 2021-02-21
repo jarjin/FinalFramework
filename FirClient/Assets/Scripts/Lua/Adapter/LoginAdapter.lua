@@ -6,7 +6,9 @@ function LoginAdapter:OnEnterLevel(execOK)
 	if execOK ~= nil then
 		execAction(execOK)
 	end
-	self:ConnectServer()
+	if AppConst.NetworkMode then
+		self:ConnectServer()
+	end
 end
 
 function LoginAdapter:ConnectServer()
