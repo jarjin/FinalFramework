@@ -51,12 +51,13 @@ function UIMainRoleCtrl:SetItemData(index, gameObj)
 
 	local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
 	local itemData = tableMgr.itemTable:GetItemByKey(index)
-	if not isnil(itemData) then
+	if itemData then
 		prefabVar:SetText("txt_TextName", itemData.name)
-	end
-	local itembox = prefabVar:TryGetComponent('itembox_icon')
-	if itembox ~= nil then
-		itembox:SetItem(itemData.id)
+
+		local itembox = prefabVar:TryGetComponent('itembox_icon')
+		if itembox ~= nil then
+			itembox:SetItem(itemData.id)
+		end
 	end
 	local item = mainRoleModule:GetDataByIndex(index)
 	self:OnExpandChanged(rt, prefabVar, item)
