@@ -132,7 +132,7 @@ namespace FirServer.Utility
             }
             var collection = mDatabase.GetCollection<T>(collectionName);
             var result = collection.Find(filter).Project(projection).FirstOrDefault();
-            return BsonSerializer.Deserialize<T>(result);
+            return result != null ? BsonSerializer.Deserialize<T>(result) : default(T);
         }
 
         public async Task<List<T>> SelectAsync<T>(string collectionName, Expression<Func<T, bool>> filter)
