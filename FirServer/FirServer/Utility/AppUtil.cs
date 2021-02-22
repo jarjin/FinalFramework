@@ -11,20 +11,19 @@ namespace Utility
         {
             get
             {
-                var CurrDir = string.Empty;
-#if DEBUG_MODE
-                CurrDir = Directory.GetParent(@"../../../../").FullName;
-#else
-                CurrDir = Environment.CurrentDirectory;
-#endif
-                return CurrDir.Replace('\\', '/') + "/";
+                var CurrDir = Environment.CurrentDirectory;
+                if (CurrDir.Contains("netcoreapp"))
+                {
+                    CurrDir = Directory.GetParent(@"../../../../").FullName;
+                }
+                CurrDir = CurrDir.Replace('\\', '/') + "/";
+                return CurrDir;
             }
         }
 
         public static int Random(int min, int max)
         {
-            var ran = new System.Random();
-            return ran.Next(min, max);
+            return new Random().Next(min, max);
         }
 
         /// <summary>
