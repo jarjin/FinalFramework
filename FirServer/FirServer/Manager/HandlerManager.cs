@@ -5,6 +5,7 @@ using FirServer.Interface;
 using FirServer.Define;
 using LiteNetLib;
 using System;
+using FirCommon.Define;
 
 namespace FirServer.Manager
 {

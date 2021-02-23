@@ -1,9 +1,10 @@
-﻿using FirServer.Define;
+﻿using FirCommon.Define;
+using FirCommon.Utility;
+using FirServer.Define;
 using Google.Protobuf;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using log4net;
-using FirServer.Utility;
 
 namespace FirServer.Manager
 {

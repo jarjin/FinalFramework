@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using log4net;
-using FirServer.Utility;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using System;
+using FirCommon.DataBase;
 
 namespace FirServer.Manager
 {

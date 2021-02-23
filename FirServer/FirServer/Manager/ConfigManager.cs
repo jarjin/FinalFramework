@@ -1,5 +1,5 @@
 ﻿using System.Security;
-using Utility;
+using FirCommon.Utility;
 using FirServer.Define;
 
 namespace FirServer.Manager

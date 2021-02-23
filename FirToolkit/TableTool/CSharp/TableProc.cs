@@ -349,13 +349,14 @@ namespace TableTool
             CompilerParameters parameters = new CompilerParameters();
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
+            parameters.ReferencedAssemblies.Add("netstandard.dll");
             parameters.ReferencedAssemblies.Add("UnityEngine.dll");
             parameters.GenerateExecutable = false;
             parameters.GenerateInMemory = true;
             parameters.OutputAssembly = assemblyPath;
 
             string depCode = null;
-            var fullPath = Environment.CurrentDirectory + "/FirClient/Assets/Scripts/Data/CommonEnum.cs";
+            var fullPath = Environment.CurrentDirectory + "/FirCommon/Define/CommonEnum.cs";
             if (File.Exists(fullPath))
             {
                 depCode = File.ReadAllText(fullPath);

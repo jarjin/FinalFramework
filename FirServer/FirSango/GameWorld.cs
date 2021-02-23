@@ -1,3 +1,5 @@
+using FirCommon.Define;
+using FirCommon.Utility;
 using FirServer;
 using FirServer.Define;
 using FirServer.Interface;
@@ -6,7 +8,6 @@ using GameLibs.FirSango.Handlers;
 using GameLibs.FirSango.Model;
 using log4net;
 using System;
-using Utility;
 
 namespace GameLibs.FirSango
 {
@@ -78,7 +79,7 @@ namespace GameLibs.FirSango
             handlerMgr.AddHandler(Protocal.Default, new DefaultHandler());
             handlerMgr.AddHandler(Protocal.Connected, new ConnectedHandler());
             handlerMgr.AddHandler(Protocal.Disconnect, new DisconnectHandler());
-            handlerMgr.AddHandler(GameProtocal.ReqLogin, new LoginHandler());
+            handlerMgr.AddHandler(Protocal.ReqLogin, new LoginHandler());
         }
 
         public uint GetGameId() 

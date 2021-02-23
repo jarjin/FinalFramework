@@ -1,8 +1,7 @@
-﻿using FirServer.Model;
-using FirServer.Utility;
+﻿using FirCommon.Utility;
+using FirServer.Model;
 using GameLibs.FirSango.Defines;
 using MongoDB.Bson.Serialization;
-using Utility;
 
 namespace GameLibs.FirSango.Model
 {

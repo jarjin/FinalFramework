@@ -10,6 +10,9 @@ FirClient： Unity 2019.4.20f1 (64-bit) + Visual Studio 2019
 FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
 FirToolkit: Visual Studio 2019 
 
+#### 2021.02.23 更新日志：
+（1）开源多端共享工程FirCommon，公共定义都放此工程。
+
 #### 2021.02.20 更新日志：
 （1）升级打表工具TableTool V2。
 （2）升级剧情编辑器StoryEditor V2。 

@@ -6,6 +6,8 @@ using FirServer;
 using GameLibs.FirSango.Defines;
 using GameLibs.FirSango.Model;
 using PbUser;
+using FirCommon.Utility;
+using FirCommon.Define;
 
 namespace GameLibs.FirSango.Handlers
 {
@@ -22,7 +24,7 @@ namespace GameLibs.FirSango.Handlers
             var userModel = modelMgr.GetModel(ModelNames.User) as UserModel;
             if (userModel != null)
             {
-                var uid = Utility.AppUtil.NewGuidId();
+                var uid = AppUtil.NewGuidId();
                 //var uid = userModel.ExistUser(person.Name, person.Pass);
                 resData.Result = PbCommon.ResultCode.Success;
                 resData.Userinfo = new PbCommon.UserInfo()
@@ -32,7 +34,7 @@ namespace GameLibs.FirSango.Handlers
                     Userid = uid.ToString(),
                 };
             }
-            netMgr.SendData(peer, ProtoType.LuaProtoMsg, GameProtocal.ResLogin, resData);
+            netMgr.SendData(peer, ProtoType.LuaProtoMsg, Protocal.ResLogin, resData);
 
             logger.Info(person.Name + " " + person.Pass);
         }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Security;
+using FirCommon.Utility;
 using FirServer;
 using FirServer.Manager;
 using GameLibs.FirSango.Interface;
 using log4net;
-using Utility;
 
 namespace GameLibs.FirSango.Managers
 {

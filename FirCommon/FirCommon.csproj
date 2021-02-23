@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+	  <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+	  <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	  <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+	 <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataBase\**" />
+    <EmbeddedResource Remove="DataBase\**" />
+    <None Remove="DataBase\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Define\CommonEnum.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+	<Folder Include="Mono.Xml\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Define\CommonEnum.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>Libraries\Protobuf\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Libraries\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetPath) $(SolutionDir)..\&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirServer\Libraries&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirClient\Assets\Plugins&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirToolkit\Libraries&#xD;&#xA;&#xD;&#xA;copy $(ProjectDir)Define\CommonEnum.cs $(SolutionDir)..\FirClient\Assets\Scripts\Data&#xD;&#xA;copy $(ProjectDir)Define\CommonEnum.cs $(SolutionDir)..\FirServer\FirSango\Data&#xD;&#xA;" />
+  </Target>
+
+</Project>

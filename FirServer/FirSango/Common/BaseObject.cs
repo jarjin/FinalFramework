@@ -1,5 +1,5 @@
-﻿using System;
-using Utility;
+﻿using FirCommon.Utility;
+using System;
 
 public abstract class BaseObject
 {

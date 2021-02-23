@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="FirCommon">
+      <HintPath>..\Libraries\FirCommon.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\..\..\firsango\FirServer\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
     </Reference>
