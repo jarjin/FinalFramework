@@ -13,6 +13,7 @@ namespace TableTool
 
     public enum TableFormat
     {
+        None = -1,
         CSharp = 0,
         Lua = 1,
     }

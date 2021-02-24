@@ -93,15 +93,35 @@ namespace TableTool
                 var tableName = row.Cells["Column1"].Value.ToString();
                 if (e.ColumnIndex == 2)
                 {
-                    row.Cells["Column3"].Value = true;
+                    var v = (bool)row.Cells["Column3"].Value;
+                    row.Cells["Column3"].Value = !v;
                     row.Cells["Column4"].Value = false;
-                    temps[tableName].format = TableFormat.CSharp;
+
+                    temps[tableName].format = TableFormat.None;
+                    if ((bool)row.Cells["Column3"].Value)
+                    {
+                        temps[tableName].format = TableFormat.CSharp;
+                    }
+                    else if ((bool)row.Cells["Column4"].Value)
+                    {
+                        temps[tableName].format = TableFormat.Lua;
+                    }
                 }
                 else if (e.ColumnIndex == 3)
                 {
+                    var v = (bool)row.Cells["Column4"].Value;
                     row.Cells["Column3"].Value = false;
-                    row.Cells["Column4"].Value = true;
-                    temps[tableName].format = TableFormat.Lua;
+                    row.Cells["Column4"].Value = !v;
+
+                    temps[tableName].format = TableFormat.None;
+                    if ((bool)row.Cells["Column3"].Value)
+                    {
+                        temps[tableName].format = TableFormat.CSharp;
+                    }
+                    else if ((bool)row.Cells["Column4"].Value)
+                    {
+                        temps[tableName].format = TableFormat.Lua;
+                    }
                 }
                 else if (e.ColumnIndex == 4)
                 {
