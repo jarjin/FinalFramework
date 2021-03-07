@@ -78,7 +78,7 @@ namespace FirClient.Manager
         {
             if (audio.clip != null)
             {
-                if (name.IndexOf(audio.clip.name) > -1)
+                if (name == audio.clip.name)
                 {
                     if (!canPlay)
                     {
@@ -91,9 +91,10 @@ namespace FirClient.Manager
             }
             if (canPlay)
             {
-                audio.loop = true;
-                LoadAudioClip(name, delegate(AudioClip clip){
+                LoadAudioClip(name, delegate(AudioClip clip)
+                {
                     audio.clip = clip;
+                    audio.loop = true;
                     audio.Play();
                 });
             }
