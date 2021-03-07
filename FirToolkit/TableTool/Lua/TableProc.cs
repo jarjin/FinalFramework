@@ -78,7 +78,7 @@ namespace TableTool
                             case "float":
                             case "long":
                             case "bool":
-                                objValue += prop + " = " + value + ", ";
+                                objValue += prop + " = " + value.ToLower() + ", ";
                                 break;
                             case "string":
                                 objValue += prop + " = '" + value + "', ";
