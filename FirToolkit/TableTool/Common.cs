@@ -165,6 +165,18 @@ namespace TableTool
             return c;
         }
 
+        public static uint[] ToUIntArray(this string input, char splitChar)
+        {
+            if (string.IsNullOrEmpty(input)) return null;
+            string[] strs = input.Split(splitChar);
+            uint[] c = new uint[strs.Length];
+            for (int i = 0; i < strs.Length; i++)
+            {
+                c[i] = uint.Parse(strs[i]);
+            }
+            return c;
+        }
+
         public static float[] ToFloatArray(this string input, char splitChar)
         {
             if (string.IsNullOrEmpty(input)) return null;

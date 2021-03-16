@@ -107,6 +107,7 @@ namespace TableTool
                                 objValue += prop + " = " + value.ToLuaStringArray(splitChar) + ", ";
                                 break;
                             case "int[]":
+                            case "uint[]":
                             case "float[]":
                             case "long[]":
                                 splitChar = char.Parse(extraParam.Trim());

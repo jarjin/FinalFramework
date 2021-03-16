@@ -294,6 +294,10 @@ namespace TableTool
                                 splitChar = char.Parse(extraParam.Trim());
                                 objValue = value.ToIntArray(splitChar);
                                 break;
+                            case "uint[]":
+                                splitChar = char.Parse(extraParam.Trim());
+                                objValue = value.ToUIntArray(splitChar);
+                                break;
                             case "float[]":
                                 splitChar = char.Parse(extraParam.Trim());
                                 objValue = value.ToFloatArray(splitChar);
