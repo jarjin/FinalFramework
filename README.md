@@ -10,6 +10,13 @@ FirClient： Unity 2019.4.20f1 (64-bit) + Visual Studio 2019
 FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
 FirToolkit: Visual Studio 2019 
 
+#### 框架工作流使用介绍：
+（1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录）
+（2）在FirCommon添加Protocal协议。
+（3）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器目录）
+（3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器）
+（4）在前端lua添加MsgHandler，Module，Manager，就可以接入UIView逻辑了。
+
 #### 2021.02.23 更新日志：
 （1）开源多端共享工程FirCommon，公共定义都放此工程。
 
