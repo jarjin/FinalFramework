@@ -1,18 +1,27 @@
-local middleclass = require "3rd/middleclass"
+local middleclass = require "3rd.middleclass"
+
+function _G.formatLog(...)
+	local msgs = {...}
+	local strs = ''
+	for i = 1, #msgs do
+		strs = strs..tostring(msgs[i])..' '
+	end
+	return strs
+end
 
 --输出日志--
-function _G.log(str)
-    UnityEngine.Debug.Log(str)
+function _G.log(...)
+    UnityEngine.Debug.Log(formatLog(...))
 end
 
 --错误日志--
-function _G.logError(str) 
-	UnityEngine.Debug.LogError(str)
+function _G.logError(...) 
+	UnityEngine.Debug.LogError(formatLog(...))
 end
 
 --警告日志--
-function _G.logWarn(str) 
-	UnityEngine.Debug.LogWarning(str)
+function _G.logWarn(...) 
+	UnityEngine.Debug.LogWarning(formatLog(...))
 end
 
 --查找对象--
