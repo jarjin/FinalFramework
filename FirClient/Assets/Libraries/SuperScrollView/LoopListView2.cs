@@ -204,6 +204,7 @@ namespace SuperScrollView
         int mItemTotalCount = 0;
         bool mIsVertList = false;
         System.Func<LoopListView2, int, LoopListViewItem2> mOnGetItemByIndex;
+        Action<LoopListViewItem2> onResetItemByIndex;
         Vector3[] mItemWorldCorners = new Vector3[4];
         Vector3[] mViewPortRectLocalCorners = new Vector3[4];
         int mCurReadyMinItemIndex = 0;
@@ -418,6 +419,13 @@ namespace SuperScrollView
             mListViewInited = true;
             ResetListView();
             SetListItemCount(itemTotalCount, true);
+        }
+
+        public void ResetListView(Action<LoopListViewItem2> onReset)
+        {
+            onResetItemByIndex = onReset;
+            SetListItemCount(0, true);
+            onResetItemByIndex = null;
         }
 
         void SetScrollbarListener()
@@ -948,6 +956,10 @@ namespace SuperScrollView
         {
             foreach (LoopListViewItem2 item in mItemList)
             {
+                if (onResetItemByIndex != null)
+                {
+                    onResetItemByIndex(item);
+                }
                 RecycleItemTmp(item);
             }
             mItemList.Clear();

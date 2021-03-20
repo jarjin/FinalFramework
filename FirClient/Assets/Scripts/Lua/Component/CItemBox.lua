@@ -86,6 +86,12 @@ function CItemBox:GetItemAtlasName(resType)
     return nil
 end
 
+function CItemBox:ResetItem()
+    self.count.text = ''
+    self.imgIcon.sprite = nil
+    self.imgQuality.sprite = nil
+    self.imgState.sprite = nil
+end
 function CItemBox:Dispose()
     self.imgIcon = nil
     self.imgQuality = nil

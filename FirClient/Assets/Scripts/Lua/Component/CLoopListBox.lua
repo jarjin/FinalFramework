@@ -52,6 +52,11 @@ function CLoopListBox:OnGetItemByIndex(index)
     return nil
 end
 
+function CLoopListBox:ResetListView(target, func)
+    if self.mLoopListView ~= nil then
+        self.mLoopListView:ResetListView(target, func)
+    end
+end
 function CLoopListBox:Dispose()
     self.target = nil
     self.onUpdateItem = nil
