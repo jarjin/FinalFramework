@@ -1,6 +1,4 @@
 ﻿using log4net;
-using FirServer.Define;
-using LiteNetLib;
 using FirServer.Handler;
 using FirServer;
 using GameLibs.FirSango.Defines;
@@ -8,6 +6,7 @@ using GameLibs.FirSango.Model;
 using PbUser;
 using FirCommon.Utility;
 using FirCommon.Define;
+using FirCommon.Data;
 
 namespace GameLibs.FirSango.Handlers
 {
@@ -15,7 +14,7 @@ namespace GameLibs.FirSango.Handlers
     {
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(LoginHandler));
 
-        public override void OnMessage(NetPeer peer, byte[] bytes)
+        public override void OnMessage(ClientPeer peer, byte[] bytes)
         {
             var person = ReqLogin.Parser.ParseFrom(bytes);
 

@@ -1,12 +1,11 @@
-﻿using LiteNetLib;
+﻿using FirCommon.Data;
 
 namespace FirServer.Handler
 {
     class DefaultHandler : BaseHandler
     {
-        public override void OnMessage(NetPeer peer, byte[] bytes)
+        public override void OnMessage(ClientPeer peer, byte[] bytes)
         {
-            //netMgr.DeSerialize<T>(bytes);
         }
     }
 }

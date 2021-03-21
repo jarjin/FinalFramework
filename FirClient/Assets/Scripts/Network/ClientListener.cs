@@ -61,7 +61,7 @@ namespace FirClient.Network
         {
             if (netMgr != null)
             {
-                netMgr.OnConnected(peer, disconnectInfo.Reason.ToString());
+                netMgr.OnDisconnected(peer, disconnectInfo.Reason.ToString());
             }
             Debug.Log("[CLIENT] We disconnected because " + disconnectInfo.Reason);
         }

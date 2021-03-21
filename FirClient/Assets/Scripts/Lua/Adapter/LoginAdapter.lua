@@ -16,7 +16,7 @@ function LoginAdapter:ConnectServer()
 	if self.netMgr ~= nil then
 		local ip = AppConst.SocketAddress
 		local port = tointeger(AppConst.SocketPort)
-		self.netMgr:Connect(ip, port, self, self.OnConnectOK)
+		self.netMgr:Connect(ip, port, self, self.OnConnectOK, self.OnDisconnected)
 	end
 end
 
@@ -34,6 +34,10 @@ function LoginAdapter:OnConnectOK(disReason)
 	else
 		logWarn("OnConnectOK---->>>")
 	end
+end
+
+function LoginAdapter:OnDisconnected(disReason)
+	logError('server disconnected!!! reason:', disReason)
 end
 
 function LoginAdapter:OnLeaveLevel(execOK)

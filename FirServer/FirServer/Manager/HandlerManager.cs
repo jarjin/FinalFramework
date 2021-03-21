@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using log4net;
-using FirServer.Handler;
 using FirServer.Interface;
-using FirServer.Define;
 using LiteNetLib;
 using System;
 using FirCommon.Define;
@@ -14,9 +12,6 @@ namespace FirServer.Manager
         static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(HandlerManager));
         Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>();
 
-        /// <summary>
-        /// 初始化消息处理器映射
-        /// </summary>
         public override void Initialize()
         {
         }
@@ -78,7 +73,8 @@ namespace FirServer.Manager
                 {
                     if (handler != null)
                     {
-                        handler.OnMessage(peer, bytes);
+                        var clientPeer = clientPeerMgr.GetClientPeer(peer);
+                        handler.OnMessage(clientPeer, bytes);
                     }
                 }
                 catch (Exception ex)

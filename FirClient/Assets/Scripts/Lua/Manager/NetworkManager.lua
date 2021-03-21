@@ -81,9 +81,9 @@ function NetworkManager:OnReceived(name, bytes)
     end
 end
 
-function NetworkManager:Connect(ip, port, caller, func)
+function NetworkManager:Connect(ip, port, caller, onConnected, onDisconnected)
     if self.socket then
-        self.socket:Connect(ip, port, caller, func)
+        self.socket:Connect(ip, port, caller, onConnected, onConnected)
         log("Connect Server [ip]:"..ip.." [port]:"..port)
     end
 end

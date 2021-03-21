@@ -23,7 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libraries\LiteNetLib\LiteNetLib.csproj" />
-    <ProjectReference Include="..\Libraries\Mono.Xml\Mono.Xml.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FirCommon">

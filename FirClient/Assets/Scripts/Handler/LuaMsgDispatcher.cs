@@ -1,17 +1,12 @@
 using FirClient.Utility;
-using LiteNetLib;
-using LiteNetLib.Utils;
 using LuaInterface;
 
 namespace FirClient.Manager
 {
     internal class LuaMsgDispatcher : BaseDispatcher
     {
-        public override void OnMessage(NetPeer peer, NetDataReader reader)
+        public override void OnMessage(string protoName, byte[] bytes)
         {
-            byte[] bytes = null;
-            string protoName = null;
-            ParseProtoBytes(reader, ref protoName, ref bytes);
             if (bytes != null)
             {
                 var buffer = new LuaByteBuffer(bytes);

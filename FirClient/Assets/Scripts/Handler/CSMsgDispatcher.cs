@@ -1,7 +1,5 @@
-using FirClient.Define;
 using FirClient.Handler;
-using LiteNetLib;
-using LiteNetLib.Utils;
+using FirCommon.Define;
 using System.Collections.Generic;
 
 namespace FirClient.Manager
@@ -13,14 +11,9 @@ namespace FirClient.Manager
             { Protocal.Default, new DefaultHandler() },
         };
 
-        public override void OnMessage(NetPeer peer, NetDataReader reader)
+        public override void OnMessage(string protoName, byte[] bytes)
         {
-            byte[] bytes = null;
-            string protoName = null;
-            ParseProtoBytes(reader, ref protoName, ref bytes);
-
-            BaseHandler handler = null;
-            if (mHandlers.TryGetValue(protoName, out handler))
+            if (mHandlers.TryGetValue(protoName, out BaseHandler handler))
             {
                 if (handler != null)
                 {
