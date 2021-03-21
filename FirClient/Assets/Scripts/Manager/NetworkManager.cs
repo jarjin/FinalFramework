@@ -13,7 +13,8 @@ namespace FirClient.Manager
     struct ConnectParam
     {
         public LuaTable luaClass;
-        public LuaFunction callFunc;
+        public LuaFunction connFunc;
+        public LuaFunction disconnFunc;
     }
 
     public partial class NetworkManager : BaseManager
@@ -56,10 +57,11 @@ namespace FirClient.Manager
             }
         }
 
-        public void Connect(string addr, int port, LuaTable luaClass, LuaFunction connectOK)
+        public void Connect(string addr, int port, LuaTable luaClass, LuaFunction connectOK, LuaFunction disconnFunc)
         {
             connParams.luaClass = luaClass;
-            connParams.callFunc = connectOK;
+            connParams.connFunc = connectOK;
+            connParams.disconnFunc = disconnFunc;
 
             mClient.Connect(addr, port, AppConst.AppName);
             Debug.LogWarning("Connect Server Address:" + addr + " Port:" + port);
@@ -68,16 +70,16 @@ namespace FirClient.Manager
         [NoToLua]
         public void OnConnected(NetPeer peer, string disReason = null)
         {
-            if (connParams.callFunc != null)
+            if (connParams.connFunc != null)
             {
                 var self = connParams.luaClass;
-                connParams.callFunc.Call(self, disReason);
+                connParams.connFunc.Call(self, disReason);
 
-                connParams.luaClass.Dispose();
-                connParams.luaClass = null;
+                //connParams.luaClass.Dispose();
+                //connParams.luaClass = null;
 
-                connParams.callFunc.Dispose();
-                connParams.callFunc = null;
+                connParams.connFunc.Dispose();
+                connParams.connFunc = null;
             }
         }
 
@@ -120,14 +122,33 @@ namespace FirClient.Manager
         [NoToLua]
         public void OnReceived(NetPeer peer, NetDataReader reader)
         {
-            BaseDispatcher dispatcher = null;
             var key = reader.GetByte();
-            if (mDispatchers.TryGetValue(key, out dispatcher))
+            if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
             {
                 if (dispatcher != null)
                 {
-                    dispatcher.OnMessage(peer, reader);
+                    var protoName = reader.GetString();
+                    var count = reader.GetInt();
+                    var bytes = new byte[count];
+                    reader.GetBytes(bytes, count);
+                    dispatcher.OnMessage(protoName, bytes);
                 }
+            }
+        }
+
+        [NoToLua]
+        public void OnDisconnected(NetPeer peer, string disReason)
+        {
+            if (connParams.connFunc != null)
+            {
+                var self = connParams.luaClass;
+                connParams.disconnFunc.Call(self, disReason);
+
+                connParams.luaClass.Dispose();
+                connParams.luaClass = null;
+
+                connParams.disconnFunc.Dispose();
+                connParams.disconnFunc = null;
             }
         }
 

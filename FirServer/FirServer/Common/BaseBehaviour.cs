@@ -108,5 +108,18 @@ namespace FirServer
                 return _handlerMgr;
             }
         }
+
+        private static ClientPeerManager _clientPeerMgr = null;
+        protected static ClientPeerManager clientPeerMgr
+        {
+            get
+            {
+                if (_clientPeerMgr == null)
+                {
+                    _clientPeerMgr = ManagementCenter.GetManager<ClientPeerManager>();
+                }
+                return _clientPeerMgr;
+            }
+        }
     }
 }

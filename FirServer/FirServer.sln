@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirServer", "FirServer\FirS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirSango", "FirSango\FirSango.csproj", "{1CCD87BF-3A04-4175-9198-EA1734ED0001}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiteNetLib", "Libraries\LiteNetLib\LiteNetLib.csproj", "{AF53701E-27F1-49E8-9511-1C4AD836622A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mono.Xml", "Libraries\Mono.Xml\Mono.Xml.csproj", "{E4B95495-61E4-4BA1-9564-2FF3E9127007}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{1CCD87BF-3A04-4175-9198-EA1734ED0001}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CCD87BF-3A04-4175-9198-EA1734ED0001}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CCD87BF-3A04-4175-9198-EA1734ED0001}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF53701E-27F1-49E8-9511-1C4AD836622A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF53701E-27F1-49E8-9511-1C4AD836622A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF53701E-27F1-49E8-9511-1C4AD836622A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF53701E-27F1-49E8-9511-1C4AD836622A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4B95495-61E4-4BA1-9564-2FF3E9127007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4B95495-61E4-4BA1-9564-2FF3E9127007}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4B95495-61E4-4BA1-9564-2FF3E9127007}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4B95495-61E4-4BA1-9564-2FF3E9127007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

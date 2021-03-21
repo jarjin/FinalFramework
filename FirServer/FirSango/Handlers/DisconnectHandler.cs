@@ -1,6 +1,6 @@
-﻿using FirServer;
+﻿using FirCommon.Data;
+using FirServer;
 using FirServer.Handler;
-using LiteNetLib;
 using log4net;
 
 namespace GameLibs.FirSango.Handlers
@@ -10,7 +10,7 @@ namespace GameLibs.FirSango.Handlers
     {
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(DisconnectHandler));
 
-        public override void OnMessage(NetPeer peer, byte[] bytes)
+        public override void OnMessage(ClientPeer peer, byte[] bytes)
         {
             logger.Warn("connid:>" + peer.Id);
         }

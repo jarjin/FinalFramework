@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LiteNetLib;
+using System;
 using System.IO;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -128,6 +130,26 @@ namespace FirCommon.Data
             {
                 return serializer.Deserialize(loadFile) as T;
             }
+        }
+    }
+
+    public class ClientPeer
+    {
+        public NetPeer peer;
+
+        public int Id
+        {
+            get { return peer.Id; }
+        }
+
+        public IPEndPoint EndPoint
+        {
+            get { return peer.EndPoint; }
+        }
+
+        public ClientPeer(NetPeer peer)
+        {
+            this.peer = peer; 
         }
     }
 }

@@ -1,7 +1,6 @@
 using FirCommon.Define;
 using FirCommon.Utility;
 using FirServer;
-using FirServer.Define;
 using FirServer.Interface;
 using GameLibs.FirSango.Defines;
 using GameLibs.FirSango.Handlers;

@@ -24,6 +24,7 @@ namespace FirServer.Common
             AddManager<HandlerManager>();
             AddManager<NetworkManager>();
             AddManager<WorldManager>();
+            AddManager<ClientPeerManager>();
 
             var mgrCount = mManagers.Count;
             var currMgrs = new List<IManager>(mManagers.Values);

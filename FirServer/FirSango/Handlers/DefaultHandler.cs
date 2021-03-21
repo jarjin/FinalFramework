@@ -1,6 +1,6 @@
-﻿using FirServer;
+﻿using FirCommon.Data;
+using FirServer;
 using FirServer.Handler;
-using LiteNetLib;
 using log4net;
 using System;
 
@@ -10,7 +10,7 @@ namespace GameLibs.FirSango.Handlers
     {
         private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(DefaultHandler));
 
-        public override void OnMessage(NetPeer peer, byte[] bytes)
+        public override void OnMessage(ClientPeer peer, byte[] bytes)
         {
             throw new NotImplementedException();
         }
