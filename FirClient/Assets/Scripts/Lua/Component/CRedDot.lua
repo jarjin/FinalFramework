@@ -1,4 +1,3 @@
-
 --红点view
 local CRedDot = class("CRedDot")
 
@@ -8,25 +7,26 @@ function CRedDot:ctor(compContainer)
 	self._keyMap 		= {}
 	self._rejectMap 	= {} 								--排斥的key，当排斥key的isActive为true时，就隐藏，而不管keyMap中的key是否显示
 	self._redDotCount 	= 0 								--记录当前关联的且显示的红点有多少个 
-	self._redDotNumNode = goutil.findChildTextComponent(compContainer.gameObject, "num")
+	self._redDotNumNode = false								--数字节点
+	
 end
 
 --注意这里不要自己使用RED_DOT_VIEW_EVENT事件，而应该使用RED_DOT_UPDATE_EVENT事件去驱动它
 function CRedDot:Awake( )
-	GlobalDispatcher:addListener(EventType.RED_DOT_VIEW_EVENT, self.OnEvent, self)
-	GlobalDispatcher:addListener(EventType.RED_DOT_RESET, self.OnReset, self)
+	Event.AddListener(EventType.RED_DOT_VIEW_EVENT, handler(self.OnEvent, self))
+	Event.AddListener(EventType.RED_DOT_CLEAR_EVENT, handler(self.OnClear, self))
 end
 
 function CRedDot:OnDestroy()
-	GlobalDispatcher:removeListener(EventType.RED_DOT_VIEW_EVENT, self.OnEvent, self)
-	GlobalDispatcher:removeListener(EventType.RED_DOT_RESET, self.OnReset, self)
+	Event.RemoveListener(EventType.RED_DOT_VIEW_EVENT, handler(self.OnEvent, self))
+	Event.RemoveListener(EventType.RED_DOT_CLEAR_EVENT, handler(self.OnClear, self))
 end
 
 function CRedDot:SetViewNode(viewNode)
 	self._viewNode 	= viewNode
 end
 
-function CRedDot:OnReset()
+function CRedDot:OnClear()
 	self._redDotCount = 0
 	self:SetActive(false)
 end
@@ -35,7 +35,7 @@ function CRedDot:OnEvent(redDotData)
 	if redDotData then
 		local isUpdate = false
 		if redDotData.parentKey and self._keyMap[redDotData.parentKey] then
-			--父类的节点有变化时，才会更新,否则计数器就不准确,parentKey的作用，见RedDotHelper中的说明
+			--父类的节点有变化时，才会更新,否则计数器就不准确,parentKey的作用，见redDotMgr中的说明
 			isUpdate = true
 		else
 			isUpdate = self._keyMap[redDotData.key]
@@ -50,7 +50,7 @@ function CRedDot:OnEvent(redDotData)
 end
 
 function CRedDot:SetActive(isActive)
-	goutil.setActive(self._viewNode, isActive)
+	self._viewNode:SetActive(isActive)
 	if isActive and self._redDotNumNode then
 		self._redDotNumNode.text = self._redDotCount
 	end
@@ -66,8 +66,9 @@ end
 
 function CRedDot:UpdateDotView()
 	local isRejectActive= false
+	local redDotMgr 		=  MgrCenter:GetManager(ManagerNames.RedDot)
 	for k, v in pairs(self._rejectMap) do
-		isRejectActive 	= RedDotHelper.instance:getDotIsActive(k)
+		isRejectActive 	= redDotMgr:GetDotIsActive(k)
         if isRejectActive then
         	break
         end
@@ -91,18 +92,19 @@ function CRedDot:UpdateKeyMap(keyList, parentKeyList, rejectKeyList)
 end
 
 -- rejectKeyList排斥的key
--- parentKeyList用法建RedDotHelper
+-- parentKeyList用法建redDotMgr
 function CRedDot:UpdateRedDot(keyList, parentKeyList, rejectKeyList)
-    if keyList or parentKeyList then self:UpdateKeyMap(keyList, parentKeyList, rejectKeyList) end
+	if keyList or parentKeyList then self:UpdateKeyMap(keyList, parentKeyList, rejectKeyList) end
+	local redDotMgr 		=  MgrCenter:GetManager(ManagerNames.RedDot)
     for k, v in pairs(keyList or {}) do
 
-    	if RedDotHelper.instance:getDotIsActive(v) then
+    	if redDotMgr:GetDotIsActive(v) then
     		self:DealRedDotCount(1)
     	end
     end
     local isFlag, num = false, 0
     for k, v in pairs(parentKeyList or {}) do
-    	isFlag, num = RedDotHelper.instance:getDotIsActiveByParentKey(v, self._redDotNumNode)
+    	isFlag, num = redDotMgr:GetDotIsActiveByParentKey(v, self._redDotNumNode)
     	if isFlag then
         	self:DealRedDotCount(num)
     	end

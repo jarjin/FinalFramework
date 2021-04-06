@@ -5,6 +5,7 @@ function CtrlManager:Initialize()
 	--lua controller--
 	self:AddCtrl(CtrlNames.GMCmd, require "Controller.GMCmdCtrl")
 	self:AddCtrl(CtrlNames.Preload, require "Controller.PreloadCtrl")
+	self:AddCtrl(CtrlNames.RedDot, require "Controller.RedDotController")
 	
 	--ui controller--
 	self:AddCtrl(UiNames.Main, require "UIController.UIMainCtrl")
@@ -18,7 +19,6 @@ function CtrlManager:Initialize()
 	self:AddCtrl(UiNames.ItemTips, require "UIController.UIItemTipsCtrl")
 	self:AddCtrl(UiNames.Bag, require "UIController.UIBagCtrl")
 	self:AddCtrl(UiNames.ChooseActor, require "UIController.UIChooseActorCtrl")
-
 	logWarn('CtrlManager:InitializeOK...')
 end
 

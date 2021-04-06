@@ -209,3 +209,9 @@ function table.deepcopy(orig)
 	end
 	return deep_copy(orig)
 end
+
+function _G.handler(method, obj)
+	return function(...)
+		return method(obj, ...)
+	end
+end

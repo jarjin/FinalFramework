@@ -14,6 +14,8 @@ function Main.Initialize(initOK)
 	Main.InitHudRes()
 	Main.InitPreloadUI()
 	Main.InitPreloadAsset(initOK)
+	Main.InitRedDotCtrl()
+	
 end
 
 --初始化预加载UI--
@@ -97,6 +99,14 @@ function Main.InitPreloadAsset(initOK)
 	local preloadCtrl = ctrlMgr:GetCtrl(CtrlNames.Preload)
 	if preloadCtrl ~= nil then
 		preloadCtrl:Initialize(initOK)
+	end
+end
+
+-- 红点ctrl
+function Main.InitRedDotCtrl()
+	local redDotCtrl = ctrlMgr:GetCtrl(CtrlNames.RedDot)
+	if redDotCtrl ~= nil then
+		redDotCtrl:Initialize()
 	end
 end
 
