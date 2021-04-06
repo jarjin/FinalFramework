@@ -1,4 +1,4 @@
-local M = class("RedDotManager")
+local RedDotManager = class("RedDotManager")
 
 function RedDotManager:Initialize()
 	self._cacheData 		= {} 	--缓存红点数据
@@ -17,7 +17,7 @@ end
 -- 设置红点是否激活了
 function RedDotManager:SetDotIsActivite(valueData)
 	if "table" == type(valueData) then
-		local info 			= self:getRedDotInfo(valueData.key)
+		local info 			= self:GetRedDotInfo(valueData.key)
 		info.isActive 		= valueData.isActive
 		info.parentKey 		= valueData.parentKey
 	end
@@ -25,10 +25,11 @@ end
 
 --红点是否激活了
 function RedDotManager:GetDotIsActive(key)
-	local info 			= self:getRedDotInfo(key)
+	local info 			= self:GetRedDotInfo(key)
 	return info.isActive
 end
---通过父类key获取
+
+--通过父类key获取,是否有红点
 function RedDotManager:GetDotIsActiveByParentKey(parentKey, isNum)
 	local num 		= 0
 	if parentKey then
@@ -50,8 +51,6 @@ function RedDotManager:GetDotIsActiveByParentKey(parentKey, isNum)
 	return 0 ~= num, num
 end
 
-
-
 --[[
 prefabPath  	红点的prefab路径，必须是已经加载好的，默认使用红点
 dotNode 		挂在到哪个节点上
@@ -60,7 +59,6 @@ rejectKeyList 	该红点与哪些红点互斥，互斥的红点有显示的话�
 parentKeyList 	这里的是为了处理类似背包，有很多的cell情况，这样依赖cell红点的其他元素，只需要添加parentKey就行,其他情况基本不需要这个值
 --]]
 function RedDotManager:CreateDotView(data)
-	-- local objPrefabBeh 	= false
 	if data then
 		local resPath 	= data.prefabPath or "" 
 		local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
@@ -68,25 +66,18 @@ function RedDotManager:CreateDotView(data)
 		resMgr:LoadAssetAsync(resPath, {"RedDot"}, typeof(GameObject), function(objs) 
 			if objs ~= nil and objs[0] ~= nil then
 				local redDotObj = componentMgr:AddComponent(ComponentNames.RedDot, objs[0])
-				redDotObj:setViewNode(data.dotNode)
+				redDotObj:SetViewNode(data.dotNode)
 				redDotObj:Awake()
-				redDotObj:updateRedDot(data.keyList, data.parentKeyList, data.rejectKeyList)
+				redDotObj:UpdateRedDot(data.keyList, data.parentKeyList, data.rejectKeyList)
 			end
 		end)
-		 
-		-- local resPath 	= data.prefabPath or CommonResPath.Url_RedDotPrefab 
-		-- local objPrefab = goutil.clone(CommonPreloader.instance:getAsset(resPath))
-		-- objPrefabBeh = Framework.LuaComponentContainer.Add(objPrefab, RedDotComponent)
-	    -- objPrefabBeh:setViewNode(data.dotNode)
-	    -- goutil.addChildToParent(objPrefab, data.dotNode)
-	    -- objPrefabBeh:updateRedDot(data.keyList, data.parentKeyList, data.rejectKeyList)
 	end
-	-- return objPrefabBeh
+	-- return redDotObj
 end
 
 -- 供外部修改key
 function RedDotManager:UpdateRedDotKey(obj, keyList, parentKeyList, rejectKeyList)
-	if obj then obj:updateRedDot(keyList, parentKeyList, rejectKeyList) end
+	if obj then obj:UpdateRedDot(keyList, parentKeyList, rejectKeyList) end
 end
 
 function RedDotManager:Clear()
