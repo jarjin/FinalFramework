@@ -1,7 +1,7 @@
 # FinalFramework
 
 #### 开发目标
-FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、WebServer（HTTP埋点，管理后台，通过后台管理Jenkins打包版本）、多端定义共享功能来方便开发者。
+FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、WebServer（HTTP埋点，管理后台，通过后台管理Jenkins打包版本）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
 
 ![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
 
