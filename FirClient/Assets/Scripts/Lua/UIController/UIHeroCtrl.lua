@@ -12,11 +12,8 @@ function UIHeroCtrl:Awake()
 end
 
 --启动事件--
-function UIHeroCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIHeroCtrl:OnCreateOK()
 	self:SetUiLayout()		--设置UI布局--
-
 	local scrollView = self.gameObject.transform:Find("ScrollViewRoot")
 	if not isnil(scrollView) then
 		local totalCount = self.heroModule:GetDataListSize()
@@ -54,7 +51,6 @@ end
 
 --关闭事件--
 function UIHeroCtrl:Close()
-	self:Dispose()
 	self.panelMgr:ClosePanel(UiNames.Skill)
 end
 

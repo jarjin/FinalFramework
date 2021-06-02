@@ -39,6 +39,12 @@ function Main.OnInitOK()
 
 	local colorItem = getGlobalItemByKey("CommonWhite")
     logWarn('Main.OnInitOK--->>>'..colorItem.value)
+
+	AddEvent('main.eventtest', function (...)
+		logWarn(...)
+	end)
+	FireEvent('main.eventtest', 100, 'testEvent')
+	RemoveEvent('main.eventtest')
 end
 
 --初始化UI视图--

@@ -11,14 +11,13 @@ function UILoginCtrl:Awake()
 end
 
 --启动事件--
-function UILoginCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UILoginCtrl:OnCreateOK()
+	self:RegEvents()
 	local adapterMgr = MgrCenter:GetManager(ManagerNames.Adapter)
 	self.loginCtrl = adapterMgr:GetAdapter(LevelType.Login)
 
-	behaviour:AddClick(self.btn_Start, self, self.OnStartClick)
-	behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
+	self.behaviour:AddClick(self.btn_Start, self, self.OnStartClick)
+	self.behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
 
 	local rect = self.gameObject:GetComponent('RectTransform')
 	if rect ~= nil then
@@ -32,6 +31,21 @@ function UILoginCtrl:OnCreateOK(behaviour)
 	PlayerPrefs.DeleteKey("roleid")
 	self:CheckExistCharacter()
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
+end
+
+function UILoginCtrl:RegEvents()
+	AddEvent("login.onRefreshUI", function (...)
+		local argv = {...}
+		self:OnRefreshLoginOK(argv[1]) 
+	end)
+end
+
+function UILoginCtrl:UnregEvents()
+	RemoveEvent("backpack.onRefreshUI")
+end
+
+function UILoginCtrl:OnRefreshLoginOK(argv)
+	log('OnRefreshLoginOK')
 end
 
 function UILoginCtrl:CheckExistCharacter()
@@ -84,7 +98,6 @@ end
 
 --关闭事件--
 function UILoginCtrl:Close()
-	self:Dispose()
 	self.panelMgr:ClosePanel(UiNames.Login)
 end
 

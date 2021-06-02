@@ -24,13 +24,11 @@ function UIMainCtrl:Awake()
 end
 
 --启动事件--
-function UIMainCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIMainCtrl:OnCreateOK()
 	local bottom = self.gameObject.transform:Find("Bottom")
 	for i = 0, bottom.childCount - 1 do 
 		local button = bottom:GetChild(i):GetComponent("Button")
-		behaviour:AddClick(button, self, self.OnClick)
+		self.behaviour:AddClick(button, self, self.OnClick)
 	end
 
 	local rect = self.gameObject:GetComponent('RectTransform')
@@ -72,7 +70,6 @@ end
 
 --关闭事件--
 function UIMainCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.Main)
 end
 

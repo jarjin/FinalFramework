@@ -10,9 +10,7 @@ function UITipsCtrl:Awake()
 end
 
 --启动事件--
-function UITipsCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UITipsCtrl:OnCreateOK()
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
 
@@ -47,7 +45,6 @@ end
 
 --关闭事件--
 function UITipsCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.Tips)
 end
 

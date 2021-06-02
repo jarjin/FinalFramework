@@ -11,10 +11,8 @@ function UIBagCtrl:Awake()
 end
 
 --启动事件--
-function UIBagCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
+function UIBagCtrl:OnCreateOK()
 	self:SetUiLayout()		--设置UI布局--
-	self:InitBase()	--初始化PrefabVar组件--
 	self:InitPanel()
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
@@ -54,7 +52,6 @@ end
 
 --关闭事件--
 function UIBagCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.Bag)
 end
 

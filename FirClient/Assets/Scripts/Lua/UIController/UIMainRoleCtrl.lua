@@ -2,7 +2,6 @@ local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UIMainRoleCtrl = class("UIMainRoleCtrl", UIBaseCtrl)
 
 local loopView = nil
-local uiBehaviour = nil
 local mainRoleModule = nil
 local panelMgr = nil
 
@@ -17,12 +16,8 @@ function UIMainRoleCtrl:Awake()
 end
 
 --启动事件--
-function UIMainRoleCtrl:OnCreateOK(behaviour)
-	uiBehaviour = behaviour
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIMainRoleCtrl:OnCreateOK()
 	self:SetUiLayout()		--设置UI布局--
-
 	local scrollView = self.gameObject.transform:Find("ScrollViewRoot")
 	if not isnil(scrollView) then
 		local count = mainRoleModule:GetDataListSize()
@@ -45,7 +40,7 @@ function UIMainRoleCtrl:SetItemData(index, gameObj)
 	local prefabVar = LuaUtil.GetComponent(gameObj, ComponentNames.ItemPrefabVar)
 
 	local mExpandBtn = prefabVar:TryGetComponent('btn_ExpandButton')
-	uiBehaviour:AddClick(mExpandBtn, self, self.OnExpandClick)
+	self.behaviour:AddClick(mExpandBtn, self, self.OnExpandClick)
 
 	prefabVar:SetValue("index", index)
 
@@ -102,7 +97,6 @@ end
 
 --关闭事件--
 function UIMainRoleCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.MainRole)
 end
 

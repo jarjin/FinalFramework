@@ -22,10 +22,7 @@ function UIBattleCtrl:Awake()
 end
 
 --启动事件--
-function UIBattleCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
-	
+function UIBattleCtrl:OnCreateOK()
 	local loadingUI = self.gameObject.transform:Find("LoadingUI")
 	if loadingUI ~= nil then
 		cavansGroupUI = loadingUI:GetComponent('CanvasGroup')
@@ -41,8 +38,8 @@ function UIBattleCtrl:OnCreateOK(behaviour)
 
 		self:HandleCacheMsg()	--处理缓存消息--
 	end
-	behaviour:AddClick(self.btn_send, self, self.OnBtnSendClick)
-	behaviour:AddEndEdit(self.input_msg, self, self.OnEndEdit)
+	self.behaviour:AddClick(self.btn_send, self, self.OnBtnSendClick)
+	self.behaviour:AddEndEdit(self.input_msg, self, self.OnEndEdit)
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
 
@@ -162,7 +159,6 @@ end
 
 --关闭事件--
 function UIBattleCtrl:Close()
-	self:Dispose()
 	if not isnil(loopView) then
 		loopView:Dispose()
 	end

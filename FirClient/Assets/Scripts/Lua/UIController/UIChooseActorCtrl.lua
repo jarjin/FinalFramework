@@ -13,16 +13,14 @@ function UIChooseActorCtrl:Awake()
 end
 
 --启动事件--
-function UIChooseActorCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
-	behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
-	behaviour:AddToggleClick(self.toggle_master, self, self.OnMasterClick)
-	behaviour:AddToggleClick(self.toggle_ghost, self, self.OnGhostClick)
-	behaviour:AddToggleClick(self.toggle_warrior, self, self.OnWarriorClick)
+function UIChooseActorCtrl:OnCreateOK()
+	self.behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
+	self.behaviour:AddToggleClick(self.toggle_master, self, self.OnMasterClick)
+	self.behaviour:AddToggleClick(self.toggle_ghost, self, self.OnGhostClick)
+	self.behaviour:AddToggleClick(self.toggle_warrior, self, self.OnWarriorClick)
 
-	behaviour:AddToggleClick(self.toggle_man, self, self.OnSexMan)
-	behaviour:AddToggleClick(self.toggle_women, self, self.OnSexWoman)
+	self.behaviour:AddToggleClick(self.toggle_man, self, self.OnSexMan)
+	self.behaviour:AddToggleClick(self.toggle_women, self, self.OnSexWoman)
 
 	self:ShowSelectedRole('warrior')
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
@@ -97,7 +95,6 @@ end
 
 --关闭事件--
 function UIChooseActorCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.ChooseActor)
 	roleSex = nil
 	roleSprites = nil

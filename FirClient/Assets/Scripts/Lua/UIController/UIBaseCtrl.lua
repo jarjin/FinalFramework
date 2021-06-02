@@ -1,10 +1,13 @@
 local UIBaseCtrl = class("UIBaseCtrl")
 UIBaseCtrl.gameObject = nil
 
-local VarType = FirClient.Component.VarType
-local mPrefabVars = nil
-
 function UIBaseCtrl:Awake()
+end
+
+function UIBaseCtrl:InitUI(behaviour)
+	self.behaviour = behaviour
+	self.gameObject = behaviour.gameObject
+	self:InitUIBinder()
 end
 
 function UIBaseCtrl:ShowBottomUI(isShow)
@@ -45,11 +48,12 @@ function UIBaseCtrl:DisableImage(img)
 	end
 end
 
-function UIBaseCtrl:InitPrefabVar()
+function UIBaseCtrl:InitUIBinder()
 	if isnil(self.gameObject) then 
 		return
 	end
-	mPrefabVars = {}
+	self.mPrefabVars = {}
+	local VarType = FirClient.Component.VarType
 	local prefabVar = self.gameObject:GetComponent('CPrefabVar')
 	if not isnil(prefabVar) then
 		local varData = prefabVar:GetVarArray()
@@ -57,7 +61,7 @@ function UIBaseCtrl:InitPrefabVar()
 		while iter:MoveNext() do
 			local varObj = iter.Current
 			if not isnil(varObj) then
-				table.insert(mPrefabVars, varObj.name)
+				table.insert(self.mPrefabVars, varObj.name)
 				--print(self.gameObject.name, varObj.name, varObj.type)
 				if varObj.type == VarType.GameObject then
 					self[varObj.name] = varObj.objValue
@@ -83,21 +87,17 @@ function UIBaseCtrl:InitPrefabVar()
 	end
 end
 
-function UIBaseCtrl:ClearPrefabVar()
-	if mPrefabVars ~= nil then
-		for _, value in ipairs(mPrefabVars) do
+function UIBaseCtrl:ClearUIBinder()
+	if self.mPrefabVars ~= nil then
+		for _, value in ipairs(self.mPrefabVars) do
 			self[value] = nil
 		end
-		mPrefabVars = nil
+		self.mPrefabVars = nil
 	end
 end
 
-function UIBaseCtrl:InitBase()
-	self:InitPrefabVar()
-end
-
 function UIBaseCtrl:Dispose()
-	self:ClearPrefabVar()
+	self:ClearUIBinder()
 end
 
 return UIBaseCtrl

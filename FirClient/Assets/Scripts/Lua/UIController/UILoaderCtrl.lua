@@ -12,10 +12,7 @@ function UILoaderCtrl:Awake()
 end
 
 --启动事件--
-function UILoaderCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
-
+function UILoaderCtrl:OnCreateOK()
 	local rect = self.gameObject:GetComponent('RectTransform')
 	if rect ~= nil then
 		rect.offsetMin = Vector2.zero
@@ -60,7 +57,6 @@ end
 
 --关闭事件--
 function UILoaderCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.Loader)
 end
 

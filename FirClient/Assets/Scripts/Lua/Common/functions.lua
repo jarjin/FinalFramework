@@ -215,3 +215,24 @@ function _G.handler(method, obj)
 		return method(obj, ...)
 	end
 end
+
+function _G.AddEvent(eventName, func)
+	local eventMgr = MgrCenter:GetManager(ManagerNames.Event)
+	if eventMgr then
+		eventMgr:AddEvent(eventName, func)
+	end
+end
+
+function _G.FireEvent(eventName, ...)
+	local eventMgr = MgrCenter:GetManager(ManagerNames.Event)
+	if eventMgr then
+		eventMgr:FireEvent(eventName, ...)
+	end
+end
+
+function _G.RemoveEvent(eventName)
+	local eventMgr = MgrCenter:GetManager(ManagerNames.Event)
+	if eventMgr then
+		eventMgr:RemoveEvent(eventName)
+	end
+end

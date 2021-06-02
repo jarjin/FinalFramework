@@ -12,9 +12,7 @@ function UIItemTipsCtrl:Awake()
 end
 
 --启动事件--
-function UIItemTipsCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIItemTipsCtrl:OnCreateOK()
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
 

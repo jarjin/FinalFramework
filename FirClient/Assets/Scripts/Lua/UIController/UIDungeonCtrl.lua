@@ -3,7 +3,6 @@ local UIDungeonCtrl = class("UIDungeonCtrl", UIBaseCtrl)
 
 local loopView = nil
 local dungeonModule = nil
-local uiBehaviour = nil
 local panelMgr = nil
 
 function UIDungeonCtrl:Awake()
@@ -17,12 +16,8 @@ function UIDungeonCtrl:Awake()
 end
 
 --启动事件--
-function UIDungeonCtrl:OnCreateOK(behaviour)
-	uiBehaviour = behaviour
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIDungeonCtrl:OnCreateOK()
 	self:SetUiLayout()		--设置UI布局--
-
 	local scrollView = self.gameObject.transform:Find("ScrollViewRoot")
 	if not isnil(scrollView) then
 		local totalCount = dungeonModule:GetTotalItemAndChildCount()
@@ -64,7 +59,7 @@ end
 
 function UIDungeonCtrl:SetItem1Data(index, gameObj, treeItem)
 	local mExpandBtn = gameObj:GetComponent('Button')
-	uiBehaviour:AddClick(mExpandBtn, self, self.OnItemClick)
+	self.behaviour:AddClick(mExpandBtn, self, self.OnItemClick)
 
 	local prefabVar = LuaUtil.GetComponent(gameObj, ComponentNames.ItemPrefabVar)
 	if prefabVar ~= nil then
@@ -107,7 +102,6 @@ end
 
 --关闭事件--
 function UIDungeonCtrl:Close()
-	self:Dispose()
 	panelMgr:ClosePanel(UiNames.Dungeon)
 end
 

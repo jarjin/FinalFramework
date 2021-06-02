@@ -45,6 +45,7 @@ _G.ManagerNames = {
 	Shader = "ShaderManager",
 	Socket = "SocketManager",
 	RedDot = "RedDotManager",
+	Event = "EventManager",
 }
 
 _G.HandlerNames = {

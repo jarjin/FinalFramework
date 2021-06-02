@@ -8,9 +8,7 @@ function UIBaseMapCtrl:Awake()
 end
 
 --启动事件--
-function UIBaseMapCtrl:OnCreateOK(behaviour)
-	self.gameObject = behaviour.gameObject
-	self:InitBase()
+function UIBaseMapCtrl:OnCreateOK()
 	self:SetUiLayout()		--设置UI布局--
 	logWarn("OnCreateOK--->>"..self.gameObject.name)
 end
@@ -22,7 +20,6 @@ end
 
 --关闭事件--
 function UIBaseMapCtrl:Close()
-	self:Dispose()
 	local panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
 	panelMgr:ClosePanel(UiNames.BaseMap)
 end
