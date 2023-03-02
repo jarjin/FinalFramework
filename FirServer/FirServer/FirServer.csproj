@@ -22,14 +22,11 @@
     <Content Remove="C:\Users\Administrator\.nuget\packages\mongodb.libmongocrypt\1.0.0\build\../x64/native/windows/mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\LiteNetLib\LiteNetLib.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="FirCommon">
       <HintPath>..\Libraries\FirCommon.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
-      <HintPath>..\..\..\..\firsango\FirServer\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
+      <HintPath>..\Libraries\Protobuf\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\Libraries\UnityEngine.dll</HintPath>
