@@ -11,6 +11,6 @@ namespace FirServer.Define
 
         public const string GameCfgPath = "config/game.xml";
         public const string XmlGlobalNode = "global";
-        public const string XmlGameNode = "game";
+        public const string XmlGameNode = "games";
     }
 }
