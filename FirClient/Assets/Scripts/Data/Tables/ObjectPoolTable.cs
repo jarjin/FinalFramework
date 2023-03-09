@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using MessagePack;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[Serializable]
+	[MessagePackObject(true)]
 	public class ObjectPoolTable
 	{
 		public string name;
@@ -49,7 +50,7 @@ namespace FirCommon.Data
 		}
 	}
 
-	[Serializable]
+	[MessagePackObject(true)]
 	public class ObjectPoolTableItem
 	{
     	public int id;

@@ -13,7 +13,7 @@ namespace GameLibs
         private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(GameWorld));
 
         public GameWorld() { }
-        
+
         public void Initialize()
         {
             InitManager();

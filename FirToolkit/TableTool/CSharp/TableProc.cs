@@ -1,4 +1,5 @@
 ﻿using FirCommon.Data;
+using MessagePack;
 using OfficeOpenXml;
 using System;
 using System.CodeDom.Compiler;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace TableTool
 {
@@ -121,11 +123,11 @@ namespace TableTool
             }
             if (File.Exists(clientDllPath))
             {
-                File.Delete(clientDllPath);
+                //File.Delete(clientDllPath);
             }
             if (File.Exists(serverDllPath))
             {
-                File.Delete(serverDllPath);
+                //File.Delete(serverDllPath);
             }
         }
 
@@ -345,16 +347,17 @@ namespace TableTool
         /// </summary>
         static Assembly CompileCodeAssembly(string classCode, string assemblyPath)
         {
-            if (File.Exists(assemblyPath))
-            {
-                File.Delete(assemblyPath);
-            }
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters parameters = new CompilerParameters();
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
+            parameters.ReferencedAssemblies.Add("System.Collections.Immutable.dll");
+
             parameters.ReferencedAssemblies.Add("netstandard.dll");
             parameters.ReferencedAssemblies.Add("UnityEngine.dll");
+            parameters.ReferencedAssemblies.Add("MessagePack.dll");
+            parameters.ReferencedAssemblies.Add("MessagePack.Annotations.dll");
+
             parameters.GenerateExecutable = false;
             parameters.GenerateInMemory = true;
             parameters.OutputAssembly = assemblyPath;
@@ -373,7 +376,7 @@ namespace TableTool
                 {
                     ErrorMessage += err.ErrorText;
                 }
-                Console.WriteLine(ErrorMessage);
+                MessageBox.Show(ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             return result.CompiledAssembly;

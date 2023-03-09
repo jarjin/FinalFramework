@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <BaseOutputPath></BaseOutputPath>
     <UserSecretsId>7a50a30d-cb04-4968-bfa7-344030748726</UserSecretsId>
+	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
 
   <ItemGroup>

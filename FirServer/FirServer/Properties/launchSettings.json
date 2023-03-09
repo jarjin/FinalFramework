@@ -10,7 +10,7 @@
     },
     "https": {
       "commandName": "Project",
-      "workingDirectory": "..\\Publish",
+      "workingDirectory": "E:\\WorkSpace\\FinalFramework\\FirServer\\Publish",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

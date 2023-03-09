@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace FirCommon.Data
@@ -88,46 +88,19 @@ namespace FirCommon.Data
         }
     }
 
-    public class ClassTypeBinder : SerializationBinder
-    {
-        public override Type BindToType(string assemblyName, string typeName)
-        {
-            return null;
-        }
-    }
-
     public class SerializeUtil
     {
         public static void Serialize(string binraryPath, object instance)
         {
-            IFormatter serializer = new BinaryFormatter();
-            SurrogateSelector selector = new SurrogateSelector();
-            var context = new StreamingContext(StreamingContextStates.All);
-            selector.AddSurrogate(typeof(Vector2), context, new Vector2SerializationSurrogate());
-            selector.AddSurrogate(typeof(Vector3), context, new Vector3SerializationSurrogate());
-            selector.AddSurrogate(typeof(Color), context, new ColorSerializationSurrogate());
-            selector.AddSurrogate(typeof(Color32), context, new Color32SerializationSurrogate());
-            serializer.SurrogateSelector = selector;
-            using (var saveFile = new FileStream(binraryPath, FileMode.Create, FileAccess.Write))
-            {
-                serializer.Serialize(saveFile, instance);
-            }
+            byte[] bytes = MessagePackSerializer.Serialize(instance);
+            File.WriteAllBytes(binraryPath, bytes);
         }
 
         public static T Deserialize<T>(string fullPath) where T : class
         {
-            IFormatter serializer = new BinaryFormatter();
-            SurrogateSelector selector = new SurrogateSelector();
-            var context = new StreamingContext(StreamingContextStates.All);
-            selector.AddSurrogate(typeof(Vector2), context, new Vector2SerializationSurrogate());
-            selector.AddSurrogate(typeof(Vector3), context, new Vector3SerializationSurrogate());
-            selector.AddSurrogate(typeof(Color), context, new ColorSerializationSurrogate());
-            selector.AddSurrogate(typeof(Color32), context, new Color32SerializationSurrogate());
-            serializer.SurrogateSelector = selector;
-            using (var loadFile = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
-            {
-                return serializer.Deserialize(loadFile) as T;
-            }
+            var bytes = File.ReadAllBytes(fullPath);
+            if (bytes == null) { return default(T); }
+            return MessagePackSerializer.Deserialize<T>(bytes);
         }
     }
 }
