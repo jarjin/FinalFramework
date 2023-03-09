@@ -1,7 +1,7 @@
 ExcelPath=FirCehua/DataTable
 ClientData=FirClient/Assets/res/Tables
 ClientCodePath=FirClient/Assets/Scripts/Data
-ServerData=FirServer/Table
+ServerData=FirServer/Tables
 ServerCodePath=FirServer/GameLibs/Data
 TemplatePath=Resource/Templates
 ClientDLL=Assembly-CSharp.dll
