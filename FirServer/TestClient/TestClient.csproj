@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utility\" />
+    <Reference Include="FirCommon">
+      <HintPath>..\Libraries\FirCommon.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

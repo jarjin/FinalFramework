@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using System;
 using System.IO;
 
 namespace FirCommon.Utility
@@ -10,10 +11,10 @@ namespace FirCommon.Utility
             ByteString data = null;
             if (message != null)
             {
-                using (MemoryStream stream = new MemoryStream())
+                using (var stream = new MemoryStream())
                 {
                     MessageExtensions.WriteTo(message, stream);
-                    data = ByteString.FromStream(stream);
+                    data = ByteString.CopyFrom(stream.ToArray());
                 }
             }
             return data;

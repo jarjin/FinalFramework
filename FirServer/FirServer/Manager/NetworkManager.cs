@@ -32,7 +32,12 @@ namespace FirServer.Manager
             return string.Empty;
         }
 
-        internal MsgChannel? GetChannel(string token)
+        internal MsgChannel? GetChannel(string userKey)
+        {
+            return channels.TryGetValue(userKey,out MsgChannel? channel) ? channel : null;
+        }
+
+        internal MsgChannel? GetChannelByToken(string token)
         {
             foreach (var channel in channels.Values)
             {
@@ -104,7 +109,7 @@ namespace FirServer.Manager
         {
             if (handlerMgr != null && request != null)
             {
-                var channel = GetChannel(request.Token);
+                var channel = GetChannelByToken(request.Token);
                 try
                 {
                     if (channel != null)

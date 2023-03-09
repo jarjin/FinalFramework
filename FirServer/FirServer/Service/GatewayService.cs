@@ -1,4 +1,4 @@
-using FirCommon.Utility;
+using FirCommon.Define;
 using FirServer.Define;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -26,13 +26,13 @@ namespace FirServer.Service
                         var userToken = netMgr.TryAddClient(userKey, request.Name, responseStream);
                         if (!string.IsNullOrEmpty(userToken))
                         {
-                            var connectReply = new ConnectReply { Token = userToken };
-                            await Task.FromResult<HelloReply>(new HelloReply()
+                            var connReply = new ConnectReply { Token = userToken };
+                            var channel = netMgr.GetChannel(userKey);
+                            if (channel != null)
                             {
-                                ProtoName = request.Name,
-                                ByteData = connectReply.Serialize()
-                            });
-                            logger.Info(string.Format("userKey:{0} token:(1) connected!!!", userKey, userToken));
+                                await netMgr.SendMessage(channel, Protocal.Connected, connReply);
+                                logger.Info(string.Format("userKey:{0} token:(1) connected!!!", userKey, userToken));
+                            }
                         }
                         else
                         {
