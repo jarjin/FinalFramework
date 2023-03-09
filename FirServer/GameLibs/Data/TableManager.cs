@@ -2,12 +2,12 @@ namespace FirCommon.Data
 {
 	public class TableManager : BaseObject
 	{
-		private static TableManager? instance;
-    	public GlobalConfigTable? globalConfigTable;
-    	public ItemTable? itemTable;
-    	public NpcTable? npcTable;
-    	public ObjectPoolTable? objectPoolTable;
-    	public QualityTable? qualityTable;
+		private static TableManager instance;
+    	public GlobalConfigTable globalConfigTable;
+    	public ItemTable itemTable;
+    	public NpcTable npcTable;
+    	public ObjectPoolTable objectPoolTable;
+    	public QualityTable qualityTable;
 ///[APPEND_VAR]
 
 		public static TableManager Create()

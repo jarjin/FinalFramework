@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FirCommon.Data
 {
 	[Serializable]
 	public class ItemTable
 	{
-		public string? name;
+		public string name;
 
 		private Dictionary<int, ItemTableItem> dics = null;
 		private List<ItemTableItem> items = new List<ItemTableItem>();
@@ -39,7 +40,7 @@ namespace FirCommon.Data
 
 		public ItemTableItem GetItemByKey(int key)
 		{
-			ItemTableItem? item = null;
+			ItemTableItem item = null;
 			if (dics.ContainsKey(key))
 			{
 				dics.TryGetValue(key, out item);
@@ -52,9 +53,9 @@ namespace FirCommon.Data
 	public class ItemTableItem
 	{
     	public int id;
-    	public string? name;
+    	public string name;
     	public int quality;
     	public int typeid;
-    	public string? icon;
+    	public string icon;
 	}
 }

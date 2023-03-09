@@ -101,7 +101,7 @@ namespace TableTool
             string excelFile = table.fileName;
             if (!File.Exists(excelFile))
             {
-                throw new Exception("excel file not exist!!!，check xlsx file settings!!!");
+                throw new Exception("excel file not exist!!!，check xlsx file settings (tablecfg.txt)!!!");
             }
             var md5 = md5file(excelFile);
 

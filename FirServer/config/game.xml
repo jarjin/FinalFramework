@@ -2,7 +2,7 @@
 <nodes>
   <global name="全局配置" percent="1:10" takecashPoundage="1:0.3" failAmount="20"/>
   <games>
-      <game id="1" name="挂机游戏" libname="Testlib" mainclass="GameLibs.GameWorld" version="1.0.0" />
+      <game id="1" name="挂机游戏" libname="GameLibs" mainclass="GameLibs.GameWorld" version="1.0.0" />
   </games>
 </nodes>
 
