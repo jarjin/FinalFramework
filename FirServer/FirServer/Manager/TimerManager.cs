@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace FirServer.Manager
 {
     class TimerInfo
     {
-        public string timerName;
+        public string? timerName;
         public int interval;
         public int refcount;
-        public Action action;
+        public Action? action;
     }
 
     public class TimerManager : BaseManager

@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using FirServer.Define;
+using FirServer.Detabase;
 using log4net;
 using MongoDB.Driver;
 using System.Linq.Expressions;
-using System;
-using FirCommon.DataBase;
 
 namespace FirServer.Manager
 {
     public class DataManager : BaseManager
     {
-        private static MongoHelper mongoHelper = null;
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(DataManager));
+        private static MongoHelper? mongoHelper = null;
+        private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(DataManager));
 
         /// <summary>
         /// 初始化
@@ -32,7 +31,7 @@ namespace FirServer.Manager
         /// </summary>
         public void OpenDB(string dbName)
         {
-            mongoHelper.OpenDB(dbName);
+            mongoHelper?.OpenDB(dbName);
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace FirServer.Manager
         /// </summary>
         public void Set<T>(string tabName, UpdateDefinition<T> update, Expression<Func<T, bool>> filter)
         {
-            mongoHelper.UpdateOne<T>(tabName, update, filter);
+            mongoHelper?.UpdateOne<T>(tabName, update, filter);
         }
 
         /// <summary>
@@ -89,7 +88,7 @@ namespace FirServer.Manager
         /// </summary>
         public void DropDB(string dbName)
         {
-            mongoHelper.DropDB(dbName);
+            mongoHelper?.DropDB(dbName);
         }
 
         /// <summary>

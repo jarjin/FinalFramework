@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "google/protobuf/Empty.proto";
+
+option csharp_namespace = "GrpcGateway";
+
+package gateway;
+
+service Gateway {
+	//rpc Write(ChatLog) returns (google.protobuf.Empty) {}
+	rpc ReqConnect(stream ConnectRequest) returns (stream HelloReply);
+	rpc ReqGateway(stream HelloRequest) returns (stream google.protobuf.Empty);
+}
+
+message ConnectRequest {
+	string uid = 1;
+	string name = 2;
+	string message = 3;
+}
+
+message ConnectReply {
+	string token = 1;
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+	string token = 1;
+	string protoName = 2;
+	bytes byteData = 3;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+	string protoName = 1;
+	bytes byteData = 2;
+}
+ 

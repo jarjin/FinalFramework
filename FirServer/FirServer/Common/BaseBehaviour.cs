@@ -1,51 +1,12 @@
-﻿using FirServer.Common;
+﻿using FirServer.Interface;
 using FirServer.Manager;
 
-namespace FirServer
+namespace FirServer.Common
 {
-    public class BaseBehaviour
+    public class BaseBehaviour : IObject
     {
-        private static DataManager _dataMgr = null;
-        protected static DataManager dataMgr 
-        {
-            get 
-            { 
-                if (_dataMgr == null)
-                {
-                    _dataMgr = ManagementCenter.GetManager<DataManager>();
-                }
-                return _dataMgr;
-            } 
-        }
-
-        private static TimerManager _timerMgr = null;
-        protected static TimerManager timerMgr
-        {
-            get
-            {
-                if (_timerMgr == null)
-                {
-                    _timerMgr = ManagementCenter.GetManager<TimerManager>();
-                }
-                return _timerMgr;
-            }
-        }
-
-        private static ModelManager _modelMgr = null;
-        protected static ModelManager modelMgr
-        {
-            get
-            {
-                if (_modelMgr == null)
-                {
-                    _modelMgr = ManagementCenter.GetManager<ModelManager>();
-                }
-                return _modelMgr;
-            }
-        }
-
-        private static ConfigManager _configMgr = null;
-        protected static ConfigManager configMgr
+        private static ConfigManager? _configMgr = null;
+        protected static ConfigManager? configMgr
         {
             get
             {
@@ -57,21 +18,8 @@ namespace FirServer
             }
         }
 
-        private static UserManager _userMgr = null;
-        protected static UserManager userMgr
-        {
-            get
-            {
-                if (_userMgr == null)
-                {
-                    _userMgr = ManagementCenter.GetManager<UserManager>();
-                }
-                return _userMgr;
-            }
-        }
-
-        private static AssemblyManager _assemblyMgr = null;
-        protected static AssemblyManager assemblyMgr
+        private static AssemblyManager? _assemblyMgr = null;
+        protected static AssemblyManager? assemblyMgr
         {
             get
             {
@@ -83,8 +31,8 @@ namespace FirServer
             }
         }
 
-        private static NetworkManager _netMgr = null;
-        protected static NetworkManager netMgr
+        private static NetworkManager? _netMgr = null;
+        protected static NetworkManager? netMgr
         {
             get
             {
@@ -96,8 +44,8 @@ namespace FirServer
             }
         }
 
-        private static HandlerManager _handlerMgr = null;
-        protected static HandlerManager handlerMgr
+        private static HandlerManager? _handlerMgr = null;
+        protected static HandlerManager? handlerMgr
         {
             get
             {
@@ -109,16 +57,68 @@ namespace FirServer
             }
         }
 
-        private static ClientPeerManager _clientPeerMgr = null;
-        protected static ClientPeerManager clientPeerMgr
+        private static WorldManager? _worldMgr = null;
+        protected static WorldManager? worldMgr
         {
             get
             {
-                if (_clientPeerMgr == null)
+                if (_worldMgr == null)
                 {
-                    _clientPeerMgr = ManagementCenter.GetManager<ClientPeerManager>();
+                    _worldMgr = ManagementCenter.GetManager<WorldManager>();
                 }
-                return _clientPeerMgr;
+                return _worldMgr;
+            }
+        }
+
+        private static LoggerManager? _loggerMgr = null;
+        protected static LoggerManager? loggerMgr
+        {
+            get
+            {
+                if (_loggerMgr == null)
+                {
+                    _loggerMgr = ManagementCenter.GetManager<LoggerManager>();
+                }
+                return _loggerMgr;
+            }
+        }
+
+        private static DataManager? _dataMgr = null;
+        protected static DataManager? dataMgr
+        {
+            get
+            {
+                if (_dataMgr == null)
+                {
+                    _dataMgr = ManagementCenter.GetManager<DataManager>();
+                }
+                return _dataMgr;
+            }
+        }
+
+        private static TimerManager? _timerMgr = null;
+        protected static TimerManager? timerMgr
+        {
+            get
+            {
+                if (_timerMgr == null)
+                {
+                    _timerMgr = ManagementCenter.GetManager<TimerManager>();
+                }
+                return _timerMgr;
+            }
+        }
+
+        private static ModelManager? _modelMgr = null;
+        protected static ModelManager? modelMgr
+        {
+            get
+            {
+                if (_modelMgr == null)
+                {
+                    _modelMgr = ManagementCenter.GetManager<ModelManager>();
+                }
+                return _modelMgr;
             }
         }
     }

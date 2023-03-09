@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace FirCommon.Utility
+namespace FirServer.Detabase
 {
     public static class Builder
     {

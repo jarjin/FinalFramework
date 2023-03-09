@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using log4net;
+﻿using FirServer.Define;
 using FirServer.Interface;
-using LiteNetLib;
-using System;
-using FirCommon.Define;
+using Google.Protobuf;
+using log4net;
 
 namespace FirServer.Manager
 {
     public class HandlerManager : BaseManager
     {
-        static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(HandlerManager));
-        Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>();
+        private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(HandlerManager));
+        private Dictionary<string, IHandler> mHandlers = new Dictionary<string, IHandler>();
 
         public override void Initialize()
         {
@@ -31,7 +29,7 @@ namespace FirServer.Manager
         /// <summary>
         /// 添加处理器
         /// </summary>
-        public IHandler GetHandler(string protocal)
+        public IHandler? GetHandler(string protocal)
         {
             if (!mHandlers.ContainsKey(protocal))
             {
@@ -49,44 +47,30 @@ namespace FirServer.Manager
         }
 
         /// <summary>
-        /// 处理数据
+        /// 接收数据
         /// </summary>
-        public void OnRecvData(NetPeer peer, NetPacketReader reader)
+        internal async Task OnRecvData(string protoName, MsgChannel channel, ByteString byteData)
         {
-            var protoType = (ProtoType)reader.GetByte();
-            var protoName = reader.GetString();
-            logger.Info("OnRecvData[commandid]:" + protoType + " protoName:" + protoName);
-
-            if (!mHandlers.ContainsKey(protoName))
-            {
-                logger.Error("Proto ["+ protoName + "] not found!~~Reset to default!!!~");
-                protoName = Protocal.Default;
-            }
-            var count = reader.GetInt();
-            byte[] bytes = new byte[count];
-            reader.GetBytes(bytes, count);
-
-            IHandler handler = null;
-            if (mHandlers.TryGetValue(protoName, out handler))
+            mHandlers.TryGetValue(protoName, out IHandler? handler);
+            if (handler != null)
             {
                 try
                 {
-                    if (handler != null)
-                    {
-                        var clientPeer = clientPeerMgr.GetClientPeer(peer);
-                        if (clientPeer == null)
-                        {
-                            logger.Error("clientPeer was null!!!!");
-                            return;
-                        }
-                        handler.OnMessage(clientPeer, bytes);
-                    }
+                    await handler.OnMessage(channel, byteData);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex.Message);
                 }
             }
+            else
+            {
+                logger.Error("Proto [" + protoName + "] not found!~~");
+            }
+        }
+
+        public override void OnDispose()
+        {
         }
     }
 }
