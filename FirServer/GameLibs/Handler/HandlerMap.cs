@@ -1,6 +1,6 @@
-﻿using FirServer.Common;
+﻿using FirCommon.Define;
+using FirServer.Common;
 using FirServer.Manager;
-using GameLibs.Define;
 
 namespace GameLibs.Handler
 {
@@ -16,7 +16,7 @@ namespace GameLibs.Handler
             {
                 throw new ArgumentNullException(nameof(handleMgr));
             }
-            handleMgr.AddHandler(HandlerNames.RegLogin, new LoginHandler());    //注册管理器
+            handleMgr.AddHandler(Protocal.ReqLogin, new LoginHandler());    //注册管理器
         }
     }
 }

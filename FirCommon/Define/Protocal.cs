@@ -12,7 +12,7 @@
         public const string Connected = "Connected";                                    //链接完成
         public const string Disconnect = "Disconnect";                                  //异常掉线
 
-        public const string ReqLogin = "pb_user.ReqLogin";                      //请求用户登录
-        public const string ResLogin = "pb_user.ResLogin";                      //返回用户登录
+        public const string ReqLogin = "pb_user.ReqLogin";                              //请求用户登录
+        public const string ResLogin = "pb_user.ResLogin";                              //返回用户登录
     }
 }
