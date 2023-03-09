@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using log4net;
+﻿using log4net;
 using FirServer.Model;
+using FirServer.Define;
 
 namespace FirServer.Manager
 {
     public class ModelManager : BaseManager
     {
         private static Dictionary<string, BaseModel> models = new Dictionary<string, BaseModel>();
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ModelManager));
+        private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(ModelManager));
 
         public ModelManager()
         {
@@ -19,7 +18,7 @@ namespace FirServer.Manager
             models.Clear();
         }
 
-        public BaseModel GetModel(string strKey)
+        public BaseModel? GetModel(string strKey)
         {
             if (models.ContainsKey(strKey))
             {

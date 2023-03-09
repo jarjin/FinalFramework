@@ -1,30 +1,24 @@
-﻿using System.Collections.Generic;
-using log4net;
-using FirServer.Manager;
+﻿using FirServer.Define;
 using FirServer.Interface;
+using FirServer.Manager;
+using FirServer.Service;
+using log4net;
 
 namespace FirServer.Common
 {
     public class ManagementCenter
     {
         private static readonly Dictionary<string, IManager> mManagers = new Dictionary<string, IManager>();
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(ManagementCenter));
+        private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(ManagementCenter));
 
-        /// <summary>
-        /// 初始化管理器
-        /// </summary>
-        public static void Initialize()
+        internal static void Initialize()
         {
             AddManager<ConfigManager>();
-            AddManager<DataManager>();
-            AddManager<TimerManager>();
-            AddManager<ModelManager>();
-            AddManager<UserManager>();
+            AddManager<LoggerManager>();
             AddManager<AssemblyManager>();
             AddManager<HandlerManager>();
             AddManager<NetworkManager>();
             AddManager<WorldManager>();
-            AddManager<ClientPeerManager>();
 
             var mgrCount = mManagers.Count;
             var currMgrs = new List<IManager>(mManagers.Values);
@@ -35,13 +29,21 @@ namespace FirServer.Common
             logger.Info("Initialize Success!!!");
         }
 
+        /// <summary>
+        /// 注册RPC处理器
+        /// </summary>
+        internal static void RegRpcService(WebApplication _app)
+        {
+            _app?.MapGrpcService<GatewayService>();
+        }
+
         ///添加管理器
-        public static T AddManager<T>() where T : IManager, new()
+        public static T? AddManager<T>() where T : IManager, new()
         {
             var name = typeof(T).ToString();
             if (mManagers.ContainsKey(name))
             {
-                return default(T);
+                return default;
             }
             var obj = new T();
             mManagers.Add(name, obj);
@@ -59,23 +61,26 @@ namespace FirServer.Common
         }
 
         /// 获取管理器
-        public static T GetManager<T>() where T : IManager
+        public static T? GetManager<T>() where T : IManager
         {
             var name = typeof(T).ToString();
-            IManager manager = null;
-            if (mManagers.TryGetValue(name, out manager))
+            if (!mManagers.TryGetValue(name, out IManager? manager))
             {
-                return (T)manager;
+                return default;
             }
-            return default(T);
+            return (T)manager;
         }
 
         /// 获取管理器
-        public static IManager GetManager(string name)
+        public static IManager? GetManager(string name)
         {
-            IManager manager = null;
-            mManagers.TryGetValue(name, out manager);
+            mManagers.TryGetValue(name, out IManager? manager);
             return manager;
+        }
+
+        internal static void OnUpdate()
+        {
+            throw new NotImplementedException();
         }
 
         public static void OnDispose()

@@ -5,15 +5,15 @@ namespace FirCommon.Utility
 {
     public static class ProtoUtil
     {
-        public static byte[] Serialize(this IMessage message)
+        public static ByteString Serialize(this IMessage message)
         {
-            byte[] data = null;
+            ByteString data = null;
             if (message != null)
             {
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    Google.Protobuf.MessageExtensions.WriteTo(message, stream);
-                    data = stream.ToArray();
+                    MessageExtensions.WriteTo(message, stream);
+                    data = ByteString.FromStream(stream);
                 }
             }
             return data;

@@ -1,4 +1,4 @@
-namespace FirServer.Interface
+﻿namespace FirServer.Interface
 {
     public interface IObject
     {

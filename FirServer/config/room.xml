@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nodes>
-  <level id="1" name="白银段位" roomCount="1" roomUserMax="6" />
-  <level id="2" name="黄金段位" roomCount="1" roomUserMax="6" />
-  <level id="3" name="钻石段位" roomCount="1" roomUserMax="6" />
-</nodes>
-

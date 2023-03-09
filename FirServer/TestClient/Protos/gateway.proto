@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcGateway";
+
+package gateway;
+
+// The greeting service definition.
+service Gateway {
+  // Sends a greeting
+  rpc ReqGateway (HelloRequest) returns (HelloReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+  bytes byteData = 2;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string name = 1;
+  bytes byteData = 2;
+} 

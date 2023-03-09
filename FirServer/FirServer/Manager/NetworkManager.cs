@@ -1,57 +1,130 @@
-﻿using FirCommon.Data;
-using FirCommon.Define;
-using FirCommon.Utility;
+﻿using FirCommon.Utility;
+using FirServer.Define;
 using Google.Protobuf;
-using LiteNetLib;
-using LiteNetLib.Utils;
+using Grpc.Core;
+using GrpcGateway;
 using log4net;
+using System.Collections.Concurrent;
 
 namespace FirServer.Manager
 {
     public class NetworkManager : BaseManager
     {
-        private static readonly ILog logger = LogManager.GetLogger(AppServer.repository.Name, typeof(NetworkManager));
+        private static readonly ILog logger = LogManager.GetLogger(AppConst.LogRepos?.Name, typeof(NetworkManager));
+        private ConcurrentDictionary<string, MsgChannel> channels = new ConcurrentDictionary<string, MsgChannel>();
 
         public override void Initialize()
         {
         }
 
-        internal void OnConnected(NetPeer peer)
+        internal string TryAddClient(string userKey, string name, IServerStreamWriter<HelloReply> responseStream)
         {
-            var handler = handlerMgr.GetHandler(Protocal.Connected);
-            if (handler != null)
+            channels.TryGetValue(userKey, out MsgChannel? channel);
+            if (channel == null)
             {
-                var clientPeer = clientPeerMgr.AddClientPeer(peer);
-                handler.OnMessage(clientPeer, null);
+                var newToken = Guid.NewGuid().ToString();
+                channels.TryAdd(userKey, new MsgChannel()
+                {
+                    Name = name, Token = newToken, Stream = responseStream
+                });
+                return newToken;
+            }
+            return string.Empty;
+        }
+
+        internal MsgChannel? GetChannel(string token)
+        {
+            foreach (var channel in channels.Values)
+            {
+                if (channel.Token == token) return channel;
+            }
+            return null;
+        }
+
+        internal MsgChannel? TryRemoveClient(string name) 
+        { 
+            channels.TryRemove(name, out MsgChannel? channel);
+            return channel;
+        }
+
+        public async Task SendMessage(MsgChannel channel, string protoName, IMessage msg)
+        {
+            var msgPack = msg.Serialize();
+            var resMsg = new HelloReply()
+            {
+                ProtoName = protoName,
+                ByteData = msgPack
+            };
+            if (channel != null && channel.Stream != null)
+            {
+                try
+                {
+                    await channel.Stream.WriteAsync(resMsg);
+                }
+                catch (Exception ex) 
+                {
+                    if (channel != null && !string.IsNullOrEmpty(channel.Name))
+                    {
+                        TryRemoveClient(channel.Name);
+                    }
+                }
             }
         }
 
-        public void SendData(ClientPeer clientPeer, ProtoType protoType, string protoName, IMessage msg)
+        public async Task BroadcastMessage(string protoName, IMessage msg)
         {
-            var buffer = msg.Serialize();
-            var writer = new NetDataWriter();
-            writer.Put((byte)protoType);
-            writer.Put(protoName);
-            writer.Put(buffer.Length);
-            writer.Put(buffer);
-            clientPeer.peer.Send(writer, DeliveryMethod.ReliableOrdered);
-        }
-
-        public void OnRecvData(NetPeer peer, NetPacketReader reader)
-        {
-            handlerMgr.OnRecvData(peer, reader); 
-        }
-
-        public void OnDisconnect(NetPeer peer)
-        {
-            var handler = handlerMgr.GetHandler(Protocal.Disconnect);
-            if (handler != null)
+            var msgPack = msg.Serialize();
+            foreach (var channel in channels.Values)
             {
-                var clientPeer = clientPeerMgr.GetClientPeer(peer);
-                handler.OnMessage(clientPeer, null);
-                clientPeerMgr.RemoveClientPeer(peer);
+                if (channel == null || string.IsNullOrEmpty(channel.Name))
+                {
+                    continue;
+                }
+                var channelName = channel.Name;
+                try
+                {
+                    var resMsg = new HelloReply()
+                    {
+                        ProtoName = protoName,
+                        ByteData = msgPack
+                    };
+                    if (channel != null && channel.Stream != null)
+                    {
+                        await channel.Stream.WriteAsync(resMsg);
+                    }
+                }
+                finally
+                {
+                    TryRemoveClient(channelName);
+                }
             }
-            logger.Error("ConnectId:>" + peer.Id + " Disconnected!");
+        }
+
+        internal async Task OnRecvData(HelloRequest? request)
+        {
+            if (handlerMgr != null && request != null)
+            {
+                var channel = GetChannel(request.Token);
+                try
+                {
+                    if (channel != null)
+                    {
+                        await handlerMgr.OnRecvData(request.ProtoName, channel, request.ByteData);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException(nameof(channel));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                }
+            }
+        }
+
+        public override void OnDispose()
+        {
         }
     }
 }

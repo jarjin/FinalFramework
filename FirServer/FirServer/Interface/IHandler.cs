@@ -1,9 +1,10 @@
-﻿using FirCommon.Data;
+﻿using FirServer.Define;
+using Google.Protobuf;
 
 namespace FirServer.Interface
 {
-    public interface IHandler : IObject
+    public interface IHandler
     {
-        void OnMessage(ClientPeer peer, byte[] bytes);
+        Task OnMessage(MsgChannel channel, ByteString bytes);
     }
 }
