@@ -14,7 +14,7 @@ namespace GameLibs.Managers
 
         public override void Initialize()
         {
-            LoadParseXml();
+            //LoadParseXml();
         }
 
         void LoadParseXml()

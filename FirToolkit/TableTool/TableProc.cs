@@ -39,10 +39,16 @@ namespace TableTool
             clientDllPath = fmMain.currDir + clientDll;
             serverDllPath = fmMain.currDir + serverDll;
 
+            RuntimeTypeModel.Default.Add<SurrogateVector2>();
             RuntimeTypeModel.Default.Add(typeof(Vector2), false).SetSurrogate(typeof(SurrogateVector2));
+
+            RuntimeTypeModel.Default.Add<SurrogateVector3>();
             RuntimeTypeModel.Default.Add(typeof(Vector3), false).SetSurrogate(typeof(SurrogateVector3));
 
+            RuntimeTypeModel.Default.Add<SurrogateColor>();
             RuntimeTypeModel.Default.Add(typeof(Color), false).SetSurrogate(typeof(SurrogateColor));
+
+            RuntimeTypeModel.Default.Add<SurrogateColor32>();
             RuntimeTypeModel.Default.Add(typeof(Color32), false).SetSurrogate(typeof(SurrogateColor32));
 
             StartProc(TableType.Lua);

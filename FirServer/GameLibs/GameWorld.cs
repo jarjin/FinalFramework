@@ -18,7 +18,7 @@ namespace GameLibs
         {
             InitManager();
             TestTable();
-            //TestTable();     //需要安装Mongodb
+            //TestDBServer();     //需要安装Mongodb
             HandlerMap.RegHandlers();
             logger.Info("GameWorld Initialized!!!");
         }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using protobuf-net;
+using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
@@ -9,11 +9,11 @@ namespace FirCommon.Data
 	public class ObjectPoolTable
 	{
 		[ProtoMember(1)]
-		public string name;
+		public string name;		
 		[ProtoMember(2)]
-		private Dictionary<int, ObjectPoolTableItem> dics = null;
-		[ProtoMember(3)]
 		private List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
+		
+		private Dictionary<int, ObjectPoolTableItem> dics = null;
 
 		public List<ObjectPoolTableItem> Items
 		{

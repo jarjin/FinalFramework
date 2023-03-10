@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using protobuf-net;
+using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
@@ -9,11 +9,11 @@ namespace FirCommon.Data
 	public class NpcTable
 	{
 		[ProtoMember(1)]
-		public string name;
+		public string name;		
 		[ProtoMember(2)]
-		private Dictionary<int, NpcTableItem> dics = null;
-		[ProtoMember(3)]
 		private List<NpcTableItem> items = new List<NpcTableItem>();
+		
+		private Dictionary<int, NpcTableItem> dics = null;
 
 		public List<NpcTableItem> Items
 		{
