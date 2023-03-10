@@ -1,88 +1,128 @@
-﻿using System.Runtime.Serialization;
+﻿using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-    public sealed class Vector2SerializationSurrogate : ISerializationSurrogate
+    [ProtoContract]
+    public sealed class SurrogateVector2
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        [ProtoMember(1)]
+        float x;
+        [ProtoMember(2)]
+        float y;
+
+        public SurrogateVector2() { }
+
+        public SurrogateVector2(float x, float y)
         {
-            Vector2 v = (Vector2)obj;
-            info.AddValue("x", v.x);
-            info.AddValue("y", v.y);
+            this.x = x;
+            this.y = y;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public static implicit operator Vector3(SurrogateVector2 v)
         {
-            Vector2 v = (Vector2)obj;
-            v.x = info.GetSingle("x");
-            v.y = info.GetSingle("y");
-            return (object)v;
+            return new Vector3(v.x, v.y);
+        }
+
+        public static implicit operator SurrogateVector2(Vector2 v)
+        {
+            return new SurrogateVector2(v.x, v.y);
         }
     }
 
-    public sealed class Vector3SerializationSurrogate : ISerializationSurrogate
+    [ProtoContract]
+    public sealed class SurrogateVector3
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        [ProtoMember(1)]
+        float x;
+        [ProtoMember(2)]
+        float y;
+        [ProtoMember(3)]
+        float z;
+
+        public SurrogateVector3() { }
+
+        public SurrogateVector3(float x, float y, float z)
         {
-            Vector3 v = (Vector3)obj;
-            info.AddValue("x", v.x);
-            info.AddValue("y", v.y);
-            info.AddValue("z", v.z);
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public static implicit operator Vector3(SurrogateVector3 v)
         {
-            Vector3 v = (Vector3)obj;
-            v.x = info.GetSingle("x");
-            v.y = info.GetSingle("y");
-            v.z = info.GetSingle("z");
-            return (object)v;
+            return new Vector3(v.x, v.y, v.z);
+        }
+
+        public static implicit operator SurrogateVector3(Vector3 v)
+        {
+            return new SurrogateVector3(v.x, v.y, v.z);
         }
     }
 
-    public sealed class ColorSerializationSurrogate : ISerializationSurrogate
+    [ProtoContract]
+    public sealed class SurrogateColor
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        [ProtoMember(1)]
+        float r;
+        [ProtoMember(2)]
+        float g;
+        [ProtoMember(3)]
+        float b;
+        [ProtoMember(4)]
+        float a;
+
+        public SurrogateColor() { }
+
+        public SurrogateColor(float r, float g, float b, float a)
         {
-            Color v = (Color)obj;
-            info.AddValue("r", v.r);
-            info.AddValue("g", v.g);
-            info.AddValue("b", v.b);
-            info.AddValue("a", v.a);
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public static implicit operator Color(SurrogateColor v)
         {
-            Color v = (Color)obj;
-            v.r = info.GetSingle("r");
-            v.g = info.GetSingle("g");
-            v.b = info.GetSingle("b");
-            v.a = info.GetSingle("a");
-            return (object)v;
+            return new Color(v.r, v.g, v.b, v.a);
+        }
+
+        public static implicit operator SurrogateColor(Color v)
+        {
+            return new SurrogateColor(v.r, v.g, v.b, v.a);
         }
     }
 
-    public sealed class Color32SerializationSurrogate : ISerializationSurrogate
+    [ProtoContract]
+    public sealed class SurrogateColor32
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
-        {
-            Color32 v = (Color32)obj;
-            info.AddValue("r", v.r);
-            info.AddValue("g", v.g);
-            info.AddValue("b", v.b);
+        [ProtoMember(1)]
+        byte r;
+        [ProtoMember(2)]
+        byte g;
+        [ProtoMember(3)]
+        byte b;
+        [ProtoMember(4)]
+        byte a;
 
-            info.AddValue("a", v.a);
+        public SurrogateColor32() { }
+
+        public SurrogateColor32(byte r, byte g, byte b, byte a)
+        {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public static implicit operator Color32(SurrogateColor32 v)
         {
-            Color32 v = (Color32)obj;
-            v.r = info.GetByte("r");
-            v.g = info.GetByte("g");
-            v.b = info.GetByte("b");
-            v.a = info.GetByte("a");
-            return (object)v;
+            return new Color32(v.r, v.g, v.b, v.a);
+        }
+
+        public static implicit operator SurrogateColor32(Color32 v)
+        {
+            return new SurrogateColor32(v.r, v.g, v.b, v.a);
         }
     }
 }

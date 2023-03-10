@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class QualityTable
 	{
-		public string name;
-
-		private Dictionary<int, QualityTableItem> dics = null;
+		[ProtoMember(1)]
+		public string name;		
+		[ProtoMember(2)]
 		private List<QualityTableItem> items = new List<QualityTableItem>();
+		
+		private Dictionary<int, QualityTableItem> dics = null;
 
 		public List<QualityTableItem> Items
 		{
@@ -50,11 +52,14 @@ namespace FirCommon.Data
 		}
 	}
 
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class QualityTableItem
 	{
+    	[ProtoMember(1)]
     	public int id;
+    	[ProtoMember(2)]
     	public string name;
+    	[ProtoMember(3)]
     	public string icon;
 	}
 }

@@ -1,4 +1,7 @@
-﻿using OfficeOpenXml;
+﻿using FirCommon.Data;
+using OfficeOpenXml;
+using ProtoBuf;
+using ProtoBuf.Meta;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +9,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using UnityEngine;
 
 namespace TableTool
 {
@@ -34,6 +38,12 @@ namespace TableTool
             templateDir = tempDir;
             clientDllPath = fmMain.currDir + clientDll;
             serverDllPath = fmMain.currDir + serverDll;
+
+            RuntimeTypeModel.Default.Add(typeof(Vector2), false).SetSurrogate(typeof(SurrogateVector2));
+            RuntimeTypeModel.Default.Add(typeof(Vector3), false).SetSurrogate(typeof(SurrogateVector3));
+
+            RuntimeTypeModel.Default.Add(typeof(Color), false).SetSurrogate(typeof(SurrogateColor));
+            RuntimeTypeModel.Default.Add(typeof(Color32), false).SetSurrogate(typeof(SurrogateColor32));
 
             StartProc(TableType.Lua);
             StartProc(TableType.CSharp);

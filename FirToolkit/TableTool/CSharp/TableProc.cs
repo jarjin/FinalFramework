@@ -125,11 +125,11 @@ namespace TableTool
             }
             if (File.Exists(clientDllPath))
             {
-                //File.Delete(clientDllPath);
+                File.Delete(clientDllPath);
             }
             if (File.Exists(serverDllPath))
             {
-                //File.Delete(serverDllPath);
+                File.Delete(serverDllPath);
             }
         }
 

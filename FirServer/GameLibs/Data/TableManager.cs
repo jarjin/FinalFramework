@@ -6,6 +6,7 @@ namespace FirCommon.Data
     	public GlobalConfigTable globalConfigTable;
     	public ItemTable itemTable;
     	public NpcTable npcTable;
+    	public ObjectPoolTable objectPoolTable;
     	public QualityTable qualityTable;
 ///[APPEND_VAR]
 
@@ -37,6 +38,8 @@ namespace FirCommon.Data
         	itemTable.Initialize();
         	npcTable = LoadData<NpcTable>("Tables/NpcTable.bytes");
         	npcTable.Initialize();
+        	objectPoolTable = LoadData<ObjectPoolTable>("Tables/ObjectPoolTable.bytes");
+        	objectPoolTable.Initialize();
         	qualityTable = LoadData<QualityTable>("Tables/QualityTable.bytes");
         	qualityTable.Initialize();
 ///[APPEND_TABLE]
