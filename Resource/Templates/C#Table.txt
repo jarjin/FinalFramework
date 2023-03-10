@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using protobuf-net;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class [NAME]
 	{
+		[ProtoMember(1)]
 		public string name;
-
+		[ProtoMember(2)]
 		private Dictionary<[TYPE], [NAME]Item> dics = null;
+		[ProtoMember(3)]
 		private List<[NAME]Item> items = new List<[NAME]Item>();
 
 		public List<[NAME]Item> Items
@@ -50,7 +52,7 @@ namespace FirCommon.Data
 		}
 	}
 
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class [NAME]Item
 	{
 [BODY]

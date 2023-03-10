@@ -1,6 +1,5 @@
-﻿using Google.Protobuf;
-using System;
-using System.IO;
+﻿using System.IO;
+using Google.Protobuf;
 
 namespace FirCommon.Utility
 {
@@ -28,5 +27,31 @@ namespace FirCommon.Utility
         //        return t;
         //    }
         //}
+
+        /// <summary>
+        /// 序列化二进制
+        /// </summary>
+        public static void Serialize<T>(string binraryPath, T instance) where T : class
+        {
+            using (var ms = new MemoryStream())
+            {
+                ProtoBuf.Serializer.Serialize<T>(ms, instance);
+                File.WriteAllBytes(binraryPath, ms.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// 反序列化
+        /// </summary>
+        public static T Deserialize<T>(string fullPath) where T : class
+        {
+            var bytes = File.ReadAllBytes(fullPath);
+            if (bytes == null) { return default(T); }
+
+            using (var ms = new MemoryStream(bytes))
+            {
+                return ProtoBuf.Serializer.Deserialize<T>(ms);
+            }
+        }
     }
 }

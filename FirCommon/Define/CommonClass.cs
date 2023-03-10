@@ -1,7 +1,4 @@
-﻿using MessagePack;
-using System;
-using System.IO;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace FirCommon.Data
@@ -74,6 +71,7 @@ namespace FirCommon.Data
             info.AddValue("r", v.r);
             info.AddValue("g", v.g);
             info.AddValue("b", v.b);
+
             info.AddValue("a", v.a);
         }
 
@@ -85,22 +83,6 @@ namespace FirCommon.Data
             v.b = info.GetByte("b");
             v.a = info.GetByte("a");
             return (object)v;
-        }
-    }
-
-    public class SerializeUtil
-    {
-        public static void Serialize(string binraryPath, object instance)
-        {
-            byte[] bytes = MessagePackSerializer.Serialize(instance);
-            File.WriteAllBytes(binraryPath, bytes);
-        }
-
-        public static T Deserialize<T>(string fullPath) where T : class
-        {
-            var bytes = File.ReadAllBytes(fullPath);
-            if (bytes == null) { return default(T); }
-            return MessagePackSerializer.Deserialize<T>(bytes);
         }
     }
 }

@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.22.1" />
-    <PackageReference Include="MessagePack" Version="2.4.59" />
+    <PackageReference Include="protobuf-net" Version="3.2.12" />
   </ItemGroup>
 
 

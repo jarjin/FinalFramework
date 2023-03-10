@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
-using MessagePack;
+using protobuf-net;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class NpcTable
 	{
+		[ProtoMember(1)]
 		public string name;
-
+		[ProtoMember(2)]
 		private Dictionary<int, NpcTableItem> dics = null;
+		[ProtoMember(3)]
 		private List<NpcTableItem> items = new List<NpcTableItem>();
 
 		public List<NpcTableItem> Items
@@ -50,15 +52,22 @@ namespace FirCommon.Data
 		}
 	}
 
-	[MessagePackObject(true)]
+	[ProtoContract]
 	public class NpcTableItem
 	{
+    	[ProtoMember(1)]
     	public int id;
+    	[ProtoMember(2)]
     	public string name;
+    	[ProtoMember(3)]
     	public bool isMainCharacter;
+    	[ProtoMember(4)]
     	public int sex;
+    	[ProtoMember(5)]
     	public CountryType country;
+    	[ProtoMember(6)]
     	public Vector3 scale;
+    	[ProtoMember(7)]
     	public int itemid;
 	}
 }
