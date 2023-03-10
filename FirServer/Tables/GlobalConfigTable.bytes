@@ -1,5 +1,1 @@
-
- FirCommon.Data.GlobalConfigTable
-CommonWhite250_250_250_255
-CommonGreen0_246_0_255
-	CommonRed250_17_17_255
+{"name":"FirCommon.Data.GlobalConfigTable","Items":[{"id":"CommonWhite","value":"250_250_250_255"},{"id":"CommonGreen","value":"0_246_0_255"},{"id":"CommonRed","value":"250_17_17_255"}]}

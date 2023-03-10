@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Google.Protobuf;
+using Newtonsoft.Json;
 
 namespace FirCommon.Utility
 {
@@ -31,13 +32,10 @@ namespace FirCommon.Utility
         /// <summary>
         /// 序列化二进制
         /// </summary>
-        public static void Serialize<T>(string binraryPath, T instance) where T : class
+        public static void Serialize(string binraryPath, object instance)
         {
-            using (var ms = new MemoryStream())
-            {
-                ProtoBuf.Serializer.Serialize<T>(ms, instance);
-                File.WriteAllBytes(binraryPath, ms.ToArray());
-            }
+            var json = JsonConvert.SerializeObject(instance);
+            File.WriteAllText(binraryPath, json);
         }
 
         /// <summary>
@@ -45,13 +43,9 @@ namespace FirCommon.Utility
         /// </summary>
         public static T Deserialize<T>(string fullPath) where T : class
         {
-            var bytes = File.ReadAllBytes(fullPath);
-            if (bytes == null) { return default(T); }
-
-            using (var ms = new MemoryStream(bytes))
-            {
-                return ProtoBuf.Serializer.Deserialize<T>(ms);
-            }
+            var json = File.ReadAllText(fullPath);
+            if (json == null) { return default(T); }
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 }

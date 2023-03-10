@@ -1,2 +1,1 @@
-
-FirCommon.Data.QualityTable灰色品质框gray蓝色品质框blue绿色品质框green紫色品质框purple橙色品质框orange金色品质框yellow
+{"name":"FirCommon.Data.QualityTable","Items":[{"id":1,"name":"灰色品质框","icon":"gray"},{"id":2,"name":"蓝色品质框","icon":"blue"},{"id":3,"name":"绿色品质框","icon":"green"},{"id":4,"name":"紫色品质框","icon":"purple"},{"id":5,"name":"橙色品质框","icon":"orange"},{"id":6,"name":"金色品质框","icon":"yellow"}]}

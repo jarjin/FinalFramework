@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
-using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[ProtoContract]
 	public class GlobalConfigTable
 	{
-		[ProtoMember(1)]
 		public string name;		
-		[ProtoMember(2)]
 		private List<GlobalConfigTableItem> items = new List<GlobalConfigTableItem>();
 		
 		private Dictionary<string, GlobalConfigTableItem> dics = null;
@@ -52,12 +48,9 @@ namespace FirCommon.Data
 		}
 	}
 
-	[ProtoContract]
 	public class GlobalConfigTableItem
 	{
-    	[ProtoMember(1)]
     	public string id;
-    	[ProtoMember(2)]
     	public string value;
 	}
 }

@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
-using ProtoBuf;
 using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[ProtoContract]
 	public class ObjectPoolTable
 	{
-		[ProtoMember(1)]
 		public string name;		
-		[ProtoMember(2)]
 		private List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
 		
 		private Dictionary<int, ObjectPoolTableItem> dics = null;
@@ -52,16 +48,11 @@ namespace FirCommon.Data
 		}
 	}
 
-	[ProtoContract]
 	public class ObjectPoolTableItem
 	{
-    	[ProtoMember(1)]
     	public int id;
-    	[ProtoMember(2)]
     	public string name;
-    	[ProtoMember(3)]
     	public int min;
-    	[ProtoMember(4)]
     	public int max;
 	}
 }

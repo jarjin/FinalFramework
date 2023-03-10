@@ -1,5 +1,4 @@
-﻿using FirCommon.Data;
-using FirCommon.Utility;
+﻿using FirCommon.Utility;
 using OfficeOpenXml;
 using System;
 using System.CodeDom.Compiler;
@@ -44,7 +43,6 @@ namespace TableTool
             string keyType = string.Empty;
             var varBody = new StringBuilder();
 
-            var index = 1;
             for (int i = 1; i <= colNum; i++)
             {
                 var varName = sheet.GetValue(4, i) as string;
@@ -67,7 +65,6 @@ namespace TableTool
                     var extraParam = sheet.GetValue(3, i) as string;
                     varType = GetEnumType(extraParam).typeName;
                 }
-                varBody.AppendLine("    	[ProtoMember("+ index++ + ")]");
                 varBody.AppendLine("    	public " + varType + " " + varName + ";");
             }
             var tableItemCode = File.ReadAllText(templateDir + "/C#Table.txt");
@@ -353,11 +350,9 @@ namespace TableTool
             CompilerParameters parameters = new CompilerParameters();
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
-
             parameters.ReferencedAssemblies.Add("netstandard.dll");
             parameters.ReferencedAssemblies.Add("UnityEngine.dll");
-            parameters.ReferencedAssemblies.Add("protobuf-net.dll");
-            parameters.ReferencedAssemblies.Add("protobuf-net.Core.dll");
+            parameters.ReferencedAssemblies.Add("FirCommon.dll");
 
             parameters.GenerateExecutable = false;
             parameters.GenerateInMemory = true;

@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.22.1" />
-    <PackageReference Include="protobuf-net" Version="3.2.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 
