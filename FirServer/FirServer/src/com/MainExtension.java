@@ -2,7 +2,7 @@ package com;
 import com.handler.ZoneEventHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
-public class Main extends SFSExtension {
+public class MainExtension extends SFSExtension {
     @Override
     public void init()
     {
