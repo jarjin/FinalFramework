@@ -1,15 +1,7 @@
-/**
- * 
- */
-package my.test;
-
+import com.handler.ZoneEventHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
-/**
- * @author Administrator
- *
- */
-public class MyExtension extends SFSExtension {
+public class Main extends SFSExtension {
     @Override
     public void init()
     {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package my.test;
+package com.handler;
 
 import com.example.tutorial.protos.Person;
 import com.google.protobuf.InvalidProtocolBufferException;
