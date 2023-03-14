@@ -7,7 +7,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace PbCommon {
+namespace Network.pb_common {
 
   /// <summary>Holder for reflection information generated from common.proto</summary>
   public static partial class CommonReflection {
@@ -30,13 +30,14 @@ namespace PbCommon {
             "DjIbLnBiX2NvbW1vbi5QZXJzb24uUGhvbmVUeXBlIisKCVBob25lVHlwZRIK",
             "CgZNT0JJTEUQABIICgRIT01FEAESCAoEV09SSxACIjAKC0FkZHJlc3NCb29r",
             "EiEKBnBlb3BsZRgBIAMoCzIRLnBiX2NvbW1vbi5QZXJzb24qJQoKUmVzdWx0",
-            "Q29kZRILCgdTdWNjZXNzEAASCgoGRmFpbGVkEAFiBnByb3RvMw=="));
+            "Q29kZRILCgdTdWNjZXNzEAASCgoGRmFpbGVkEAFCLQoKY29tLnByb3Rvc0IJ",
+            "cGJfY29tbW9uUAGqAhFOZXR3b3JrLnBiX2NvbW1vbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::PbCommon.ResultCode), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbCommon.UserInfo), global::PbCommon.UserInfo.Parser, new[]{ "Userid", "Name", "Money" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbCommon.Person), global::PbCommon.Person.Parser, new[]{ "Name", "Id", "Email", "Phones" }, null, new[]{ typeof(global::PbCommon.Person.Types.PhoneType) }, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::PbCommon.Person.Types.PhoneNumber), global::PbCommon.Person.Types.PhoneNumber.Parser, new[]{ "Number", "Type" }, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbCommon.AddressBook), global::PbCommon.AddressBook.Parser, new[]{ "People" }, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Network.pb_common.ResultCode), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Network.pb_common.UserInfo), global::Network.pb_common.UserInfo.Parser, new[]{ "Userid", "Name", "Money" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Network.pb_common.Person), global::Network.pb_common.Person.Parser, new[]{ "Name", "Id", "Email", "Phones" }, null, new[]{ typeof(global::Network.pb_common.Person.Types.PhoneType) }, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Network.pb_common.Person.Types.PhoneNumber), global::Network.pb_common.Person.Types.PhoneNumber.Parser, new[]{ "Number", "Type" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Network.pb_common.AddressBook), global::Network.pb_common.AddressBook.Parser, new[]{ "People" }, null, null, null)
           }));
     }
     #endregion
@@ -64,7 +65,7 @@ namespace PbCommon {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PbCommon.CommonReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Network.pb_common.CommonReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -237,7 +238,7 @@ namespace PbCommon {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PbCommon.CommonReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Network.pb_common.CommonReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -303,11 +304,11 @@ namespace PbCommon {
 
     /// <summary>Field number for the "phones" field.</summary>
     public const int PhonesFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::PbCommon.Person.Types.PhoneNumber> _repeated_phones_codec
-        = pb::FieldCodec.ForMessage(34, global::PbCommon.Person.Types.PhoneNumber.Parser);
-    private readonly pbc::RepeatedField<global::PbCommon.Person.Types.PhoneNumber> phones_ = new pbc::RepeatedField<global::PbCommon.Person.Types.PhoneNumber>();
+    private static readonly pb::FieldCodec<global::Network.pb_common.Person.Types.PhoneNumber> _repeated_phones_codec
+        = pb::FieldCodec.ForMessage(34, global::Network.pb_common.Person.Types.PhoneNumber.Parser);
+    private readonly pbc::RepeatedField<global::Network.pb_common.Person.Types.PhoneNumber> phones_ = new pbc::RepeatedField<global::Network.pb_common.Person.Types.PhoneNumber>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::PbCommon.Person.Types.PhoneNumber> Phones {
+    public pbc::RepeatedField<global::Network.pb_common.Person.Types.PhoneNumber> Phones {
       get { return phones_; }
     }
 
@@ -441,7 +442,7 @@ namespace PbCommon {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::PbCommon.Person.Descriptor.NestedTypes[0]; }
+          get { return global::Network.pb_common.Person.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -480,9 +481,9 @@ namespace PbCommon {
 
         /// <summary>Field number for the "type" field.</summary>
         public const int TypeFieldNumber = 2;
-        private global::PbCommon.Person.Types.PhoneType type_ = 0;
+        private global::Network.pb_common.Person.Types.PhoneType type_ = 0;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::PbCommon.Person.Types.PhoneType Type {
+        public global::Network.pb_common.Person.Types.PhoneType Type {
           get { return type_; }
           set {
             type_ = value;
@@ -570,7 +571,7 @@ namespace PbCommon {
                 break;
               }
               case 16: {
-                type_ = (global::PbCommon.Person.Types.PhoneType) input.ReadEnum();
+                type_ = (global::Network.pb_common.Person.Types.PhoneType) input.ReadEnum();
                 break;
               }
             }
@@ -594,7 +595,7 @@ namespace PbCommon {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PbCommon.CommonReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Network.pb_common.CommonReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -621,11 +622,11 @@ namespace PbCommon {
 
     /// <summary>Field number for the "people" field.</summary>
     public const int PeopleFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::PbCommon.Person> _repeated_people_codec
-        = pb::FieldCodec.ForMessage(10, global::PbCommon.Person.Parser);
-    private readonly pbc::RepeatedField<global::PbCommon.Person> people_ = new pbc::RepeatedField<global::PbCommon.Person>();
+    private static readonly pb::FieldCodec<global::Network.pb_common.Person> _repeated_people_codec
+        = pb::FieldCodec.ForMessage(10, global::Network.pb_common.Person.Parser);
+    private readonly pbc::RepeatedField<global::Network.pb_common.Person> people_ = new pbc::RepeatedField<global::Network.pb_common.Person>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::PbCommon.Person> People {
+    public pbc::RepeatedField<global::Network.pb_common.Person> People {
       get { return people_; }
     }
 

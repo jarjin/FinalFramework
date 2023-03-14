@@ -7,7 +7,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace PbUser {
+namespace Network.pbuser {
 
   /// <summary>Holder for reflection information generated from pbuser.proto</summary>
   public static partial class PbuserReflection {
@@ -25,12 +25,13 @@ namespace PbUser {
             "CgxwYnVzZXIucHJvdG8SB3BiX3VzZXIaDGNvbW1vbi5wcm90byImCghSZXFM",
             "b2dpbhIMCgRuYW1lGAEgASgJEgwKBHBhc3MYAiABKAkiWAoIUmVzTG9naW4S",
             "JQoGcmVzdWx0GAEgASgOMhUucGJfY29tbW9uLlJlc3VsdENvZGUSJQoIdXNl",
-            "cmluZm8YAiABKAsyEy5wYl9jb21tb24uVXNlckluZm9iBnByb3RvMw=="));
+            "cmluZm8YAiABKAsyEy5wYl9jb21tb24uVXNlckluZm9CJwoKY29tLnByb3Rv",
+            "c0IGcGJ1c2VyUAGqAg5OZXR3b3JrLnBidXNlcmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::PbCommon.CommonReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Network.pb_common.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.ReqLogin), global::PbUser.ReqLogin.Parser, new[]{ "Name", "Pass" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PbUser.ResLogin), global::PbUser.ResLogin.Parser, new[]{ "Result", "Userinfo" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Network.pbuser.ReqLogin), global::Network.pbuser.ReqLogin.Parser, new[]{ "Name", "Pass" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Network.pbuser.ResLogin), global::Network.pbuser.ResLogin.Parser, new[]{ "Result", "Userinfo" }, null, null, null)
           }));
     }
     #endregion
@@ -44,7 +45,7 @@ namespace PbUser {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PbUser.PbuserReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Network.pbuser.PbuserReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -189,7 +190,7 @@ namespace PbUser {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PbUser.PbuserReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Network.pbuser.PbuserReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -217,9 +218,9 @@ namespace PbUser {
 
     /// <summary>Field number for the "result" field.</summary>
     public const int ResultFieldNumber = 1;
-    private global::PbCommon.ResultCode result_ = 0;
+    private global::Network.pb_common.ResultCode result_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::PbCommon.ResultCode Result {
+    public global::Network.pb_common.ResultCode Result {
       get { return result_; }
       set {
         result_ = value;
@@ -228,9 +229,9 @@ namespace PbUser {
 
     /// <summary>Field number for the "userinfo" field.</summary>
     public const int UserinfoFieldNumber = 2;
-    private global::PbCommon.UserInfo userinfo_;
+    private global::Network.pb_common.UserInfo userinfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::PbCommon.UserInfo Userinfo {
+    public global::Network.pb_common.UserInfo Userinfo {
       get { return userinfo_; }
       set {
         userinfo_ = value;
@@ -302,7 +303,7 @@ namespace PbUser {
       }
       if (other.userinfo_ != null) {
         if (userinfo_ == null) {
-          userinfo_ = new global::PbCommon.UserInfo();
+          userinfo_ = new global::Network.pb_common.UserInfo();
         }
         Userinfo.MergeFrom(other.Userinfo);
       }
@@ -317,12 +318,12 @@ namespace PbUser {
             input.SkipLastField();
             break;
           case 8: {
-            result_ = (global::PbCommon.ResultCode) input.ReadEnum();
+            result_ = (global::Network.pb_common.ResultCode) input.ReadEnum();
             break;
           }
           case 18: {
             if (userinfo_ == null) {
-              userinfo_ = new global::PbCommon.UserInfo();
+              userinfo_ = new global::Network.pb_common.UserInfo();
             }
             input.ReadMessage(userinfo_);
             break;

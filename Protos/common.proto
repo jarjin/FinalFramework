@@ -1,6 +1,16 @@
 syntax = "proto3";
 package pb_common;
 
+// [START java_declaration]
+option java_multiple_files = true;
+option java_package = "com.protos";
+option java_outer_classname = "pb_common";
+// [END java_declaration]
+
+// [START csharp_declaration]
+option csharp_namespace = "Network.pb_common";
+// [END csharp_declaration]
+
 enum ResultCode {
 	Success = 0;             //操作成功
 	Failed = 1;              //操作失败

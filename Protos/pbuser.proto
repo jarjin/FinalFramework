@@ -1,0 +1,24 @@
+syntax = "proto3";
+package pb_user;
+
+import "common.proto";
+
+// [START java_declaration]
+option java_multiple_files = true;
+option java_package = "com.protos";
+option java_outer_classname = "pbuser";
+// [END java_declaration]
+
+// [START csharp_declaration]
+option csharp_namespace = "Network.pbuser";
+// [END csharp_declaration]
+
+message ReqLogin {
+	string name = 1;
+	string pass = 2;
+}
+
+message ResLogin {
+	pb_common.ResultCode result = 1;
+	pb_common.UserInfo userinfo = 2;
+}
