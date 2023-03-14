@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.handler;
+package com.manager;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.protos.Person;
@@ -13,9 +13,9 @@ import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
  * @author Administrator
  *
  */
-public class ZoneEventHandler extends BaseClientRequestHandler
+public class NetworkManager extends BaseClientRequestHandler
 {
-	public ZoneEventHandler() {}
+	public NetworkManager() {}
 	
     @Override
     public void handleClientRequest(User user, ISFSObject inObj) 

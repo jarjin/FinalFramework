@@ -1,12 +1,12 @@
 package com;
-import com.handler.ZoneEventHandler;
+import com.manager.NetworkManager;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
 public class MainExtension extends SFSExtension {
     @Override
     public void init()
     {
-        addRequestHandler("protoc", ZoneEventHandler.class);
+        addRequestHandler("protoc", NetworkManager.class);
         trace("Hello, this is my first SFS2X Extension!");
     }
     
