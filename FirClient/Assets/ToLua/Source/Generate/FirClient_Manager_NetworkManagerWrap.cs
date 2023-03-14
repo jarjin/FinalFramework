@@ -11,7 +11,6 @@ public class FirClient_Manager_NetworkManagerWrap
 		L.RegFunction("SendData", new LuaCSFunction(SendData));
 		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_NetworkManager));
 		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
-		L.RegVar("mClient", new LuaCSFunction(get_mClient), null);
 		L.EndClass();
 	}
 
@@ -91,25 +90,6 @@ public class FirClient_Manager_NetworkManagerWrap
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_mClient(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			FirClient.Manager.NetworkManager obj = (FirClient.Manager.NetworkManager)o;
-			LiteNetLib.NetManager ret = obj.mClient;
-			ToLua.PushObject(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index mClient on a nil value");
 		}
 	}
 }

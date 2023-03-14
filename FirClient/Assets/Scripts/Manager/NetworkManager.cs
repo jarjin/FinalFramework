@@ -5,6 +5,7 @@ using LuaInterface;
 using Google.Protobuf;
 using FirClient.Define;
 using FirClient.Extensions;
+using Sfs2X.Core;
 
 namespace FirClient.Manager
 {
@@ -18,25 +19,17 @@ namespace FirClient.Manager
     public partial class NetworkManager : BaseManager
     {
         static readonly Dictionary<byte, BaseDispatcher> mDispatchers = new Dictionary<byte, BaseDispatcher>();
-
-        public NetManager mClient { get; private set; }
+        private ClientListener mClient;
         private ConnectParam connParams;
 
         [NoToLua]
         public override void Initialize()
         {
             InitHandler();
-            
-            var listener = new ClientListener(this);
-            mClient = new NetManager(listener);
-            mClient.UnconnectedMessagesEnabled = true;
-            mClient.UpdateTime = 15;
-            mClient.DisconnectTimeout = 30 * 1000;
-            if (!mClient.Start())
-            {
-                Debug.LogError("Client start failed");
-                return;
-            }
+
+            mClient = new ClientListener(this);
+            mClient.Start();
+
             isOnUpdate = true;
         }
 
@@ -51,7 +44,7 @@ namespace FirClient.Manager
         {
             if (mClient != null)
             {
-                mClient.PollEvents();
+                mClient.Update();
             }
         }
 
@@ -66,12 +59,23 @@ namespace FirClient.Manager
         }
 
         [NoToLua]
-        public void OnConnected(NetPeer peer, string disReason = null)
+        public void OnConnected(BaseEvent evt)
         {
+            if ((bool)evt.Params["success"])
+            {
+                Debug.Log("Connected");
+
+                // Send login request
+                //sfs.Send(new Sfs2X.Requests.LoginRequest(""));
+            }
+            else
+            {
+                Debug.LogError("Connection failed");
+            }
             if (connParams.connFunc != null)
             {
                 var self = connParams.luaClass;
-                connParams.connFunc.Call(self, disReason);
+                connParams.connFunc.Call(self);
 
                 //connParams.luaClass.Dispose();
                 //connParams.luaClass = null;
@@ -106,36 +110,36 @@ namespace FirClient.Manager
 
         private void SendDataInternal(ProtoType protocal, string protoName, byte[] buffer)
         {
-            if (mClient != null)
-            {
-                var writer = new NetDataWriter();
-                writer.Put((byte)protocal);
-                writer.Put(protoName);
-                writer.Put(buffer.Length);
-                writer.Put(buffer);
-                mClient.FirstPeer.Send(writer, DeliveryMethod.ReliableOrdered);
-            }
+            //if (mClient != null)
+            //{
+            //    var writer = new NetDataWriter();
+            //    writer.Put((byte)protocal);
+            //    writer.Put(protoName);
+            //    writer.Put(buffer.Length);
+            //    writer.Put(buffer);
+            //    mClient.FirstPeer.Send(writer, DeliveryMethod.ReliableOrdered);
+            //}
         }
 
         [NoToLua]
-        public void OnReceived(NetPeer peer, NetDataReader reader)
+        public void OnReceived()
         {
-            var key = reader.GetByte();
-            if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
-            {
-                if (dispatcher != null)
-                {
-                    var protoName = reader.GetString();
-                    var count = reader.GetInt();
-                    var bytes = new byte[count];
-                    reader.GetBytes(bytes, count);
-                    dispatcher.OnMessage(protoName, bytes);
-                }
-            }
+            //var key = reader.GetByte();
+            //if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
+            //{
+            //    if (dispatcher != null)
+            //    {
+            //        var protoName = reader.GetString();
+            //        var count = reader.GetInt();
+            //        var bytes = new byte[count];
+            //        reader.GetBytes(bytes, count);
+            //        dispatcher.OnMessage(protoName, bytes);
+            //    }
+            //}
         }
 
         [NoToLua]
-        public void OnDisconnected(NetPeer peer, string disReason)
+        public void OnDisconnected(string disReason)
         {
             if (connParams.connFunc != null)
             {

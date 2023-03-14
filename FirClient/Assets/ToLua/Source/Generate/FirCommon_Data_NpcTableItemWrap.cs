@@ -147,8 +147,8 @@ public class FirCommon_Data_NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirCommon.Data.NpcTableItem obj = (FirCommon.Data.NpcTableItem)o;
-			UnityEngine.Vector3 ret = obj.scale;
-			ToLua.Push(L, ret);
+			FirCommon.Data.FVector3 ret = obj.scale;
+			ToLua.PushObject(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -280,7 +280,7 @@ public class FirCommon_Data_NpcTableItemWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FirCommon.Data.NpcTableItem obj = (FirCommon.Data.NpcTableItem)o;
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			FirCommon.Data.FVector3 arg0 = (FirCommon.Data.FVector3)ToLua.CheckObject<FirCommon.Data.FVector3>(L, 2);
 			obj.scale = arg0;
 			return 0;
 		}
