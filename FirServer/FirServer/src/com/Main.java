@@ -1,3 +1,4 @@
+package com;
 import com.handler.ZoneEventHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
