@@ -3,8 +3,8 @@
  */
 package com.handler;
 
-import com.example.tutorial.protos.Person;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.protos.Person;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
