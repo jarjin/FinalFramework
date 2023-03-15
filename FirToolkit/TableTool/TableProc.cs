@@ -161,12 +161,12 @@ namespace TableTool
                 if (type == TableType.CSharp)
                 {
                     CreateCSharpTableManager();
+                    ExecuteExportTables();
                 }
                 else 
                 {
                     CreateJavaTableManager();
                 }
-                ExecuteExportTables();
             }
         }
     }
