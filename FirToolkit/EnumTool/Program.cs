@@ -92,14 +92,23 @@ namespace EnumTool
         {
             foreach (var kvp in _dic)
             {
-                var strs = new StringBuilder();
+                var index = 0;
+                var strs = string.Empty;
                 foreach (var item in kvp.values)
                 {
-                    var str = string.Format("   {0}({1}),", item.Key, item.Value);
+                    var str = string.Format("    {0}({1})", item.Key, item.Value);
+                    strs += str;
+                    if (++index == kvp.values.Count)
+                    {
+                        strs += ";\r\n";
+                    }
+                    else
+                    {
+                        strs += ",\r\n";
+                    }
                     Console.WriteLine(str);
-                    strs.AppendLine(str);
                 }
-                WriteFile(javaCodePath + "\\" + kvp.name + ".java", kvp.name, javaTemplate, strs.ToString());
+                WriteFile(javaCodePath + "\\" + kvp.name + ".java", kvp.name, javaTemplate, strs);
                 Console.WriteLine("Build Java Photocal OK!!!:" + javaCodePath);
             }
         }
