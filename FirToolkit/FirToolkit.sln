@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryEditor", "StoryEditor\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableTool", "TableTool\TableTool.csproj", "{9CAC1203-7B3C-47CB-81CE-125383A0894F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoNameTool", "ProtoTool\ProtoNameTool.csproj", "{A2244D5F-6628-4A9B-89F0-571789F1584F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoName", "ProtoTool\ProtoName.csproj", "{A2244D5F-6628-4A9B-89F0-571789F1584F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumTool", "EnumTool\EnumTool.csproj", "{290AE937-506A-406D-8941-AF3E01264496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,12 @@ Global
 		{A2244D5F-6628-4A9B-89F0-571789F1584F}.DevTest|Any CPU.Build.0 = Debug|Any CPU
 		{A2244D5F-6628-4A9B-89F0-571789F1584F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2244D5F-6628-4A9B-89F0-571789F1584F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.DevTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.DevTest|Any CPU.Build.0 = Debug|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{290AE937-506A-406D-8941-AF3E01264496}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
