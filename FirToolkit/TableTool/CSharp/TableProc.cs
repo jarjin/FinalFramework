@@ -16,9 +16,22 @@ namespace TableTool
         /// <summary>
         /// 枚举生成器   生成 C# && Java两种代码
         /// </summary>
+        
+        static List<EnumInfo> ParseEnumInfo()
+        {
+            if (File.Exists(enumFilePath))
+            {
+
+            }
+            return null;
+        }
+
         static void HandleCommonEnum()
         {
-
+            var list = ParseEnumInfo();
+            if (list != null)
+            {
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
