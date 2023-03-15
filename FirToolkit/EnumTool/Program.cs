@@ -83,7 +83,7 @@ namespace EnumTool
                     Console.WriteLine(str);
                     strs.AppendLine(str);
                 }
-                WriteFile(csharpCodePath + "\\" + kvp.name + ".cs", kvp.name, javaTemplate, strs.ToString());
+                WriteFile(csharpCodePath + "\\" + kvp.name + ".cs", kvp.name, csharpTemplate, strs.ToString());
                 Console.WriteLine("Build CSharp Photocal OK!!!:" + csharpCodePath);
             }
         }
