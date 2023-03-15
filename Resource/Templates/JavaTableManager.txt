@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 import com.define.AppDefine;
 import com.google.gson.Gson;
+import com.tables.Tables.*;
 
 public class TableManager<T> extends BaseManager {
 [DECLARE_TABLES_VARS]

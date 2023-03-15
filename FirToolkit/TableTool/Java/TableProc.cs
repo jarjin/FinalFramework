@@ -66,7 +66,7 @@ namespace TableTool
                     var extraParam = sheet.GetValue(3, i) as string;
                     varType = GetEnumType(extraParam).typeName;
                 }
-                varBody.AppendLine("    	public " + GetJavaType(varType) + " " + varName + ";");
+                varBody.AppendLine("    public " + GetJavaType(varType) + " " + varName + ";");
             }
             var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
 
