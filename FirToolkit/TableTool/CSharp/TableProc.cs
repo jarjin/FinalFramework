@@ -82,7 +82,6 @@ namespace TableTool
             {
                 Directory.CreateDirectory(destDir);
             }
-
             txtCode = txtCode.Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
             var csPath = destDir + "/" + name + ".cs";
             File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));

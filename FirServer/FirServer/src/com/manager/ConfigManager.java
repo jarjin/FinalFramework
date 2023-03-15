@@ -1,6 +1,7 @@
 package com.manager;
 
 public class ConfigManager extends BaseManager {
+
     @Override
     public void Initialize() {
         // TODO Auto-generated method stub
