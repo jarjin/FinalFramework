@@ -42,7 +42,23 @@ namespace TableTool
         /// </summary>
         static void HandleJavaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
         {
+            var varName = tableName.FirstCharToLower();
+            vars.AppendLine("    	public " + tableName + " " + varName + ";");
+            load_funcs.AppendLine("        	" + varName + " = LoadData(\"Tables/" + tableName + ".bytes\", " + tableName + ".class);");
+            load_funcs.AppendLine("        	" + varName + ".Initialize();");
 
+            if (IsNewOrUpdateTable(tableName, md5))
+            {
+                string destDir = destPath + "/Tables";
+                var tableCode = CreateJavaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
+                var compileInfo = new TableCompileInfo();
+                compileInfo.tableName = tableName;
+                compileInfo.tablePath = excelFile;
+                compileInfo.tableType = tableType;
+                compileInfo.sheetName = sheetName;
+                compileInfo.tableCode = tableCode;
+                compileInfos.Add(compileInfo);
+            }
         }
 
         /// <summary>
