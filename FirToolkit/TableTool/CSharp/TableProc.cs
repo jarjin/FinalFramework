@@ -99,13 +99,13 @@ namespace TableTool
             var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
             string txtCode = tableItemCode.Replace("[NAME]", name)
                                           .Replace("[BODY]", varText)
-                                          .Replace("[TYPE]", keyType);
+                                          .Replace("[TYPE]", keyType)
+                                          .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
 
             if (!Directory.Exists(destDir))
             {
                 Directory.CreateDirectory(destDir);
             }
-            txtCode = txtCode.Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
             var csPath = destDir + "/" + name + ".cs";
             File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
             return txtCode;
@@ -145,20 +145,23 @@ namespace TableTool
                 }
                 varBody.AppendLine("    	public " + GetJavaType(varType) + " " + varName + ";");
             }
-            var tableItemCode = File.ReadAllText(templateDir + "/JavaTable.txt");
             var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
-            string txtCode = tableItemCode.Replace("[NAME]", name)
-                                          .Replace("[BODY]", varText)
-                                          .Replace("[TYPE]", keyType);
+
+            var tableCode = File.ReadAllText(templateDir + "/JavaTable.txt");
+            string txtTableCode = tableCode.Replace("[NAME]", name)
+                                           .Replace("[BODY]", varText)
+                                           .Replace("[TYPE]", keyType)
+                                           .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
+
+            var itemCode = File.ReadAllText(templateDir + "/JavaTableItem.txt");
 
             if (!Directory.Exists(destDir))
             {
                 Directory.CreateDirectory(destDir);
             }
-            txtCode = txtCode.Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
             var csPath = destDir + "/" + name + ".java";
-            File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
-            return txtCode;
+            File.WriteAllText(csPath, txtTableCode, new UTF8Encoding(false));
+            return txtTableCode;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
