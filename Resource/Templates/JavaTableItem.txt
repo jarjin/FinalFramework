@@ -1,0 +1,6 @@
+package com.tables.Tables;
+
+public class [NAME]Item
+{
+[BODY]
+}

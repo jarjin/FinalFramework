@@ -116,7 +116,49 @@ namespace TableTool
         /// </summary>
         static string CreateJavaTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
         {
-            return string.Empty;
+            int colNum = sheet.Dimension.End.Column;
+
+            string keyType = string.Empty;
+            var varBody = new StringBuilder();
+
+            for (int i = 1; i <= colNum; i++)
+            {
+                var varName = sheet.GetValue(4, i) as string;
+                if (string.IsNullOrEmpty(varName))
+                {
+                    continue;
+                }
+                if (varName.Trim() == "note")
+                {
+                    continue;
+                }
+                string varType = sheet.GetValue(2, i).ToString();
+
+                if (i == 1)
+                {
+                    keyType = varType;
+                }
+                if (varType == "enum")
+                {
+                    var extraParam = sheet.GetValue(3, i) as string;
+                    varType = GetEnumType(extraParam).typeName;
+                }
+                varBody.AppendLine("    	public " + GetJavaType(varType) + " " + varName + ";");
+            }
+            var tableItemCode = File.ReadAllText(templateDir + "/JavaTable.txt");
+            var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
+            string txtCode = tableItemCode.Replace("[NAME]", name)
+                                          .Replace("[BODY]", varText)
+                                          .Replace("[TYPE]", keyType);
+
+            if (!Directory.Exists(destDir))
+            {
+                Directory.CreateDirectory(destDir);
+            }
+            txtCode = txtCode.Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
+            var csPath = destDir + "/" + name + ".java";
+            File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
+            return txtCode;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -351,6 +393,16 @@ namespace TableTool
             return instance;
         }
 
+        static string GetJavaType(string type)
+        {
+            switch (type)
+            {
+                case "string": return "String";
+                case "bool": return "boolean";
+            }
+            return type;
+        }
+
         static ClassInfo GetEnumType(string extraParam)
         {
             var clsInfo = new ClassInfo();
@@ -363,7 +415,7 @@ namespace TableTool
         static object GetEnumValue(Assembly asm, string extraParam, string enumValue)
         {
             var clsInfo = GetEnumType(extraParam);
-            var etype = asm.GetType(clsInfo.namespaceName + "." + clsInfo.typeName);
+            var etype = asm.GetType(clsInfo.typeName);
             Array enumByReflection = Enum.GetValues(etype);
             foreach (var e in enumByReflection)
             {
@@ -393,10 +445,14 @@ namespace TableTool
             parameters.OutputAssembly = assemblyPath;
 
             string depCode = null;
-            var fullPath = Environment.CurrentDirectory + "/FirCommon/Define/CommonEnum.cs";
-            if (File.Exists(fullPath))
+            var fullPath = Environment.CurrentDirectory + "/FirClient/Assets/Scripts/Data/Enums";
+            if (Directory.Exists(fullPath))
             {
-                depCode = File.ReadAllText(fullPath);
+                var files = Directory.GetFiles(fullPath, "*.cs");
+                foreach (var file in files)
+                {
+                    depCode += File.ReadAllText(file) + "\r\n";
+                }
             }
             CompilerResults result = provider.CompileAssemblyFromSource(parameters, depCode, classCode);
             if (result.Errors.HasErrors)
