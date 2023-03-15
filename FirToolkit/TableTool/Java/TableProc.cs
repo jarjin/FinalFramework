@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using FirCommon.Utility;
+using OfficeOpenXml;
 using System;
 using System.IO;
 using System.Text;
@@ -21,21 +22,23 @@ namespace TableTool
             load_funcs.AppendLine("        	" + varName + ".Initialize();");
 
             string destDir = destPath + "/Tables";
-            var tableCode = CreateJavaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
-            var compileInfo = new TableCompileInfo();
-            compileInfo.tableName = tableName;
-            compileInfo.tablePath = excelFile;
-            compileInfo.tableType = tableType;
-            compileInfo.sheetName = sheetName;
-            compileInfo.tableCode = tableCode;
-            compileInfos.Add(compileInfo);
+            if (!Directory.Exists(destDir))
+            {
+                Directory.CreateDirectory(destDir);
+            }
+            CreateJavaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
         }
 
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
-        static string CreateJavaTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
+        static void CreateJavaTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
         {
+            if (!Directory.Exists(destDir))
+            {
+                Directory.CreateDirectory(destDir);
+            }
+
             int colNum = sheet.Dimension.End.Column;
 
             string keyType = string.Empty;
@@ -56,7 +59,7 @@ namespace TableTool
 
                 if (i == 1)
                 {
-                    keyType = varType;
+                    keyType = GetJavaType(varType);
                 }
                 if (varType == "enum")
                 {
@@ -68,20 +71,15 @@ namespace TableTool
             var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
 
             var tableCode = File.ReadAllText(templateDir + "/JavaTable.txt");
-            string txtTableCode = tableCode.Replace("[NAME]", name)
-                                           .Replace("[BODY]", varText)
-                                           .Replace("[TYPE]", keyType)
-                                           .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
+            var txtTableCode = tableCode.Replace("[NAME]", name)
+                                        .Replace("[TYPE]", keyType.FirstCharToUpper())
+                                        .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
+
+            File.WriteAllText(destDir + "/" + name + ".java", txtTableCode, new UTF8Encoding(false));
 
             var itemCode = File.ReadAllText(templateDir + "/JavaTableItem.txt");
-
-            if (!Directory.Exists(destDir))
-            {
-                Directory.CreateDirectory(destDir);
-            }
-            var csPath = destDir + "/" + name + ".java";
-            File.WriteAllText(csPath, txtTableCode, new UTF8Encoding(false));
-            return txtTableCode;
+            var txtItemCode = itemCode.Replace("[NAME]", name).Replace("[BODY]", varText);
+            File.WriteAllText(destDir + "/" + name + "Item.java", txtItemCode, new UTF8Encoding(false));
         }
 
         static string GetJavaType(string type)
@@ -89,7 +87,8 @@ namespace TableTool
             switch (type)
             {
                 case "string": return "String";
-                case "bool": return "boolean";
+                case "bool": return "Boolean";
+                case "int": return "Integer";
             }
             return type;
         }

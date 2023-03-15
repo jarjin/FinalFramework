@@ -22,7 +22,7 @@ namespace TableTool
             {
                 Directory.CreateDirectory(destDir);
             }
-            var tableCode = CreateLuaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
+            CreateLuaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
         }
 
         /// <summary>
