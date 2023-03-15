@@ -37,7 +37,7 @@ namespace TableTool
 
             StartProc(TableType.Lua);
             StartProc(TableType.CSharp);
-            StartProc(TableType.Server);
+            StartProc(TableType.Java);
             MessageBox.Show("处理完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -62,7 +62,7 @@ namespace TableTool
                     {
                         formatTables.Add(de.Value);
                     }
-                    if (type == TableType.Server && de.Value.withServer)
+                    if (type == TableType.Java && de.Value.withServer)
                     {
                         formatTables.Add(de.Value);
                     }
@@ -152,26 +152,17 @@ namespace TableTool
             var sheetName = sheet.Name.ToLower();
             Console.WriteLine("{0}, {1}", tableName + " " + sheetName, sheet.Cells.Count());
 
-            var destPath = string.Empty;
             switch(type)
             {
                 case TableType.Lua:
-                    destPath = luaCodePath;
+                    HandleLuaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, luaCodePath);
                     break;
                 case TableType.CSharp:
-                    destPath = csharpCodePath;
+                    HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, csharpCodePath);
                     break;
-                case TableType.Server:
-                    destPath = serverCodePath;
+                case TableType.Java:
+                    HandleJavaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, serverCodePath);
                     break;
-            }
-            if (type == TableType.Lua)
-            {
-                HandleLuaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, destPath);
-            }
-            else
-            {
-                HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, destPath);
             }
         }
 
@@ -183,7 +174,14 @@ namespace TableTool
             }
             else
             {
-                CreateCSharpTableManager(type);
+                if (type == TableType.CSharp)
+                {
+                    CreateCSharpTableManager();
+                }
+                else 
+                {
+                    CreateJavaTableManager();
+                }
                 ExecuteExportTables();
             }
         }

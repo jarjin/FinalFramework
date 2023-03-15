@@ -33,6 +33,11 @@ namespace TableTool
             }
         }
 
+        static void HandleJavaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
+        {
+
+        }
+
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
@@ -84,24 +89,35 @@ namespace TableTool
             return txtCode;
         }
 
+        /// <summary>
+        /// 创建表结构跟ITEM文件
+        /// </summary>
+        static string CreateJavaTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
+        {
+            return string.Empty;
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// 生成TableManager类
         /// </summary>
-        static void CreateCSharpTableManager(TableType type)
+        static void CreateCSharpTableManager()
         {
             var tempfile = templateDir + "/C#TableManager.txt";
             if (File.Exists(tempfile))
             {
                 var managerCode = File.ReadAllText(tempfile);
-                if (type == TableType.CSharp)
-                {
-                    WriteCSharpTableManager(managerCode, csharpCodePath);
-                }
-                if (type == TableType.Server)
-                {
-                    WriteCSharpTableManager(managerCode, serverCodePath);
-                }
+                WriteCSharpTableManager(managerCode, csharpCodePath);
+            }
+        }
+
+        static void CreateJavaTableManager()
+        {
+            var tempfile = templateDir + "/JavaTableManager.txt";
+            if (File.Exists(tempfile))
+            {
+                var managerCode = File.ReadAllText(tempfile);
+                WriteJavaTableManager(managerCode, csharpCodePath);
             }
         }
 
@@ -188,6 +204,11 @@ namespace TableTool
             File.WriteAllText(filename, content, new UTF8Encoding(false));
         }
 
+        static void WriteJavaTableManager(string tempText, string pathname)
+        {
+
+        }
+
         /// <summary>
         /// 将表数据写入文件
         /// </summary>
@@ -199,7 +220,7 @@ namespace TableTool
                 case TableType.CSharp:
                     bytesPath = new TablePath(csharpDataPath + "/" + tbName, clientDllPath);
                     break;
-                case TableType.Server:
+                case TableType.Java:
                     bytesPath = new TablePath(serverDataPath + "/" + tbName, serverDllPath);
                     break;
             }

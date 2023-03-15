@@ -9,7 +9,7 @@ namespace TableTool
     {
         Lua = 0,
         CSharp = 1,
-        Server = 2,
+        Java = 2,
     }
 
     public enum TableFormat
