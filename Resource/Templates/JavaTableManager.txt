@@ -1,15 +1,19 @@
 package com.manager;
 
-import com.interfaces.IManager;
-
-public class BaseManager implements IManager {
+public class TableManager extends BaseManager {
+[DECLARE_TABLES_VARS]
 
     @Override
     public void Initialize() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Initialize'");
+        this.LoadTables();
     }
 
+    public void LoadTables() {
+[LOAD_TABLE_FUNCS]
+    }
+
+    @Override
     public void OnUpdate(float deltaTime) {
     }
 
@@ -18,5 +22,4 @@ public class BaseManager implements IManager {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'OnDispose'");
     }
-    
 }

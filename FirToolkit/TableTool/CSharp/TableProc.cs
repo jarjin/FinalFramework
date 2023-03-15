@@ -107,7 +107,7 @@ namespace TableTool
             if (File.Exists(tempfile))
             {
                 var managerCode = File.ReadAllText(tempfile);
-                WriteCSharpTableManager(managerCode, csharpCodePath);
+                WriteTableManagerFile(managerCode, csharpCodePath, "cs");
             }
         }
 
@@ -117,7 +117,7 @@ namespace TableTool
             if (File.Exists(tempfile))
             {
                 var managerCode = File.ReadAllText(tempfile);
-                WriteJavaTableManager(managerCode, csharpCodePath);
+                WriteTableManagerFile(managerCode, serverCodePath, "java");
             }
         }
 
@@ -187,7 +187,7 @@ namespace TableTool
         /// <summary>
         /// 写入C#表管理器
         /// </summary>
-        static void WriteCSharpTableManager(string tempText, string pathname)
+        static void WriteTableManagerFile(string tempText, string pathname, string extName)
         {
             vars.AppendLine("///[APPEND_VAR]");
             load_funcs.AppendLine("///[APPEND_TABLE]");
@@ -196,17 +196,12 @@ namespace TableTool
             var content = tempText.Replace("[DECLARE_TABLES_VARS]", vars.ToString());
             content = content.Replace("[LOAD_TABLE_FUNCS]", loadfuncText);
 
-            var filename = pathname + "/TableManager.cs";
+            var filename = pathname + "/TableManager." + extName;
             if (File.Exists(filename))
             {
                 File.Delete(filename);
             }
             File.WriteAllText(filename, content, new UTF8Encoding(false));
-        }
-
-        static void WriteJavaTableManager(string tempText, string pathname)
-        {
-
         }
 
         /// <summary>
