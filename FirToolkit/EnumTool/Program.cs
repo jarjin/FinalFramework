@@ -24,8 +24,8 @@ namespace EnumTool
             javaTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\JavaEnum.txt";
             csharpTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\C#Enum.txt";
 
-            javaCodePath = Environment.CurrentDirectory + "\\FirServer\\FirServer\\src\\com\\tables\\enum";
-            csharpCodePath = Environment.CurrentDirectory + "\\FirClient\\Assets\\Scripts\\Data\\Enum";
+            javaCodePath = Environment.CurrentDirectory + "\\FirServer\\FirServer\\src\\com\\tables\\enums";
+            csharpCodePath = Environment.CurrentDirectory + "\\FirClient\\Assets\\Scripts\\Data\\Enums";
         }
 
         static void ParseEnum()
@@ -67,46 +67,58 @@ namespace EnumTool
                         var value = newStrs[1].Trim().TrimEnd(',');
 
                         info.values.Add(key, value);
-                        Console.WriteLine(key + " " + value);
                     }
                 }
             }
         }
 
-        static void WriteCSharpProtocal()
+        static void WriteCSharpEnum()
         {
-            var strs = new StringBuilder();
             foreach (var kvp in _dic)
             {
-                var str = string.Format("   public string {0} = {1};", kvp.Key, kvp.Value);
-                Console.WriteLine(str);
-                strs.AppendLine(str);
+                var strs = new StringBuilder();
+                foreach (var item in kvp.values)
+                {
+                    var str = string.Format("   {0} = {1},", item.Key, item.Value);
+                    Console.WriteLine(str);
+                    strs.AppendLine(str);
+                }
+                WriteFile(csharpCodePath + "\\" + kvp.name + ".cs", kvp.name, javaTemplate, strs.ToString());
+                Console.WriteLine("Build CSharp Photocal OK!!!:" + csharpCodePath);
             }
-            WriteFile(csharpCodePath, csharpTemplate, strs.ToString());
-            Console.WriteLine("Build CSharp Photocal OK!!!:" + csharpCodePath);
         }
 
-        static void WriteJavaProtocal()
+        static void WriteJavaEnum()
         {
-            var strs = new StringBuilder();
             foreach (var kvp in _dic)
             {
-                var str = string.Format("   public String {0} = {1};", kvp.Key, kvp.Value);
-                Console.WriteLine(str);
-                strs.AppendLine(str);
+                var strs = new StringBuilder();
+                foreach (var item in kvp.values)
+                {
+                    var str = string.Format("   {0}({1}),", item.Key, item.Value);
+                    Console.WriteLine(str);
+                    strs.AppendLine(str);
+                }
+                WriteFile(javaCodePath + "\\" + kvp.name + ".java", kvp.name, javaTemplate, strs.ToString());
+                Console.WriteLine("Build Java Photocal OK!!!:" + javaCodePath);
             }
-            WriteFile(javaCodePath, javaTemplate, strs.ToString());
-            Console.WriteLine("Build Java Photocal OK!!!:" + javaCodePath);
         }
 
-        static void WriteFile(string filePath, string templateFile, string content)
+        static void WriteFile(string filePath, string name, string templateFile, string content)
         {
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
             }
             var strs = File.ReadAllText(templateFile);
+            strs = strs.Replace("[NAME]", name);
             strs = strs.Replace("[BODY]", content);
+
+            var dirName = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(dirName);
+            }
             File.WriteAllText(filePath, strs);
         }
 
@@ -129,8 +141,8 @@ namespace EnumTool
             }
             if (_dic.Count > 0)
             {
-                //WriteJavaProtocal();
-                //WriteCSharpProtocal();
+                WriteJavaEnum();
+                WriteCSharpEnum();
             }
             Console.ReadKey();
         }
