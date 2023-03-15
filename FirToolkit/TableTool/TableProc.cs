@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
 namespace TableTool
 {
+    /// <summary>
+    /// Total's TableProc
+    /// </summary>
     public partial class TableProc
     {
         static fmMain fmMain;
@@ -165,22 +167,6 @@ namespace TableTool
                     CreateJavaTableManager();
                 }
                 ExecuteExportTables();
-            }
-        }
-
-        static string md5file(string file)
-        {
-            using (FileStream fs = new FileStream(file, FileMode.Open))
-            {
-                MD5 md5 = new MD5CryptoServiceProvider();
-                byte[] retVal = md5.ComputeHash(fs);
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < retVal.Length; i++)
-                {
-                    sb.Append(retVal[i].ToString("x2"));
-                }
-                return sb.ToString();
             }
         }
     }

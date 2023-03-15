@@ -6,6 +6,9 @@ using System.Text;
 
 namespace TableTool
 {
+    /// <summary>
+    /// Lua's TableProc
+    /// </summary>
     public partial class TableProc
     {
         static void HandleLuaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, string destPath)

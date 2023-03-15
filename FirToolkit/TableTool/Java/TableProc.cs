@@ -5,6 +5,9 @@ using System.Text;
 
 namespace TableTool
 {
+    /// <summary>
+    /// Java's TableProc
+    /// </summary>
     public partial class TableProc
     {
         /// <summary>
