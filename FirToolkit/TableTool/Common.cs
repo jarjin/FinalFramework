@@ -82,12 +82,6 @@ namespace TableTool
         public string typeName;
     }
 
-    public class EnumInfo
-    {
-        public string name;
-        public Dictionary<string, int> values;
-    }
-
     static class Common
     {
         public static string FirstCharToLower(this string input)
