@@ -75,24 +75,6 @@ namespace TableTool
             }
         }
 
-        static bool IsNewOrUpdateTable(string tableName, string newmd5)
-        {
-            return true;
-            if (!fmMain.ContainsMd5(tableName))
-            {
-                fmMain.UpdateMd5(tableName, newmd5);
-                return true;
-            }
-            var oldmd5 = fmMain.GetMd5(tableName);      //老的md5值
-
-            if (newmd5 != oldmd5)
-            {
-                fmMain.UpdateMd5(tableName, newmd5);
-                return true;
-            }
-            return false;
-        }
-
         /// <summary>
         /// 分析处理表
         /// </summary>
