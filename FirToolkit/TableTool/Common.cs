@@ -1,5 +1,6 @@
 ﻿using FirCommon.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -79,6 +80,12 @@ namespace TableTool
     {
         public string namespaceName;
         public string typeName;
+    }
+
+    public class EnumInfo
+    {
+        public string name;
+        public Dictionary<string, int> values;
     }
 
     static class Common

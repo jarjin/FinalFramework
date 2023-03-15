@@ -1,0 +1,9 @@
+package com.tables;
+public enum [NAME] 
+{
+[BODY]
+	private Integer v;
+	CountryType(Integer key) {
+		this.v = key;
+	}
+}
