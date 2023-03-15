@@ -1,13 +1,11 @@
 #Java
 #package com.tables;
-
 #public enum CountryType 
 #{
 #	NONE(0),		//主角		
-#	WEI(1),    	//魏国
-#	SHU(2),    	//蜀国
+#	WEI(1),    		//魏国
+#	SHU(2),    		//蜀国
 #	WU(3);        	//吴国
-
 #	private Integer v;
 #	CountryType(Integer key) {
 #		this.v = key;
@@ -18,15 +16,17 @@
 #public enum CountryType 
 #{
 #	NONE = 0,		//主角		
-#	WEI = 1,    		//魏国
-#	SHU = 2,    		//蜀国
-#	WU = 3,        	 //吴国
+#	WEI = 1,    	//魏国
+#	SHU = 2,    	//蜀国
+#	WU = 3,        	//吴国
 #}
 
-enum CountryType 
+#枚举定义区==============================================
+
+CountryType 
 {
 	NONE = 0,		//主角		
-	WEI = 1,    		//魏国
-	SHU = 2,    		//蜀国
-	WU = 3,        	 //吴国
+	WEI = 1,    	//魏国
+	SHU = 2,    	//蜀国
+	WU = 3,        	//吴国
 }
