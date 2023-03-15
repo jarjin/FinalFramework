@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TableTool
 {
@@ -71,7 +72,7 @@ namespace TableTool
             }
         }
 
-        private bool SelectPath(TextBox textBox)
+        private bool SelectPath(System.Windows.Forms.TextBox textBox)
         {
             if (!string.IsNullOrEmpty(textBox.Text))
             {
@@ -150,10 +151,10 @@ namespace TableTool
                 MessageBox.Show("客户端DLL名称设置错误!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            var serverDll = textBox7.Text.Trim();
-            if (string.IsNullOrEmpty(serverDll))
+            var enumFile = textBox7.Text.Trim();
+            if (string.IsNullOrEmpty(enumFile))
             {
-                MessageBox.Show("服务端DLL名称设置错误!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("枚举文件名称设置错误!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             var luaPath = textBox9.Text.Trim();
@@ -163,7 +164,7 @@ namespace TableTool
                 return;
             }
             button4.Enabled = false;
-            TableProc.Start(this, clientDir, clientCode, luaPath, serverDir, serverCode, templateDir, clientDll, serverDll);
+            TableProc.Start(this, clientDir, clientCode, luaPath, serverDir, serverCode, templateDir, clientDll, enumFile);
             button4.Enabled = true;
         }
 
@@ -255,6 +256,21 @@ namespace TableTool
         private void button9_Click(object sender, EventArgs e)
         {
             SelectPath(textBox9);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = string.Empty;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var path = openFileDialog1.FileName.Replace("\\", "/");
+                if (!path.ToLower().StartsWith(currDir.ToLower()))
+                {
+                    MessageBox.Show("不能选择工程目录以外路径！！！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                textBox7.Text = path.Remove(0, currDir.Length);
+            }
         }
     }
 }

@@ -16,14 +16,14 @@ namespace TableTool
         static StringBuilder load_funcs;
         static List<TableCompileInfo> compileInfos = new List<TableCompileInfo>();
 
-        static string clientDllPath, serverDllPath;
-        static string csharpDataPath, csharpCodePath, luaCodePath, serverDataPath, serverCodePath, templateDir;
+        static string clientDllPath;
+        static string csharpDataPath, csharpCodePath, luaCodePath, serverDataPath, serverCodePath, templateDir, enumFilePath;
 
         /// <summary>
         /// 导入所有的EXCEL表
         /// </summary>
         public static void Start(fmMain main, string csharpData, string csharpCode, string luaCode,
-                        string serverData, string serverCode, string tempDir, string clientDll, string serverDll)
+                        string serverData, string serverCode, string tempDir, string clientDll, string enumFile)
         {
             fmMain = main;
             csharpDataPath = csharpData;
@@ -33,7 +33,7 @@ namespace TableTool
             serverCodePath = serverCode;
             templateDir = tempDir;
             clientDllPath = fmMain.currDir + clientDll;
-            serverDllPath = fmMain.currDir + serverDll;
+            enumFilePath = fmMain.currDir + enumFile;
 
             StartProc(TableType.Lua);
             StartProc(TableType.CSharp);

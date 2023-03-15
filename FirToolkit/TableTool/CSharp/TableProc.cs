@@ -12,6 +12,19 @@ namespace TableTool
 {
     public partial class TableProc
     {
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 枚举生成器   生成 C# && Java两种代码
+        /// </summary>
+        static void HandleCommonEnum()
+        {
+
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 表格处理器
+        /// </summary>
         static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
         {
             var varName = tableName.FirstCharToLower();
@@ -33,6 +46,9 @@ namespace TableTool
             }
         }
 
+        /// <summary>
+        /// 表格处理器
+        /// </summary>
         static void HandleJavaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
         {
 
@@ -139,10 +155,6 @@ namespace TableTool
             {
                 File.Delete(clientDllPath);
             }
-            if (File.Exists(serverDllPath))
-            {
-                File.Delete(serverDllPath);
-            }
         }
 
         static void CreateTableDataWithFile(string tbName, TableType tbType, string sheetName, string excelPath, string code)
@@ -215,7 +227,7 @@ namespace TableTool
                     bytesPath = new TablePath(csharpDataPath + "/" + tbName, clientDllPath);
                     break;
                 case TableType.Java:
-                    bytesPath = new TablePath(serverDataPath + "/" + tbName, serverDllPath);
+                    bytesPath = new TablePath(serverDataPath + "/" + tbName, serverDataPath);
                     break;
             }
             var binraryPath = bytesPath.path + ".bytes";
