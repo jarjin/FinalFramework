@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.MainExtension;
+import com.define.AppDefine;
 import com.interfaces.IManager;
 import com.manager.ConfigManager;
 import com.manager.NetworkManager;
@@ -20,6 +21,7 @@ public class ManagementCenter {
     {
         ManagementCenter.extension = extension;
         try {
+            InitAppServerInfo();
             AddManager(TableManager.class);
             AddManager(ConfigManager.class);
             AddManager(NetworkManager.class);
@@ -31,7 +33,11 @@ public class ManagementCenter {
                 de.Initialize();
             }
         }
-        System.out.println("Initialize Success!!!");
+        System.out.println("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
+    }
+
+    private static void InitAppServerInfo() {
+        AppDefine.DataPath = extension.getCurrentFolder();
     }
 
     public static IManager AddManager(Class<?> class1) 

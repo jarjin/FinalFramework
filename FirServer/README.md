@@ -14,5 +14,7 @@
 
 （7）运行protoname.exe生成前后端（C#+JAVA）公用的消息名称。
 
+（8）修改publish.bat里面SFS_Path的安装路径。
+
 （8）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
 

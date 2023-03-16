@@ -43,6 +43,7 @@ public class TableManager extends BaseManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(finalPath);
         return new Gson().fromJson(content, type);
     }
 
