@@ -8,7 +8,7 @@ import java.util.List;
 public class ObjectPoolTable
 {
 	public String name;		
-	private List<ObjectPoolTableItem> items = new ArrayList<ObjectPoolTableItem>();
+	public List<ObjectPoolTableItem> items = new ArrayList<ObjectPoolTableItem>();
 	
 	private Map<Integer, ObjectPoolTableItem> dics = null;
 

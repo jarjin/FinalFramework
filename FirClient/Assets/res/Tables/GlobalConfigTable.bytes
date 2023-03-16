@@ -1,1 +1,1 @@
-{"name":"FirCommon.Data.GlobalConfigTable","Items":[{"id":"CommonWhite","value":"250_250_250_255"},{"id":"CommonGreen","value":"0_246_0_255"},{"id":"CommonRed","value":"250_17_17_255"}]}
+{"name":"GlobalConfigTable","items":[{"id":"CommonWhite","value":"250_250_250_255"},{"id":"CommonGreen","value":"0_246_0_255"},{"id":"CommonRed","value":"250_17_17_255"}]}

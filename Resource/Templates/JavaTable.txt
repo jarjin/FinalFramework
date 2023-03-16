@@ -8,7 +8,7 @@ import java.util.List;
 public class [NAME]
 {
 	public String name;		
-	private List<[NAME]Item> items = new ArrayList<[NAME]Item>();
+	public List<[NAME]Item> items = new ArrayList<[NAME]Item>();
 	
 	private Map<[TYPE], [NAME]Item> dics = null;
 

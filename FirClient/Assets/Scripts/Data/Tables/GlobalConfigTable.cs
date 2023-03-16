@@ -5,16 +5,9 @@ namespace FirCommon.Data
 	public class GlobalConfigTable
 	{
 		public string name;		
-		private List<GlobalConfigTableItem> items = new List<GlobalConfigTableItem>();
+		public List<GlobalConfigTableItem> items = new List<GlobalConfigTableItem>();
 		
 		private Dictionary<string, GlobalConfigTableItem> dics = null;
-
-		public List<GlobalConfigTableItem> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{

@@ -8,7 +8,7 @@ import java.util.List;
 public class QualityTable
 {
 	public String name;		
-	private List<QualityTableItem> items = new ArrayList<QualityTableItem>();
+	public List<QualityTableItem> items = new ArrayList<QualityTableItem>();
 	
 	private Map<Integer, QualityTableItem> dics = null;
 

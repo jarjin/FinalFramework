@@ -8,7 +8,7 @@ import java.util.List;
 public class ItemTable
 {
 	public String name;		
-	private List<ItemTableItem> items = new ArrayList<ItemTableItem>();
+	public List<ItemTableItem> items = new ArrayList<ItemTableItem>();
 	
 	private Map<Integer, ItemTableItem> dics = null;
 

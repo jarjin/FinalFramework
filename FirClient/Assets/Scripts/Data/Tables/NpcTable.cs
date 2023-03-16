@@ -5,16 +5,9 @@ namespace FirCommon.Data
 	public class NpcTable
 	{
 		public string name;		
-		private List<NpcTableItem> items = new List<NpcTableItem>();
+		public List<NpcTableItem> items = new List<NpcTableItem>();
 		
 		private Dictionary<int, NpcTableItem> dics = null;
-
-		public List<NpcTableItem> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{

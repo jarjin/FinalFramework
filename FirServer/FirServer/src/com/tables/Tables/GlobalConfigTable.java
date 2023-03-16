@@ -8,7 +8,7 @@ import java.util.List;
 public class GlobalConfigTable
 {
 	public String name;		
-	private List<GlobalConfigTableItem> items = new ArrayList<GlobalConfigTableItem>();
+	public List<GlobalConfigTableItem> items = new ArrayList<GlobalConfigTableItem>();
 	
 	private Map<String, GlobalConfigTableItem> dics = null;
 

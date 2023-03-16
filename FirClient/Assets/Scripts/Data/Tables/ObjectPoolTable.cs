@@ -5,16 +5,9 @@ namespace FirCommon.Data
 	public class ObjectPoolTable
 	{
 		public string name;		
-		private List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
+		public List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
 		
 		private Dictionary<int, ObjectPoolTableItem> dics = null;
-
-		public List<ObjectPoolTableItem> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{

@@ -5,16 +5,9 @@ namespace FirCommon.Data
 	public class [NAME]
 	{
 		public string name;		
-		private List<[NAME]Item> items = new List<[NAME]Item>();
+		public List<[NAME]Item> items = new List<[NAME]Item>();
 		
 		private Dictionary<[TYPE], [NAME]Item> dics = null;
-
-		public List<[NAME]Item> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{

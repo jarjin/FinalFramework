@@ -115,7 +115,7 @@ namespace TableTool
 
             var tableType = assembly.GetType(nameTbName);
             var property = tableType.GetField("name");
-            property.SetValue(instance, nameTbName);
+            property.SetValue(instance, tbName);
 
             var methodInfo = tableType.GetMethod("AddItem", BindingFlags.Instance | BindingFlags.Public);
             var tableItemType = assembly.GetType(nameTbName + "Item");

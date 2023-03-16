@@ -8,7 +8,7 @@ import java.util.List;
 public class NpcTable
 {
 	public String name;		
-	private List<NpcTableItem> items = new ArrayList<NpcTableItem>();
+	public List<NpcTableItem> items = new ArrayList<NpcTableItem>();
 	
 	private Map<Integer, NpcTableItem> dics = null;
 
