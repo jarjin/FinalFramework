@@ -1,11 +1,9 @@
-package com.manager;
+package com.gamelogic;
 
-import com.MainExtension;
-import com.common.BaseBehaviour;
-import com.interfaces.IManager;
+import com.gamelogic.common.GameBehaviour;
+import com.interfaces.IWorld;
 
-public class BaseManager extends BaseBehaviour implements IManager {
-    protected MainExtension mainExt;
+public class GameWorld extends GameBehaviour implements IWorld  {
 
     @Override
     public void Initialize() {
@@ -13,13 +11,9 @@ public class BaseManager extends BaseBehaviour implements IManager {
         throw new UnsupportedOperationException("Unimplemented method 'Initialize'");
     }
 
-    public void OnUpdate(float deltaTime) {
-    }
-
     @Override
     public void OnDispose() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'OnDispose'");
     }
-    
 }
