@@ -33,13 +33,12 @@ public class ManagementCenter {
         } catch (InstantiationException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
-        logMgr = (LogManager)GetManager(LogManager.class);
-
         for (IManager de : managers.values()) {
             if (de != null) {
                 de.Initialize();
             }
         }
+        logMgr = (LogManager)GetManager(LogManager.class);
         logMgr.Trace("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
     }
 
@@ -59,7 +58,6 @@ public class ManagementCenter {
         String typeName = manager.getClass().getName();
         if (!managers.containsKey(typeName)) {
             managers.put(typeName, (IManager)manager);
-            logMgr.Trace("Add Manager:" + typeName + " " + manager);
         }
         return manager;
     }
@@ -75,8 +73,8 @@ public class ManagementCenter {
         }
     }
 
-    public static IManager GetManager(Class<?> class1) {
-        return GetManager(class1.getName());
+    public static IManager GetManager(Class<?> classType) {
+        return GetManager(classType.getName());
     }
 
     public static IManager GetManager(String key) {
