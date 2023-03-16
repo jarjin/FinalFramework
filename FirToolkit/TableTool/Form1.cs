@@ -66,6 +66,13 @@ namespace TableTool
                     }
                     else
                     {
+                        var filename = strs[1].Split('|')[0];
+                        if (!File.Exists(filename))
+                        {
+                            var text = "表格文件不存在:" + filename + " 请在配置里修改！！";
+                            MessageBox.Show(text, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue;
+                        }
                         tables.Add(strs[0], new TableData(strs[1]));
                     }
                 }
