@@ -38,7 +38,7 @@ public class TableManager extends BaseManager {
     }
 	
     public static <T> T LoadData(String path, Class<T> type) {
-        String finalPath = AppDefine.DataPath + "/" + path;
+        String finalPath = AppDefine.DataPath + path;
         String content = null;
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(finalPath));

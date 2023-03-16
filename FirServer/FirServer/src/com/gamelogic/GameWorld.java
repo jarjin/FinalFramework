@@ -22,21 +22,18 @@ public class GameWorld extends GameBehaviour implements IWorld  {
     }
 
     ///初始化管理器
-    void InitManager()
-    {
+    void InitManager() {
         modelMgr().AddModel(ModelNames.User, new UserModel());
         modelMgr().AddModel(ModelNames.Backpack, new BackpackModel());
     }
 
     ///注册处理器
-    void RegHandler() 
-    {
+    void RegHandler() {
         handlerMgr().AddHandler(Protocal.ReqLogin, new LoginHandler());
     }
 
-    void TestTable()
-    {
-        //Test Table
+    ///Test Table
+    void TestTable() {
         GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
         logger.info(String.format("id={%D} value={%s}", item.id, item.value));
     }
