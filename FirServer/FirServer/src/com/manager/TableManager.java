@@ -10,15 +10,10 @@ import com.google.gson.Gson;
 import com.tables.Tables.*;
 
 public class TableManager extends BaseManager {
-    	public ItemTable itemTable;
     public ItemTable itemTable;
-    	public NpcTable npcTable;
     public NpcTable npcTable;
-    	public ObjectPoolTable objectPoolTable;
     public ObjectPoolTable objectPoolTable;
-    	public QualityTable qualityTable;
     public QualityTable qualityTable;
-    	public GlobalConfigTable globalConfigTable;
     public GlobalConfigTable globalConfigTable;
 ///[APPEND_VAR]
 
@@ -29,24 +24,14 @@ public class TableManager extends BaseManager {
     }
 
     public void LoadTables() {
-        	itemTable = LoadData<ItemTable>("Tables/ItemTable.bytes");
-        	itemTable.Initialize();
         itemTable = LoadData("Tables/ItemTable.bytes", ItemTable.class);
         itemTable.Initialize();
-        	npcTable = LoadData<NpcTable>("Tables/NpcTable.bytes");
-        	npcTable.Initialize();
         npcTable = LoadData("Tables/NpcTable.bytes", NpcTable.class);
         npcTable.Initialize();
-        	objectPoolTable = LoadData<ObjectPoolTable>("Tables/ObjectPoolTable.bytes");
-        	objectPoolTable.Initialize();
         objectPoolTable = LoadData("Tables/ObjectPoolTable.bytes", ObjectPoolTable.class);
         objectPoolTable.Initialize();
-        	qualityTable = LoadData<QualityTable>("Tables/QualityTable.bytes");
-        	qualityTable.Initialize();
         qualityTable = LoadData("Tables/QualityTable.bytes", QualityTable.class);
         qualityTable.Initialize();
-        	globalConfigTable = LoadData<GlobalConfigTable>("Tables/GlobalConfigTable.bytes");
-        	globalConfigTable.Initialize();
         globalConfigTable = LoadData("Tables/GlobalConfigTable.bytes", GlobalConfigTable.class);
         globalConfigTable.Initialize();
 ///[APPEND_TABLE]

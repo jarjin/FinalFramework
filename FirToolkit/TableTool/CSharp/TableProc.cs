@@ -20,11 +20,13 @@ namespace TableTool
         /// </summary>
         static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath, bool generateCode)
         {
-            var varName = tableName.FirstCharToLower();
-            vars.AppendLine("    	public " + tableName + " " + varName + ";");
-            load_funcs.AppendLine("        	" + varName + " = LoadData<" + tableName + ">(\"Tables/" + tableName + ".bytes\");");
-            load_funcs.AppendLine("        	" + varName + ".Initialize();");
-
+            if (generateCode)
+            {
+                var varName = tableName.FirstCharToLower();
+                vars.AppendLine("    	public " + tableName + " " + varName + ";");
+                load_funcs.AppendLine("        	" + varName + " = LoadData<" + tableName + ">(\"Tables/" + tableName + ".bytes\");");
+                load_funcs.AppendLine("        	" + varName + ".Initialize();");
+            }
             string destDir = destPath + "/Tables";
             var tableCode = CreateCSharpTableWithItem(tableName, destDir, sheet, generateCode);     //创建TABLE
             var compileInfo = new TableCompileInfo();
