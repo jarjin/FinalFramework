@@ -1,5 +1,4 @@
-﻿using FirCommon.Utility;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using System;
 using System.IO;
 using System.Text;
@@ -21,18 +20,18 @@ namespace TableTool
             load_funcs.AppendLine("        " + varName + " = LoadData(\"Tables/" + tableName + ".bytes\", " + tableName + ".class);");
             load_funcs.AppendLine("        " + varName + ".Initialize();");
 
-            string destDir = destPath + "/Tables";
+            string destDir = destPath + "/tables/Tables";
             if (!Directory.Exists(destDir))
             {
                 Directory.CreateDirectory(destDir);
             }
-            CreateJavaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
+            CreateJavaTableWithItem(tableName, destDir, sheet);     //创建TABLE
         }
 
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
-        static void CreateJavaTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
+        static void CreateJavaTableWithItem(string name, string destDir, ExcelWorksheet sheet)
         {
             if (!Directory.Exists(destDir))
             {
@@ -99,7 +98,7 @@ namespace TableTool
             if (File.Exists(tempfile))
             {
                 var managerCode = File.ReadAllText(tempfile);
-                WriteTableManagerFile(managerCode, serverCodePath, "java");
+                WriteTableManagerFile(managerCode, serverCodePath + "/manager", "java");
             }
         }
     }

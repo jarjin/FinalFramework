@@ -26,7 +26,7 @@ namespace TableTool
             load_funcs.AppendLine("        	" + varName + ".Initialize();");
 
             string destDir = destPath + "/Tables";
-            var tableCode = CreateCSharpTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
+            var tableCode = CreateCSharpTableWithItem(tableName, destDir, sheet);     //创建TABLE
             var compileInfo = new TableCompileInfo();
             compileInfo.tableName = tableName;
             compileInfo.tablePath = excelFile;
@@ -39,7 +39,7 @@ namespace TableTool
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
-        static string CreateCSharpTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
+        static string CreateCSharpTableWithItem(string name, string destDir, ExcelWorksheet sheet)
         {
             int colNum = sheet.Dimension.End.Column;
 
