@@ -17,9 +17,9 @@ namespace TableTool
         static void HandleJavaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
         {
             var varName = tableName.FirstCharToLower();
-            vars.AppendLine("    	public " + tableName + " " + varName + ";");
-            load_funcs.AppendLine("        	" + varName + " = LoadData(\"Tables/" + tableName + ".bytes\", " + tableName + ".class);");
-            load_funcs.AppendLine("        	" + varName + ".Initialize();");
+            vars.AppendLine("    public " + tableName + " " + varName + ";");
+            load_funcs.AppendLine("        " + varName + " = LoadData(\"Tables/" + tableName + ".bytes\", " + tableName + ".class);");
+            load_funcs.AppendLine("        " + varName + ".Initialize();");
 
             string destDir = destPath + "/Tables";
             if (!Directory.Exists(destDir))

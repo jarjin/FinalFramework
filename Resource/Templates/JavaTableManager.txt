@@ -14,7 +14,6 @@ public class TableManager extends BaseManager {
 
     @Override
     public void Initialize() {
-        // TODO Auto-generated method stub
         this.LoadTables();
     }
 
@@ -29,7 +28,6 @@ public class TableManager extends BaseManager {
             byte[] bytes = Files.readAllBytes(Paths.get(finalPath));
             content = new String(bytes, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new Gson().fromJson(content, type);
