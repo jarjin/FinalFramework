@@ -11,6 +11,9 @@ public class HandlerManager extends BaseManager {
     public void OnDispose() {
     }
 
-    public void AddHandler(String reqlogin, IHandler handler) {
+    public void AddHandler(String name, IHandler handler) {
+    }
+
+    public void RemoveHandler(String name, IHandler handler) {
     }
 }

@@ -17,7 +17,7 @@ public class NetworkManager extends BaseManager
     private MainExtension mainExt;
 
 	public NetworkManager() {
-        mainExt = ManagementCenter.extension;
+        mainExt = ManagementCenter.GetMainExtension();
     }
 
     @Override   

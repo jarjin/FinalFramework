@@ -1,15 +1,22 @@
 package com.gamelogic;
 
+import org.apache.log4j.Logger;
+
 import com.common.Protocal;
+import com.define.ModelNames;
 import com.gamelogic.common.GameBehaviour;
 import com.gamelogic.handler.LoginHandler;
+import com.gamelogic.model.BackpackModel;
+import com.gamelogic.model.UserModel;
 import com.interfaces.IWorld;
 import com.tables.Tables.*;
 
 public class GameWorld extends GameBehaviour implements IWorld  {
-
+    Logger logger = Logger.getLogger(GameWorld.class);
+    
     @Override
     public void Initialize() {
+        TestTable();
         InitManager();
         RegHandler();
     }
@@ -17,6 +24,8 @@ public class GameWorld extends GameBehaviour implements IWorld  {
     ///初始化管理器
     void InitManager()
     {
+        modelMgr().AddModel(ModelNames.User, new UserModel());
+        modelMgr().AddModel(ModelNames.Backpack, new BackpackModel());
     }
 
     ///注册处理器
@@ -29,7 +38,7 @@ public class GameWorld extends GameBehaviour implements IWorld  {
     {
         //Test Table
         GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
-        //logger.Info(string.Format("id={0} value={1}", item.id, item.value));
+        logger.info(String.format("id={%D} value={%s}", item.id, item.value));
     }
 
     @Override

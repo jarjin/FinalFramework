@@ -3,17 +3,21 @@ package com.common;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.MainExtension;
 import com.define.AppDefine;
 import com.interfaces.IManager;
 import com.manager.ConfigManager;
 import com.manager.HandlerManager;
+import com.manager.ModelManager;
 import com.manager.NetworkManager;
 import com.manager.TableManager;
 import com.manager.WorldManager;
 
 public class ManagementCenter {
-    public static MainExtension extension;
+    private static Logger logger = Logger.getLogger(ManagementCenter.class);
+    private static MainExtension extension;
     private static Map<String, IManager> managers = new HashMap<String, IManager>();
 
     /// <summary>
@@ -28,6 +32,7 @@ public class ManagementCenter {
             AddManager(ConfigManager.class);
             AddManager(NetworkManager.class);
             AddManager(HandlerManager.class);
+            AddManager(ModelManager.class);
             AddManager(WorldManager.class);
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
@@ -37,7 +42,11 @@ public class ManagementCenter {
                 de.Initialize();
             }
         }
-        System.out.println("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
+        logger.info("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
+    }
+
+    public static MainExtension GetMainExtension() {
+        return extension;
     }
 
     private static void InitAppServerInfo() {

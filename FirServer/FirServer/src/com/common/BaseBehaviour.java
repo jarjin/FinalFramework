@@ -42,4 +42,14 @@ public class BaseBehaviour {
         }
         return _tableMgr;
     }
+
+    private static ModelManager _modelMgr = null;
+    protected static ModelManager modelMgr()
+    {
+        if (_modelMgr == null)
+        {
+            _modelMgr = (ModelManager)ManagementCenter.GetManager(ModelManager.class);
+        }
+        return _modelMgr;
+    }
 }
