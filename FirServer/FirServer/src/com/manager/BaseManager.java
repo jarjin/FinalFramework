@@ -1,8 +1,10 @@
 package com.manager;
 
+import com.MainExtension;
 import com.interfaces.IManager;
 
 public class BaseManager implements IManager {
+    protected MainExtension mainExt;
 
     @Override
     public void Initialize() {
