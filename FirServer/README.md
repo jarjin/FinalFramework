@@ -10,4 +10,9 @@
 
 （5）若新建工程，工程的主类必须以 *Extension形式，否则会无法辨认！！
 
-（6）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
+（6）运行enumtool.exe生成前后端（C#+JAVA）公用的枚举类型。
+
+（7）运行protoname.exe生成前后端（C#+JAVA）公用的消息名称。
+
+（8）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
+
