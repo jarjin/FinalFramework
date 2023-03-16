@@ -59,6 +59,7 @@ public class ManagementCenter {
         String typeName = manager.getClass().getName();
         if (!managers.containsKey(typeName)) {
             managers.put(typeName, (IManager)manager);
+            logger.info("Add Manager:" + typeName + " " + manager);
         }
         return manager;
     }
