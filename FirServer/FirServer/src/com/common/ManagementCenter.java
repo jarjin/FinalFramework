@@ -5,20 +5,13 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import com.MainExtension;
 import com.define.AppDefine;
 import com.interfaces.IManager;
-import com.manager.ConfigManager;
-import com.manager.HandlerManager;
-import com.manager.ModelManager;
-import com.manager.NetworkManager;
-import com.manager.TableManager;
-import com.manager.WorldManager;
+import com.manager.*;
 
 public class ManagementCenter {
-    private static Logger logger = Logger.getLogger(ManagementCenter.class);
+    private static LogManager logMgr;
     private static MainExtension extension;
     private static Map<String, IManager> managers = new LinkedHashMap<String, IManager>();
 
@@ -30,6 +23,7 @@ public class ManagementCenter {
         ManagementCenter.extension = extension;
         try {
             InitAppServerInfo();
+            AddManager(LogManager.class);
             AddManager(TableManager.class);
             AddManager(ConfigManager.class);
             AddManager(NetworkManager.class);
@@ -39,12 +33,14 @@ public class ManagementCenter {
         } catch (InstantiationException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
+        logMgr = (LogManager)GetManager(LogManager.class);
+
         for (IManager de : managers.values()) {
             if (de != null) {
                 de.Initialize();
             }
         }
-        logger.info("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
+        logMgr.Trace("Initialize Success!!! AppDefine.DataPath:" + AppDefine.DataPath);
     }
 
     public static MainExtension GetMainExtension() {
@@ -63,7 +59,7 @@ public class ManagementCenter {
         String typeName = manager.getClass().getName();
         if (!managers.containsKey(typeName)) {
             managers.put(typeName, (IManager)manager);
-            logger.info("Add Manager:" + typeName + " " + manager);
+            logMgr.Trace("Add Manager:" + typeName + " " + manager);
         }
         return manager;
     }

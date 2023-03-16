@@ -12,7 +12,8 @@
 		"java.project.referencedLibraries": [
 			"lib/**/*.jar",
 			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\sfs2x.jar",
-			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\sfs2x-core.jar"
+			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\sfs2x-core.jar",
+			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\log4j-1.2.15.jar"
 		]
 	}
 }

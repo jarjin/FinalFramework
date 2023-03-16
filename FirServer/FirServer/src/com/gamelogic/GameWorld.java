@@ -1,7 +1,5 @@
 package com.gamelogic;
 
-import org.apache.log4j.Logger;
-
 import com.common.Protocal;
 import com.define.ModelNames;
 import com.gamelogic.common.GameBehaviour;
@@ -12,8 +10,6 @@ import com.interfaces.IWorld;
 import com.tables.Tables.*;
 
 public class GameWorld extends GameBehaviour implements IWorld  {
-    Logger logger = Logger.getLogger(GameWorld.class);
-    
     @Override
     public void Initialize() {
         TestTable();
@@ -35,7 +31,7 @@ public class GameWorld extends GameBehaviour implements IWorld  {
     ///Test Table
     void TestTable() {
         GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
-        logger.info(String.format("id={%s} value={%s}", item.id, item.value));
+        logMgr().Trace(String.format("id={%s} value={%s}", item.id, item.value));
     }
 
     @Override

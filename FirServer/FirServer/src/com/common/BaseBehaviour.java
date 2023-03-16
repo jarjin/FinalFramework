@@ -52,4 +52,14 @@ public class BaseBehaviour {
         }
         return _modelMgr;
     }
+
+    private static LogManager _logMgr = null;
+    protected static LogManager logMgr()
+    {
+        if (_logMgr == null)
+        {
+            _logMgr = (LogManager)ManagementCenter.GetManager(LogManager.class);
+        }
+        return _logMgr;
+    }
 }
