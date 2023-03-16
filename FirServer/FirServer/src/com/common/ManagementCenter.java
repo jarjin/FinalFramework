@@ -7,8 +7,10 @@ import com.MainExtension;
 import com.define.AppDefine;
 import com.interfaces.IManager;
 import com.manager.ConfigManager;
+import com.manager.HandlerManager;
 import com.manager.NetworkManager;
 import com.manager.TableManager;
+import com.manager.WorldManager;
 
 public class ManagementCenter {
     public static MainExtension extension;
@@ -25,6 +27,8 @@ public class ManagementCenter {
             AddManager(TableManager.class);
             AddManager(ConfigManager.class);
             AddManager(NetworkManager.class);
+            AddManager(HandlerManager.class);
+            AddManager(WorldManager.class);
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

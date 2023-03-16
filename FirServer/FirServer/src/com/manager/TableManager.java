@@ -14,6 +14,7 @@ public class TableManager extends BaseManager {
     public NpcTable npcTable;
     public ObjectPoolTable objectPoolTable;
     public QualityTable qualityTable;
+    public GlobalConfigTable globalConfigTable;
 ///[APPEND_VAR]
 
 
@@ -31,6 +32,8 @@ public class TableManager extends BaseManager {
         objectPoolTable.Initialize();
         qualityTable = LoadData("Tables/QualityTable.bytes", QualityTable.class);
         qualityTable.Initialize();
+        globalConfigTable = LoadData("Tables/GlobalConfigTable.bytes", GlobalConfigTable.class);
+        globalConfigTable.Initialize();
 ///[APPEND_TABLE]
     }
 	
@@ -43,7 +46,6 @@ public class TableManager extends BaseManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(finalPath);
         return new Gson().fromJson(content, type);
     }
 

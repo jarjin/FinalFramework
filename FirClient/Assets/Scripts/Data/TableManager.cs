@@ -5,6 +5,7 @@ namespace FirCommon.Data
 		private static TableManager instance;
     	public NpcTable npcTable;
     	public ObjectPoolTable objectPoolTable;
+    	public GlobalConfigTable globalConfigTable;
 ///[APPEND_VAR]
 
 		public static TableManager Create()
@@ -33,6 +34,8 @@ namespace FirCommon.Data
         	npcTable.Initialize();
         	objectPoolTable = LoadData<ObjectPoolTable>("Tables/ObjectPoolTable.bytes");
         	objectPoolTable.Initialize();
+        	globalConfigTable = LoadData<GlobalConfigTable>("Tables/GlobalConfigTable.bytes");
+        	globalConfigTable.Initialize();
 ///[APPEND_TABLE]
 		}
 

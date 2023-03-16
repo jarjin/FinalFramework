@@ -11,3 +11,4 @@ Item=E:/Workspace/FinalFramework/FirCehua/DataTable/Item.xlsx||1|1
 Npc=E:/Workspace/FinalFramework/FirCehua/DataTable/Npc.xlsx||0|1
 ObjectPool=E:/Workspace/FinalFramework/FirCehua/DataTable/ObjectPool.xlsx||0|1
 Quality=E:/Workspace/FinalFramework/FirCehua/DataTable/Quality.xlsx||1|1
+GlobalConfig=E:/WorkSpace/FinalFramework/FirCehua/DataTable/GlobalConfig.xlsx||0|1

@@ -16,5 +16,6 @@
 
 （8）修改publish.bat里面SFS_Path的安装路径。
 
-（8）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
+（9）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
 
+（10）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。

@@ -1,10 +1,10 @@
 package com.common;
 
 public class Protocal {
-   public String Default = "Default";
-   public String Connected = "Connected";
-   public String Disconnect = "Disconnect";
-   public String ReqLogin = "pb_user.ReqLogin";
-   public String ResLogin = "pb_user.ResLogin";
+   public static final String Default = "Default";
+   public static final String Connected = "Connected";
+   public static final String Disconnect = "Disconnect";
+   public static final String ReqLogin = "pb_user.ReqLogin";
+   public static final String ResLogin = "pb_user.ResLogin";
 
 }

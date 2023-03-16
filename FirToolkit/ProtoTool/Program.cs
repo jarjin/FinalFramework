@@ -46,7 +46,7 @@ namespace ProtoNameTool
             var strs = new StringBuilder();
             foreach (var kvp in _dic)
             {
-                var str = string.Format("   public string {0} = {1};", kvp.Key, kvp.Value);
+                var str = string.Format("   public const string {0} = {1};", kvp.Key, kvp.Value);
                 Console.WriteLine(str);
                 strs.AppendLine(str);
             }
@@ -59,7 +59,7 @@ namespace ProtoNameTool
             var strs = new StringBuilder();
             foreach (var kvp in _dic)
             {
-                var str = string.Format("   public String {0} = {1};", kvp.Key, kvp.Value);
+                var str = string.Format("   public static final String {0} = {1};", kvp.Key, kvp.Value);
                 Console.WriteLine(str);
                 strs.AppendLine(str);
             }

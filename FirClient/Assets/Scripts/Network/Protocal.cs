@@ -1,9 +1,9 @@
 public class Protocal 
 {
-   public string Default = "Default";
-   public string Connected = "Connected";
-   public string Disconnect = "Disconnect";
-   public string ReqLogin = "pb_user.ReqLogin";
-   public string ResLogin = "pb_user.ResLogin";
+   public const string Default = "Default";
+   public const string Connected = "Connected";
+   public const string Disconnect = "Disconnect";
+   public const string ReqLogin = "pb_user.ReqLogin";
+   public const string ResLogin = "pb_user.ResLogin";
 
 }
