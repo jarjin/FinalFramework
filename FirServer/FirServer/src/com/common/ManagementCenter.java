@@ -1,5 +1,7 @@
 package com.common;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +36,7 @@ public class ManagementCenter {
             AddManager(HandlerManager.class);
             AddManager(ModelManager.class);
             AddManager(WorldManager.class);
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
             e.printStackTrace();
         }
         for (IManager de : managers.values()) {
@@ -49,8 +51,10 @@ public class ManagementCenter {
         return extension;
     }
 
-    private static void InitAppServerInfo() {
-        AppDefine.DataPath = extension.getCurrentFolder();
+    private static void InitAppServerInfo() throws IOException {
+        File directory = new File(".");
+        String rootPath = directory.getCanonicalPath().replace('\\', '/');
+        AppDefine.DataPath = rootPath + "/" + extension.getCurrentFolder();
     }
 
     public static IManager AddManager(Class<?> class1) 

@@ -15,6 +15,8 @@ namespace TableTool
         /// </summary>
         static void HandleJavaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
         {
+            HandleCSharpWorkSheet(tableName, sheetName, excelFile, sheet, md5, tableType, destPath, false);     //java 需要c#提前生成代码，但是不写文件
+
             var varName = tableName.FirstCharToLower();
             vars.AppendLine("    public " + tableName + " " + varName + ";");
             load_funcs.AppendLine("        " + varName + " = LoadData(\"Tables/" + tableName + ".bytes\", " + tableName + ".class);");

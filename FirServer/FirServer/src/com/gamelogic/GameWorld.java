@@ -34,8 +34,8 @@ public class GameWorld extends GameBehaviour implements IWorld  {
 
     ///Test Table
     void TestTable() {
-        GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
-        logger.info(String.format("id={%D} value={%s}", item.id, item.value));
+        //GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
+        //logger.info(String.format("id={%D} value={%s}", item.id, item.value));
     }
 
     @Override

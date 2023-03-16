@@ -142,7 +142,7 @@ namespace TableTool
                     HandleLuaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, luaCodePath);
                     break;
                 case TableType.CSharp:
-                    HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, csharpCodePath);
+                    HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, csharpCodePath, true);
                     break;
                 case TableType.Java:
                     HandleJavaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, serverCodePath);
@@ -161,12 +161,12 @@ namespace TableTool
                 if (type == TableType.CSharp)
                 {
                     CreateCSharpTableManager();
-                    ExecuteExportTables();
                 }
                 else 
                 {
                     CreateJavaTableManager();
                 }
+                ExecuteExportTables();
             }
         }
     }

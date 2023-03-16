@@ -18,7 +18,7 @@ namespace TableTool
         /// <summary>
         /// 表格处理器
         /// </summary>
-        static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
+        static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath, bool generateCode)
         {
             var varName = tableName.FirstCharToLower();
             vars.AppendLine("    	public " + tableName + " " + varName + ";");
@@ -26,7 +26,7 @@ namespace TableTool
             load_funcs.AppendLine("        	" + varName + ".Initialize();");
 
             string destDir = destPath + "/Tables";
-            var tableCode = CreateCSharpTableWithItem(tableName, destDir, sheet);     //创建TABLE
+            var tableCode = CreateCSharpTableWithItem(tableName, destDir, sheet, generateCode);     //创建TABLE
             var compileInfo = new TableCompileInfo();
             compileInfo.tableName = tableName;
             compileInfo.tablePath = excelFile;
@@ -39,7 +39,7 @@ namespace TableTool
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
-        static string CreateCSharpTableWithItem(string name, string destDir, ExcelWorksheet sheet)
+        static string CreateCSharpTableWithItem(string name, string destDir, ExcelWorksheet sheet, bool generateCode)
         {
             int colNum = sheet.Dimension.End.Column;
 
@@ -76,13 +76,15 @@ namespace TableTool
                                           .Replace("[BODY]", varText)
                                           .Replace("[TYPE]", keyType)
                                           .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
-
-            if (!Directory.Exists(destDir))
+            if (generateCode)
             {
-                Directory.CreateDirectory(destDir);
+                if (!Directory.Exists(destDir))
+                {
+                    Directory.CreateDirectory(destDir);
+                }
+                var csPath = destDir + "/" + name + ".cs";
+                File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
             }
-            var csPath = destDir + "/" + name + ".cs";
-            File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
             return txtCode;
         }
 

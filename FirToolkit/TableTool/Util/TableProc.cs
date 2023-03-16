@@ -113,16 +113,7 @@ namespace TableTool
         /// </summary>
         static void WriteToBinaryFile(string tbName, TableType tbType, string code, int rowNum, Dictionary<string, string> valueType, ExcelWorksheet sheet)
         {
-            TablePath bytesPath = null;
-            switch (tbType)
-            {
-                case TableType.CSharp:
-                    bytesPath = new TablePath(csharpDataPath + "/" + tbName, clientDllPath);
-                    break;
-                case TableType.Java:
-                    bytesPath = new TablePath(serverDataPath + "/" + tbName, serverDataPath);
-                    break;
-            }
+            var bytesPath = new TablePath(csharpDataPath + "/" + tbName, clientDllPath);
             var binraryPath = bytesPath.path + ".bytes";
             if (File.Exists(binraryPath))
             {
