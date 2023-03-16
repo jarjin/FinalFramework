@@ -9,7 +9,7 @@ import com.define.AppDefine;
 import com.google.gson.Gson;
 import com.tables.Tables.*;
 
-public class TableManager<T> extends BaseManager {
+public class TableManager extends BaseManager {
     	public GlobalConfigTable globalConfigTable;
     	public ItemTable itemTable;
     	public NpcTable npcTable;
@@ -38,8 +38,8 @@ public class TableManager<T> extends BaseManager {
 ///[APPEND_TABLE]
     }
 	
-    public T LoadData(String path, Class<T> type) {
-        String finalPath = AppDefine.DataPath + path;
+    public static <T> T LoadData(String path, Class<T> type) {
+        String finalPath = AppDefine.DataPath + "/" + path;
         String content = null;
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(finalPath));
@@ -48,8 +48,7 @@ public class TableManager<T> extends BaseManager {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        T ret = new Gson().fromJson(content, type);
-        return ret;
+        return new Gson().fromJson(content, type);
     }
 
     @Override
