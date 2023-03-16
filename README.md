@@ -7,7 +7,7 @@ FinalFramework（简称FF）不是为了初学者入门，所以初学者会不�
 
 #### 运行环境（版本太低的需要自力更生了）
 FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  
-FirServer:  Smartfoxserver + MongoDB 4.29 + VSCode
+FirServer:  Smartfoxserver + MongoDB 4.29 + VSCode  
 FirToolkit: Visual Studio 2019 
 
 #### 框架工作流使用介绍：	
