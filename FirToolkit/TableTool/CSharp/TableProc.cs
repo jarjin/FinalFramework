@@ -234,7 +234,6 @@ namespace TableTool
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
             parameters.ReferencedAssemblies.Add("netstandard.dll");
-            parameters.ReferencedAssemblies.Add("UnityEngine.dll");
             parameters.ReferencedAssemblies.Add("FirCommon.dll");
 
             parameters.GenerateExecutable = false;

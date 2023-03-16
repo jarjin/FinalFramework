@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.tables.Tables.*;
 
 public class TableManager extends BaseManager {
-    public GlobalConfigTable globalConfigTable;
     public ItemTable itemTable;
     public NpcTable npcTable;
     public ObjectPoolTable objectPoolTable;
@@ -24,8 +23,6 @@ public class TableManager extends BaseManager {
     }
 
     public void LoadTables() {
-        globalConfigTable = LoadData("Tables/GlobalConfigTable.bytes", GlobalConfigTable.class);
-        globalConfigTable.Initialize();
         itemTable = LoadData("Tables/ItemTable.bytes", ItemTable.class);
         itemTable.Initialize();
         npcTable = LoadData("Tables/NpcTable.bytes", NpcTable.class);

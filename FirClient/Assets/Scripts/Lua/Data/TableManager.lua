@@ -17,8 +17,6 @@ end
 local TableManager = TableBase.New()
 
 function TableManager.Initialize()
-    TableManager.globalConfigTable = require 'Data.Tables.GlobalConfigTable'
-    TableManager.globalConfigTable:Initialize()
     TableManager.itemTable = require 'Data.Tables.ItemTable'
     TableManager.itemTable:Initialize()
     TableManager.qualityTable = require 'Data.Tables.QualityTable'
