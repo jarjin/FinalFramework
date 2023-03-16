@@ -2,7 +2,7 @@ package com.common;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -20,7 +20,7 @@ import com.manager.WorldManager;
 public class ManagementCenter {
     private static Logger logger = Logger.getLogger(ManagementCenter.class);
     private static MainExtension extension;
-    private static Map<String, IManager> managers = new HashMap<String, IManager>();
+    private static Map<String, IManager> managers = new LinkedHashMap<String, IManager>();
 
     /// <summary>
     /// 初始化管理器
@@ -57,9 +57,9 @@ public class ManagementCenter {
         AppDefine.DataPath = rootPath + "/" + extension.getCurrentFolder();
     }
 
-    public static IManager AddManager(Class<?> class1) 
+    public static IManager AddManager(Class<?> classType) 
             throws InstantiationException, IllegalAccessException {
-        IManager manager = (IManager)class1.newInstance();
+        IManager manager = (IManager)classType.newInstance();
         String typeName = manager.getClass().getName();
         if (!managers.containsKey(typeName)) {
             managers.put(typeName, (IManager)manager);
