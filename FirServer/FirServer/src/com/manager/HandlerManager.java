@@ -7,13 +7,17 @@ public class HandlerManager extends BaseManager {
     public void Initialize() {
     }
 
-    @Override
-    public void OnDispose() {
-    }
-
     public void AddHandler(String name, IHandler handler) {
     }
 
-    public void RemoveHandler(String name, IHandler handler) {
+    public IHandler GetHandler(String name) {
+        return null;
+    }
+
+    public void RemoveHandler(String name) {
+    }
+
+    @Override
+    public void OnDispose() {
     }
 }

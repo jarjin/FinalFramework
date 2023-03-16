@@ -7,16 +7,17 @@ public class ModelManager extends BaseManager {
     public void Initialize() {
     }
 
-    public void OnUpdate(float deltaTime) {
+    public void AddModel(String name, IModel model) {
+    }
+
+    public IModel GetModel(String name) {
+        return null;
+    }
+
+    public void RemoveModel(String name) {
     }
 
     @Override
     public void OnDispose() {
-    }
-
-    public void AddModel(String name, IModel model) {
-    }
-
-    public void RemoveModel(String name) {
     }
 }
