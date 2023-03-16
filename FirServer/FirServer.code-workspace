@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "FirServer"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.outputPath": "bin",
+		"java.project.referencedLibraries": [
+			"lib/**/*.jar",
+			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\sfs2x.jar",
+			"d:\\SmartFoxServer_2X\\SFS2X\\lib\\sfs2x-core.jar"
+		]
+	}
+}
