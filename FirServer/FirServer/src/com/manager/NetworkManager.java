@@ -3,8 +3,6 @@ package com.manager;
 import com.MainExtension;
 import com.common.ManagementCenter;
 import com.define.AppConst;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.protos.Person;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
@@ -23,12 +21,12 @@ public class NetworkManager extends BaseManager
 
     @Override   
     public void Initialize() {
-        mainExt.AddMsgHandler("protoc", ClientRequest.class);
+        mainExt.AddMsgHandler(AppConst.ExtCmdName, ClientRequest.class);
     }
 	
     @Override
     public void OnDispose() {
-        mainExt.RemoveMsgHandler("protoc");
+        mainExt.RemoveMsgHandler(AppConst.ExtCmdName);
     }
 }
 

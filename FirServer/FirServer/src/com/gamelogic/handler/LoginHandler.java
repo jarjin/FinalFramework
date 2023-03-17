@@ -15,7 +15,7 @@ public class LoginHandler extends BaseHandler {
             e.printStackTrace();
         }
         if (person != null) {
-            System.out.println("Person Count: " + person.getName());
+            logMgr().Trace("Person Count: " + person.getName());
         }
     }
 }

@@ -11,6 +11,7 @@ public class AppConst {
     public static String CONFIG_PATH = "";
 	public final static String CITY_NAME = "city.xml";
 
+	public final static String ExtCmdName = "FirServer";
 	public final static String ProtoNameKey = "ProtoName";
 	public final static String ByteArrayKey = "ByteArray";
 }
