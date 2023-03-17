@@ -93,9 +93,10 @@ namespace FirClient.Network
 
             // Send test request to Extension
             var param = SFSObject.NewInstance();
-            param.PutByteArray("protobuf", new ByteArray(bytes));
+            param.PutUtfString("ProtoName", Protocal.ReqLogin);
+            param.PutByteArray("ByteArray", new ByteArray(bytes));
 
-            sfs.Send(new Sfs2X.Requests.ExtensionRequest("protoc", param));
+            sfs.Send(new Sfs2X.Requests.ExtensionRequest("FirServer", param));
         }
 
         private void OnLoginError(BaseEvent evt)
