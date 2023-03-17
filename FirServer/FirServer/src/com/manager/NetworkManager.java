@@ -3,6 +3,7 @@ package com.manager;
 import com.MainExtension;
 import com.common.ManagementCenter;
 import com.define.AppConst;
+import com.google.protobuf.GeneratedMessageV3;
 import com.network.ClientRequest;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
@@ -26,10 +27,11 @@ public class NetworkManager extends BaseManager
         mainExt.AddMsgHandler(AppConst.ExtCmdName, ClientRequest.class);
     }
 
-    public void SendData(User user, ProtoType type, byte[] params) {
+    public void SendData(User user, ProtoType type, String protoName, GeneratedMessageV3 messageV3) {
         ISFSObject reply = new SFSObject();
         reply.putInt(AppConst.MsgTypeKey, type.getValue());
-        reply.putByteArray(AppConst.ByteArrayKey, params);
+        reply.putUtfString(AppConst.ProtoNameKey, protoName);
+        reply.putByteArray(AppConst.ByteArrayKey, messageV3.toByteArray());
         mainExt.send(AppConst.ExtCmdName, reply, user);
     }
 	

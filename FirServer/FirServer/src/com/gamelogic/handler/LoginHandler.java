@@ -1,11 +1,10 @@
 package com.gamelogic.handler;
 
+import com.common.Protocal;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.handler.BaseHandler;
 import com.protos.Person;
 import com.smartfoxserver.v2.entities.User;
-import com.smartfoxserver.v2.entities.data.ISFSObject;
-import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.tables.enums.ProtoType;
 
 public class LoginHandler extends BaseHandler {
@@ -20,8 +19,7 @@ public class LoginHandler extends BaseHandler {
         if (person != null) {
             logMgr().Trace("Person Count: " + person.getName());
         }
-        
-        netMgr().SendData(user, ProtoType.LuaProtoMsg, reply);
+        netMgr().SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, person);
     }
 }
 

@@ -172,6 +172,7 @@ public static class ToLuaExport
         "Net.WriteStreamClosedEventHandler",
         "MeshRenderer.receiveGI",
         "Debug.ExtractStackTraceNoAlloc",
+        "Sprite.isUsingPlaceholder",
     };
 
     class _MethodBase
