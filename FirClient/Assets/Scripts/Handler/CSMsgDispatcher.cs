@@ -1,5 +1,4 @@
 using FirClient.Handler;
-using FirCommon.Define;
 using System.Collections.Generic;
 
 namespace FirClient.Manager

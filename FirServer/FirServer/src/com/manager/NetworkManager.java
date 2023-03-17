@@ -23,6 +23,10 @@ public class NetworkManager extends BaseManager
     public void Initialize() {
         mainExt.AddMsgHandler(AppConst.ExtCmdName, ClientRequest.class);
     }
+
+    public void SendData(User user, ISFSObject params) {
+        mainExt.send(AppConst.ExtCmdName, params, user);
+    }
 	
     @Override
     public void OnDispose() {
