@@ -3,9 +3,7 @@ using Sfs2X.Core;
 using Sfs2X.Util;
 using Sfs2X;
 using UnityEngine;
-using Network.pb_common;
 using Sfs2X.Entities.Data;
-using FirCommon.Utility;
 using Sfs2X.Requests;
 
 namespace FirClient.Network
@@ -27,8 +25,8 @@ namespace FirClient.Network
             // Add event listeners
             sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
             sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-            //sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
-            //sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
+            sfs.AddEventListener(SFSEvent.LOGIN, netMgr.OnLogin);
+            sfs.AddEventListener(SFSEvent.LOGIN_ERROR, netMgr.OnLoginError);
             sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
         }
 
@@ -78,11 +76,6 @@ namespace FirClient.Network
             {
                 netMgr.OnReceived(responseParams);
             }
-        }
-
-        private void OnLoginError(BaseEvent evt)
-        {
-            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
         private void OnConnectionLost(BaseEvent evt)

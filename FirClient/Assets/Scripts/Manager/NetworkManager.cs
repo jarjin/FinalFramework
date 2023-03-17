@@ -78,9 +78,11 @@ namespace FirClient.Manager
             }
         }
 
-        private void TestLogin(BaseEvent evt)
+        public void OnLogin(BaseEvent evt)
         {
-            Person john = new Person
+            // Send login request
+            // sfs.Send(new Sfs2X.Requests.LoginRequest(""));
+            var john = new Person
             {
                 Id = 1234,
                 Name = "John Doe",
@@ -88,6 +90,11 @@ namespace FirClient.Manager
                 Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
             };
             SendData(Protocal.ReqLogin, john);
+        }
+
+        public void OnLoginError(BaseEvent evt)
+        {
+            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
         [NoToLua]
