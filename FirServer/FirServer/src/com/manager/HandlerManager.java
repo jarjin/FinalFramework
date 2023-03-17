@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.interfaces.IHandler;
+import com.smartfoxserver.v2.entities.User;
 
 public class HandlerManager extends BaseManager {
     private static Map<String, IHandler> handlers = new LinkedHashMap<String, IHandler>();
@@ -33,7 +34,16 @@ public class HandlerManager extends BaseManager {
         }
     }
 
+    public void OnRecvMessage(User user, String protoName, byte[] bytes) {
+        IHandler handler = GetHandler(protoName);
+        if (handler != null) {
+            handler.OnMessage(user, bytes);
+        }
+    }
+
     @Override
     public void OnDispose() {
     }
+
+
 }

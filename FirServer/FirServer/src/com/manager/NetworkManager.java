@@ -2,6 +2,7 @@ package com.manager;
 
 import com.MainExtension;
 import com.common.ManagementCenter;
+import com.define.AppConst;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.protos.Person;
 import com.smartfoxserver.v2.entities.User;
@@ -32,17 +33,19 @@ public class NetworkManager extends BaseManager
 }
 
 class ClientRequest extends BaseClientRequestHandler {
+    private HandlerManager handlerMgr;
+
+    public ClientRequest() {
+        handlerMgr = (HandlerManager)ManagementCenter.GetManager(HandlerManager.class);
+    }
+
     @Override
     public void handleClientRequest(User user, ISFSObject inObj) 
     {
-        trace("Welcome new user: " + user.getName());
-        byte[] bytes = inObj.getByteArray("protobuf");
-        
-        try {
-            Person person = Person.parseFrom(bytes);
-            System.out.println("Person Count: " + person.getName());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
+        String protoName = inObj.getUtfString(AppConst.ProtoNameKey);
+        byte[] bytes = inObj.getByteArray(AppConst.ByteArrayKey);
+        if (protoName != null && bytes != null) {
+            handlerMgr.OnRecvMessage(user, protoName, bytes);
         }
     }
 }
