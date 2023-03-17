@@ -7,6 +7,7 @@ using Network.pb_common;
 using Sfs2X.Entities.Data;
 using System.IO;
 using Google.Protobuf;
+using FirCommon.Utility;
 
 namespace FirClient.Network
 {
@@ -63,19 +64,7 @@ namespace FirClient.Network
             Debug.Log("Disconnected");
         }
 
-        static byte[] Serialize(IMessage message)
-        {
-            byte[] data = null;
-            if (message != null)
-            {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    Google.Protobuf.MessageExtensions.WriteTo(message, stream);
-                    data = stream.ToArray();
-                }
-            }
-            return data;
-        }
+
 
         private void OnLogin(BaseEvent evt)
         {
@@ -89,14 +78,14 @@ namespace FirClient.Network
                 Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
             };
 
-            byte[] bytes = Serialize(john);
+            byte[] bytes = ProtoUtil.SerializeByteArray(john);
 
             // Send test request to Extension
             var param = SFSObject.NewInstance();
-            param.PutUtfString("ProtoName", Protocal.ReqLogin);
-            param.PutByteArray("ByteArray", new ByteArray(bytes));
+            param.PutUtfString(AppConst.ProtoNameKey, Protocal.ReqLogin);
+            param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));
 
-            sfs.Send(new Sfs2X.Requests.ExtensionRequest("FirServer", param));
+            sfs.Send(new Sfs2X.Requests.ExtensionRequest(AppConst.ExtCmdName, param));
         }
 
         private void OnLoginError(BaseEvent evt)

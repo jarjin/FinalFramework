@@ -20,6 +20,20 @@ namespace FirCommon.Utility
             return data;
         }
 
+        public static byte[] SerializeByteArray(IMessage message)
+        {
+            byte[] data = null;
+            if (message != null)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    MessageExtensions.WriteTo(message, stream);
+                    data = stream.ToArray();
+                }
+            }
+            return data;
+        }
+
         //static T DeSerialize<T>(byte[] bytes)
         //{
         //    using (MemoryStream ms = new MemoryStream(bytes))
