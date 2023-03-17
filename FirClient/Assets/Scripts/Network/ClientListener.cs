@@ -60,7 +60,6 @@ namespace FirClient.Network
 
         public void Send(string protoName, byte[] bytes)
         {
-            // Send test request to Extension
             var param = SFSObject.NewInstance();
             param.PutUtfString(AppConst.ProtoNameKey, protoName);
             param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));

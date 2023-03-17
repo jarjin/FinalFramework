@@ -8,8 +8,6 @@ public class FirClient_Manager_NetworkManagerWrap
 	{
 		L.BeginClass(typeof(FirClient.Manager.NetworkManager), typeof(FirClient.Manager.BaseManager));
 		L.RegFunction("Connect", new LuaCSFunction(Connect));
-		L.RegFunction("OnLogin", new LuaCSFunction(OnLogin));
-		L.RegFunction("OnLoginError", new LuaCSFunction(OnLoginError));
 		L.RegFunction("SendData", new LuaCSFunction(SendData));
 		L.RegFunction("New", new LuaCSFunction(_CreateFirClient_Manager_NetworkManager));
 		L.RegFunction("__tostring", new LuaCSFunction(ToLua.op_ToString));
@@ -53,40 +51,6 @@ public class FirClient_Manager_NetworkManagerWrap
 			LuaFunction arg3 = ToLua.CheckLuaFunction(L, 5);
 			LuaFunction arg4 = ToLua.CheckLuaFunction(L, 6);
 			obj.Connect(arg0, arg1, arg2, arg3, arg4);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnLogin(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FirClient.Manager.NetworkManager obj = (FirClient.Manager.NetworkManager)ToLua.CheckObject<FirClient.Manager.NetworkManager>(L, 1);
-			Sfs2X.Core.BaseEvent arg0 = (Sfs2X.Core.BaseEvent)ToLua.CheckObject<Sfs2X.Core.BaseEvent>(L, 2);
-			obj.OnLogin(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int OnLoginError(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FirClient.Manager.NetworkManager obj = (FirClient.Manager.NetworkManager)ToLua.CheckObject<FirClient.Manager.NetworkManager>(L, 1);
-			Sfs2X.Core.BaseEvent arg0 = (Sfs2X.Core.BaseEvent)ToLua.CheckObject<Sfs2X.Core.BaseEvent>(L, 2);
-			obj.OnLoginError(arg0);
 			return 0;
 		}
 		catch (Exception e)

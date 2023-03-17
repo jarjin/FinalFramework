@@ -78,6 +78,7 @@ namespace FirClient.Manager
             }
         }
 
+        [NoToLua]
         public void OnLogin(BaseEvent evt)
         {
             // Send login request
@@ -92,6 +93,7 @@ namespace FirClient.Manager
             SendData(Protocal.ReqLogin, john);
         }
 
+        [NoToLua]
         public void OnLoginError(BaseEvent evt)
         {
             Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
