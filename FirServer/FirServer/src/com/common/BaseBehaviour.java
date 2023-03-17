@@ -62,4 +62,14 @@ public class BaseBehaviour {
         }
         return _logMgr;
     }
+
+    private static DataManager _dataMgr = null;
+    protected static DataManager _dataMgr()
+    {
+        if (_dataMgr == null)
+        {
+            _dataMgr = (DataManager)ManagementCenter.GetManager(DataManager.class);
+        }
+        return _dataMgr;
+    }
 }

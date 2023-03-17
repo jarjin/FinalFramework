@@ -26,6 +26,7 @@ public class ManagementCenter {
             AddManager(LogManager.class);
             AddManager(TableManager.class);
             AddManager(ConfigManager.class);
+            AddManager(DataManager.class);
             AddManager(NetworkManager.class);
             AddManager(HandlerManager.class);
             AddManager(ModelManager.class);
