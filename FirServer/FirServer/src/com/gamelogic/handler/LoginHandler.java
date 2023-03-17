@@ -19,7 +19,8 @@ public class LoginHandler extends BaseHandler {
         if (person != null) {
             logMgr().Trace("Person Count: " + person.getName());
         }
-        netMgr().SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, person);
+        ///发送reply数据
+        SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, person);
     }
 }
 
