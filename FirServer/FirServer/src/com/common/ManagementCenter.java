@@ -86,6 +86,12 @@ public class ManagementCenter {
         return manager;
     }
 
+    public static void RemoveManager(String key) {
+        if (managers.containsKey(key)) {
+            managers.remove(key);
+        }
+    }
+
     public static void OnDispose() {
         for (IManager de : managers.values()) {
             if (de != null) {
