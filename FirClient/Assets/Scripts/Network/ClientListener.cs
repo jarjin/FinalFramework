@@ -8,6 +8,7 @@ using Sfs2X.Entities.Data;
 using System.IO;
 using Google.Protobuf;
 using FirCommon.Utility;
+using System.Net.Sockets;
 
 namespace FirClient.Network
 {
@@ -45,26 +46,26 @@ namespace FirClient.Network
             sfs.Connect(cfg);
         }
 
-        public void Stop()
-        {
-        }
-
         public void Update()
         {
             sfs?.ProcessEvents();
         }
 
+        public void Disconnect()
+        {
+            sfs.Disconnect();
+        }
+
         private void OnConnection(BaseEvent evt)
         {
             netMgr.OnConnected(evt);
+            Debug.LogWarning("[CLIENT] OnPeerConnected: " + evt.Type);
         }
 
         private void OnConnectionLost(BaseEvent evt)
         {
-            Debug.Log("Disconnected");
+            Debug.Log("[CLIENT] We disconnected because " + evt.Type);
         }
-
-
 
         private void OnLogin(BaseEvent evt)
         {
@@ -88,71 +89,29 @@ namespace FirClient.Network
             sfs.Send(new Sfs2X.Requests.ExtensionRequest(AppConst.ExtCmdName, param));
         }
 
+        public void Send(string protoName, byte[] bytes)
+        {
+            // Send test request to Extension
+            var param = SFSObject.NewInstance();
+            param.PutUtfString(AppConst.ProtoNameKey, protoName);
+            param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));
+
+            sfs.Send(new Sfs2X.Requests.ExtensionRequest(AppConst.ExtCmdName, param));
+        }
+
         private void OnLoginError(BaseEvent evt)
         {
-            Debug.LogError("Login error: " + (string)evt.Params["errorMessage"]);
+            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
         private void OnExtensionResponse(BaseEvent evt)
         {
             // Retrieve response object
-            ISFSObject responseParams = (SFSObject)evt.Params["params"];
-
-            Debug.Log("Result: " + responseParams.GetInt("res"));
+            var responseParams = (SFSObject)evt.Params["params"];
+            if (responseParams != null)
+            {
+                netMgr.OnReceived(responseParams);
+            }
         }
-
-
-        //public void OnPeerConnected(NetPeer peer)
-        //{
-        //    if (netMgr != null)
-        //    {
-        //        netMgr.OnConnected(peer);
-        //    }
-        //    Debug.LogWarning("[CLIENT] OnPeerConnected: " + peer.Id);
-        //}
-
-        //public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
-        //{
-        //    if (netMgr != null)
-        //    {
-        //        netMgr.OnReceived(peer, reader);
-        //    }
-        //    reader.Recycle();
-        //}
-
-        //public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)
-        //{
-        //    Debug.LogError("[CLIENT] error! " + socketError);
-        //}
-
-        //public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
-        //{
-        //    if (messageType == UnconnectedMessageType.BasicMessage)
-        //    {
-        //        Debug.Log("[CLIENT] Received discovery response. Connecting to: " + remoteEndPoint);
-        //        if (messageType == UnconnectedMessageType.BasicMessage && netMgr.mClient.ConnectedPeersCount == 0 && reader.GetInt() == 1)
-        //        {
-        //            netMgr.mClient.Connect(remoteEndPoint, AppConst.AppName);
-        //        }
-        //    }
-        //}
-
-        //public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
-        //{
-        //}
-
-        //public void OnConnectionRequest(ConnectionRequest request)
-        //{
-        //}
-
-        //public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
-        //{
-        //    if (netMgr != null)
-        //    {
-        //        netMgr.OnDisconnected(peer, disconnectInfo.Reason.ToString());
-        //    }
-        //    Debug.Log("[CLIENT] We disconnected because " + disconnectInfo.Reason);
-        //}
     }
-
 }

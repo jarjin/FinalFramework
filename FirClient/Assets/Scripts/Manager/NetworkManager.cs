@@ -6,6 +6,7 @@ using Google.Protobuf;
 using FirClient.Define;
 using FirClient.Extensions;
 using Sfs2X.Core;
+using Sfs2X.Entities.Data;
 
 namespace FirClient.Manager
 {
@@ -88,7 +89,7 @@ namespace FirClient.Manager
         [NoToLua]
         public void SendData(string protoName, byte[] bytes) 
         {
-            SendDataInternal(ProtoType.CSProtoMsg, protoName, bytes);
+            SendDataInternal(protoName, bytes);
         }
 
         public void SendData(string protoName, IMessage msg)
@@ -96,7 +97,7 @@ namespace FirClient.Manager
             var buffer = msg.Serialize();
             if (buffer != null)
             {
-                SendDataInternal(ProtoType.CSProtoMsg, protoName, buffer);
+                SendDataInternal(protoName, buffer);
             }
         }
 
@@ -104,25 +105,20 @@ namespace FirClient.Manager
         {
             if (luaBuffer.buffer != null)
             {
-                SendDataInternal(ProtoType.LuaProtoMsg, protoName, luaBuffer.buffer);
+                SendDataInternal(protoName, luaBuffer.buffer);
             }
         }
 
-        private void SendDataInternal(ProtoType protocal, string protoName, byte[] buffer)
+        private void SendDataInternal(string protoName, byte[] buffer)
         {
-            //if (mClient != null)
-            //{
-            //    var writer = new NetDataWriter();
-            //    writer.Put((byte)protocal);
-            //    writer.Put(protoName);
-            //    writer.Put(buffer.Length);
-            //    writer.Put(buffer);
-            //    mClient.FirstPeer.Send(writer, DeliveryMethod.ReliableOrdered);
-            //}
+            if (mClient != null)
+            {
+                mClient.Send(protoName, buffer);
+            }
         }
 
         [NoToLua]
-        public void OnReceived()
+        public void OnReceived(ISFSObject responseParams)
         {
             //var key = reader.GetByte();
             //if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
@@ -136,6 +132,7 @@ namespace FirClient.Manager
             //        dispatcher.OnMessage(protoName, bytes);
             //    }
             //}
+            Debug.Log("Result: " + responseParams.GetInt("res"));
         }
 
         [NoToLua]
@@ -159,7 +156,7 @@ namespace FirClient.Manager
         {
             if (mClient != null)
             {
-                mClient.Stop();
+                mClient.Disconnect();
                 mClient = null;
             }
             Debug.Log("~NetworkManager was destroy");
