@@ -32,7 +32,7 @@ public class AppConstWrap
 		L.RegVar("ResUrl", new LuaCSFunction(get_ResUrl), null);
 		L.RegVar("PatchUrl", new LuaCSFunction(get_PatchUrl), null);
 		L.RegVar("SocketAddress", new LuaCSFunction(get_SocketAddress), null);
-		L.RegConstant("SocketPort", 15940);
+		L.RegConstant("SocketPort", 9933);
 		L.RegVar("ExtCmdName", new LuaCSFunction(get_ExtCmdName), null);
 		L.RegVar("ProtoNameKey", new LuaCSFunction(get_ProtoNameKey), null);
 		L.RegVar("ByteArrayKey", new LuaCSFunction(get_ByteArrayKey), null);

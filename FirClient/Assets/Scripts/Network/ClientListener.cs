@@ -5,6 +5,8 @@ using Sfs2X;
 using UnityEngine;
 using Sfs2X.Entities.Data;
 using Sfs2X.Requests;
+using LuaInterface;
+using Network.pb_common;
 
 namespace FirClient.Network
 {
@@ -25,8 +27,8 @@ namespace FirClient.Network
             // Add event listeners
             sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
             sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-            sfs.AddEventListener(SFSEvent.LOGIN, netMgr.OnLogin);
-            sfs.AddEventListener(SFSEvent.LOGIN_ERROR, netMgr.OnLoginError);
+            sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
+            sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
             sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
         }
 
@@ -54,7 +56,33 @@ namespace FirClient.Network
 
         private void OnConnection(BaseEvent evt)
         {
-            netMgr.OnConnected(evt);
+            bool isConnected = (bool)evt.Params["success"];
+            netMgr.OnConnected(isConnected);
+
+            if (isConnected)
+            {
+                // Send login request
+                sfs.Send(new LoginRequest(""));
+            }
+        }
+
+        public void OnLogin(BaseEvent evt)
+        {
+            Debug.Log("Logged in as: " + sfs.MySelf.Name);
+
+            var john = new Person
+            {
+                Id = 1234,
+                Name = "John Doe",
+                Email = "jdoe@example.com",
+                Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
+            };
+            netMgr.SendData(Protocal.ReqLogin, john);
+        }
+
+        public void OnLoginError(BaseEvent evt)
+        {
+            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
         public void Send(string protoName, byte[] bytes)
@@ -69,7 +97,7 @@ namespace FirClient.Network
         private void OnExtensionResponse(BaseEvent evt)
         {
             // Retrieve response object
-            var responseParams = (SFSObject)evt.Params["params"];
+            var responseParams = evt.Params["params"] as SFSObject;
             if (responseParams != null)
             {
                 netMgr.OnReceived(responseParams);

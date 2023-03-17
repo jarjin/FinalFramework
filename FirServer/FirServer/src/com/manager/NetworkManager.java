@@ -35,17 +35,20 @@ public class NetworkManager extends BaseManager
 }
 
 class ClientRequest extends BaseClientRequestHandler {
+    private LogManager logMgr;
     private HandlerManager handlerMgr;
 
     public ClientRequest() {
+        logMgr = (LogManager)ManagementCenter.GetManager(LogManager.class);
         handlerMgr = (HandlerManager)ManagementCenter.GetManager(HandlerManager.class);
     }
 
     @Override
-    public void handleClientRequest(User user, ISFSObject inObj) 
-    {
+    public void handleClientRequest(User user, ISFSObject inObj) {
         String protoName = inObj.getUtfString(AppConst.ProtoNameKey);
         byte[] bytes = inObj.getByteArray(AppConst.ByteArrayKey);
+
+        logMgr.Trace(protoName, bytes);
         if (protoName != null && bytes != null) {
             handlerMgr.OnRecvMessage(user, protoName, bytes);
         }

@@ -4,11 +4,8 @@ using FirClient.Network;
 using LuaInterface;
 using Google.Protobuf;
 using FirClient.Define;
-using FirClient.Extensions;
-using Sfs2X.Core;
 using Sfs2X.Entities.Data;
 using FirCommon.Utility;
-using Network.pb_common;
 
 namespace FirClient.Manager
 {
@@ -62,9 +59,8 @@ namespace FirClient.Manager
         }
 
         [NoToLua]
-        public void OnConnected(BaseEvent evt)
+        public void OnConnected(bool isConnected)
         {
-            bool isConnected = (bool)evt.Params["success"];
             if (connParams.connFunc != null)
             {
                 var self = connParams.luaClass;
@@ -76,27 +72,6 @@ namespace FirClient.Manager
                 connParams.connFunc.Dispose();
                 connParams.connFunc = null;
             }
-        }
-
-        [NoToLua]
-        public void OnLogin(BaseEvent evt)
-        {
-            // Send login request
-            // sfs.Send(new Sfs2X.Requests.LoginRequest(""));
-            var john = new Person
-            {
-                Id = 1234,
-                Name = "John Doe",
-                Email = "jdoe@example.com",
-                Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
-            };
-            SendData(Protocal.ReqLogin, john);
-        }
-
-        [NoToLua]
-        public void OnLoginError(BaseEvent evt)
-        {
-            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
         [NoToLua]
