@@ -15,7 +15,7 @@ MonoBehaviour:
   debugMode: 1
   logMode: 1
   updateMode: 0
-  networkMode: 0
+  networkMode: 1
   luaByteMode: 0
   showFps: 0
   GameFrameRate: 30

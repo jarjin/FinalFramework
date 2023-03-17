@@ -55,7 +55,6 @@ namespace FirClient.Network
         private void OnConnection(BaseEvent evt)
         {
             netMgr.OnConnected(evt);
-            Debug.LogWarning("[CLIENT] OnPeerConnected: " + evt.Type);
         }
 
         public void Send(string protoName, byte[] bytes)
