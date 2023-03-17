@@ -1,10 +1,12 @@
 package com.tables.enums;
 
-public enum [NAME] 
+public enum ProtoType 
 {
-[BODY]
+    CSProtoMsg(0),
+    LuaProtoMsg(1);
+
 	private Integer value;
-	[NAME](Integer key) {
+	ProtoType(Integer key) {
 		this.value = key;
 	}
 	

@@ -14,4 +14,5 @@ public class AppConst {
 	public final static String ExtCmdName = "FirServer";
 	public final static String ProtoNameKey = "ProtoName";
 	public final static String ByteArrayKey = "ByteArray";
+	public final static String MsgTypeKey = "MsgTypeKey";
 }

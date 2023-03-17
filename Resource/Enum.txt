@@ -7,3 +7,10 @@ enum CountryType
 	SHU = 2,    	//蜀国
 	WU = 3,        	//吴国
 }
+
+
+enum ProtoType
+{
+	CSProtoMsg = 0,
+	LuaProtoMsg = 1,
+}

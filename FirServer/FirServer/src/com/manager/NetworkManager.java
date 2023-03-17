@@ -6,6 +6,7 @@ import com.define.AppConst;
 import com.network.ClientRequest;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.tables.enums.ProtoType;
 
 /**
  * @author Administrator
@@ -24,7 +25,8 @@ public class NetworkManager extends BaseManager
         mainExt.AddMsgHandler(AppConst.ExtCmdName, ClientRequest.class);
     }
 
-    public void SendData(User user, ISFSObject params) {
+    public void SendData(User user, ProtoType type, ISFSObject params) {
+        params.putInt(AppConst.MsgTypeKey, type.getValue());
         mainExt.send(AppConst.ExtCmdName, params, user);
     }
 	

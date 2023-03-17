@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FirClient.Network;
 using LuaInterface;
 using Google.Protobuf;
-using FirClient.Define;
 using Sfs2X.Entities.Data;
 using FirCommon.Utility;
 
@@ -18,7 +17,7 @@ namespace FirClient.Manager
 
     public partial class NetworkManager : BaseManager
     {
-        static readonly Dictionary<byte, BaseDispatcher> mDispatchers = new Dictionary<byte, BaseDispatcher>();
+        static readonly Dictionary<int, BaseDispatcher> mDispatchers = new Dictionary<int, BaseDispatcher>();
         private ClientListener mClient;
         private ConnectParam connParams;
 
@@ -35,8 +34,8 @@ namespace FirClient.Manager
 
         void InitHandler()
         {
-            mDispatchers.Add((byte)ProtoType.CSProtoMsg, new CSMsgDispatcher());
-            mDispatchers.Add((byte)ProtoType.LuaProtoMsg, new LuaMsgDispatcher());
+            mDispatchers.Add((int)ProtoType.CSProtoMsg, new CSMsgDispatcher());
+            mDispatchers.Add((int)ProtoType.LuaProtoMsg, new LuaMsgDispatcher());
         }
 
 
@@ -108,7 +107,7 @@ namespace FirClient.Manager
         [NoToLua]
         public void OnReceived(ISFSObject responseParams)
         {
-            var key = responseParams.GetByte(AppConst.MsgTypeKey);
+            var key = responseParams.GetInt(AppConst.MsgTypeKey);
             if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
             {
                 if (dispatcher != null)

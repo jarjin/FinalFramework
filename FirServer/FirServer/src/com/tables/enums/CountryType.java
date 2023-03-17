@@ -7,8 +7,12 @@ public enum CountryType
     SHU(2),
     WU(3);
 
-	private Integer v;
+	private Integer value;
 	CountryType(Integer key) {
-		this.v = key;
+		this.value = key;
 	}
+	
+	public int getValue() {
+        return value;
+    }
 }
