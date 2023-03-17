@@ -20,7 +20,7 @@ public class LoginHandler extends BaseHandler {
         if (person != null) {
             logMgr().Trace("Person Count: " + person.getName());
         }
-        ISFSObject reply = new SFSObject();
+        
         netMgr().SendData(user, ProtoType.LuaProtoMsg, reply);
     }
 }

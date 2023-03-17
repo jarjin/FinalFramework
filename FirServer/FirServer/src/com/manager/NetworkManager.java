@@ -6,6 +6,7 @@ import com.define.AppConst;
 import com.network.ClientRequest;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.tables.enums.ProtoType;
 
 /**
@@ -25,9 +26,11 @@ public class NetworkManager extends BaseManager
         mainExt.AddMsgHandler(AppConst.ExtCmdName, ClientRequest.class);
     }
 
-    public void SendData(User user, ProtoType type, ISFSObject params) {
-        params.putInt(AppConst.MsgTypeKey, type.getValue());
-        mainExt.send(AppConst.ExtCmdName, params, user);
+    public void SendData(User user, ProtoType type, byte[] params) {
+        ISFSObject reply = new SFSObject();
+        reply.putInt(AppConst.MsgTypeKey, type.getValue());
+        reply.putByteArray(AppConst.ByteArrayKey, params);
+        mainExt.send(AppConst.ExtCmdName, reply, user);
     }
 	
     @Override
