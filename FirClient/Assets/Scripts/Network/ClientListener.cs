@@ -5,10 +5,8 @@ using Sfs2X;
 using UnityEngine;
 using Network.pb_common;
 using Sfs2X.Entities.Data;
-using System.IO;
-using Google.Protobuf;
 using FirCommon.Utility;
-using System.Net.Sockets;
+using Sfs2X.Requests;
 
 namespace FirClient.Network
 {
@@ -29,8 +27,8 @@ namespace FirClient.Network
             // Add event listeners
             sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
             sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-            sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
-            sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
+            //sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
+            //sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
             sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
         }
 
@@ -62,33 +60,6 @@ namespace FirClient.Network
             Debug.LogWarning("[CLIENT] OnPeerConnected: " + evt.Type);
         }
 
-        private void OnConnectionLost(BaseEvent evt)
-        {
-            Debug.Log("[CLIENT] We disconnected because " + evt.Type);
-        }
-
-        private void OnLogin(BaseEvent evt)
-        {
-            Debug.Log("Logged in as: " + sfs.MySelf.Name);
-
-            Person john = new Person
-            {
-                Id = 1234,
-                Name = "John Doe",
-                Email = "jdoe@example.com",
-                Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
-            };
-
-            byte[] bytes = ProtoUtil.SerializeByteArray(john);
-
-            // Send test request to Extension
-            var param = SFSObject.NewInstance();
-            param.PutUtfString(AppConst.ProtoNameKey, Protocal.ReqLogin);
-            param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));
-
-            sfs.Send(new Sfs2X.Requests.ExtensionRequest(AppConst.ExtCmdName, param));
-        }
-
         public void Send(string protoName, byte[] bytes)
         {
             // Send test request to Extension
@@ -96,12 +67,7 @@ namespace FirClient.Network
             param.PutUtfString(AppConst.ProtoNameKey, protoName);
             param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));
 
-            sfs.Send(new Sfs2X.Requests.ExtensionRequest(AppConst.ExtCmdName, param));
-        }
-
-        private void OnLoginError(BaseEvent evt)
-        {
-            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
+            sfs.Send(new ExtensionRequest(AppConst.ExtCmdName, param));
         }
 
         private void OnExtensionResponse(BaseEvent evt)
@@ -112,6 +78,16 @@ namespace FirClient.Network
             {
                 netMgr.OnReceived(responseParams);
             }
+        }
+
+        private void OnLoginError(BaseEvent evt)
+        {
+            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
+        }
+
+        private void OnConnectionLost(BaseEvent evt)
+        {
+            Debug.Log("[CLIENT] We disconnected because " + evt.Type);
         }
     }
 }

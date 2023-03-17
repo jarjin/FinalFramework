@@ -20,7 +20,7 @@ namespace FirCommon.Utility
             return data;
         }
 
-        public static byte[] SerializeByteArray(IMessage message)
+        public static byte[] SerializeByteArray(this IMessage message)
         {
             byte[] data = null;
             if (message != null)

@@ -151,19 +151,5 @@ namespace FirClient.Extensions
         {
             return vec.x + splitChar + vec.y + splitChar + vec.z;
         }
-
-        public static byte[] Serialize(this IMessage message)
-        {
-            byte[] data = null;
-            if (message != null)
-            {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    Google.Protobuf.MessageExtensions.WriteTo(message, stream);
-                    data = stream.ToArray();
-                }
-            }
-            return data;
-        }
     }
 }

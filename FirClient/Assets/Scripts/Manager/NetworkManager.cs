@@ -7,6 +7,8 @@ using FirClient.Define;
 using FirClient.Extensions;
 using Sfs2X.Core;
 using Sfs2X.Entities.Data;
+using FirCommon.Utility;
+using Network.pb_common;
 
 namespace FirClient.Manager
 {
@@ -62,21 +64,11 @@ namespace FirClient.Manager
         [NoToLua]
         public void OnConnected(BaseEvent evt)
         {
-            if ((bool)evt.Params["success"])
-            {
-                Debug.Log("Connected");
-
-                // Send login request
-                //sfs.Send(new Sfs2X.Requests.LoginRequest(""));
-            }
-            else
-            {
-                Debug.LogError("Connection failed");
-            }
+            bool isConnected = (bool)evt.Params["success"];
             if (connParams.connFunc != null)
             {
                 var self = connParams.luaClass;
-                connParams.connFunc.Call(self);
+                connParams.connFunc.Call(self, isConnected);
 
                 //connParams.luaClass.Dispose();
                 //connParams.luaClass = null;
@@ -84,6 +76,18 @@ namespace FirClient.Manager
                 connParams.connFunc.Dispose();
                 connParams.connFunc = null;
             }
+        }
+
+        private void TestLogin(BaseEvent evt)
+        {
+            Person john = new Person
+            {
+                Id = 1234,
+                Name = "John Doe",
+                Email = "jdoe@example.com",
+                Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
+            };
+            SendData(Protocal.ReqLogin, john);
         }
 
         [NoToLua]
@@ -94,7 +98,7 @@ namespace FirClient.Manager
 
         public void SendData(string protoName, IMessage msg)
         {
-            var buffer = msg.Serialize();
+            var buffer = msg.SerializeByteArray();
             if (buffer != null)
             {
                 SendDataInternal(protoName, buffer);
@@ -120,19 +124,21 @@ namespace FirClient.Manager
         [NoToLua]
         public void OnReceived(ISFSObject responseParams)
         {
-            //var key = reader.GetByte();
-            //if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
-            //{
-            //    if (dispatcher != null)
-            //    {
-            //        var protoName = reader.GetString();
-            //        var count = reader.GetInt();
-            //        var bytes = new byte[count];
-            //        reader.GetBytes(bytes, count);
-            //        dispatcher.OnMessage(protoName, bytes);
-            //    }
-            //}
-            Debug.Log("Result: " + responseParams.GetInt("res"));
+            var key = responseParams.GetByte(AppConst.MsgTypeKey);
+            if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
+            {
+                if (dispatcher != null)
+                {
+                    var protoName = responseParams.GetUtfString(AppConst.ProtoNameKey);
+                    var byteArray = responseParams.GetByteArray(AppConst.ByteArrayKey);
+
+                    if (!string.IsNullOrEmpty(protoName) && byteArray != null)
+                    {
+                        dispatcher.OnMessage(protoName, byteArray.Bytes);
+                    }
+                }
+            }
+            //Debug.Log("Result: " + responseParams.GetInt("res"));
         }
 
         [NoToLua]
