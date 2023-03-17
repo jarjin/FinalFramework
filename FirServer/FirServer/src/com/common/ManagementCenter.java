@@ -27,8 +27,8 @@ public class ManagementCenter {
             AddManager(TableManager.class);
             AddManager(ConfigManager.class);
             AddManager(DataManager.class);
-            AddManager(NetworkManager.class);
             AddManager(HandlerManager.class);
+            AddManager(NetworkManager.class);
             AddManager(ModelManager.class);
             AddManager(WorldManager.class);
         } catch (InstantiationException | IllegalAccessException | IOException e) {
