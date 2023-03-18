@@ -5,7 +5,7 @@
 <img src="screenshot.jpg" width="128"/>
 	</td>
 	<td>
-#### 开发目标<br/>
+#### 开发目标 <br/>
 FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）(项目素材禁止商用！！)
 
 	
