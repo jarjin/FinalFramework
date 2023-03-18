@@ -10,6 +10,8 @@ FirToolkit: Visual Studio 2019
 
 ![Screenshot](screenshot.jpg)
 
+<img src="screenshot.jpg" width="128"/>
+
 #### 框架工作流使用介绍：	
 （1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录）  
 （2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
