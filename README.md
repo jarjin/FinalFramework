@@ -9,7 +9,7 @@ FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从�
 	<tbody>
 	<tr>
 	<td align="center">
-	运行界面如下：	
+	运行界面如下：	<br/>
 <img src="screenshot.jpg" width="128"/>
 	</td>
 	<td align="center">
