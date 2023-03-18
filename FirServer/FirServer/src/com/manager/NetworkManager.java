@@ -28,8 +28,9 @@ public class NetworkManager extends BaseManager
     }
 
     public void SendData(User user, ProtoType type, String protoName, GeneratedMessageV3 messageV3) {
+        Integer msgType = type.getValue();
         ISFSObject reply = new SFSObject();
-        reply.putInt(AppConst.MsgTypeKey, type.getValue());
+        reply.putInt(AppConst.MsgTypeKey, msgType);
         reply.putUtfString(AppConst.ProtoNameKey, protoName);
         reply.putByteArray(AppConst.ByteArrayKey, messageV3.toByteArray());
         mainExt.send(AppConst.ExtCmdName, reply, user);

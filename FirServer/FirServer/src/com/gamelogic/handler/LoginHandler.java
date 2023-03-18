@@ -4,6 +4,8 @@ import com.common.Protocal;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.handler.BaseHandler;
 import com.protos.Person;
+import com.protos.ResLogin;
+import com.protos.UserInfo;
 import com.smartfoxserver.v2.entities.User;
 import com.tables.enums.ProtoType;
 
@@ -19,8 +21,17 @@ public class LoginHandler extends BaseHandler {
         if (person != null) {
             logMgr().Trace("Person Count: " + person.getName());
         }
+        
         ///发送reply数据
-        SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, person);
+        UserInfo info = UserInfo.newBuilder()
+            .setUserid("10000")
+            .setName("张三")
+            .setMoney(999999)
+            .build();
+        ResLogin login = ResLogin.newBuilder()
+            .setUserinfo(info)
+            .build();
+        SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, login);
     }
 }
 
