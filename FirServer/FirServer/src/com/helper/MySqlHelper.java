@@ -82,7 +82,7 @@ public class MySQLHelper {
 	} 
 	
 	public static Object get(String dbname, String uid, String key) {
-		String sql = "select " + key + " from " + dbname + " where userId='" + uid + "'";
+		String sql = "select " + key + " from " + dbname + " where userid='" + uid + "'";
 		ResultSet rs = executeQuery(sql);
 		Object result = null;
 		try {
@@ -101,6 +101,6 @@ public class MySQLHelper {
 	public static void set(String tbname, String uid, String key, String value) {
 		String strKey = tbname + "_" + uid + "_" + key;
 		//Memcache.delete(strKey);	//
-		executeUpdate("update " + tbname + " set " + key + "=" + value + " where userId='" + uid + "'");
+		executeUpdate("update " + tbname + " set " + key + "=" + value + " where userid='" + uid + "'");
 	}
 }
