@@ -1,6 +1,6 @@
 package com.tables.Tables;
 
-import com.define.*;
+import com.define.classes.*;
 import com.tables.enums.*;
 
 public class GlobalConfigTableItem

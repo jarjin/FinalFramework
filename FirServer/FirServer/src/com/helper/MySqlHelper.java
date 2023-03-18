@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import com.define.AppConst;
 
-public class MySqlHelper {
+public class MySQLHelper {
 	private static Connection conn = null;
 	
 	private static void initMysql() {

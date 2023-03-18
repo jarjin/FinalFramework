@@ -1,5 +1,5 @@
 package com.helper;
 
-public class MongodbHelper {
+public class MongoDBHelper {
     
 }

@@ -1,6 +1,10 @@
 package com.define;
 
+import com.define.enums.DBType;
+
 public class AppConst {
+	///数据库类型
+	public final static DBType DbType = DBType.None;
     /** mysql url*/
 	public static String MYSQL_URL = "";
 	/** mysql user*/

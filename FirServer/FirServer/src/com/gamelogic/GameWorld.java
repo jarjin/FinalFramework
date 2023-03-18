@@ -1,7 +1,8 @@
 package com.gamelogic;
 
 import com.common.Protocal;
-import com.define.ModelNames;
+import com.define.AppConst;
+import com.define.classes.*;
 import com.gamelogic.common.GameBehaviour;
 import com.gamelogic.handler.LoginHandler;
 import com.gamelogic.model.BackpackModel;
@@ -15,6 +16,7 @@ public class GameWorld extends GameBehaviour implements IWorld  {
         TestTable();
         InitManager();
         RegHandler();
+        TestDBServer();
     }
 
     ///初始化管理器
@@ -32,6 +34,25 @@ public class GameWorld extends GameBehaviour implements IWorld  {
     void TestTable() {
         GlobalConfigTableItem item = tableMgr().globalConfigTable.GetItemByKey("CommonWhite");
         logMgr().Trace(String.format("id={%s} value={%s}", item.id, item.value));
+    }
+
+    /**
+     * 测试数据库
+     */
+    void TestDBServer() {
+        switch(AppConst.DbType) {
+            case MySQL: TestMySQL(); break;
+            case MongoDB: TestMongoDB(); break;
+            default: break;
+        }
+    }
+
+    void TestMySQL() {
+
+    }
+
+    void TestMongoDB() {
+
     }
 
     @Override
