@@ -9,13 +9,13 @@ FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从�
 	<tbody>
 	<tr>
 	<td align="center">
-	#### 运行成功界面如下：	
+	运行界面如下：	
 <img src="screenshot.jpg" width="128"/>
 	</td>
 	<td align="center">
-#### 运行环境（版本太低的需要自力更生了）
-FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  
-FirServer:  Smartfoxserver + MongoDB 4.29 + MySQL 5.7 + VSCode  
+#### 运行环境（版本太低的需要自力更生了）<br/>
+FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  <br/>
+FirServer:  Smartfoxserver + MongoDB 4.29 + MySQL 5.7 + VSCode  <br/>
 FirToolkit: Visual Studio 2019 
 	</td>
 	</tr>
