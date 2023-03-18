@@ -44,5 +44,5 @@ FirToolkit: Visual Studio 2019
 （13）红点系统（实现一个红点通用框架）。  作者：DustYang
 
 #### 已知问题
-（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。 
+（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。  
 （2）Unity高版本的Visual Scripting会跟项目自带的ZIP组件冲突，可选要移除一个。
