@@ -1,70 +1,112 @@
-using System.Net;
-using System.Net.Sockets;
 using FirClient.Manager;
-using LiteNetLib;
+using Sfs2X.Core;
+using Sfs2X.Util;
+using Sfs2X;
 using UnityEngine;
+using Sfs2X.Entities.Data;
+using Sfs2X.Requests;
+using LuaInterface;
+using Network.pb_common;
 
 namespace FirClient.Network
 {
-    public class ClientListener : INetEventListener
+    public class ClientListener : BaseBehaviour
     {
+        private SmartFox sfs;
         private NetworkManager netMgr;
         public ClientListener(NetworkManager manager)
         {
             netMgr = manager;
         }
 
-        public void OnPeerConnected(NetPeer peer)
+        public void Start()
         {
-            if (netMgr != null)
+            // Create SmartFox client instance
+            sfs = new SmartFox();
+
+            // Add event listeners
+            sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
+            sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
+            sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
+            sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
+            sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
+        }
+
+        public void Connect(string host, int port, string zone)
+        {
+            // Set connection parameters
+            var cfg = new ConfigData();
+            cfg.Host = host;
+            cfg.Port = port;
+            cfg.Zone = zone;
+
+            // Connect to SFS2X
+            sfs.Connect(cfg);
+        }
+
+        public void Update()
+        {
+            sfs?.ProcessEvents();
+        }
+
+        public void Disconnect()
+        {
+            sfs.Disconnect();
+        }
+
+        private void OnConnection(BaseEvent evt)
+        {
+            bool isConnected = (bool)evt.Params["success"];
+            netMgr.OnConnected(isConnected);
+
+            if (isConnected)
             {
-                netMgr.OnConnected(peer);
+                // Send login request
+                sfs.Send(new LoginRequest(""));
             }
-            Debug.LogWarning("[CLIENT] OnPeerConnected: " + peer.Id);
         }
 
-        public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
+        public void OnLogin(BaseEvent evt)
         {
-            if (netMgr != null)
+            Debug.Log("Logged in as: " + sfs.MySelf.Name);
+
+            var john = new Person
             {
-                netMgr.OnReceived(peer, reader);
-            }
-            reader.Recycle();
+                Id = 1234,
+                Name = "John Doe",
+                Email = "jdoe@example.com",
+                Phones = { new Person.Types.PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
+            };
+            netMgr.SendData(Protocal.ReqLogin, john);
         }
 
-        public void OnNetworkError(IPEndPoint endPoint, SocketError socketError)
+        public void OnLoginError(BaseEvent evt)
         {
-            Debug.LogError("[CLIENT] error! " + socketError);
+            Debug.LogError("[CLIENT]Login error: " + (string)evt.Params["errorMessage"]);
         }
 
-        public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
+        public void Send(string protoName, byte[] bytes)
         {
-            if (messageType == UnconnectedMessageType.BasicMessage)
+            var param = SFSObject.NewInstance();
+            param.PutUtfString(AppConst.ProtoNameKey, protoName);
+            param.PutByteArray(AppConst.ByteArrayKey, new ByteArray(bytes));
+
+            sfs.Send(new ExtensionRequest(AppConst.ExtCmdName, param));
+        }
+
+        private void OnExtensionResponse(BaseEvent evt)
+        {
+            // Retrieve response object
+            var responseParams = evt.Params["params"] as SFSObject;
+            if (responseParams != null)
             {
-                Debug.Log("[CLIENT] Received discovery response. Connecting to: " + remoteEndPoint);
-                if (messageType == UnconnectedMessageType.BasicMessage && netMgr.mClient.ConnectedPeersCount == 0 && reader.GetInt() == 1)
-                {
-                    netMgr.mClient.Connect(remoteEndPoint, AppConst.AppName);
-                }
+                netMgr.OnReceived(responseParams);
             }
         }
 
-        public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
+        private void OnConnectionLost(BaseEvent evt)
         {
-        }
-
-        public void OnConnectionRequest(ConnectionRequest request)
-        {
-        }
-
-        public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
-        {
-            if (netMgr != null)
-            {
-                netMgr.OnDisconnected(peer, disconnectInfo.Reason.ToString());
-            }
-            Debug.Log("[CLIENT] We disconnected because " + disconnectInfo.Reason);
+            Debug.Log("[CLIENT] We disconnected because " + evt.Type);
         }
     }
-
 }

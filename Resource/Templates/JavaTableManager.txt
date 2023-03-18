@@ -1,0 +1,45 @@
+package com.manager;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import com.define.AppDefine;
+import com.google.gson.Gson;
+import com.tables.Tables.*;
+
+public class TableManager extends BaseManager {
+[DECLARE_TABLES_VARS]
+
+    @Override
+    public void Initialize() {
+        this.LoadTables();
+    }
+
+    public void LoadTables() {
+[LOAD_TABLE_FUNCS]
+    }
+	
+    public static <T> T LoadData(String path, Class<T> type) {
+        String finalPath = AppDefine.DataPath + path;
+        String content = null;
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(finalPath));
+            content = new String(bytes, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Gson().fromJson(content, type);
+    }
+
+    @Override
+    public void OnUpdate(float deltaTime) {
+    }
+
+    @Override
+    public void OnDispose() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnDispose'");
+    }
+}

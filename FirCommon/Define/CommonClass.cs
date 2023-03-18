@@ -1,155 +1,91 @@
-﻿using LiteNetLib;
-using System;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FirCommon.Data
 {
-    public sealed class Vector2SerializationSurrogate : ISerializationSurrogate
+    public class FVector2
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        float x;
+        float y;
+
+        public FVector2() { }
+
+        public FVector2(float x, float y)
         {
-            Vector2 v = (Vector2)obj;
-            info.AddValue("x", v.x);
-            info.AddValue("y", v.y);
+            this.x = x;
+            this.y = y;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public Vector2 ToValue()
         {
-            Vector2 v = (Vector2)obj;
-            v.x = info.GetSingle("x");
-            v.y = info.GetSingle("y");
-            return (object)v;
+            return new Vector2(x, y);
         }
     }
 
-    public sealed class Vector3SerializationSurrogate : ISerializationSurrogate
+    public class FVector3
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        float x;
+        float y;
+        float z;
+
+        public FVector3() { }
+
+        public FVector3(float x, float y, float z)
         {
-            Vector3 v = (Vector3)obj;
-            info.AddValue("x", v.x);
-            info.AddValue("y", v.y);
-            info.AddValue("z", v.z);
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public Vector3 ToValue()
         {
-            Vector3 v = (Vector3)obj;
-            v.x = info.GetSingle("x");
-            v.y = info.GetSingle("y");
-            v.z = info.GetSingle("z");
-            return (object)v;
+            return new Vector3(x, y, z);
         }
     }
 
-    public sealed class ColorSerializationSurrogate : ISerializationSurrogate
+    public class FColor
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        float r;
+        float g;
+        float b;
+        float a;
+
+        public FColor() { }
+
+        public FColor(float r, float g, float b, float a)
         {
-            Color v = (Color)obj;
-            info.AddValue("r", v.r);
-            info.AddValue("g", v.g);
-            info.AddValue("b", v.b);
-            info.AddValue("a", v.a);
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public Color ToValue()
         {
-            Color v = (Color)obj;
-            v.r = info.GetSingle("r");
-            v.g = info.GetSingle("g");
-            v.b = info.GetSingle("b");
-            v.a = info.GetSingle("a");
-            return (object)v;
+            return new Color(r, g, b, a);
         }
     }
 
-    public sealed class Color32SerializationSurrogate : ISerializationSurrogate
+    public class FColor32
     {
-        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        byte r;
+        byte g;
+        byte b;
+        byte a;
+
+        public FColor32() { }
+
+        public FColor32(byte r, byte g, byte b, byte a)
         {
-            Color32 v = (Color32)obj;
-            info.AddValue("r", v.r);
-            info.AddValue("g", v.g);
-            info.AddValue("b", v.b);
-            info.AddValue("a", v.a);
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.a = a;
         }
 
-        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        public Color32 ToValue()
         {
-            Color32 v = (Color32)obj;
-            v.r = info.GetByte("r");
-            v.g = info.GetByte("g");
-            v.b = info.GetByte("b");
-            v.a = info.GetByte("a");
-            return (object)v;
-        }
-    }
-
-    public class ClassTypeBinder : SerializationBinder
-    {
-        public override Type BindToType(string assemblyName, string typeName)
-        {
-            return null;
-        }
-    }
-
-    public class SerializeUtil
-    {
-        public static void Serialize(string binraryPath, object instance)
-        {
-            IFormatter serializer = new BinaryFormatter();
-            SurrogateSelector selector = new SurrogateSelector();
-            var context = new StreamingContext(StreamingContextStates.All);
-            selector.AddSurrogate(typeof(Vector2), context, new Vector2SerializationSurrogate());
-            selector.AddSurrogate(typeof(Vector3), context, new Vector3SerializationSurrogate());
-            selector.AddSurrogate(typeof(Color), context, new ColorSerializationSurrogate());
-            selector.AddSurrogate(typeof(Color32), context, new Color32SerializationSurrogate());
-            serializer.SurrogateSelector = selector;
-            using (var saveFile = new FileStream(binraryPath, FileMode.Create, FileAccess.Write))
-            {
-                serializer.Serialize(saveFile, instance);
-            }
-        }
-
-        public static T Deserialize<T>(string fullPath) where T : class
-        {
-            IFormatter serializer = new BinaryFormatter();
-            SurrogateSelector selector = new SurrogateSelector();
-            var context = new StreamingContext(StreamingContextStates.All);
-            selector.AddSurrogate(typeof(Vector2), context, new Vector2SerializationSurrogate());
-            selector.AddSurrogate(typeof(Vector3), context, new Vector3SerializationSurrogate());
-            selector.AddSurrogate(typeof(Color), context, new ColorSerializationSurrogate());
-            selector.AddSurrogate(typeof(Color32), context, new Color32SerializationSurrogate());
-            serializer.SurrogateSelector = selector;
-            using (var loadFile = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
-            {
-                return serializer.Deserialize(loadFile) as T;
-            }
-        }
-    }
-
-    public class ClientPeer
-    {
-        public NetPeer peer;
-
-        public int Id
-        {
-            get { return peer.Id; }
-        }
-
-        public IPEndPoint EndPoint
-        {
-            get { return peer.EndPoint; }
-        }
-
-        public ClientPeer(NetPeer peer)
-        {
-            this.peer = peer; 
+            return new Color(r, g, b, a);
         }
     }
 }
+

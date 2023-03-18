@@ -5,6 +5,7 @@ namespace FirCommon.Data
 		private static TableManager instance;
     	public NpcTable npcTable;
     	public ObjectPoolTable objectPoolTable;
+    	public GlobalConfigTable globalConfigTable;
 ///[APPEND_VAR]
 
 		public static TableManager Create()
@@ -24,7 +25,7 @@ namespace FirCommon.Data
 		public T LoadData<T>(string path) where T : class
 		{
             var fullPath = base.DataPath + path;
-            return SerializeUtil.Deserialize<T>(fullPath);
+            return FirCommon.Utility.ProtoUtil.Deserialize<T>(fullPath);
 		}
 
 		public void LoadTables() 
@@ -33,6 +34,8 @@ namespace FirCommon.Data
         	npcTable.Initialize();
         	objectPoolTable = LoadData<ObjectPoolTable>("Tables/ObjectPoolTable.bytes");
         	objectPoolTable.Initialize();
+        	globalConfigTable = LoadData<GlobalConfigTable>("Tables/GlobalConfigTable.bytes");
+        	globalConfigTable.Initialize();
 ///[APPEND_TABLE]
 		}
 

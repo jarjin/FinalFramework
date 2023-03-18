@@ -21,7 +21,7 @@ namespace FirCommon.Data
 		public T LoadData<T>(string path) where T : class
 		{
             var fullPath = base.DataPath + path;
-            return SerializeUtil.Deserialize<T>(fullPath);
+            return FirCommon.Utility.ProtoUtil.Deserialize<T>(fullPath);
 		}
 
 		public void LoadTables() 

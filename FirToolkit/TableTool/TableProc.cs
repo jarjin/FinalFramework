@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
 namespace TableTool
 {
+    /// <summary>
+    /// Total's TableProc
+    /// </summary>
     public partial class TableProc
     {
         static fmMain fmMain;
@@ -16,14 +18,14 @@ namespace TableTool
         static StringBuilder load_funcs;
         static List<TableCompileInfo> compileInfos = new List<TableCompileInfo>();
 
-        static string clientDllPath, serverDllPath;
-        static string csharpDataPath, csharpCodePath, luaCodePath, serverDataPath, serverCodePath, templateDir;
+        static string clientDllPath;
+        static string csharpDataPath, csharpCodePath, luaCodePath, serverDataPath, serverCodePath, templateDir, enumFilePath;
 
         /// <summary>
         /// 导入所有的EXCEL表
         /// </summary>
         public static void Start(fmMain main, string csharpData, string csharpCode, string luaCode,
-                        string serverData, string serverCode, string tempDir, string clientDll, string serverDll)
+                        string serverData, string serverCode, string tempDir, string clientDll, string enumFile)
         {
             fmMain = main;
             csharpDataPath = csharpData;
@@ -33,11 +35,11 @@ namespace TableTool
             serverCodePath = serverCode;
             templateDir = tempDir;
             clientDllPath = fmMain.currDir + clientDll;
-            serverDllPath = fmMain.currDir + serverDll;
+            enumFilePath = fmMain.currDir + enumFile;
 
             StartProc(TableType.Lua);
             StartProc(TableType.CSharp);
-            StartProc(TableType.Server);
+            StartProc(TableType.Java);
             MessageBox.Show("处理完成！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -62,7 +64,7 @@ namespace TableTool
                     {
                         formatTables.Add(de.Value);
                     }
-                    if (type == TableType.Server && de.Value.withServer)
+                    if (type == TableType.Java && de.Value.withServer)
                     {
                         formatTables.Add(de.Value);
                     }
@@ -75,24 +77,6 @@ namespace TableTool
             }
         }
 
-        static bool IsNewOrUpdateTable(string tableName, string newmd5)
-        {
-            return true;
-            if (!fmMain.ContainsMd5(tableName))
-            {
-                fmMain.UpdateMd5(tableName, newmd5);
-                return true;
-            }
-            var oldmd5 = fmMain.GetMd5(tableName);      //老的md5值
-
-            if (newmd5 != oldmd5)
-            {
-                fmMain.UpdateMd5(tableName, newmd5);
-                return true;
-            }
-            return false;
-        }
-
         /// <summary>
         /// 分析处理表
         /// </summary>
@@ -101,7 +85,7 @@ namespace TableTool
             string excelFile = table.fileName;
             if (!File.Exists(excelFile))
             {
-                throw new Exception("excel file not exist!!!，check xlsx file settings!!!");
+                throw new Exception("excel file not exist!!!，check xlsx file settings (tablecfg.txt)!!!");
             }
             var md5 = md5file(excelFile);
 
@@ -152,26 +136,17 @@ namespace TableTool
             var sheetName = sheet.Name.ToLower();
             Console.WriteLine("{0}, {1}", tableName + " " + sheetName, sheet.Cells.Count());
 
-            var destPath = string.Empty;
             switch(type)
             {
                 case TableType.Lua:
-                    destPath = luaCodePath;
+                    HandleLuaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, luaCodePath);
                     break;
                 case TableType.CSharp:
-                    destPath = csharpCodePath;
+                    HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, csharpCodePath, true);
                     break;
-                case TableType.Server:
-                    destPath = serverCodePath;
+                case TableType.Java:
+                    HandleJavaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, serverCodePath);
                     break;
-            }
-            if (type == TableType.Lua)
-            {
-                HandleLuaWorkSheet(tableName, sheetName, table.fileName, sheet, md5, destPath);
-            }
-            else
-            {
-                HandleCSharpWorkSheet(tableName, sheetName, table.fileName, sheet, md5, type, destPath);
             }
         }
 
@@ -183,24 +158,15 @@ namespace TableTool
             }
             else
             {
-                CreateCSharpTableManager(type);
-                ExecuteExportTables();
-            }
-        }
-
-        static string md5file(string file)
-        {
-            using (FileStream fs = new FileStream(file, FileMode.Open))
-            {
-                MD5 md5 = new MD5CryptoServiceProvider();
-                byte[] retVal = md5.ComputeHash(fs);
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < retVal.Length; i++)
+                if (type == TableType.CSharp)
                 {
-                    sb.Append(retVal[i].ToString("x2"));
+                    CreateCSharpTableManager();
                 }
-                return sb.ToString();
+                else 
+                {
+                    CreateJavaTableManager();
+                }
+                ExecuteExportTables();
             }
         }
     }

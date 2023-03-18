@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FirCommon.Data;
+using System;
 using System.Linq;
-using UnityEngine;
 
 namespace TableTool
 {
@@ -8,7 +8,7 @@ namespace TableTool
     {
         Lua = 0,
         CSharp = 1,
-        Server = 2,
+        Java = 2,
     }
 
     public enum TableFormat
@@ -97,11 +97,11 @@ namespace TableTool
             return str;
         }
 
-        public static Vector2 ToVec2(this string input, char splitChar)
+        public static FVector2 ToVec2(this string input, char splitChar)
         {
-            if (string.IsNullOrEmpty(input)) return new Vector2(0, 0);
+            if (string.IsNullOrEmpty(input)) return new FVector2(0, 0);
             string[] strs = input.Split(splitChar);
-            return new Vector2(float.Parse(strs[0]), float.Parse(strs[1]));
+            return new FVector2(float.Parse(strs[0]), float.Parse(strs[1]));
         }
 
         public static string ToLuaVec2(this string input, char splitChar)
@@ -111,11 +111,11 @@ namespace TableTool
             return string.Format("Vector2.New({0}, {1})", strs[0], strs[1]);
         }
 
-        public static Vector3 ToVec3(this string input, char splitChar)
+        public static FVector3 ToVec3(this string input, char splitChar)
         {
-            if (string.IsNullOrEmpty(input)) return new Vector3(0, 0, 0);
+            if (string.IsNullOrEmpty(input)) return new FVector3(0, 0, 0);
             string[] strs = input.Split(splitChar);
-            return new Vector3(float.Parse(strs[0]), float.Parse(strs[1]), float.Parse(strs[2]));
+            return new FVector3(float.Parse(strs[0]), float.Parse(strs[1]), float.Parse(strs[2]));
         }
 
         public static string ToLuaVec3(this string input, char splitChar)
@@ -125,11 +125,11 @@ namespace TableTool
             return string.Format("Vector3.New({0}, {1}, {2})", strs[0], strs[1], strs[2]);
         }
 
-        public static Color ToColor(this string input, char splitChar)
+        public static FColor ToColor(this string input, char splitChar)
         {
-            if (string.IsNullOrEmpty(input)) return new Color(0, 0, 0, 0);
+            if (string.IsNullOrEmpty(input)) return new FColor(0, 0, 0, 0);
             string[] strs = input.Split(splitChar);
-            return new Color(float.Parse(strs[0]), float.Parse(strs[1]), float.Parse(strs[2]), float.Parse(strs[3]));
+            return new FColor(float.Parse(strs[0]), float.Parse(strs[1]), float.Parse(strs[2]), float.Parse(strs[3]));
         }
 
         public static string ToLuaColor(this string input, char splitChar)
@@ -139,11 +139,11 @@ namespace TableTool
             return string.Format("Color.New({0}, {1}, {2}, {3})", strs[0], strs[1], strs[2], strs[3]);
         }
 
-        public static Color32 ToColor32(this string input, char splitChar)
+        public static FColor32 ToColor32(this string input, char splitChar)
         {
-            if (string.IsNullOrEmpty(input)) return new Color32(0, 0, 0, 0);
+            if (string.IsNullOrEmpty(input)) return new FColor32(0, 0, 0, 0);
             string[] strs = input.Split(splitChar);
-            return new Color32(byte.Parse(strs[0]), byte.Parse(strs[1]), byte.Parse(strs[2]), byte.Parse(strs[3]));
+            return new FColor32(byte.Parse(strs[0]), byte.Parse(strs[1]), byte.Parse(strs[2]), byte.Parse(strs[3]));
         }
 
         public static string ToLuaColor32(this string input, char splitChar)

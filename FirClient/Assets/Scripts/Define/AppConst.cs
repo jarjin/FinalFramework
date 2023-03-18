@@ -1,4 +1,5 @@
 using FirClient.Define;
+using System;
 using UnityEngine;
 
 public class AppConst
@@ -19,7 +20,7 @@ public class AppConst
     public const int RoleSortLayer = 3;                         //角色层渲染排序值
     public const int BattleTempSortingOrder = 100;              //战斗时临时排序
 
-    public const string AppName = "FirSango";                   //应用程序名称
+    public const string AppName = "TestDemo";                   //应用程序名称
     public const string AppPrefix = AppName + "_";              //应用程序前缀
     public const string ExtName = ".unity3d";                   //素材扩展名
     public const string LuaTempDir = "LuaTemp/";                //临时目录
@@ -30,7 +31,12 @@ public class AppConst
     public const string PatchUrl = ResUrl +"patchs/";           //测试更新地址
 
     public const string SocketAddress = "127.0.0.1";            //Socket服务器地址
-    public const ushort SocketPort = 15940;                      //Socket服务器端口
+    public const ushort SocketPort = 9933;                      //Socket服务器端口
+
+    public const string ExtCmdName = "FirServer";
+    public const string ProtoNameKey = "ProtoName";
+    public const string ByteArrayKey = "ByteArray";
+    public const string MsgTypeKey = "MsgType";
 
     public static string TablePath = Application.dataPath + "/res/Tables/";
     public static string[] DataPrefixs = {"datas_", "scripts_", "tables_"};

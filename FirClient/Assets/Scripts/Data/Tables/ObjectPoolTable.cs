@@ -1,23 +1,13 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[Serializable]
 	public class ObjectPoolTable
 	{
-		public string name;
-
+		public string name;		
+		public List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
+		
 		private Dictionary<int, ObjectPoolTableItem> dics = null;
-		private List<ObjectPoolTableItem> items = new List<ObjectPoolTableItem>();
-
-		public List<ObjectPoolTableItem> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{
@@ -49,7 +39,6 @@ namespace FirCommon.Data
 		}
 	}
 
-	[Serializable]
 	public class ObjectPoolTableItem
 	{
     	public int id;

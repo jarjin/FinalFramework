@@ -1,21 +1,23 @@
 # FinalFramework
 
 #### 开发目标
-FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、WebServer（HTTP埋点，管理后台，通过后台管理Jenkins打包版本）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
+FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
 
 ![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
 
 #### 运行环境（版本太低的需要自力更生了）
-FirClient： Unity 2019.4.20f1 (64-bit) + Visual Studio 2019  
-FirServer:  .Net Core 3.1 + Visual Studio 2019 + MongoDB 4.29  
+FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  
+FirServer:  Smartfoxserver + MongoDB 4.29 + VSCode  
 FirToolkit: Visual Studio 2019 
 
 #### 框架工作流使用介绍：	
 （1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录）  
-（2）在FirCommon添加Protocal协议，Build完成工程自动copy到客户端、服务端。  
-（3）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
-（4）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器）  
-（5）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。  
+（2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
+（3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器）  
+（4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。
+
+#### 2023.03.18 更新日志：
+（1）去掉自带的FirServer，支持Smartfoxserver。
 
 #### 2021.02.23 更新日志：
 （1）开源多端共享工程FirCommon，公共定义都放此工程。
@@ -48,7 +50,3 @@ FirToolkit: Visual Studio 2019
 
 #### 待加功能
 （1）UI骨骼系统（解决UI频繁创建销毁造成Mono内存增长）。  
-
-#### 最后闲话：
-这也是我为大家分享最后一个框架，很感谢大家这么多年的陪伴，我也将自己觉得拿的出手的经验教训完全整合到这个框架，以不定期更新的方式迭代，为更多的独立游戏开发者节省开发时间，让独立游戏开发更加现实。框架初期不保证完美运行，有问题加我微信（jarjin）,进微信技术群讨论。如果你用过或者知道LuaFramework系列，请给这个点一颗Star，不尽感激。^o^
-

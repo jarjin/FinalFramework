@@ -16,10 +16,6 @@
     <None Remove="DataBase\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Define\CommonEnum.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
 	<Folder Include="Mono.Xml\" />
@@ -27,7 +23,8 @@
 
 
   <ItemGroup>
-    <None Include="Define\CommonEnum.cs" />
+    <PackageReference Include="Google.Protobuf" Version="3.22.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 
@@ -41,7 +38,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetPath) $(SolutionDir)..\&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirServer\Libraries&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirClient\Assets\Plugins&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirToolkit\Libraries&#xD;&#xA;&#xD;&#xA;copy $(ProjectDir)Define\CommonEnum.cs $(SolutionDir)..\FirClient\Assets\Scripts\Data&#xD;&#xA;copy $(ProjectDir)Define\CommonEnum.cs $(SolutionDir)..\FirServer\FirSango\Data&#xD;&#xA;" />
+    <Exec Command="copy $(TargetPath) $(SolutionDir)..\&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirClient\Assets\Plugins&#xD;&#xA;copy $(TargetPath) $(SolutionDir)..\FirToolkit\Libraries&#xD;&#xA;" />
   </Target>
 
 </Project>

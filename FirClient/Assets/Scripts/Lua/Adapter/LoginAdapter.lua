@@ -30,9 +30,9 @@ end
 
 function LoginAdapter:OnConnectOK(disReason)
 	if disReason then
-		logError('Connection failed!!! reason: '..disReason)
+		log("OnConnectOK---->>>")
 	else
-		logWarn("OnConnectOK---->>>")
+		logError('Connection failed!!!')
 	end
 end
 

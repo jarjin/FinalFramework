@@ -89,7 +89,7 @@ function UILoginCtrl:OnStartClick(go)
 	if AppConst.NetworkMode then
 		self.userModule:ReqLogin('user', 'password', function(userinfo) 
 			self.loginCtrl:StartLogin()
-			logError("login ok!!! userid>>"..userinfo.userid)
+			logError('login ok!!! userid:>>'..userinfo.userid..' name:>>'..userinfo.name..' money:>>'..userinfo.money)
 		end)
 	else
 		self.loginCtrl:StartLogin()

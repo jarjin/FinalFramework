@@ -1,0 +1,14 @@
+package com.tables.enums;
+
+public enum [NAME] 
+{
+[BODY]
+	private Integer value;
+	[NAME](Integer key) {
+		this.value = key;
+	}
+	
+	public int getValue() {
+        return value;
+    }
+}

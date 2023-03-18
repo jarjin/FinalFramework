@@ -1,23 +1,13 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[Serializable]
 	public class NpcTable
 	{
-		public string name;
-
+		public string name;		
+		public List<NpcTableItem> items = new List<NpcTableItem>();
+		
 		private Dictionary<int, NpcTableItem> dics = null;
-		private List<NpcTableItem> items = new List<NpcTableItem>();
-
-		public List<NpcTableItem> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{
@@ -49,7 +39,6 @@ namespace FirCommon.Data
 		}
 	}
 
-	[Serializable]
 	public class NpcTableItem
 	{
     	public int id;
@@ -57,7 +46,7 @@ namespace FirCommon.Data
     	public bool isMainCharacter;
     	public int sex;
     	public CountryType country;
-    	public Vector3 scale;
+    	public FVector3 scale;
     	public int itemid;
 	}
 }

@@ -1,0 +1,8 @@
+#消息名称定义区==============================================
+
+Default = "Default"				//缺省消息
+Connected = "Connected"			//链接完成
+Disconnect = "Disconnect"		//异常掉线
+
+ReqLogin = "pb_user.ReqLogin"	//请求用户登录
+ResLogin = "pb_user.ResLogin"	//返回用户登录

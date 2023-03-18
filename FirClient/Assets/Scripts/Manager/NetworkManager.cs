@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-using LiteNetLib;
-using LiteNetLib.Utils;
 using FirClient.Network;
 using LuaInterface;
 using Google.Protobuf;
-using FirClient.Define;
-using FirClient.Extensions;
+using Sfs2X.Entities.Data;
+using FirCommon.Utility;
 
 namespace FirClient.Manager
 {
@@ -19,33 +17,25 @@ namespace FirClient.Manager
 
     public partial class NetworkManager : BaseManager
     {
-        static readonly Dictionary<byte, BaseDispatcher> mDispatchers = new Dictionary<byte, BaseDispatcher>();
-
-        public NetManager mClient { get; private set; }
+        static readonly Dictionary<int, BaseDispatcher> mDispatchers = new Dictionary<int, BaseDispatcher>();
+        private ClientListener mClient;
         private ConnectParam connParams;
 
         [NoToLua]
         public override void Initialize()
         {
             InitHandler();
-            
-            var listener = new ClientListener(this);
-            mClient = new NetManager(listener);
-            mClient.UnconnectedMessagesEnabled = true;
-            mClient.UpdateTime = 15;
-            mClient.DisconnectTimeout = 30 * 1000;
-            if (!mClient.Start())
-            {
-                Debug.LogError("Client start failed");
-                return;
-            }
+
+            mClient = new ClientListener(this);
+            mClient.Start();
+
             isOnUpdate = true;
         }
 
         void InitHandler()
         {
-            mDispatchers.Add((byte)ProtoType.CSProtoMsg, new CSMsgDispatcher());
-            mDispatchers.Add((byte)ProtoType.LuaProtoMsg, new LuaMsgDispatcher());
+            mDispatchers.Add((int)ProtoType.CSProtoMsg, new CSMsgDispatcher());
+            mDispatchers.Add((int)ProtoType.LuaProtoMsg, new LuaMsgDispatcher());
         }
 
 
@@ -53,7 +43,7 @@ namespace FirClient.Manager
         {
             if (mClient != null)
             {
-                mClient.PollEvents();
+                mClient.Update();
             }
         }
 
@@ -68,12 +58,12 @@ namespace FirClient.Manager
         }
 
         [NoToLua]
-        public void OnConnected(NetPeer peer, string disReason = null)
+        public void OnConnected(bool isConnected)
         {
             if (connParams.connFunc != null)
             {
                 var self = connParams.luaClass;
-                connParams.connFunc.Call(self, disReason);
+                connParams.connFunc.Call(self, isConnected);
 
                 //connParams.luaClass.Dispose();
                 //connParams.luaClass = null;
@@ -86,15 +76,15 @@ namespace FirClient.Manager
         [NoToLua]
         public void SendData(string protoName, byte[] bytes) 
         {
-            SendDataInternal(ProtoType.CSProtoMsg, protoName, bytes);
+            SendDataInternal(protoName, bytes);
         }
 
         public void SendData(string protoName, IMessage msg)
         {
-            var buffer = msg.Serialize();
+            var buffer = msg.SerializeByteArray();
             if (buffer != null)
             {
-                SendDataInternal(ProtoType.CSProtoMsg, protoName, buffer);
+                SendDataInternal(protoName, buffer);
             }
         }
 
@@ -102,42 +92,40 @@ namespace FirClient.Manager
         {
             if (luaBuffer.buffer != null)
             {
-                SendDataInternal(ProtoType.LuaProtoMsg, protoName, luaBuffer.buffer);
+                SendDataInternal(protoName, luaBuffer.buffer);
             }
         }
 
-        private void SendDataInternal(ProtoType protocal, string protoName, byte[] buffer)
+        private void SendDataInternal(string protoName, byte[] buffer)
         {
             if (mClient != null)
             {
-                var writer = new NetDataWriter();
-                writer.Put((byte)protocal);
-                writer.Put(protoName);
-                writer.Put(buffer.Length);
-                writer.Put(buffer);
-                mClient.FirstPeer.Send(writer, DeliveryMethod.ReliableOrdered);
+                mClient.Send(protoName, buffer);
             }
         }
 
         [NoToLua]
-        public void OnReceived(NetPeer peer, NetDataReader reader)
+        public void OnReceived(ISFSObject responseParams)
         {
-            var key = reader.GetByte();
+            var key = responseParams.GetInt(AppConst.MsgTypeKey);
             if (mDispatchers.TryGetValue(key, out BaseDispatcher dispatcher))
             {
                 if (dispatcher != null)
                 {
-                    var protoName = reader.GetString();
-                    var count = reader.GetInt();
-                    var bytes = new byte[count];
-                    reader.GetBytes(bytes, count);
-                    dispatcher.OnMessage(protoName, bytes);
+                    var protoName = responseParams.GetUtfString(AppConst.ProtoNameKey);
+                    var byteArray = responseParams.GetByteArray(AppConst.ByteArrayKey);
+
+                    if (!string.IsNullOrEmpty(protoName) && byteArray != null)
+                    {
+                        dispatcher.OnMessage(protoName, byteArray.Bytes);
+                    }
                 }
             }
+            //Debug.Log("Result: " + responseParams.GetInt("res"));
         }
 
         [NoToLua]
-        public void OnDisconnected(NetPeer peer, string disReason)
+        public void OnDisconnected(string disReason)
         {
             if (connParams.connFunc != null)
             {
@@ -157,7 +145,7 @@ namespace FirClient.Manager
         {
             if (mClient != null)
             {
-                mClient.Stop();
+                mClient.Disconnect();
                 mClient = null;
             }
             Debug.Log("~NetworkManager was destroy");

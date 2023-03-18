@@ -171,6 +171,8 @@ public static class ToLuaExport
         "Type.IsSZArray",
         "Net.WriteStreamClosedEventHandler",
         "MeshRenderer.receiveGI",
+        "Debug.ExtractStackTraceNoAlloc",
+        "Sprite.isUsingPlaceholder",
     };
 
     class _MethodBase

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace TableTool
 {
+    /// <summary>
+    /// Lua's TableProc
+    /// </summary>
     public partial class TableProc
     {
         static void HandleLuaWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, string destPath)
@@ -19,7 +22,7 @@ namespace TableTool
             {
                 Directory.CreateDirectory(destDir);
             }
-            var tableCode = CreateLuaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
+            CreateLuaTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
         }
 
         /// <summary>

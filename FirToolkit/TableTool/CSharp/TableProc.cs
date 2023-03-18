@@ -1,41 +1,47 @@
-﻿using FirCommon.Data;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace TableTool
 {
+    /// <summary>
+    /// CSharp's TableProc
+    /// </summary>
     public partial class TableProc
     {
-        static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 表格处理器
+        /// </summary>
+        static void HandleCSharpWorkSheet(string tableName, string sheetName, string excelFile, ExcelWorksheet sheet, string md5, TableType tableType, string destPath, bool generateCode)
         {
-            var varName = tableName.FirstCharToLower();
-            vars.AppendLine("    	public " + tableName + " " + varName + ";");
-            load_funcs.AppendLine("        	" + varName + " = LoadData<" + tableName + ">(\"Tables/" + tableName + ".bytes\");");
-            load_funcs.AppendLine("        	" + varName + ".Initialize();");
-
-            if (IsNewOrUpdateTable(tableName, md5))
+            if (generateCode)
             {
-                string destDir = destPath + "/Tables";
-                var tableCode = CreateCSharpTableWithItem(tableName, excelFile, destDir, sheet);     //创建TABLE
-                var compileInfo = new TableCompileInfo();
-                compileInfo.tableName = tableName;
-                compileInfo.tablePath = excelFile;
-                compileInfo.tableType = tableType;
-                compileInfo.sheetName = sheetName;
-                compileInfo.tableCode = tableCode;
-                compileInfos.Add(compileInfo);
+                var varName = tableName.FirstCharToLower();
+                vars.AppendLine("    	public " + tableName + " " + varName + ";");
+                load_funcs.AppendLine("        	" + varName + " = LoadData<" + tableName + ">(\"Tables/" + tableName + ".bytes\");");
+                load_funcs.AppendLine("        	" + varName + ".Initialize();");
             }
+            string destDir = destPath + "/Tables";
+            var tableCode = CreateCSharpTableWithItem(tableName, destDir, sheet, generateCode);     //创建TABLE
+            var compileInfo = new TableCompileInfo();
+            compileInfo.tableName = tableName;
+            compileInfo.tablePath = excelFile;
+            compileInfo.tableType = tableType;
+            compileInfo.sheetName = sheetName;
+            compileInfo.tableCode = tableCode;
+            compileInfos.Add(compileInfo);
         }
 
         /// <summary>
         /// 创建表结构跟ITEM文件
         /// </summary>
-        static string CreateCSharpTableWithItem(string name, string excelPath, string destDir, ExcelWorksheet sheet)
+        static string CreateCSharpTableWithItem(string name, string destDir, ExcelWorksheet sheet, bool generateCode)
         {
             int colNum = sheet.Dimension.End.Column;
 
@@ -70,16 +76,17 @@ namespace TableTool
             var varText = varBody.ToString().TrimEnd('\n', '\t', '\r');
             string txtCode = tableItemCode.Replace("[NAME]", name)
                                           .Replace("[BODY]", varText)
-                                          .Replace("[TYPE]", keyType);
-
-            if (!Directory.Exists(destDir))
+                                          .Replace("[TYPE]", keyType)
+                                          .Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
+            if (generateCode)
             {
-                Directory.CreateDirectory(destDir);
+                if (!Directory.Exists(destDir))
+                {
+                    Directory.CreateDirectory(destDir);
+                }
+                var csPath = destDir + "/" + name + ".cs";
+                File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
             }
-
-            txtCode = txtCode.Replace("[TIME]", DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss dddd"));
-            var csPath = destDir + "/" + name + ".cs";
-            File.WriteAllText(csPath, txtCode, new UTF8Encoding(false));
             return txtCode;
         }
 
@@ -87,133 +94,14 @@ namespace TableTool
         /// <summary>
         /// 生成TableManager类
         /// </summary>
-        static void CreateCSharpTableManager(TableType type)
+        static void CreateCSharpTableManager()
         {
             var tempfile = templateDir + "/C#TableManager.txt";
             if (File.Exists(tempfile))
             {
                 var managerCode = File.ReadAllText(tempfile);
-                if (type == TableType.CSharp)
-                {
-                    WriteCSharpTableManager(managerCode, csharpCodePath);
-                }
-                if (type == TableType.Server)
-                {
-                    WriteCSharpTableManager(managerCode, serverCodePath);
-                }
+                WriteTableManagerFile(managerCode, csharpCodePath, "cs");
             }
-        }
-
-        /// //////////////////////////////////////////////生成二进制文件////////////////////////////////////////////////////////
-        static void ExecuteExportTables()
-        {
-            var curr = 0;
-            var max = compileInfos.Count;
-            foreach (var info in compileInfos)
-            {
-                var name = info.tableName;
-                var type = info.tableType;
-                var sheet = info.sheetName;
-                var path = info.tablePath;
-                var code = info.tableCode;
-                CreateTableDataWithFile(name, type, sheet, path, code);
-                fmMain.SetProgress(++curr, max);
-            }
-            if (File.Exists(clientDllPath))
-            {
-                File.Delete(clientDllPath);
-            }
-            if (File.Exists(serverDllPath))
-            {
-                File.Delete(serverDllPath);
-            }
-        }
-
-        static void CreateTableDataWithFile(string tbName, TableType tbType, string sheetName, string excelPath, string code)
-        {
-            using (var fs = new FileStream(excelPath, FileMode.Open))
-            {
-                using (var package = new ExcelPackage(fs))
-                {
-                    ExcelWorksheet sheet = null;
-                    for (int i = 1; i <= package.Workbook.Worksheets.Count; ++i)
-                    {
-                        sheet = package.Workbook.Worksheets[i];
-                        if (sheet.Name.ToLower() == sheetName)
-                        {
-                            break;
-                        }
-                    }
-                    if (sheet != null)
-                    {
-                        int colNum = sheet.Dimension.End.Column;
-                        int rowNum = sheet.Dimension.End.Row;
-
-                        var valueType = new Dictionary<string, string>();
-                        for (int i = 1; i <= colNum; i++)
-                        {
-                            string varName = sheet.GetValue(4, i) as string;
-                            if (string.IsNullOrEmpty(varName) || varName.Trim() == "note")
-                            {
-                                continue;
-                            }
-                            string varType = sheet.GetValue(2, i).ToString();
-                            valueType.Add(varName, varType);
-                        }
-                        WriteToBinaryFile(tbName, tbType, code, rowNum, valueType, sheet);
-                        Console.WriteLine("CreateTableBodyWithFile " + tbName + " OK!!!");
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 写入C#表管理器
-        /// </summary>
-        static void WriteCSharpTableManager(string tempText, string pathname)
-        {
-            vars.AppendLine("///[APPEND_VAR]");
-            load_funcs.AppendLine("///[APPEND_TABLE]");
-
-            var loadfuncText = load_funcs.ToString().TrimEnd('\n', '\t', '\r');
-            var content = tempText.Replace("[DECLARE_TABLES_VARS]", vars.ToString());
-            content = content.Replace("[LOAD_TABLE_FUNCS]", loadfuncText);
-
-            var filename = pathname + "/TableManager.cs";
-            if (File.Exists(filename))
-            {
-                File.Delete(filename);
-            }
-            File.WriteAllText(filename, content, new UTF8Encoding(false));
-        }
-
-        /// <summary>
-        /// 将表数据写入文件
-        /// </summary>
-        static void WriteToBinaryFile(string tbName, TableType tbType, string code, int rowNum, Dictionary<string, string> valueType, ExcelWorksheet sheet)
-        {
-            TablePath bytesPath = null;
-            switch (tbType)
-            {
-                case TableType.CSharp:
-                    bytesPath = new TablePath(csharpDataPath + "/" + tbName, clientDllPath);
-                    break;
-                case TableType.Server:
-                    bytesPath = new TablePath(serverDataPath + "/" + tbName, serverDllPath);
-                    break;
-            }
-            var binraryPath = bytesPath.path + ".bytes";
-            if (File.Exists(binraryPath))
-            {
-                File.Delete(binraryPath);
-            }
-            var outputPath = Path.GetDirectoryName(binraryPath);
-            if (!Directory.Exists(outputPath))
-            {
-                Directory.CreateDirectory(outputPath);
-            }
-            var instance = CreateDll(code, tbName, rowNum, valueType, sheet, bytesPath.dllpath);
-            SerializeUtil.Serialize(binraryPath, instance);
         }
 
         /// <summary>
@@ -227,7 +115,7 @@ namespace TableTool
 
             var tableType = assembly.GetType(nameTbName);
             var property = tableType.GetField("name");
-            property.SetValue(instance, nameTbName);
+            property.SetValue(instance, tbName);
 
             var methodInfo = tableType.GetMethod("AddItem", BindingFlags.Instance | BindingFlags.Public);
             var tableItemType = assembly.GetType(nameTbName + "Item");
@@ -328,7 +216,7 @@ namespace TableTool
         static object GetEnumValue(Assembly asm, string extraParam, string enumValue)
         {
             var clsInfo = GetEnumType(extraParam);
-            var etype = asm.GetType(clsInfo.namespaceName + "." + clsInfo.typeName);
+            var etype = asm.GetType(clsInfo.typeName);
             Array enumByReflection = Enum.GetValues(etype);
             foreach (var e in enumByReflection)
             {
@@ -345,25 +233,26 @@ namespace TableTool
         /// </summary>
         static Assembly CompileCodeAssembly(string classCode, string assemblyPath)
         {
-            if (File.Exists(assemblyPath))
-            {
-                File.Delete(assemblyPath);
-            }
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
             CompilerParameters parameters = new CompilerParameters();
             parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Xml.dll");
             parameters.ReferencedAssemblies.Add("netstandard.dll");
-            parameters.ReferencedAssemblies.Add("UnityEngine.dll");
+            parameters.ReferencedAssemblies.Add("FirCommon.dll");
+
             parameters.GenerateExecutable = false;
             parameters.GenerateInMemory = true;
             parameters.OutputAssembly = assemblyPath;
 
             string depCode = null;
-            var fullPath = Environment.CurrentDirectory + "/FirCommon/Define/CommonEnum.cs";
-            if (File.Exists(fullPath))
+            var fullPath = Environment.CurrentDirectory + "/FirClient/Assets/Scripts/Data/Enums";
+            if (Directory.Exists(fullPath))
             {
-                depCode = File.ReadAllText(fullPath);
+                var files = Directory.GetFiles(fullPath, "*.cs");
+                foreach (var file in files)
+                {
+                    depCode += File.ReadAllText(file) + "\r\n";
+                }
             }
             CompilerResults result = provider.CompileAssemblyFromSource(parameters, depCode, classCode);
             if (result.Errors.HasErrors)
@@ -373,7 +262,7 @@ namespace TableTool
                 {
                     ErrorMessage += err.ErrorText;
                 }
-                Console.WriteLine(ErrorMessage);
+                MessageBox.Show(ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             return result.CompiledAssembly;

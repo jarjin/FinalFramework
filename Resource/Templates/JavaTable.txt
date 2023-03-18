@@ -1,0 +1,44 @@
+package com.tables.Tables;
+
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class [NAME]
+{
+	public String name;		
+	public List<[NAME]Item> items = new ArrayList<[NAME]Item>();
+	
+	private Map<[TYPE], [NAME]Item> dics = null;
+
+
+	public void Initialize()
+	{
+		dics = new HashMap<[TYPE], [NAME]Item>();
+		for ([NAME]Item item : items)
+		{
+			dics.put(item.id, item);
+		}
+	}
+
+	public List<[NAME]Item> GetItems()
+	{
+		return items;
+	}
+
+	public void AddItem([NAME]Item item)
+	{
+		items.add(item);
+	}
+
+	public [NAME]Item GetItemByKey([TYPE] key)
+	{
+        [NAME]Item item = null;
+        if (dics.containsKey(key))
+        {
+            item = dics.get(key);
+        }
+        return item;
+	}
+}

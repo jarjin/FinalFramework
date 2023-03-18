@@ -1,23 +1,13 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FirCommon.Data
 {
-	[Serializable]
 	public class [NAME]
 	{
-		public string name;
-
+		public string name;		
+		public List<[NAME]Item> items = new List<[NAME]Item>();
+		
 		private Dictionary<[TYPE], [NAME]Item> dics = null;
-		private List<[NAME]Item> items = new List<[NAME]Item>();
-
-		public List<[NAME]Item> Items
-		{
-			get {
-				return items;
-			}
-		}
 
 		public void Initialize()
 		{
@@ -49,7 +39,6 @@ namespace FirCommon.Data
 		}
 	}
 
-	[Serializable]
 	public class [NAME]Item
 	{
 [BODY]
