@@ -1,7 +1,7 @@
 <table>
 	<tbody>
 	<tr>
-	<td align="center" width="100px">
+	<td align="center" width="150px">
 	运行界面如下：	<br/>
 <img src="screenshot.jpg" width="128"/>
 	</td>
