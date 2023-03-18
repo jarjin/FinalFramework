@@ -1,13 +1,11 @@
 # FinalFramework
 
 #### 开发目标
-FinalFramework（简称FF）不是为了初学者入门，所以初学者会不适应它的风格，FF的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
-
-![image](https://github.com/jarjin/FinalFramework/raw/master/screenshot.jpg)      
+FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
 
 #### 运行环境（版本太低的需要自力更生了）
 FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  
-FirServer:  Smartfoxserver + MongoDB 4.29 + VSCode  
+FirServer:  Smartfoxserver + MongoDB 4.29 + MySQL 5.7 + VSCode  
 FirToolkit: Visual Studio 2019 
 
 #### 框架工作流使用介绍：	
@@ -46,7 +44,5 @@ FirToolkit: Visual Studio 2019
 （13）红点系统（实现一个红点通用框架）。  作者：DustYang
 
 #### 已知问题
-（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。
-
-#### 待加功能
-（1）UI骨骼系统（解决UI频繁创建销毁造成Mono内存增长）。  
+（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。 
+（2）Unity高版本的Visual Scripting会跟项目自带的ZIP组件冲突，可选要移除一个。
