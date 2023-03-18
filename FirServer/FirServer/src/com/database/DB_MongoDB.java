@@ -22,6 +22,16 @@ public class DB_MongoDB implements IDatabase {
     }
 
     @Override
+    public Object Get(String dbname, String uid, String key) {
+        return helper.get(dbname, uid, key);
+    }
+
+    @Override
+    public void Set(String tbname, String uid, String key, String value) {
+        helper.set(tbname, uid, key, value);
+    }
+
+    @Override
     public void Close() {
         helper.CloseMongoDB();
     }
