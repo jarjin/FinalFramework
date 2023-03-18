@@ -8,8 +8,7 @@ FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019
 FirServer:  Smartfoxserver + MongoDB 4.29 + MySQL 5.7 + VSCode  
 FirToolkit: Visual Studio 2019 
 
-![Screenshot](screenshot.jpg)
-
+#### 运行成功界面如下：	
 <img src="screenshot.jpg" width="128"/>
 
 #### 框架工作流使用介绍：	
