@@ -22,7 +22,8 @@ public class DataManager extends BaseManager {
     }
 
     public void TestDB() {
-        logMgr().Trace("Current Database Type:" + db.GetType());
+        String strMsg = db != null ? db.GetType().toString() : "None";
+        logMgr().Trace("Current Database Type:" + strMsg);
     }
 
     @Override
