@@ -5,6 +5,8 @@ import com.define.enums.DBType;
 public class AppConst {
 	///数据库类型
 	public final static DBType DbType = DBType.None;
+	public final static boolean USE_REDIS = false;
+
     /** mysql url*/
 	public final static String MYSQL_URL = "jdbc:mysql://localhost:3306/test";
 	/** mysql user*/

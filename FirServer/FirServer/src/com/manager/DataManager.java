@@ -26,6 +26,14 @@ public class DataManager extends BaseManager {
         logMgr().Trace("Current Database Type:" + strMsg);
     }
 
+    public Object Get(String dbname, String uid, String key) {
+        return db.Get(dbname, uid, key);
+    }
+
+    public void Set(String tbname, String uid, String key, String value) {
+        db.Set(tbname, uid, key, value);
+    }
+
     public void CloseDB() {
         db.Close();
     }

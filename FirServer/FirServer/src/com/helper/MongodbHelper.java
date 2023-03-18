@@ -35,7 +35,7 @@ public class MongoDBHelper {
 		return null;
 	}
 	
-	public void set(String tbname, String uid, String key, String value) {
+	public void set(String tbname, String uid, String key, Object value) {
 		//String strKey = tbname + "_" + uid + "_" + key;
 		//Memcache.delete(strKey);	//
 		//executeUpdate("update " + tbname + " set " + key + "=" + value + " where userid='" + uid + "'");
