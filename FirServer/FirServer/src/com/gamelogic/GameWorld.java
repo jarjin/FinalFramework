@@ -1,7 +1,6 @@
 package com.gamelogic;
 
 import com.common.Protocal;
-import com.define.AppConst;
 import com.define.classes.*;
 import com.gamelogic.common.GameBehaviour;
 import com.gamelogic.handler.LoginHandler;
