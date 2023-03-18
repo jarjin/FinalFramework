@@ -11,6 +11,11 @@ public class AppConst {
 	public final static String MYSQL_USER = "root";
 	/** mysql pass*/
 	public final static String MYSQL_PASS = "111111";
+
+	/** mongodb ip*/
+	public final static String MONGO_IP = "localhost";
+	/** mongodb port*/
+	public final static int MONGO_PORT = 27018;
     
     public final static String CONFIG_PATH = "";
 	public final static String CITY_NAME = "city.xml";
