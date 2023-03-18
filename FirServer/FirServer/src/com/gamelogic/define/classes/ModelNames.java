@@ -1,4 +1,4 @@
-package com.define.classes;
+package com.gamelogic.define.classes;
 
 public class ModelNames {
     public final static String User = "UserModel";

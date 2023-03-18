@@ -9,7 +9,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.define.AppConst;
-import com.entity.City;
+import com.gamelogic.entity.CityEntity;
 
 public class XmlHelper {
 	public static void init() {
@@ -34,7 +34,7 @@ public class XmlHelper {
 		while(uIterator.hasNext()){
 			Element e = (Element)uIterator.next();
 			if("city".equals(e.getName())) {
-				City city = new City();
+				CityEntity city = new CityEntity();
 				String cid = e.attributeValue("id");
 				city.id = cid;
 				city.name = e.attributeValue("name");

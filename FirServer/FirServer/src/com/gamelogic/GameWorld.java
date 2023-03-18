@@ -1,8 +1,8 @@
 package com.gamelogic;
 
 import com.common.Protocal;
-import com.define.classes.*;
 import com.gamelogic.common.GameBehaviour;
+import com.gamelogic.define.classes.ModelNames;
 import com.gamelogic.handler.LoginHandler;
 import com.gamelogic.model.BackpackModel;
 import com.gamelogic.model.UserModel;

@@ -1,12 +1,20 @@
-package com.entity;
+package com.gamelogic.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class City {
+public class CityEntity extends BaseEntity {
 	public String id = "";
 	public String name = "";
 	public List<String> uids = new ArrayList<String>();
+
+	public CityEntity() {}
+
+	@Override
+    public void Initialize() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Initialize'");
+    }
 
 	@Override
 	public int hashCode() {
@@ -24,7 +32,7 @@ public class City {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		City other = (City) obj;
+			CityEntity other = (CityEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -37,4 +45,11 @@ public class City {
 	public String toString() {
 		return "City [id=" + id + ", name=" + name + ", uids=" + uids + "]";
 	}
+
+	@Override
+    public void OnDispose() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnDispose'");
+    }
+
 }

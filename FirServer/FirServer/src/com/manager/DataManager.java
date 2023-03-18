@@ -30,7 +30,7 @@ public class DataManager extends BaseManager {
         return db.Get(dbname, uid, key);
     }
 
-    public void Set(String tbname, String uid, String key, String value) {
+    public void Set(String tbname, String uid, String key, Object value) {
         db.Set(tbname, uid, key, value);
     }
 

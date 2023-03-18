@@ -1,6 +1,7 @@
 package com.gamelogic.handler;
 
 import com.common.Protocal;
+import com.gamelogic.entity.UserEntity;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.handler.BaseHandler;
 import com.protos.Person;
@@ -12,6 +13,7 @@ import com.tables.enums.ProtoType;
 public class LoginHandler extends BaseHandler {
     @Override
     public void OnMessage(User user, byte[] bytes) {
+        ///解析客户端数据
         Person person = null;
         try {
             person = Person.parseFrom(bytes);
@@ -20,6 +22,12 @@ public class LoginHandler extends BaseHandler {
         }
         if (person != null) {
             logMgr().Trace("Person Count: " + person.getName());
+        }
+
+        ///从数据库初始化数据
+        UserEntity userEntity = new UserEntity("10000");
+        if (userEntity != null) {
+            userEntity.Initialize();
         }
         
         ///发送reply数据

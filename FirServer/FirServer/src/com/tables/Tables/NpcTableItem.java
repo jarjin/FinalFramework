@@ -1,6 +1,6 @@
 package com.tables.Tables;
 
-import com.define.classes.*;
+import com.gamelogic.define.classes.*;
 import com.tables.enums.*;
 
 public class NpcTableItem
