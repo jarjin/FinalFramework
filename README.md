@@ -1,10 +1,3 @@
-# FinalFramework
-
-#### 开发目标
-FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
-
-
-
 <table>
 	<tbody>
 	<tr>
@@ -13,6 +6,10 @@ FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从�
 <img src="screenshot.jpg" width="128"/>
 	</td>
 	<td>
+#### 开发目标
+FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）、多端定义共享功能来方便开发者。(美术素材版权所有，不得商用！！！！)
+
+	
 #### 运行环境（版本太低的需要自力更生了）<br/>
 FirClient： Unity 2019.4.40f1 (64-bit) + Visual Studio 2019  <br/>
 FirServer:  Smartfoxserver + MongoDB 4.29 + MySQL 5.7 + VSCode  <br/>
