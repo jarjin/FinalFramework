@@ -26,6 +26,10 @@ public class DataManager extends BaseManager {
         logMgr().Trace("Current Database Type:" + strMsg);
     }
 
+    public void CloseDB() {
+        db.Close();
+    }
+
     @Override
     public void OnDispose() {
     }

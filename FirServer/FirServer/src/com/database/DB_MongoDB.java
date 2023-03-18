@@ -7,14 +7,23 @@ import com.interfaces.IDatabase;
 public class DB_MongoDB implements IDatabase {
     private MongoDBHelper helper;
 
+    public DB_MongoDB() {
+        helper = new MongoDBHelper();
+    }
+
     @Override
     public void Initialize() {
-        helper = new MongoDBHelper();
+        helper.initMongoDB();
     }
 
     @Override
     public DBType GetType() {
         return DBType.MongoDB;
+    }
+
+    @Override
+    public void Close() {
+        helper.CloseMongoDB();
     }
 
     @Override

@@ -9,9 +9,9 @@ import java.sql.Statement;
 import com.define.AppConst;
 
 public class MySQLHelper {
-	private static Connection conn = null;
+	private Connection conn = null;
 	
-	private static void initMysql() {
+	public void initMySQL() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
@@ -25,7 +25,7 @@ public class MySQLHelper {
 		} 
 	}
 
-	public static int executeUpdate(String sql) {
+	public int executeUpdate(String sql) {
 		int flag = 0;
 		try {
 			handleTimeout();
@@ -38,7 +38,7 @@ public class MySQLHelper {
 		return flag;
 	}
 	
-	public static ResultSet executeQuery(String sql) {
+	public ResultSet executeQuery(String sql) {
 		Statement st = null;
 		try {
 			handleTimeout();
@@ -50,22 +50,22 @@ public class MySQLHelper {
 		return null;
 	}
 	
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		handleTimeout(); 
 		return conn;
 	}
 	
-	private static void handleTimeout() {
+	private void handleTimeout() {
 		try {
-			if(conn==null || !conn.isValid(0)) {
-				initMysql();
+			if(conn == null || !conn.isValid(0)) {
+				initMySQL();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void closeResultSet(ResultSet rs) {
+	public void closeResultSet(ResultSet rs) {
 		Statement st = null;
 		try {
 			if(rs != null && !rs.isClosed()) {
@@ -81,7 +81,7 @@ public class MySQLHelper {
 		}
 	} 
 	
-	public static Object get(String dbname, String uid, String key) {
+	public Object get(String dbname, String uid, String key) {
 		String sql = "select " + key + " from " + dbname + " where userid='" + uid + "'";
 		ResultSet rs = executeQuery(sql);
 		Object result = null;
@@ -98,9 +98,17 @@ public class MySQLHelper {
 		return result;
 	}
 	
-	public static void set(String tbname, String uid, String key, String value) {
+	public void set(String tbname, String uid, String key, String value) {
 		String strKey = tbname + "_" + uid + "_" + key;
 		//Memcache.delete(strKey);	//
 		executeUpdate("update " + tbname + " set " + key + "=" + value + " where userid='" + uid + "'");
+	}
+
+	public void closeMySQL() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

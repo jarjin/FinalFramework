@@ -7,14 +7,23 @@ import com.interfaces.IDatabase;
 public class DB_MySQL implements IDatabase {
     private MySQLHelper helper;
 
+    public DB_MySQL() {
+        helper = new MySQLHelper();
+    }
+
     @Override
     public void Initialize() {
-        helper = new MySQLHelper();
+        helper.initMySQL();
     }
 
     @Override
     public DBType GetType() {
         return DBType.MySQL;
+    }
+
+    @Override
+    public void Close() {
+        helper.closeMySQL();
     }
 
     @Override
