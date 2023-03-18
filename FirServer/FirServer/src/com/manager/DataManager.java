@@ -5,6 +5,9 @@ public class DataManager extends BaseManager {
     public void Initialize() {
     }
 
+    public void TestDB() {
+    }
+
     @Override
     public void OnDispose() {
     }

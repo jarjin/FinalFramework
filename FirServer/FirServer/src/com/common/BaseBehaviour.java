@@ -64,7 +64,7 @@ public class BaseBehaviour {
     }
 
     private static DataManager _dataMgr = null;
-    protected static DataManager _dataMgr()
+    protected static DataManager dataMgr()
     {
         if (_dataMgr == null)
         {

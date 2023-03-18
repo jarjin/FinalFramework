@@ -40,19 +40,7 @@ public class GameWorld extends GameBehaviour implements IWorld  {
      * 测试数据库
      */
     void TestDBServer() {
-        switch(AppConst.DbType) {
-            case MySQL: TestMySQL(); break;
-            case MongoDB: TestMongoDB(); break;
-            default: break;
-        }
-    }
-
-    void TestMySQL() {
-
-    }
-
-    void TestMongoDB() {
-
+        dataMgr().TestDB();
     }
 
     @Override
