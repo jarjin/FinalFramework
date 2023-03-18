@@ -29,4 +29,15 @@ public class MongoDBHelper {
         MongoDatabase db = getDatabase(dbName);
         return db.getCollection(collName);
     }
+
+    public static Object get(String dbname, String uid, String key) {
+        //String sql = "select " + key + " from " + dbname + " where userid='" + uid + "'";
+		return null;
+	}
+	
+	public static void set(String tbname, String uid, String key, String value) {
+		//String strKey = tbname + "_" + uid + "_" + key;
+		//Memcache.delete(strKey);	//
+		//executeUpdate("update " + tbname + " set " + key + "=" + value + " where userid='" + uid + "'");
+	}
 }
