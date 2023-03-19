@@ -98,7 +98,6 @@ public class MySQLHelper {
 	}
 	
 	public void set(String tbname, String uid, String key, Object value) {
-		String strKey = tbname + "_" + uid + "_" + key;
 		executeUpdate("update " + tbname + " set " + key + "=" + value + " where userid='" + uid + "'");
 	}
 
