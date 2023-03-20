@@ -18,8 +18,8 @@ FirToolkit: Visual Studio 2019
 	</tbody>
 </table>
 
-<a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb" target="_blank">Smartfoxserver相关软件 - 网盘下载===!!!</a><br/>
-<a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension调试</a><br/>
+<a href="FirClient/README.md">客户端开发工作流指南</a>。<a href="FirServer/README.md">服务器端开发工作流指南</a>。<br/>
+<a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb" target="_blank">Smartfoxserver相关软件 - 网盘下载===!!!</a><br/>  <a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension调试</a><br/>
 
 #### 框架工具介绍：
 （1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a>，生成代码路径：<br/>
@@ -73,9 +73,7 @@ if not exist %Server_Proto_Path% (
 （2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录） <br/> 
 （3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器） <br/> 
 （4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。<br/>
-（5）<a href="FirClient/README.md">客户端开发工作流指南</a>。<br/>
-（6）<a href="FirServer/README.md">服务器端开发工作流指南</a>。<br/>
-（7）客户端设置里面Assets/Resources/GameSettings.asset，NetworkMode默认开启，若不需要SFS关闭即可。<br/>
+（5）客户端设置里面Assets/Resources/GameSettings.asset，NetworkMode默认开启，若不需要SFS关闭即可。<br/>
 
 
 #### 2023.03.18 更新日志：
