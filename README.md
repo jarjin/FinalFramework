@@ -22,7 +22,7 @@ FirToolkit: Visual Studio 2019
 <a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension调试</a><br/>
 
 #### 框架工具介绍：
-（1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a><br/>
+（1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a>，生成代码路径：<br/>
 ```csharp
 	static void ParseConfig()
 	{
@@ -33,7 +33,7 @@ FirToolkit: Visual Studio 2019
 		csharpCodePath = Environment.CurrentDirectory + "\\FirClient\\Assets\\Scripts\\Data\\Enums";
 	}
 ```
-（2）protoname.exe 双端(C#/JAVA)共用网络协议名生成器，文件定义在<a href="Resource/Protocal.txt">Resources/Protocal.txt</a><br/>
+（2）protoname.exe 双端(C#/JAVA)共用网络协议名生成器，文件定义在<a href="Resource/Protocal.txt">Resources/Protocal.txt</a>，生成代码路径：<br/>
 ```csharp
 	static void ParseConfig()
 	{
