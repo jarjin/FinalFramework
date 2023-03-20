@@ -1,9 +1,7 @@
 <table>
 	<tbody>
 	<tr>
-	<td align="center" width="150px">
-<img src="Screenshot/screenshot.jpg" width="128"/>
-	</td>
+	<td align="center" width="150px"><img src="Screenshot/screenshot.jpg" width="128"/></td>
 	<td>
 #### 开发目标 <br/>
 FinalFramework（简称FF）的目标是打造独立游戏开发的闭环，从客户端、服务器端+DB、各种独立工具链（剧情编辑器、打表、ProtoBuff等）(项目素材禁止商用！！)
@@ -18,7 +16,7 @@ FirToolkit: Visual Studio 2019
 	</tbody>
 </table>
 
-<table width="100%">
+<table align="center">
 	<tr>
 		<td align="center" width="50%"><a href="FirClient/README.md">客户端开发工作流指南</a></td>
 		<td align="center" width="50%"><a href="FirServer/README.md">服务器端开发工作流指南</a></td>
