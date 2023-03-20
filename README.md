@@ -32,6 +32,7 @@ FirToolkit: Visual Studio 2019
 （2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
 （3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器）  
 （4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。
+（5）<a href="FirServer/README.md">服务器端开发工作流注意事项</a>。
 
 #### 2023.03.18 更新日志：
 （1）去掉自带的FirServer，支持Smartfoxserver。
@@ -65,3 +66,4 @@ FirToolkit: Visual Studio 2019
 #### 已知问题
 （1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。  
 （2）Unity高版本的Visual Scripting会跟项目自带的ZIP组件冲突，可选要移除一个。
+（3）Smartfoxserver安装启动后，显示很多中文乱码，解决办法登录后台管理http://localhost:8080，进入Administration Tool 2X后，用户名+密码：sfsadmin，Server Configurator/JVM Settings/-Dfile.encoding=GBK
