@@ -16,7 +16,7 @@ public class UserEntity extends BaseEntity {
 
 	@Override
     public void Initialize() {
-		if (userid == null && userid == "") return;
+		if (userid == null || userid == "") return;
 		userModel = (UserModel)modelMgr().GetModel(ModelNames.User);
 
 		this.name = userModel.GetName(userid);
