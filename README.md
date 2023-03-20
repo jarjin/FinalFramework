@@ -22,7 +22,7 @@ FirToolkit: Visual Studio 2019
 		<td align="center" width="50%"><a href="FirServer/README.md">服务器端开发工作流指南</a></td>
 	</tr>
 	<tr>
-		<td align="center" width="50%"><a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb">Smartfoxserver相关软件 - 网盘下载===!!!</a></td>
+		<td align="center" width="50%"><a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb">Smartfoxserver相关软件-网盘下载</a></td>
 		<td align="center" width="50%"><a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension调试</a></td>
 	</tr>
 </table>
