@@ -45,8 +45,10 @@ static void ParseConfig()
 }
 ```
 （3）protos.bat 双端(C#/JAVA)共用网络协议（ProtoBuff3）生成器，文件定义在Protos子目录里面。<br/>
-（4）storyeditor.exe 剧情编辑器。<br/>
+（4）storyeditor.exe 剧情编辑器。可以导出txt文本和lua代码格式文本。<br/>
+<img src="Screenshot/storyeditor.png" />
 （5）tabletool.exe 双端(C#/JAVA)共用Excel表格生成器。<br/>
+<img src="Screenshot/tabletool.png" />
 
 #### 框架工作流使用介绍：	
 （1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录） <br/> 
@@ -56,8 +58,7 @@ static void ParseConfig()
 （5）<a href="FirClient/README.md">客户端开发工作流指南</a>。<br/>
 （6）<a href="FirServer/README.md">服务器端开发工作流指南</a>。<br/>
 （7）客户端设置里面Assets/Resources/GameSettings.asset，NetworkMode默认开启，若不需要SFS关闭即可。<br/>
-（8）tabletool.exe打表工具生成双端代码，双端数据文件路径，打开工具即可查看，如图所示：
-<img src="Screenshot/tabletool.png" />
+
 
 #### 2023.03.18 更新日志：
 （1）去掉自带的FirServer，支持Smartfoxserver。
