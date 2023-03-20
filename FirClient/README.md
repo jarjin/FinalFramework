@@ -104,7 +104,78 @@ end
 
 （9）Controller目录下面是非UI的控制器，比如GM指令、预加载、红点等。
 
-（10）Component目录下面是定义的LuaComponent，里面最常用的便是CItemBox组件，它可以适配游戏所有的ICON显示，用法是在Prefab上拖拽一个UI/ItemBox，然后添加CLuaComponent组件，并且在上面添上CItemBox即可。
+（10）Component目录下面是定义的LuaComponent，里面最常用的便是CItemBox组件，它可以适配游戏所有的ICON显示，用法是在Prefab上拖拽一个UI/ItemBox，然后添加CLuaComponent组件，并且在上面添上CItemBox，然后通过代码itembox:SetItem(itemData.id)设置即可。
 <img src="../Screenshot/LuaComponent.png" />
 
 （11）Adapter目录下面是定义的关卡适配器，比如战斗关卡、Login关卡、主关卡等。
+
+（12）关于网络发送、接收消息，如下代码所示：<br />
+在HandlerManager里面添加消息类映射绑定
+```lua
+function HandlerManager:Initialize()
+    self.handlers = {}
+	self:AddHandler(HandlerNames.User, require "Handler.UserMsgHandler")
+	
+	local netMgr = MgrCenter:GetManager(ManagerNames.Network)
+	for _, handler in pairs(self.handlers) do
+		handler:Initialize()
+		netMgr:RegMsgHandler(handler)
+	end
+end
+```
+
+在UserMsgHandler做消息的注册与分发预处理
+```lua
+local UserMsgHandler = class("UserMsgHandler")
+
+function UserMsgHandler:Initialize()
+    self.moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
+    self.userModule = self.moduleMgr:GetModule(ModuleNames.User)
+end
+
+function UserMsgHandler:OnRecvLogin(data)
+    if type(data) ~= 'table' then return end
+    if self.userModule then
+        self.userModule:ResLogin(data)
+    end
+end
+
+UserMsgHandler.MsgFuncs = 
+{
+    ["pb_user.ResLogin"] = UserMsgHandler.OnRecvLogin,
+}
+
+return UserMsgHandler
+```
+
+在UserModule里面添加消息处理逻辑
+```lua
+local UserModule = class("UserModule")
+
+function UserModule:Initialize()
+    self.loginCallback = nil
+    self.netMgr = MgrCenter:GetManager(ManagerNames.Network)
+end
+
+--封包发送--
+function UserModule:ReqLogin(username, password, callback)
+    local sendData = {
+        name = username,
+        pass = password,
+    }
+    self.loginCallback = callback
+    self.netMgr:SendMessage("pb_user.ReqLogin", sendData)
+end
+
+--解包使用--
+function UserModule:ResLogin(data)
+    self.loginData = table.deepcopy(data)
+    if type(self.loginData.userinfo) == 'table' then
+        if self.loginCallback then
+            self.loginCallback(self.loginData.userinfo)
+        end
+    end
+end
+
+return UserModule
+```
