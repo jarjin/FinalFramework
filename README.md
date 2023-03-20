@@ -64,6 +64,6 @@ FirToolkit: Visual Studio 2019
 （13）红点系统（实现一个红点通用框架）。  作者：DustYang
 
 #### 已知问题
-（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。  
-（2）Unity高版本的Visual Scripting会跟项目自带的ZIP组件冲突，可选要移除一个。
-（3）Smartfoxserver安装启动后，显示很多中文乱码，解决办法登录后台管理http://localhost:8080，进入Administration Tool 2X后，用户名+密码：sfsadmin，Server Configurator/JVM Settings/-Dfile.encoding=GBK
+（1）英雄战斗状态机会停下。（已修复）npcData.skillConsume决定是否要释放技能。  <br/>
+（2）Unity高版本的Visual Scripting会跟项目自带的ZIP组件冲突，可选要移除一个。<br/>
+（3）SFS安装启动后，中文乱码解决办法:登录后台管理http://localhost:8080，进入Administration Tool 2X后，用户名+密码：sfsadmin，Server Configurator/JVM Settings/设置成-Dfile.encoding=GBK，重启即可。<br/>
