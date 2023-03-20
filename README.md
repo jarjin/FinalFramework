@@ -28,10 +28,10 @@ FirToolkit: Visual Studio 2019
 （5）tabletool.exe 双端(C#/JAVA)共用Excel表格生成器。<br/>
 
 #### 框架工作流使用介绍：	
-（1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录）  
-（2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
-（3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器）  
-（4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。
+（1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录） <br/> 
+（2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录） <br/> 
+（3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器） <br/> 
+（4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。<br/>
 （5）<a href="FirServer/README.md">服务器端开发工作流注意事项</a>。
 
 #### 2023.03.18 更新日志：
