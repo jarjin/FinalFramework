@@ -20,6 +20,13 @@ FirToolkit: Visual Studio 2019
 
 <a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb" target="_blank">Smartfoxserver相关软件</a>
 
+#### 框架工具介绍：
+（1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a><br/>
+（2）protoname.exe 双端(C#/JAVA)共用网络协议名生成器，文件定义在<a href="Resource/Protocal.txt">Resources/Protocal.txt</a><br/>
+（3）protos.bat 双端(C#/JAVA)共用网络协议（ProtoBuff3）生成器，文件定义在Protos子目录里面。<br/>
+（4）storyeditor.exe 剧情编辑器。<br/>
+（5）tabletool.exe 双端(C#/JAVA)共用Excel表格生成器。<br/>
+
 #### 框架工作流使用介绍：	
 （1）proto添加消息，定义req、res结构，打协议（自动copy到客户端、服务器端pb目录）  
 （2）在策划Excel目录定义数据表，然后打表（自动copy到客户端+服务器Table目录）  
