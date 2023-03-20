@@ -23,7 +23,27 @@ FirToolkit: Visual Studio 2019
 
 #### 框架工具介绍：
 （1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a><br/>
+```csharp
+	static void ParseConfig()
+	{
+		javaTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\JavaEnum.txt";
+		csharpTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\C#Enum.txt";
+
+		javaCodePath = Environment.CurrentDirectory + "\\FirServer\\FirServer\\src\\com\\tables\\enums";
+		csharpCodePath = Environment.CurrentDirectory + "\\FirClient\\Assets\\Scripts\\Data\\Enums";
+	}
+```
 （2）protoname.exe 双端(C#/JAVA)共用网络协议名生成器，文件定义在<a href="Resource/Protocal.txt">Resources/Protocal.txt</a><br/>
+```csharp
+	static void ParseConfig()
+	{
+		javaTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\JavaProtocal.txt";
+		csharpTemplate = Environment.CurrentDirectory + "\\Resource\\Templates\\C#Protocal.txt";
+
+		javaCodePath = Environment.CurrentDirectory + "\\FirServer\\FirServer\\src\\com\\common\\Protocal.java";
+		csharpCodePath = Environment.CurrentDirectory + "\\FirClient\\Assets\\Scripts\\Network\\Protocal.cs";
+	}
+```
 （3）protos.bat 双端(C#/JAVA)共用网络协议（ProtoBuff3）生成器，文件定义在Protos子目录里面。<br/>
 （4）storyeditor.exe 剧情编辑器。<br/>
 （5）tabletool.exe 双端(C#/JAVA)共用Excel表格生成器。<br/>
