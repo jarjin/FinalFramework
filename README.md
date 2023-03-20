@@ -24,7 +24,7 @@ FirToolkit: Visual Studio 2019
 	</tr>
 	<tr>
 		<td align="center"><a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb">SmartFoxServer 相关软件下载</a></td>
-		<td align="center"><a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension调试</a></td>
+		<td align="center"><a href="https://www.cnblogs.com/code-boy/p/4883402.html">SmartFoxServer Extension 调试</a></td>
 	</tr>
 </tbody>
 </table>
