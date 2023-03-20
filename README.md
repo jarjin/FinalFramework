@@ -18,7 +18,7 @@ FirToolkit: Visual Studio 2019
 	</tbody>
 </table>
 
-<a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb" target="_blank">Smartfoxserver相关软件</a>
+<a href="https://pan.baidu.com/s/1U7jD7KyJwNajkspYW7F5uw?pwd=bpkb" target="_blank">Smartfoxserver相关软件 - 网盘下载===!!!</a>
 
 #### 框架工具介绍：
 （1）enumtool.exe 双端(C#/JAVA)共用枚举工具生成器，枚举类型定义在<a href="Resource/Enum.txt">Resource/Enum.txt</a><br/>
