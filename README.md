@@ -33,7 +33,7 @@ FirToolkit: Visual Studio 2019
 （3）在FirServer里添加对于模块Handler（消息），Model（数据库），Manager（管理器） <br/> 
 （4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。<br/>
 （5）<a href="FirServer/README.md">服务器端开发工作流注意事项</a>。<br/>
-（6）客户端工程设置里面Assets/Resources/GameSettings.asset，有“NetworkMode” ，默认开启，如果不需要SFS关闭即可。<br/>
+（6）客户端设置里面Assets/Resources/GameSettings.asset，NetworkMode默认开启，若不需要SFS关闭即可。<br/>
 （7）tabletool.exe打表工具生成双端代码，双端数据文件路径，打开工具即可查看，如图所示：
 <img src="Screenshot/tabletool.png" />
 
