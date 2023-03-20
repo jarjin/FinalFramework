@@ -62,7 +62,42 @@ end
 
 （7）在Handler下面写网络消息映射Map类，比如自带的UserMsgHandler.lua里定义与用户相关的网络消息，然后通知Module模块数据更新。
 
-（8）Data目录是tabletool.exe自动生成的目录文件，可以通过TableManager访问表格数据，里面文件不要手改，切记！
+（8）Data目录是tabletool.exe自动生成的目录文件，可以通过TableManager访问表格数据，里面文件不要手改，切记！<br/>
+访问Global表的KeyValue数据如下简化代码：
+```lua
+local colorItem = getGlobalItemByKey("CommonWhite")
+logWarn('Main.OnInitOK--->>>'..colorItem.value)
+```
+遍历表格数据代码如下：
+```lua
+local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
+local items = tableMgr.npcTable:GetItems()
+local iter = items:GetEnumerator()
+
+while iter:MoveNext() do
+	local npcItem = iter.Current
+	if not npcItem.isMainCharacter then
+		local item = {
+			name = npcItem.name,
+			itemid = npcItem.itemid,
+		}
+		table.insert(self.mHeroDataList, item)
+	end
+end
+```
+通过Key获取道具表数据
+```lua
+local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
+local itemData = tableMgr.itemTable:GetItemByKey(index)
+if itemData then
+	prefabVar:SetText("txt_TextName", itemData.name)
+
+	local itembox = prefabVar:TryGetComponent('itembox_icon')
+	if itembox ~= nil then
+		itembox:SetItem(itemData.id)
+	end
+end
+```
 
 （9）Controller目录下面是非UI的控制器，比如GM指令、预加载、红点等。
 
