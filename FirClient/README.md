@@ -21,3 +21,6 @@
 （10）Component目录下面是定义的LuaComponent，里面最常用的便是CItemBox组件，它可以适配游戏所有的ICON显示，用法是在Prefab上拖拽一个UI/ItemBox，然后添加CLuaComponent组件，并且在上面添上CItemBox即可。
 
 （11）Adapter目录下面是定义的关卡适配器，比如战斗关卡、Login关卡、主关卡等。
+
+<img src="../Screenshot/CPrefab.png" />
+<img src="../Screenshot/LuaComponent.png" />
