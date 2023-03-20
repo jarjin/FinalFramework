@@ -19,3 +19,38 @@
 （9）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
 
 （10）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。
+
+```java
+public class LoginHandler extends BaseHandler {
+    @Override
+    public void OnMessage(User user, byte[] bytes) {
+        ///解析客户端数据
+        Person person = null;
+        try {
+            person = Person.parseFrom(bytes);
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+        if (person != null) {
+            logMgr().Trace("Person Count: " + person.getName());
+        }
+
+        ///从数据库初始化数据
+        UserEntity userEntity = new UserEntity("10000");
+        if (userEntity != null) {
+            userEntity.Initialize();
+        }
+        
+        ///发送reply数据
+        UserInfo info = UserInfo.newBuilder()
+            .setUserid("10000")
+            .setName("张三")
+            .setMoney(999999)
+            .build();
+        ResLogin login = ResLogin.newBuilder()
+            .setUserinfo(info)
+            .build();
+        SendData(user, ProtoType.LuaProtoMsg, Protocal.ResLogin, login);
+    }
+}
+```
