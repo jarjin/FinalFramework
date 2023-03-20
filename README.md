@@ -2,7 +2,7 @@
 	<tbody>
 	<tr>
 	<td align="center" width="150px">
-<img src="screenshot.jpg" width="128"/>
+<img src="Screenshot/screenshot.jpg" width="128"/>
 	</td>
 	<td>
 #### 开发目标 <br/>
