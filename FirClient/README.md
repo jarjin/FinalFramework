@@ -8,6 +8,54 @@
 
 （4）在UIController目录下新建UILoginCtrl.lua文件，UI逻辑在此类，类继承自UIBaseCtrl。此类要固定重写Awake()\OnCreateOK()函数，在此类中可以通过self.xxx访问上面定义的变量。UI的对象self.gameObject。
 
+```lua
+local UIBaseCtrl = require "UIController/UIBaseCtrl"
+local UILoginCtrl = class("UILoginCtrl", UIBaseCtrl)
+
+function UILoginCtrl:Awake()
+	self.loginCtrl = nil
+	self.moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
+	self.userModule = self.moduleMgr:GetModule(ModuleNames.User)
+	self.panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Login, self.OnCreateOK)
+	logWarn("UILoginCtrl.Awake--->>")
+end
+
+--启动事件--
+function UILoginCtrl:OnCreateOK()
+	self:RegEvents()
+	local adapterMgr = MgrCenter:GetManager(ManagerNames.Adapter)
+	self.loginCtrl = adapterMgr:GetAdapter(LevelType.Login)
+
+	self.behaviour:AddClick(self.btn_Start, self, self.OnStartClick)
+	self.behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
+
+	local rect = self.gameObject:GetComponent('RectTransform')
+	if rect ~= nil then
+		rect.anchorMin = Vector2.zero
+		rect.anchorMax = Vector2.one
+		rect.sizeDelta = Vector2.zero
+		rect.anchoredPosition3D = Vector3.zero
+	end
+	self.txt_version.text = LuaHelper.GetVersionInfo()
+
+	PlayerPrefs.DeleteKey("roleid")
+	self:CheckExistCharacter()
+	logWarn("OnCreateOK--->>"..self.gameObject.name)
+end
+
+function UILoginCtrl:RegEvents()
+	AddEvent("login.onRefreshUI", function (...)
+		local argv = {...}
+		self:OnRefreshLoginOK(argv[1]) 
+	end)
+end
+
+function UILoginCtrl:UnregEvents()
+	RemoveEvent("backpack.onRefreshUI")
+end
+```
+
 （5）在Module文件夹下可以新建数据模块，里面可以处理数据、网络消息等于UI不相干的逻辑。
 
 （6）在Manager创建功能逻辑性较独立的管理器。比如网络管理器、关卡管理器、地图管理器等。
