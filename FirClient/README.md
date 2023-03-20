@@ -3,6 +3,7 @@
 （1）参考LoginPanel为例，创建Assets/res/Prefabs/UI/LoginPanel.prefab。
 
 （2）添加CPrefabVar组件，设置变量名称，类型，拖拽相应节点到编辑器赋值。此变量名称在lua里面可通过self.xxx访问。
+<img src="../Screenshot/CPrefab.png" />
 
 （3）进入Assets\Scripts\Lua目录，用VSCode打开。在Common/LuaUiNames.lua里定义UI的名字Login = 'Login',然后在CtrlManager里面添加UIself:AddCtrl(UiNames.Login, require "UIController.UILoginCtrl")。
 
@@ -102,8 +103,6 @@ end
 （9）Controller目录下面是非UI的控制器，比如GM指令、预加载、红点等。
 
 （10）Component目录下面是定义的LuaComponent，里面最常用的便是CItemBox组件，它可以适配游戏所有的ICON显示，用法是在Prefab上拖拽一个UI/ItemBox，然后添加CLuaComponent组件，并且在上面添上CItemBox即可。
+<img src="../Screenshot/LuaComponent.png" />
 
 （11）Adapter目录下面是定义的关卡适配器，比如战斗关卡、Login关卡、主关卡等。
-
-<img src="../Screenshot/CPrefab.png" />
-<img src="../Screenshot/LuaComponent.png" />
