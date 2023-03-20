@@ -18,7 +18,12 @@
 
 （9）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
 
-（10）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。
+（10）新建扩展步骤登录http://localhost:8080后台后，然后如图所示：
+<img src="Screenshot/zone.png" />
+<img src="Screenshot/extension.png" />
+
+
+（11）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。
 
 ```java
 public class LoginHandler extends BaseHandler {
