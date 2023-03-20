@@ -16,7 +16,7 @@ FirToolkit: Visual Studio 2019
 	</tbody>
 </table>
 
-<table align="center" width="720px">
+<table align="center" width="1720px">
 <tbody>
 	<tr>
 		<td align="center" width="50%"><a href="FirClient/README.md">客户端开发工作流指南</a></td>
