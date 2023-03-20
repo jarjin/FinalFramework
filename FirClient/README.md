@@ -5,8 +5,10 @@
 （2）添加CPrefabVar组件，设置变量名称，类型，拖拽相应节点到编辑器赋值。此变量名称在lua里面可通过self.xxx访问。
 <img src="../Screenshot/CPrefab.png" />
 
-（3）进入Assets\Scripts\Lua目录，用VSCode打开。在Common/LuaUiNames.lua里定义UI的名字Login = 'Login',然后在CtrlManager里面添加UIself:AddCtrl(UiNames.Login, require "UIController.UILoginCtrl")。
-
+（3）进入Assets\Scripts\Lua目录，用VSCode打开。在Common/LuaUiNames.lua里定义UI的名字Login = 'Login',然后在CtrlManager里面添加
+```lua
+self:AddCtrl(UiNames.Login, require "UIController.UILoginCtrl")
+```
 （4）在UIController目录下新建UILoginCtrl.lua文件，UI逻辑在此类，类继承自UIBaseCtrl。此类要固定重写Awake()\OnCreateOK()函数，在此类中可以通过self.xxx访问上面定义的变量。UI的对象self.gameObject。
 
 ```lua
