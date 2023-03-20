@@ -45,6 +45,24 @@ static void ParseConfig()
 }
 ```
 （3）protos.bat 双端(C#/JAVA)共用网络协议（ProtoBuff3）生成器，文件定义在Protos子目录里面。<br/>
+```bat
+@echo on
+
+set Client_Proto_Path=.\FirClient\Assets\Scripts\Network\ProtoCS
+set Server_Proto_Path=.\FirServer\FirServer\src\
+
+if not exist %Client_Proto_Path% (
+	mkdir %Client_Proto_Path%
+)
+if not exist %Server_Proto_Path% (
+	mkdir %Server_Proto_Path% 
+)
+
+.\Tools\protoc --proto_path=.\Protos --java_out=%Server_Proto_Path% .\Protos\*.proto
+.\Tools\protoc --proto_path=.\Protos --csharp_out=%Client_Proto_Path% .\Protos\*.proto
+
+@pause
+```
 （4）storyeditor.exe 剧情编辑器。可以导出txt文本和lua代码格式文本。<br/>
 <img src="Screenshot/storyeditor.png" />
 （5）tabletool.exe 双端(C#/JAVA)共用Excel表格生成器。<br/>
