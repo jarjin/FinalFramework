@@ -8,7 +8,7 @@ public class BaseBehaviour {
     {
         if (_configMgr == null)
         {
-            _configMgr = (ConfigManager)ManagementCenter.GetManager(ConfigManager.class);
+            _configMgr = (ConfigManager)MgrCenter.GetManager(ConfigManager.class);
         }
         return _configMgr;
     }
@@ -18,7 +18,7 @@ public class BaseBehaviour {
     {
         if (_netMgr == null)
         {
-            _netMgr = (NetworkManager)ManagementCenter.GetManager(NetworkManager.class);
+            _netMgr = (NetworkManager)MgrCenter.GetManager(NetworkManager.class);
         }
         return _netMgr;
     }
@@ -28,7 +28,7 @@ public class BaseBehaviour {
     {
         if (_handlerMgr == null)
         {
-            _handlerMgr = (HandlerManager)ManagementCenter.GetManager(HandlerManager.class);
+            _handlerMgr = (HandlerManager)MgrCenter.GetManager(HandlerManager.class);
         }
         return _handlerMgr;
     }
@@ -38,7 +38,7 @@ public class BaseBehaviour {
     {
         if (_tableMgr == null)
         {
-            _tableMgr = (TableManager)ManagementCenter.GetManager(TableManager.class);
+            _tableMgr = (TableManager)MgrCenter.GetManager(TableManager.class);
         }
         return _tableMgr;
     }
@@ -48,7 +48,7 @@ public class BaseBehaviour {
     {
         if (_modelMgr == null)
         {
-            _modelMgr = (ModelManager)ManagementCenter.GetManager(ModelManager.class);
+            _modelMgr = (ModelManager)MgrCenter.GetManager(ModelManager.class);
         }
         return _modelMgr;
     }
@@ -58,7 +58,7 @@ public class BaseBehaviour {
     {
         if (_logMgr == null)
         {
-            _logMgr = (LogManager)ManagementCenter.GetManager(LogManager.class);
+            _logMgr = (LogManager)MgrCenter.GetManager(LogManager.class);
         }
         return _logMgr;
     }
@@ -68,7 +68,7 @@ public class BaseBehaviour {
     {
         if (_dataMgr == null)
         {
-            _dataMgr = (DataManager)ManagementCenter.GetManager(DataManager.class);
+            _dataMgr = (DataManager)MgrCenter.GetManager(DataManager.class);
         }
         return _dataMgr;
     }

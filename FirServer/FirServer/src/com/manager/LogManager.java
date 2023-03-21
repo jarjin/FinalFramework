@@ -1,13 +1,13 @@
 package com.manager;
 
 import com.MainExtension;
-import com.common.ManagementCenter;
+import com.common.MgrCenter;
 
 public class LogManager extends BaseManager {
     private MainExtension mainExt;
     @Override
     public void Initialize() {
-        mainExt = ManagementCenter.GetMainExtension();
+        mainExt = MgrCenter.GetMainExtension();
     }
 
     @Override

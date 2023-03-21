@@ -1,12 +1,12 @@
 package com;
-import com.common.ManagementCenter;
+import com.common.MgrCenter;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
 public class MainExtension extends SFSExtension {
     @Override
     public void init()
     {
-        ManagementCenter.Initialize(this);
+        MgrCenter.Initialize(this);
     }
 
     ///添加消息处理器

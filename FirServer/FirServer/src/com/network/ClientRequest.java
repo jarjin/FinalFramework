@@ -1,6 +1,6 @@
 package com.network;
 
-import com.common.ManagementCenter;
+import com.common.MgrCenter;
 import com.define.AppConst;
 import com.smartfoxserver.v2.entities.User;
 import com.manager.HandlerManager;
@@ -13,8 +13,8 @@ public class ClientRequest extends BaseClientRequestHandler {
     private HandlerManager handlerMgr;
 
     public ClientRequest() {
-        logMgr = (LogManager)ManagementCenter.GetManager(LogManager.class);
-        handlerMgr = (HandlerManager)ManagementCenter.GetManager(HandlerManager.class);
+        logMgr = (LogManager)MgrCenter.GetManager(LogManager.class);
+        handlerMgr = (HandlerManager)MgrCenter.GetManager(HandlerManager.class);
     }
 
     @Override

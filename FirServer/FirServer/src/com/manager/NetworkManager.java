@@ -1,7 +1,7 @@
 package com.manager;
 
 import com.MainExtension;
-import com.common.ManagementCenter;
+import com.common.MgrCenter;
 import com.define.AppConst;
 import com.google.protobuf.GeneratedMessageV3;
 import com.network.ClientRequest;
@@ -19,7 +19,7 @@ public class NetworkManager extends BaseManager
     private MainExtension mainExt;
 
 	public NetworkManager() {
-        mainExt = ManagementCenter.GetMainExtension();
+        mainExt = MgrCenter.GetMainExtension();
     }
 
     @Override   

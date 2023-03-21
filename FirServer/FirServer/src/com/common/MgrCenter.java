@@ -10,7 +10,7 @@ import com.define.AppDefine;
 import com.interfaces.IManager;
 import com.manager.*;
 
-public class ManagementCenter {
+public class MgrCenter {
     private static LogManager logMgr;
     private static MainExtension extension;
     private static Map<String, IManager> managers = new LinkedHashMap<String, IManager>();
@@ -20,7 +20,7 @@ public class ManagementCenter {
     /// </summary>
     public static void Initialize(MainExtension extension)
     {
-        ManagementCenter.extension = extension;
+        MgrCenter.extension = extension;
         try {
             InitAppServerInfo();
             AddManager(LogManager.class);
