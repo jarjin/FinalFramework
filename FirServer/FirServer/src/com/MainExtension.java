@@ -4,13 +4,12 @@ import com.smartfoxserver.v2.extensions.SFSExtension;
 
 public class MainExtension extends SFSExtension {
     @Override
-    public void init()
-    {
+    public void init() {
         MgrCenter.Initialize(this);
     }
 
     ///添加消息处理器
-    public void AddMsgHandler(String name, Class<?> classType){
+    public void AddMsgHandler(String name, Class<?> classType) {
         this.addRequestHandler(name, classType);
     }
 
@@ -19,10 +18,8 @@ public class MainExtension extends SFSExtension {
         this.removeRequestHandler(name);
     }
     
-     @Override
-    public void destroy()
-    {
-        // Always make sure to invoke the parent class first
+    @Override
+    public void destroy() {
         super.destroy();
     }
 }
