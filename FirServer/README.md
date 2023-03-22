@@ -10,15 +10,17 @@
 
 （5）若新建工程，工程的主类必须以 *Extension形式，否则会无法辨认！！
 
-（6）运行enumtool.exe生成前后端（C#+JAVA）公用的枚举类型。
+（6）运行enumtool.exe生成前后端（C#+JAVA）公用的枚举类型。(可选)
 
-（7）运行protoname.exe生成前后端（C#+JAVA）公用的消息名称。
+（7）运行protoname.exe生成前后端（C#+JAVA）公用的消息名称。（可选）
 
-（8）修改publish.bat里面SFS_Path的安装路径。
+（8）运行protos.bat生成前后端（C#+JAVA）公用的Proto。（可选）
 
-（9）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
+（9）修改publish.bat里面SFS_Path的安装路径。
 
-（10）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。
+（10）使用publish.bat发布到sfs的extensions目录下，重启sfs即可运行。
+
+（11）为了便于框架升级，开发者推荐在GameLogic下写自己的逻辑。
 
 ```java
 public class GameWorld extends GameBehaviour implements IWorld  {
@@ -96,6 +98,6 @@ public class LoginHandler extends BaseHandler {
     }
 }
 ```
-（11）新建扩展步骤登录http://localhost:8080后台后，然后如图所示：
+（12）新建扩展步骤登录http://localhost:8080后台后，然后如图所示：
 <img src="../Screenshot/zone.png" />
 <img src="../Screenshot/extension.png" />
