@@ -101,4 +101,5 @@ public class LoginHandler extends BaseHandler {
 （12）新建扩展步骤登录http://localhost:8080后台后，然后如图所示：
 <img src="../Screenshot/zone.png" />
 <img src="../Screenshot/extension.png" />
-（13）重启sfs即可运行。
+（13）重启sfs即可运行。在运行日志中找到MainExtension的信息即为成功。
+<img src="../Screenshot/sfsrun.png" />
