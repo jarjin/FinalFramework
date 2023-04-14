@@ -1,4 +1,5 @@
-local BattleAdapter = class("BattleAdapter")
+local BaseAdapter = require 'Adapter.BaseAdapter'
+local BattleAdapter = class("BattleAdapter", BaseAdapter)
 
 function BattleAdapter:OnEnterLevel(execOK)
 	if execOK ~= nil then
@@ -7,8 +8,7 @@ function BattleAdapter:OnEnterLevel(execOK)
 end
 
 function BattleAdapter:EnterDungeon(chapterid, dungeonid, execOK)
-	local configMgr = MgrCenter:GetManager(ManagerNames.Config)
-	local dungeonData = configMgr:GetDungeonData(chapterid, dungeonid)
+	local dungeonData = self.configMgr:GetDungeonData(chapterid, dungeonid)
 	if dungeonData ~= nil then
 		self:OnBattleDungeon(dungeonData, execOK)
 	end
@@ -27,8 +27,7 @@ function BattleAdapter:OnBattleDungeon(dungeonData, execOK)
 		if dungeonData == nil then
 			self:ClearBattleSceneMap()
 		else
-			local mapMgr = MgrCenter:GetManager(ManagerNames.Map)
-			mapMgr:LoadBattleMap(dungeonData)
+			self.mapMgr:LoadBattleMap(dungeonData)
 		end
 
 		coroutine.wait(0.1)
@@ -46,8 +45,7 @@ function BattleAdapter:OnBattleDungeon(dungeonData, execOK)
 end
 
 function BattleAdapter:ClearBattleSceneMap()
-	local mapMgr = MgrCenter:GetManager(ManagerNames.Map)
-    local battleMap = mapMgr:GetBattleMapObject()
+    local battleMap = self.mapMgr:GetBattleMapObject()
     if battleMap ~= null then
 		local type = typeof(UnityEngine.SpriteRenderer)
         local battleMapRenders = battleMap:GetComponentsInChildren(type)

@@ -1,6 +1,6 @@
 local CAtlas = require "Component/CAtlas"
-
-local PreloadCtrl = class("PreloadCtrl")
+local BaseCtrl = require 'Controller.BaseCtrl'
+local PreloadCtrl = class("PreloadCtrl", BaseCtrl)
 
 local mAtlasList = {
 	"Atlas/UI/Shared/Shared", 
@@ -33,15 +33,13 @@ end
 function PreloadCtrl:PreloadAtlas(loadOK)
 	local refCount = 0
 	local count = #mAtlasList
-	local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-	local componentMgr = MgrCenter:GetManager(ManagerNames.Component)
 	for i = 1, count do
 		local atName = mAtlasList[i]
-		resMgr:LoadAssetAsync(atName, nil, typeof(Sprite), function (objs)
+		self.resMgr:LoadAssetAsync(atName, nil, typeof(Sprite), function (objs)
 			logWarn('PreloadAtlas!!!:>'..atName)
 			if objs ~= nil then
 				local assetName = Path.GetFileNameWithoutExtension(atName)
-                componentMgr:AddComponent(ComponentNames.Atlas, assetName, objs)
+                self.componentMgr:AddComponent(ComponentNames.Atlas, assetName, objs)
 			end
 			refCount = refCount + 1
 			if refCount == count then

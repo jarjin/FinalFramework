@@ -4,11 +4,9 @@ local UIChooseActorCtrl = class("UIChooseActorCtrl", UIBaseCtrl)
 local roleSex = nil
 local vocation = nil
 local roleSprites = nil
-local panelMgr = nil
 
 function UIChooseActorCtrl:Awake()
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.ChooseActor, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.ChooseActor, self.OnCreateOK)
 	logWarn("UIChooseActorCtrl.Awake--->>")
 end
 
@@ -31,8 +29,7 @@ function UIChooseActorCtrl:OnCreateClick(gameObj)
 	PlayerPrefs.SetInt("rolesex", roleSex)
 	PlayerPrefs.SetInt("roleid", vocationToRoleid(vocation))
 
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
-	local loginCtrl = ctrlMgr:GetCtrl(UiNames.Login)
+	local loginCtrl = self.ctrlMgr:GetCtrl(UiNames.Login)
 	if loginCtrl ~= nil then
 		loginCtrl:OnShow()
 	end
@@ -83,8 +80,7 @@ function UIChooseActorCtrl:LoadRoleAsset(spriteName, func)
 		return
 	end
 	local path = "Textures/MainRole/"..spriteName
-	local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-	resMgr:LoadAssetAsync(path, { spriteName }, typeof(Sprite), function (objs)
+	self.resMgr:LoadAssetAsync(path, { spriteName }, typeof(Sprite), function (objs)
 		if objs ~= nil and objs[0] ~= nil then
 			local spriteObj = objs[0]
 			roleSprites[spriteObj.name] = spriteObj
@@ -95,10 +91,10 @@ end
 
 --关闭事件--
 function UIChooseActorCtrl:Close()
-	panelMgr:ClosePanel(UiNames.ChooseActor)
 	roleSex = nil
 	roleSprites = nil
 	vocation = nil
+	self.panelMgr:ClosePanel(UiNames.ChooseActor)
 end
 
 return UIChooseActorCtrl

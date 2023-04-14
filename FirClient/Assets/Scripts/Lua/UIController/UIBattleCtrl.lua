@@ -5,19 +5,15 @@ local cavansGroupUI = nil
 local loopView = nil
 local battleModule = nil
 local gmCmdCtrl = nil
-local panelMgr = nil
 local cacheMsg = nil
 
 function UIBattleCtrl:Awake()
-	local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-	battleModule = moduleMgr:GetModule(ModuleNames.Battle)
+	battleModule = self.moduleMgr:GetModule(ModuleNames.Battle)
 	battleModule:Initialize()
 
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
-	gmCmdCtrl = ctrlMgr:GetCtrl(CtrlNames.GMCmd)
+	gmCmdCtrl = self.ctrlMgr:GetCtrl(CtrlNames.GMCmd)
 
-	local panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.Battle, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Battle, self.OnCreateOK)
 	logWarn("UIBattleCtrl.Awake--->>")
 end
 
@@ -162,7 +158,7 @@ function UIBattleCtrl:Close()
 	if not isnil(loopView) then
 		loopView:Dispose()
 	end
-	panelMgr:ClosePanel(UiNames.Battle)
+	self.panelMgr:ClosePanel(UiNames.Battle)
 end
 
 function UIBattleCtrl:Show(isShow)

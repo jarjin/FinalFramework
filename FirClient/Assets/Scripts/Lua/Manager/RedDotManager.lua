@@ -1,4 +1,5 @@
-local RedDotManager = class("RedDotManager")
+local BaseManager = require 'Manager.BaseManager'
+local RedDotManager = class("RedDotManager", BaseManager)
 
 function RedDotManager:Initialize()
 	self._cacheData 		= {} 	--缓存红点数据
@@ -61,11 +62,9 @@ parentKeyList 	这里的是为了处理类似背包，有很多的cell情况，�
 function RedDotManager:CreateDotView(data)
 	if data then
 		local resPath 	= data.prefabPath or "" 
-		local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-		local componentMgr = MgrCenter:GetManager(ManagerNames.Component)
-		resMgr:LoadAssetAsync(resPath, {"RedDot"}, typeof(GameObject), function(objs) 
+		self.resMgr:LoadAssetAsync(resPath, {"RedDot"}, typeof(GameObject), function(objs) 
 			if objs ~= nil and objs[0] ~= nil then
-				local redDotObj = componentMgr:AddComponent(ComponentNames.RedDot, objs[0])
+				local redDotObj = self.componentMgr:AddComponent(ComponentNames.RedDot, objs[0])
 				redDotObj:SetViewNode(data.dotNode)
 				redDotObj:Awake()
 				redDotObj:UpdateRedDot(data.keyList, data.parentKeyList, data.rejectKeyList)

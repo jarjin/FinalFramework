@@ -1,4 +1,5 @@
-local MapManager = class("MapManager")
+local BaseManager = require 'Manager.BaseManager'
+local MapManager = class("MapManager", BaseManager)
 
 function MapManager:Initialize()
 	self.mapObject = nil
@@ -14,8 +15,7 @@ end
 function MapManager:CreateMap(createOK)
     if isnil(self.mapObject) then
 		local path = "Prefabs/Maps/MapObject"
-		local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-        resMgr:LoadAssetAsync(path, { "MapObject" }, typeof(GameObject), function(objs)
+        self.resMgr:LoadAssetAsync(path, { "MapObject" }, typeof(GameObject), function(objs)
             if objs[0] == nil then
                 return
             end
@@ -39,8 +39,7 @@ end
 
 function MapManager:LoadSceneMap(mapid, createOK)
 	log('mapid:'..mapid)
-	local configMgr = MgrCenter:GetManager(ManagerNames.Config)
-	self.sceneMapdata = configMgr:GetMapData(mapid)
+	self.sceneMapdata = self.configMgr:GetMapData(mapid)
 	if self.sceneMapdata ~= nil then
 		local atlasName = self.sceneMapdata.atlas
 		local atlasPath = "Maps/"..atlasName
@@ -60,17 +59,15 @@ end
 
 function MapManager:LoadMapAtlas(mapType, mapAtlasName, atlasPath, createOK)
 	if self.mapObject ~= nil then
-		local componentMgr = MgrCenter:GetManager(ManagerNames.Component)
-		local mapAtlas = componentMgr:GetComponent(mapAtlasName)
+		local mapAtlas = self.componentMgr:GetComponent(mapAtlasName)
 		if mapAtlas == nil then
-			local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-			resMgr:LoadAssetAsync(atlasPath, nil, typeof(Sprite), function(objs) 
+			self.resMgr:LoadAssetAsync(atlasPath, nil, typeof(Sprite), function(objs) 
 				if objs.Length == 0 then
 					return
 				end
-				componentMgr:AddComponent(ComponentNames.Atlas, mapAtlasName, objs)
+				self.componentMgr:AddComponent(ComponentNames.Atlas, mapAtlasName, objs)
 
-				local mapAtlas = componentMgr:GetComponent(ComponentNames.Atlas, mapAtlasName)
+				local mapAtlas = self.componentMgr:GetComponent(ComponentNames.Atlas, mapAtlasName)
 				self:DoInitMap(mapType, mapAtlas, createOK)
 			end)
 		else

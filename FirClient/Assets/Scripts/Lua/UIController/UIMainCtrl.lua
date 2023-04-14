@@ -3,23 +3,20 @@ local UIMainCtrl = class("UIMainCtrl", UIBaseCtrl)
 
 local btnSelectImage = nil
 local bottomUI = nil
-local panelMgr = nil
 
 function UIMainCtrl:InitBottomUI()
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
 	bottomUI = {
-		{ name = 'MainRole', button = 'Button1', ctrl = ctrlMgr:GetCtrl(UiNames.MainRole) },
-		{ name = 'Bag', button = 'Button2', ctrl = ctrlMgr:GetCtrl(UiNames.Bag) },
-		{ name = 'Battle', button = 'Button3', ctrl = ctrlMgr:GetCtrl(UiNames.Battle) },
-		{ name = 'Hero', button = 'Button4', ctrl = ctrlMgr:GetCtrl(UiNames.Hero) },
-		{ name = 'Dungeon', button = 'Button5', ctrl = ctrlMgr:GetCtrl(UiNames.Dungeon) },
+		{ name = 'MainRole', button = 'Button1', ctrl = self.ctrlMgr:GetCtrl(UiNames.MainRole) },
+		{ name = 'Bag', button = 'Button2', ctrl = self.ctrlMgr:GetCtrl(UiNames.Bag) },
+		{ name = 'Battle', button = 'Button3', ctrl = self.ctrlMgr:GetCtrl(UiNames.Battle) },
+		{ name = 'Hero', button = 'Button4', ctrl = self.ctrlMgr:GetCtrl(UiNames.Hero) },
+		{ name = 'Dungeon', button = 'Button5', ctrl = self.ctrlMgr:GetCtrl(UiNames.Dungeon) },
 	}
 end
 
 function UIMainCtrl:Awake()
 	self.InitBottomUI()
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Fixed, UiNames.Main, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Fixed, UiNames.Main, self.OnCreateOK)
 	logWarn("UIMainCtrl.Awake--->>")
 end
 
@@ -70,7 +67,7 @@ end
 
 --关闭事件--
 function UIMainCtrl:Close()
-	panelMgr:ClosePanel(UiNames.Main)
+	self.panelMgr:ClosePanel(UiNames.Main)
 end
 
 return UIMainCtrl

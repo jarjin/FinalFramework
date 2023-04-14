@@ -2,11 +2,7 @@ local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UIHeroCtrl = class("UIHeroCtrl", UIBaseCtrl)
 
 function UIHeroCtrl:Awake()
-	local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-	self.heroModule = moduleMgr:GetModule(ModuleNames.Hero)
 	self.heroModule:Initialize()
-
-	self.panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
 	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Hero, self.OnCreateOK)
 	logWarn("UIHeroCtrl.Awake--->>") 
 end

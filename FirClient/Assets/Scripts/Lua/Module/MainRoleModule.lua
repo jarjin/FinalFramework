@@ -1,12 +1,12 @@
-local MainRoleModule = class("MainRoleModule")
+local BaseModule = require 'Module.BaseModule'
+local MainRoleModule = class("MainRoleModule", BaseModule)
 
 function MainRoleModule:Initialize()
 	self.mMainRoleDataList = {}
 	self.mCurrMainRoleData = {}
 
 	local i = 1
-	local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
-	local items = tableMgr.npcTable:GetItems()
+	local items = self.tableMgr.npcTable:GetItems()
 	local iter = items:GetEnumerator()
 	while iter:MoveNext() do
 		if iter.Current.isMainCharacter then

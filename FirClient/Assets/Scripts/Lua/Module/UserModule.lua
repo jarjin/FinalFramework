@@ -1,8 +1,8 @@
-local UserModule = class("UserModule")
+local BaseModule = require 'Module.BaseModule'
+local UserModule = class("UserModule", BaseModule)
 
 function UserModule:Initialize()
     self.loginCallback = nil
-    self.netMgr = MgrCenter:GetManager(ManagerNames.Network)
 end
 
 --封包发送--

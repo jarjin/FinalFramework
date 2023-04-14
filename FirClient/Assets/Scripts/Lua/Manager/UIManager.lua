@@ -1,4 +1,5 @@
-local UIManager = class("UIManager")
+local BaseManager = require 'Manager.BaseManager'
+local UIManager = class("UIManager", BaseManager)
 
 function UIManager:Initialize()
 	self.mLayers = {}
@@ -43,11 +44,10 @@ end
 
 function UIManager:InitHUD()
 	local type = typeof(GameObject)
-	local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-	resMgr:LoadAssetAsync("Prefabs/HUD/HudPrefab", {"HudPrefab"}, type, function(objs) 
+	self.resMgr:LoadAssetAsync("Prefabs/HUD/HudPrefab", {"HudPrefab"}, type, function(objs) 
 		self.hudPrefab = objs[0]
 	end)
-	resMgr:LoadAssetAsync("Prefabs/HUD/FloatingText", {"FloatingText"}, type, function(objs) 
+	self.resMgr:LoadAssetAsync("Prefabs/HUD/FloatingText", {"FloatingText"}, type, function(objs) 
 		self.floatingTextPrefab = objs[0]
 	end)
 end
@@ -82,8 +82,7 @@ end
 function UIManager:InitGrayMatial()
 	local grayMat = _G.GrayMat
 	if grayMat == nil then
-		local shaderMgr = MgrCenter:GetManager(ManagerNames.Shader)
-		local grayShader = shaderMgr:GetShader(_G.GrayShaderName);
+		local grayShader = self.shaderMgr:GetShader(_G.GrayShaderName);
 		if grayShader ~= nil then
 			_G.GrayMat = Material.New(grayShader)
 		end

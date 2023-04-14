@@ -13,19 +13,19 @@ function ManagerCenter:Initialize()
 	self:AddManager(ManagerNames.Config, self:GetExtManager("ConfigManager"))
 
 	--Lua Manager--
-	self:AddManager(ManagerNames.Ctrl, require "Manager.CtrlManager", true)
-	self:AddManager(ManagerNames.Adapter, require "Manager.AdapterManager", true)
-	self:AddManager(ManagerNames.Map, require "Manager.MapManager", true)
-	self:AddManager(ManagerNames.Level, require "Manager.LevelManager", true)
-	self:AddManager(ManagerNames.Network, require "Manager.NetworkManager", true)
-	self:AddManager(ManagerNames.Table, require "Data.TableManager", true)
-	self:AddManager(ManagerNames.UI, require "Manager.UIManager", true)
-	self:AddManager(ManagerNames.Panel, require "Manager.PanelManager", true)
-	self:AddManager(ManagerNames.Component, require "Manager.ComponentManager", true)
-	self:AddManager(ManagerNames.Module, require "Manager.ModuleManager", true)
-	self:AddManager(ManagerNames.Handler, require "Manager.HandlerManager", true)
-	self:AddManager(ManagerNames.RedDot, require "Manager.RedDotManager", true)
-	self:AddManager(ManagerNames.Event, require "Manager.EventManager")
+	self:AddManager(ManagerNames.Ctrl, (require "Manager.CtrlManager"):new(), true)
+	self:AddManager(ManagerNames.Adapter, (require "Manager.AdapterManager"):new(), true)
+	self:AddManager(ManagerNames.Map, (require "Manager.MapManager"):new(), true)
+	self:AddManager(ManagerNames.Level, (require "Manager.LevelManager"):new(), true)
+	self:AddManager(ManagerNames.Network, (require "Manager.NetworkManager"):new(), true)
+	self:AddManager(ManagerNames.Table, (require "Data.TableManager"):new(), true)
+	self:AddManager(ManagerNames.UI, (require "Manager.UIManager"):new(), true)
+	self:AddManager(ManagerNames.Panel, (require "Manager.PanelManager"):new(), true)
+	self:AddManager(ManagerNames.Component, (require "Manager.ComponentManager"):new(), true)
+	self:AddManager(ManagerNames.Module, (require "Manager.ModuleManager"):new(), true)
+	self:AddManager(ManagerNames.Handler, (require "Manager.HandlerManager"):new(), true)
+	self:AddManager(ManagerNames.RedDot, (require "Manager.RedDotManager"):new(), true)
+	self:AddManager(ManagerNames.Event, (require "Manager.EventManager"):new())
 
 	logWarn('ManagerCenter:InitializeOK...')
 end
@@ -39,11 +39,7 @@ function ManagerCenter:AddManager(name, manager, needInit)
 
 	needInit = needInit or nil
 	if needInit == true then
-		if name == ManagerNames.Table then
-			manager.Initialize()
-		else
-			manager:Initialize()
-		end
+		manager:Initialize()
 	end
 end
 

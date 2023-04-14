@@ -1,12 +1,11 @@
-local BattleModule = class("BattleModule")
+local BaseModule = require 'Module.BaseModule'
+local BattleModule = class("BattleModule", BaseModule)
 
 function BattleModule:Initialize()
 	self.mBattleDataList = {}
 	self.mChatDemoStrList = {
 		"欢迎进入游戏世界~~Waiting for we...",
 	}
-	self.configMgr = MgrCenter:GetManager(ManagerNames.Config)
-
 	local count = #self.mChatDemoStrList
 	for i = 1, count do
 		local item = {

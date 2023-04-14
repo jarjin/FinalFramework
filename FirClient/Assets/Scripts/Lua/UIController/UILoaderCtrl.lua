@@ -1,13 +1,11 @@
 local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UILoaderCtrl = class("UILoaderCtrl", UIBaseCtrl)
 
-local panelMgr = nil
 local sliderLoadingBar = nil
 local loaderCallback = nil
 
 function UILoaderCtrl:Awake()
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Top, UiNames.Loader, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Top, UiNames.Loader, self.OnCreateOK)
 	logWarn("UILoaderCtrl.Awake--->>")
 end
 
@@ -57,7 +55,7 @@ end
 
 --关闭事件--
 function UILoaderCtrl:Close()
-	panelMgr:ClosePanel(UiNames.Loader)
+	self.panelMgr:ClosePanel(UiNames.Loader)
 end
 
 return UILoaderCtrl

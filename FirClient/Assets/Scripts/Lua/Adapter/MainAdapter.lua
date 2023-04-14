@@ -1,15 +1,14 @@
-local MainAdapter = class("MainAdapter")
+local BaseAdapter = require 'Adapter.BaseAdapter'
+local MainAdapter = class("MainAdapter", BaseAdapter)
 
 local enterMapId = nil
 local enterOK = nil
-local mapMgr = nil
 
 --进入场景--
 function MainAdapter:EnterScene(mapid, action)
 	enterMapId = mapid
 	enterOK = action
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
-	local loaderCtrl = ctrlMgr:GetCtrl(UiNames.Loader)
+	local loaderCtrl = self.ctrlMgr:GetCtrl(UiNames.Loader)
 	if loaderCtrl ~= nil then
 		loaderCtrl:InitLoader(function () self:InitBatchTask() end)
 	end
@@ -17,7 +16,6 @@ end
 
 --进入关卡--
 function MainAdapter:OnEnterLevel(action)
-	mapMgr = MgrCenter:GetManager(ManagerNames.Map)
 	Main.ShowUI(UiNames.Main)
 	if action ~= nil then
 		execAction(action)
@@ -34,14 +32,14 @@ function MainAdapter:InitBatchTask()
 end
 
 function MainAdapter:CreateMapObject(action)
-	mapMgr:CreateMap(function ()
+	self.mapMgr:CreateMap(function ()
 		log('Map Object Created!~')
 		if action ~= nil then action(self) end
 	end)
 end
 
 function MainAdapter:LoadSceneMap(action)
-	mapMgr:LoadSceneMap(enterMapId, function ()
+	self.mapMgr:LoadSceneMap(enterMapId, function ()
 		log('LoadSceneMap:>'..enterMapId..' OK!!~')
 		if action ~= nil then action(self) end
 	end)
@@ -80,7 +78,6 @@ function MainAdapter:OnLeaveLevel(action)
 	if action ~= nil then
 		execAction(action)
 	end
-	mapMgr = nil
 end
 
 return MainAdapter

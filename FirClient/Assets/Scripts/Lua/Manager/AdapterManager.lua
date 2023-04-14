@@ -3,7 +3,8 @@ local MainAdapter = require "Adapter/MainAdapter"
 local BattleAdapter = require "Adapter/BattleAdapter"
 local LoaderAdapter = require "Adapter/LoaderAdapter"
 
-local AdapterManager = class("AdapterManager")
+local BaseManager = require 'Manager.BaseManager'
+local AdapterManager = class("AdapterManager", BaseManager)
 
 function AdapterManager:Initialize()
 	self.adapters = {}

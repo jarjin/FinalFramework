@@ -1,4 +1,5 @@
-local DungeonModule = class("DungeonModule")
+local BaseModule = require 'Module.BaseModule'
+local DungeonModule = class("DungeonModule", BaseModule)
 --[[
     to check the index'th item is a TreeItem or a TreeChildItem.for example,
 
@@ -23,8 +24,7 @@ local DungeonModule = class("DungeonModule")
 function DungeonModule:Initialize()
 	self.mTreeItemDataList = {}
 
-	local configMgr = MgrCenter:GetManager(ManagerNames.Config)
-	local chapters = configMgr:GetChapterList()
+	local chapters = self.configMgr:GetChapterList()
 	local chapterList = chapters:GetEnumerator()
 
 	local i = 1

@@ -1,3 +1,6 @@
 {
-    "editor.fontFamily": "'Fantasque Sans Mono', Consolas, 'Courier New', monospace"
+    "editor.fontFamily": "'Fantasque Sans Mono', Consolas, 'Courier New', monospace",
+    "files.exclude": {
+        "**/*.meta": true
+    }
 }

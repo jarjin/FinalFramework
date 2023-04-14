@@ -1,12 +1,13 @@
-local ModuleManager = class("ModuleManager")
+local BaseManager = require 'Manager.BaseManager'
+local ModuleManager = class("ModuleManager", BaseManager)
 
 function ModuleManager:Initialize()
     self.modules = {}
-	self:AddModule(ModuleNames.Battle, require "Module.BattleModule")
-	self:AddModule(ModuleNames.Dungeon, require "Module.DungeonModule")
-	self:AddModule(ModuleNames.Hero, require "Module.HeroModule")
-	self:AddModule(ModuleNames.MainRole, require "Module.MainRoleModule")
-	self:AddModule(ModuleNames.User, require "Module.UserModule")
+	self:AddModule(ModuleNames.Battle, (require "Module.BattleModule"):new())
+	self:AddModule(ModuleNames.Dungeon, (require "Module.DungeonModule"):new())
+	self:AddModule(ModuleNames.Hero, (require "Module.HeroModule"):new())
+	self:AddModule(ModuleNames.MainRole, (require "Module.MainRoleModule"):new())
+	self:AddModule(ModuleNames.User, (require "Module.UserModule"):new())
 
 	for _, module in pairs(self.modules) do
 		if module then

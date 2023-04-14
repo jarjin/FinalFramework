@@ -3,9 +3,7 @@ local UILoginCtrl = class("UILoginCtrl", UIBaseCtrl)
 
 function UILoginCtrl:Awake()
 	self.loginCtrl = nil
-	self.moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
 	self.userModule = self.moduleMgr:GetModule(ModuleNames.User)
-	self.panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
 	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Login, self.OnCreateOK)
 	logWarn("UILoginCtrl.Awake--->>")
 end
@@ -13,8 +11,7 @@ end
 --启动事件--
 function UILoginCtrl:OnCreateOK()
 	self:RegEvents()
-	local adapterMgr = MgrCenter:GetManager(ManagerNames.Adapter)
-	self.loginCtrl = adapterMgr:GetAdapter(LevelType.Login)
+	self.loginCtrl = self.adapterMgr:GetAdapter(LevelType.Login)
 
 	self.behaviour:AddClick(self.btn_Start, self, self.OnStartClick)
 	self.behaviour:AddClick(self.btn_Create, self, self.OnCreateClick)
@@ -53,8 +50,7 @@ function UILoginCtrl:CheckExistCharacter()
 	local isExistRole = roleid > -1
 	if isExistRole then
 		local roleSex = PlayerPrefs.GetInt("rolesex", -1)
-		local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-		local mainRoleModule = moduleMgr:GetModule(ModuleNames.MainRole)
+		local mainRoleModule = self.moduleMgr:GetModule(ModuleNames.MainRole)
 		mainRoleModule:AssignMainRoleData(roleid, roleSex)
 	end
 

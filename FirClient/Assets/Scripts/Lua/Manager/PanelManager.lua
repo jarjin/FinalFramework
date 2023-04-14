@@ -1,4 +1,5 @@
-local PanelManager = class("PanelManager")
+local BaseManager = require 'Manager.BaseManager'
+local PanelManager = class("PanelManager", BaseManager)
 
 function PanelManager:Initialize()
 	self.mPanels = {}
@@ -21,16 +22,14 @@ end
 
 function PanelManager:CreatePanel(ctrl, layer, abName, createOK)
 	local panelName = abName.."Panel";
-	local uiMgr = MgrCenter:GetManager(ManagerNames.UI)
-	local parent = uiMgr:GetLayer(layer).transform;
+	local parent = self.uiMgr:GetLayer(layer).transform;
 	self.mCtrls[abName] = ctrl
 	if parent:Find(panelName) ~= nil then
 		self:OnUiShow(abName)
 		return
 	end
 	local abPath = "Prefabs/UI/"..panelName;
-	local resMgr = MgrCenter:GetManager(ManagerNames.Resource)
-	resMgr:LoadAssetAsync(abPath, { panelName }, typeof(GameObject), function(objs) 
+	self.resMgr:LoadAssetAsync(abPath, { panelName }, typeof(GameObject), function(objs) 
 		if objs ~= nil and objs[0] ~= nil then
 			self:CreatePanelInternal(ctrl, panelName, objs[0], parent, createOK)
 		end

@@ -1,6 +1,7 @@
 
 local EventLib = require "3rd.event.eventlib"
-local EventManager = class("EventManager")
+local BaseManager = require 'Manager.BaseManager'
+local EventManager = class("EventManager", BaseManager)
 
 function EventManager:Initialize()
 	self.events = {}

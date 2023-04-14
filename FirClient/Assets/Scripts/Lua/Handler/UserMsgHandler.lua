@@ -1,8 +1,6 @@
 local UserMsgHandler = class("UserMsgHandler")
 
 function UserMsgHandler:Initialize()
-    self.moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-    self.userModule = self.moduleMgr:GetModule(ModuleNames.User)
 end
 
 function UserMsgHandler:OnRecvLogin(data)

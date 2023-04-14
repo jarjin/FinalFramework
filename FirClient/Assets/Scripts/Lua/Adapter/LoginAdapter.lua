@@ -1,4 +1,5 @@
-local LoginAdapter = class("LoginAdapter")
+local BaseAdapter = require 'Adapter.BaseAdapter'
+local LoginAdapter = class("LoginAdapter", BaseAdapter)
 
 function LoginAdapter:OnEnterLevel(execOK)
 	Main.ShowUI(UiNames.Login)
@@ -12,7 +13,6 @@ function LoginAdapter:OnEnterLevel(execOK)
 end
 
 function LoginAdapter:ConnectServer()
-	self.netMgr = MgrCenter:GetManager(ManagerNames.Network)
 	if self.netMgr ~= nil then
 		local ip = AppConst.SocketAddress
 		local port = tointeger(AppConst.SocketPort)
@@ -21,8 +21,7 @@ function LoginAdapter:ConnectServer()
 end
 
 function LoginAdapter:StartLogin()
-	local levelMgr = MgrCenter:GetManager(ManagerNames.Level)
-	if levelMgr ~= nil then
+	if self.levelMgr ~= nil then
 		levelMgr:LoadLevel(LevelType.Main)
 	end
 	Main.CloseUI(UiNames.Login)

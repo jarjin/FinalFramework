@@ -3,15 +3,12 @@ local UIDungeonCtrl = class("UIDungeonCtrl", UIBaseCtrl)
 
 local loopView = nil
 local dungeonModule = nil
-local panelMgr = nil
 
 function UIDungeonCtrl:Awake()
-	local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-	dungeonModule = moduleMgr:GetModule(ModuleNames.Dungeon)
+	dungeonModule = self.moduleMgr:GetModule(ModuleNames.Dungeon)
 	dungeonModule:Initialize()
 
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.Dungeon, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Dungeon, self.OnCreateOK)
 	logWarn("UIDungeonCtrl.Awake--->>")
 end
 
@@ -102,7 +99,7 @@ end
 
 --关闭事件--
 function UIDungeonCtrl:Close()
-	panelMgr:ClosePanel(UiNames.Dungeon)
+	self.panelMgr:ClosePanel(UiNames.Dungeon)
 end
 
 function UIDungeonCtrl:Show(isShow)

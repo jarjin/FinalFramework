@@ -1,13 +1,13 @@
-local HandlerManager = class("HandlerManager")
+local BaseManager = require 'Manager.BaseManager'
+local HandlerManager = class("HandlerManager", BaseManager)
 
 function HandlerManager:Initialize()
     self.handlers = {}
-	self:AddHandler(HandlerNames.User, require "Handler.UserMsgHandler")
+	self:AddHandler(HandlerNames.User, (require "Handler.UserMsgHandler"):new())
 	
-	local netMgr = MgrCenter:GetManager(ManagerNames.Network)
 	for _, handler in pairs(self.handlers) do
 		handler:Initialize()
-		netMgr:RegMsgHandler(handler)
+		self.netMgr:RegMsgHandler(handler)
 	end
 end
 

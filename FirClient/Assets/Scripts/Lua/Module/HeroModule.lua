@@ -1,9 +1,9 @@
-local HeroModule = class("HeroModule")
+local BaseModule = require 'Module.BaseModule'
+local HeroModule = class("HeroModule", BaseModule)
 
 function HeroModule:Initialize()
 	self.mHeroDataList = {}
-	local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
-	local items = tableMgr.npcTable:GetItems()
+	local items = self.tableMgr.npcTable:GetItems()
 	local iter = items:GetEnumerator()
 
 	while iter:MoveNext() do

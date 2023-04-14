@@ -3,15 +3,10 @@ local UIMainRoleCtrl = class("UIMainRoleCtrl", UIBaseCtrl)
 
 local loopView = nil
 local mainRoleModule = nil
-local panelMgr = nil
 
 function UIMainRoleCtrl:Awake()
-	local moduleMgr = MgrCenter:GetManager(ManagerNames.Module)
-	mainRoleModule = moduleMgr:GetModule(ModuleNames.MainRole)
-	mainRoleModule:Initialize()
-
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.MainRole, self.OnCreateOK)
+	self.mainRoleModule:Initialize()
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.MainRole, self.OnCreateOK)
 	logWarn("UIMainRoleCtrl.Awake--->>")
 end
 
@@ -44,8 +39,7 @@ function UIMainRoleCtrl:SetItemData(index, gameObj)
 
 	prefabVar:SetValue("index", index)
 
-	local tableMgr = MgrCenter:GetManager(ManagerNames.Table)
-	local itemData = tableMgr.itemTable:GetItemByKey(index)
+	local itemData = self.tableMgr.itemTable:GetItemByKey(index)
 	if itemData then
 		prefabVar:SetText("txt_TextName", itemData.name)
 

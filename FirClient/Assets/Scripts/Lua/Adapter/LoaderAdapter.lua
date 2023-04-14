@@ -1,4 +1,5 @@
-local LoaderAdapter = class("LoaderAdapter")
+local BaseAdapter = require 'Adapter.BaseAdapter'
+local LoaderAdapter = class("LoaderAdapter", BaseAdapter)
 
 function LoaderAdapter:OnEnterLevel(execOK)
 	if execOK ~= nil then

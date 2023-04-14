@@ -1,6 +1,6 @@
 local protobuf = require "3rd/pbc/protobuf"
-
-local NetworkManager = class("NetworkManager")
+local BaseManager = require 'Manager.BaseManager'
+local NetworkManager = class("NetworkManager", BaseManager)
 
 function NetworkManager:Initialize()
     self.ProtoMsgs = {}

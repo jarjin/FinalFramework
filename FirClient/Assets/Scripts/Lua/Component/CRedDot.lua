@@ -66,9 +66,8 @@ end
 
 function CRedDot:UpdateDotView()
 	local isRejectActive= false
-	local redDotMgr 		=  MgrCenter:GetManager(ManagerNames.RedDot)
 	for k, v in pairs(self._rejectMap) do
-		isRejectActive 	= redDotMgr:GetDotIsActive(k)
+		isRejectActive 	= self.redDotMgr:GetDotIsActive(k)
         if isRejectActive then
         	break
         end
@@ -95,16 +94,15 @@ end
 -- parentKeyList用法建redDotMgr
 function CRedDot:UpdateRedDot(keyList, parentKeyList, rejectKeyList)
 	if keyList or parentKeyList then self:UpdateKeyMap(keyList, parentKeyList, rejectKeyList) end
-	local redDotMgr 		=  MgrCenter:GetManager(ManagerNames.RedDot)
     for k, v in pairs(keyList or {}) do
 
-    	if redDotMgr:GetDotIsActive(v) then
+    	if self.redDotMgr:GetDotIsActive(v) then
     		self:DealRedDotCount(1)
     	end
     end
     local isFlag, num = false, 0
     for k, v in pairs(parentKeyList or {}) do
-    	isFlag, num = redDotMgr:GetDotIsActiveByParentKey(v, self._redDotNumNode)
+    	isFlag, num = self.redDotMgr:GetDotIsActiveByParentKey(v, self._redDotNumNode)
     	if isFlag then
         	self:DealRedDotCount(num)
     	end

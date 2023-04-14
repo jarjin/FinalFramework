@@ -7,7 +7,8 @@ local CModelRender = require "Component/CModelRender"
 local CItemPrefabVar = require "Component/CItemPrefabVar"
 local CRedDot = require "Component/CRedDot"
 
-local ComponentManager = class("ComponentManager")
+local BaseManager = require 'Manager.BaseManager'
+local ComponentManager = class("ComponentManager", BaseManager)
 
 function ComponentManager:Initialize()
     self.mAtlas = {}

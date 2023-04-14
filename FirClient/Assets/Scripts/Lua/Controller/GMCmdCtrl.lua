@@ -1,4 +1,5 @@
-local GMCmdCtrl = class("GMCmdCtrl")
+local BaseCtrl = require 'Controller.BaseCtrl'
+local GMCmdCtrl = class("GMCmdCtrl", BaseCtrl)
 
 function GMCmdCtrl:Execute(text)
 	local gm_array = text:split(':')

@@ -2,11 +2,9 @@ local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UIBagCtrl = class("UIBagCtrl", UIBaseCtrl)
 
 local itemList = nil
-local panelMgr = nil
 
 function UIBagCtrl:Awake()
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Common, UiNames.Bag, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Common, UiNames.Bag, self.OnCreateOK)
 	logWarn("UIBagCtrl.Awake--->>")
 end
 
@@ -52,7 +50,7 @@ end
 
 --关闭事件--
 function UIBagCtrl:Close()
-	panelMgr:ClosePanel(UiNames.Bag)
+	self.panelMgr:ClosePanel(UiNames.Bag)
 end
 
 function UIBagCtrl:Show(isShow)

@@ -1,12 +1,12 @@
-local LevelManager = class("LevelManager")
+local BaseManager = require 'Manager.BaseManager'
+local LevelManager = class("LevelManager", BaseManager)
 
 function LevelManager:Initialize()
 	logWarn("LevelManager:Initialize...")
 end
 
 function LevelManager:LoadLevel(levelType)
-	local ctrlMgr = MgrCenter:GetManager(ManagerNames.Ctrl)
-	local loaderCtrl = ctrlMgr:GetCtrl(UiNames.Loader)
+	local loaderCtrl = self.ctrlMgr:GetCtrl(UiNames.Loader)
 	if loaderCtrl ~= nil then
 		loaderCtrl:InitLoader(function ()
 			LuaHelper.LoadLevel(levelType, self, self.OnLeaveLevel, self.OnEnterLevel)
@@ -16,8 +16,7 @@ end
 
 --进入新场景后，清理所有数据--
 function LevelManager:OnLeaveLevel(levelType, action)
-	local adapterMgr = MgrCenter:GetManager(ManagerNames.Adapter)
-	local adapter = adapterMgr:GetAdapter(levelType)
+	local adapter = self.adapterMgr:GetAdapter(levelType)
 	if adapter ~= nil then
 		adapter:OnLeaveLevel(action)
 	else
@@ -30,8 +29,7 @@ end
 
 --进入新场景后，初始化所有数据--
 function LevelManager:OnEnterLevel(levelType, action)
-	local adapterMgr = MgrCenter:GetManager(ManagerNames.Adapter)
-	local adapter = adapterMgr:GetAdapter(levelType)
+	local adapter = self.adapterMgr:GetAdapter(levelType)
 	if adapter ~= nil then
 		adapter:OnEnterLevel(action)
 	else

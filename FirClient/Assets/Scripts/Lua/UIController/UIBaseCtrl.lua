@@ -1,4 +1,5 @@
-local UIBaseCtrl = class("UIBaseCtrl")
+local Behaviour = require 'Common.Behaviour'
+local UIBaseCtrl = class("UIBaseCtrl", Behaviour)
 UIBaseCtrl.gameObject = nil
 
 function UIBaseCtrl:Awake()

@@ -1,12 +1,9 @@
 local UIBaseCtrl = require "UIController/UIBaseCtrl"
 local UITipsCtrl = class("UITipsCtrl", UIBaseCtrl)
 
-local panelMgr = nil
-
 function UITipsCtrl:Awake()
 	logWarn("UITipsCtrl:Awake--->>")
-	panelMgr = MgrCenter:GetManager(ManagerNames.Panel)
-	panelMgr:CreatePanel(self, UILayer.Top, UiNames.Tips, self.OnCreateOK)
+	self.panelMgr:CreatePanel(self, UILayer.Top, UiNames.Tips, self.OnCreateOK)
 end
 
 --启动事件--
@@ -45,7 +42,7 @@ end
 
 --关闭事件--
 function UITipsCtrl:Close()
-	panelMgr:ClosePanel(UiNames.Tips)
+	self.panelMgr:ClosePanel(UiNames.Tips)
 end
 
 return UITipsCtrl
