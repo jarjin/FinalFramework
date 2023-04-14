@@ -37,12 +37,9 @@ function CItemBox:SetItemState(state)
 end
 
 function CItemBox:SetItem(itemid)
-    if tableMgr == nil then
-        tableMgr = MgrCenter:GetManager(ManagerNames.Table)
-    end
-    if tableMgr == nil then return end
+    if self.tableMgr == nil then return end
     self.gameObject.name = tostring(itemid)
-    local itemData = tableMgr.itemTable:GetItemByKey(itemid)
+    local itemData = self.tableMgr.itemTable:GetItemByKey(itemid)
     if itemData ~= nil then
         self:LoadIcon(itemData)
     end

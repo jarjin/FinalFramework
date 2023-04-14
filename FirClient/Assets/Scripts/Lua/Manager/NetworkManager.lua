@@ -5,7 +5,6 @@ local NetworkManager = class("NetworkManager", BaseManager)
 function NetworkManager:Initialize()
     self.ProtoMsgs = {}
     self:RegProtoPB()
-    self.socket = MgrCenter:GetManager(ManagerNames.Socket)
 end
 
 function NetworkManager:RegProtoPB()

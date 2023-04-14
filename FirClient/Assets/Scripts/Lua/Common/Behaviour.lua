@@ -66,6 +66,10 @@ function Behaviour:__index(t)
 		self.redDotMgr = MgrCenter:GetManager(ManagerNames.RedDot)
 		return self.redDotMgr
 	end
+	if t == 'socket' then
+		self.socket = MgrCenter:GetManager(ManagerNames.Socket)
+		return self.socket
+	end
 
 	---------module----------
 	if t == 'battleModule' then
