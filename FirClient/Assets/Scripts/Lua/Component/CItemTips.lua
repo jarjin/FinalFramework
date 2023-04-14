@@ -1,4 +1,5 @@
-local CItemTips = class("CItemTips")
+local BaseComponent = require "Component.BaseComponent"
+local CItemTips = class("CItemTips", BaseComponent)
 
 local hideTimeSecond = 0.4
 

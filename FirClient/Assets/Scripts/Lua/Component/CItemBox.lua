@@ -1,4 +1,5 @@
-local CItemBox = class("CItemBox")
+local BaseComponent = require "Component.BaseComponent"
+local CItemBox = class("CItemBox", BaseComponent)
 
 local ItemType = {
     Head = 0,

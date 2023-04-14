@@ -1,4 +1,5 @@
-local CItemPrefabVar = class("CItemPrefabVar")
+local BaseComponent = require "Component.BaseComponent"
+local CItemPrefabVar = class("CItemPrefabVar", BaseComponent)
 
 function CItemPrefabVar:initialize(gameObject, componentMgr)
     self.gameObject = gameObject

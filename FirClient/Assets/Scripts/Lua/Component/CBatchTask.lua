@@ -1,4 +1,5 @@
-local CBatchTask = class("CBatchTask")
+local BaseComponent = require "Component.BaseComponent"
+local CBatchTask = class("CBatchTask", BaseComponent)
 
 local refIndex = 0
 local mTaskList = nil

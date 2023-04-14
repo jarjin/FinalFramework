@@ -4,6 +4,12 @@ local UIMainCtrl = class("UIMainCtrl", UIBaseCtrl)
 local btnSelectImage = nil
 local bottomUI = nil
 
+function UIMainCtrl:Awake()
+	self:InitBottomUI()
+	self.panelMgr:CreatePanel(self, UILayer.Fixed, UiNames.Main, self.OnCreateOK)
+	logWarn("UIMainCtrl.Awake--->>")
+end
+
 function UIMainCtrl:InitBottomUI()
 	bottomUI = {
 		{ name = 'MainRole', button = 'Button1', ctrl = self.ctrlMgr:GetCtrl(UiNames.MainRole) },
@@ -12,12 +18,6 @@ function UIMainCtrl:InitBottomUI()
 		{ name = 'Hero', button = 'Button4', ctrl = self.ctrlMgr:GetCtrl(UiNames.Hero) },
 		{ name = 'Dungeon', button = 'Button5', ctrl = self.ctrlMgr:GetCtrl(UiNames.Dungeon) },
 	}
-end
-
-function UIMainCtrl:Awake()
-	self.InitBottomUI()
-	self.panelMgr:CreatePanel(self, UILayer.Fixed, UiNames.Main, self.OnCreateOK)
-	logWarn("UIMainCtrl.Awake--->>")
 end
 
 --启动事件--

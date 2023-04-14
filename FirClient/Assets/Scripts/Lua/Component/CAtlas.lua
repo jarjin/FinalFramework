@@ -1,4 +1,5 @@
-local CAtlas = class("CAtlas")
+local BaseComponent = require "Component.BaseComponent"
+local CAtlas = class("CAtlas", BaseComponent)
 
 function CAtlas:initialize(name, objs)
     self.mAtlas = {}

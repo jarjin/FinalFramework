@@ -1,5 +1,6 @@
 --红点view
-local CRedDot = class("CRedDot")
+local BaseComponent = require "Component.BaseComponent"
+local CRedDot = class("CRedDot", BaseComponent)
 
 function CRedDot:ctor(compContainer)
 	-- self._redDotObj 	= compContainer.gameObject 			--物体对象

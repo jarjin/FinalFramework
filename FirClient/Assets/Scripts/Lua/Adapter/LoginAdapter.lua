@@ -13,17 +13,13 @@ function LoginAdapter:OnEnterLevel(execOK)
 end
 
 function LoginAdapter:ConnectServer()
-	if self.netMgr ~= nil then
-		local ip = AppConst.SocketAddress
-		local port = tointeger(AppConst.SocketPort)
-		self.netMgr:Connect(ip, port, self, self.OnConnectOK, self.OnDisconnected)
-	end
+	local ip = AppConst.SocketAddress
+	local port = tointeger(AppConst.SocketPort)
+	self.netMgr:Connect(ip, port, self, self.OnConnectOK, self.OnDisconnected)
 end
 
 function LoginAdapter:StartLogin()
-	if self.levelMgr ~= nil then
-		levelMgr:LoadLevel(LevelType.Main)
-	end
+	self.levelMgr:LoadLevel(LevelType.Main)
 	Main.CloseUI(UiNames.Login)
 end
 

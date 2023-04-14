@@ -1,4 +1,5 @@
-local CLoopListBox = class("CLoopListBox")
+local BaseComponent = require "Component.BaseComponent"
+local CLoopListBox = class("CLoopListBox", BaseComponent)
 
 function CLoopListBox:initialize(gameObject)
     self:Dispose()
