@@ -16,13 +16,12 @@ function GMCmdCtrl:Execute(text)
 end
 
 function GMCmdCtrl:ParseSingleCmd(cmd)
-	local resMgr = ManagerCenter:GetManager(ManagerNames.Resource)
 	if cmd == "dump" then
-		resMgr:TakeSnapshot()
+		self.resMgr:TakeSnapshot()
 	elseif cmd == 'diff' then
-		resMgr:DiffSnapshot()
+		self.resMgr:DiffSnapshot()
 	elseif cmd == 'cldump' then
-		resMgr:ClearSnapshot()
+		self.resMgr:ClearSnapshot()
 	end
 end
 

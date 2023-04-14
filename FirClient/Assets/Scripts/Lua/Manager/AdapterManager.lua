@@ -1,17 +1,12 @@
-local LoginAdapter = require "Adapter/LoginAdapter"
-local MainAdapter = require "Adapter/MainAdapter"
-local BattleAdapter = require "Adapter/BattleAdapter"
-local LoaderAdapter = require "Adapter/LoaderAdapter"
-
 local BaseManager = require 'Manager.BaseManager'
 local AdapterManager = class("AdapterManager", BaseManager)
 
 function AdapterManager:Initialize()
 	self.adapters = {}
-	self:AddAdapter(LevelType.Main, MainAdapter:new())
-	self:AddAdapter(LevelType.Loader, LoaderAdapter:new())
-	self:AddAdapter(LevelType.Login, LoginAdapter:new())
-	self:AddAdapter(LevelType.Battle, BattleAdapter:new())
+	self:AddAdapter(LevelType.Main, (require "Adapter/MainAdapter"):new())
+	self:AddAdapter(LevelType.Loader, (require "Adapter/LoaderAdapter"):new())
+	self:AddAdapter(LevelType.Login, (require "Adapter/LoginAdapter"):new())
+	self:AddAdapter(LevelType.Battle, (require "Adapter/BattleAdapter"):new())
 
 	logWarn('AdapterManager:InitializeOK...')
 end
