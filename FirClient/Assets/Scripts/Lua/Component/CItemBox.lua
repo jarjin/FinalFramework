@@ -6,7 +6,6 @@ local ItemType = {
     Item = 1,
     Skill = 2,
 }
-local tableMgr = nil
 
 function CItemBox:initialize(gameObject)
     self:Dispose()
@@ -37,7 +36,6 @@ function CItemBox:SetItemState(state)
 end
 
 function CItemBox:SetItem(itemid)
-    if self.tableMgr == nil then return end
     self.gameObject.name = tostring(itemid)
     local itemData = self.tableMgr.itemTable:GetItemByKey(itemid)
     if itemData ~= nil then
@@ -53,7 +51,7 @@ function CItemBox:LoadIcon(itemData)
             if itemData.quality == 0 then
                 self.imgQuality:Disable()
             else
-                local qualityItem = tableMgr.qualityTable:GetItemByKey(itemData.quality)
+                local qualityItem = self.tableMgr.qualityTable:GetItemByKey(itemData.quality)
                 if qualityItem ~= nil then
                     self.imgQuality:Enable()
                     self.imgQuality.sprite = atlas:GetSprite(qualityItem.icon)
