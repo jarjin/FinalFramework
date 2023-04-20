@@ -1,4 +1,5 @@
-local UserMsgHandler = class("UserMsgHandler")
+local BaseMsgHandler = require 'Handler.BaseMsgHandler'
+local UserMsgHandler = class("UserMsgHandler", BaseMsgHandler)
 
 function UserMsgHandler:Initialize()
 end
