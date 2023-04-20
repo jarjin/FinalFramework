@@ -84,6 +84,8 @@ if not exist %Server_Proto_Path% (
 （4）在前端lua添加MsgHandler，Module，Manager，就可以接入View逻辑了。<br/>
 （5）客户端设置里面Assets/Resources/GameSettings.asset，NetworkMode默认开启，若不需要SFS关闭即可。<br/>
 
+#### 2023.04.16 更新日志：
+（1）修改Lua框架与C#框架统一使用全局单例模式。
 
 #### 2023.03.18 更新日志：
 （1）去掉自带的FirServer，支持Smartfoxserver。
